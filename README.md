@@ -3,4 +3,4 @@
 
 # DDS.Net Server
 
-*DDS.Net Server* is a lightweight, performant server for managed data objects' distribution, through connectors.
+*DDS.Net Server* is an in-app-able lightweight, performant server for managed data distribution through connectors.

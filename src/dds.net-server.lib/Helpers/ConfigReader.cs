@@ -63,6 +63,15 @@ namespace DDS.Net.Server.Helpers
         /// <returns></returns>
         public string GetString(string key, string defaultValue = "")
         {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                string? value = GetValueFromSection(section, property);
+
+                if (value != null) return value;
+            }
+
             return defaultValue;
         }
         /// <summary>

@@ -30,7 +30,7 @@ namespace DDS.Net.Server.Helpers
             if (File.Exists(Filename) == false) return;
 
             Regex sectionPattern = new Regex(@"^\s*\[([a-zA-Z0-9\s-]+)\]\s*$");
-            Regex propertyPattern = new Regex(@"^\s*([a-zA-Z0-9\s-]+)\s*=+\s*([a-zA-Z0-9\s-]+)\s*$");
+            Regex propertyPattern = new Regex(@"^\s*([a-zA-Z0-9\s-]+)\s*=+\s*([a-zA-Z0-9.\s-]+)\s*$");
 
             string? currentSection = null;
 

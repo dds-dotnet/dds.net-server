@@ -16,7 +16,7 @@
     <None Update="Configuration\app-settings.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Configuration\server.ini">
+    <None Update="Configuration\server-01.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

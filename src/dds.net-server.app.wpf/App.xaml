@@ -1,7 +1,7 @@
-﻿<Application x:Class="dds.net_server.app.wpf.App"
+﻿<Application x:Class="dds.net.server.wpfapp.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:dds.net_server.app.wpf"
+             xmlns:local="clr-namespace:dds.net.server.wpfapp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace dds.net_server.app.wpf
+namespace dds.net.server.wpfapp
 {
     /// <summary>
     /// Interaction logic for App.xaml

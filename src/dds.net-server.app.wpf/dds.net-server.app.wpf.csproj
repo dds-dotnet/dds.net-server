@@ -12,4 +12,10 @@
     <ProjectReference Include="..\dds.net-server.lib\dds.net-server.lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="server-config.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

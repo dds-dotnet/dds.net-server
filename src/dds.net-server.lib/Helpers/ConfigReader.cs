@@ -67,6 +67,31 @@ namespace DDS.Net.Server.Helpers
 
         }
 
+        private void SaveFile()
+        {
+            using (StreamWriter stream = File.CreateText(Filename))
+            {
+                bool isFirst = true;
+
+                foreach (KeyValuePair<string, Dictionary<string, string>> section in _config)
+                {
+                    if (!isFirst)
+                    {
+                        stream.WriteLine($"");
+                    }
+
+                    stream.WriteLine($"[{section.Key}]");
+
+                    foreach (KeyValuePair<string, string> prop in section.Value)
+                    {
+                        stream.WriteLine($"{prop.Key} = {prop.Value}");
+                    }
+
+                    isFirst = false;
+                }
+            }
+        }
+
         private void InsertValueInConfiguration(string sectionName, string propertyName, string propertyValue)
         {
             Dictionary<string, string>? section = GetSection(sectionName);

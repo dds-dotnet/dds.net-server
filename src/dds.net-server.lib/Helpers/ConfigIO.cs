@@ -1,5 +1,6 @@
 ﻿using DDS.Net.Server.Extensions;
 using DDS.Net.Server.Interfaces;
+using DDS.Net.Server.Services;
 using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.Helpers
@@ -15,6 +16,7 @@ namespace DDS.Net.Server.Helpers
         {
             Filename = filename;
             _config = new Dictionary<string, Dictionary<string, string>>();
+            _logger = DependencyService.GetLogger();
 
             LoadFile();
         }

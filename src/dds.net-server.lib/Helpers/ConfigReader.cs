@@ -15,22 +15,22 @@ namespace DDS.Net.Server.Helpers
             Filename = filename;
         }
 
-        public string GetStringValue(string key, string defaultValue = "")
+        public string GetString(string key, string defaultValue = "")
         {
             return defaultValue;
         }
 
-        public int GetIntegerValue(string key, int defaultValue = -1)
+        public int GetInteger(string key, int defaultValue = -1)
         {
             return defaultValue;
         }
 
-        public float GetFloatValue(string key, float defaultValue = 0)
+        public float GetFloat(string key, float defaultValue = 0)
         {
             return defaultValue;
         }
 
-        public double GetDoubleValue(string key, double defaultValue = 0)
+        public double GetDouble(string key, double defaultValue = 0)
         {
             return defaultValue;
         }

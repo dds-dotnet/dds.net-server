@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDS.Net.Server.WpfApp.Configuration
+namespace DDS.Net.Server.Configuration
 {
-    class DefaultConfiguration
+    internal class DefaultConfig
     {
     }
 }

@@ -251,5 +251,82 @@ namespace DDS.Net.Server.Helpers
 
             return defaultValue;
         }
+
+        /// <summary>
+        /// Setting a string value in INI file
+        /// </summary>
+        /// <param name="key">Section Name / Property Name</param>
+        /// <param name="value">Desired value</param>
+        /// <returns></returns>
+        public void SetString(string key, string value)
+        {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                InsertValueInConfiguration(section, property, value);
+            }
+            else
+            {
+                _logger.Warning($"Invalid key \"{key}\" for setting \"{value}\"");
+            }
+        }
+        /// <summary>
+        /// Setting an integer value in INI file
+        /// </summary>
+        /// <param name="key">Section Name / Property Name</param>
+        /// <param name="value">Desired value</param>
+        /// <returns></returns>
+        public void SetInteger(string key, int value)
+        {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                InsertValueInConfiguration(section, property, $"{value}");
+            }
+            else
+            {
+                _logger.Warning($"Invalid key \"{key}\" for setting integer {value}");
+            }
+        }
+        /// <summary>
+        /// Setting a float value in INI file
+        /// </summary>
+        /// <param name="key">Section Name / Property Name</param>
+        /// <param name="value">Desired value</param>
+        /// <returns></returns>
+        public void SetFloat(string key, float value)
+        {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                InsertValueInConfiguration(section, property, $"{value}");
+            }
+            else
+            {
+                _logger.Warning($"Invalid key \"{key}\" for setting float {value}");
+            }
+        }
+        /// <summary>
+        /// Setting a double value in INI file
+        /// </summary>
+        /// <param name="key">Section Name / Property Name</param>
+        /// <param name="value">Desired value</param>
+        /// <returns></returns>
+        public void SetDouble(string key, double value)
+        {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                InsertValueInConfiguration(section, property, $"{value}");
+            }
+            else
+            {
+                _logger.Warning($"Invalid key \"{key}\" for setting double {value}");
+            }
+        }
     }
 }

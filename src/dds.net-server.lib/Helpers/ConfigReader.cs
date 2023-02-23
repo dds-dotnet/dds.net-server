@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DDS.Net.Server.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -37,6 +38,21 @@ namespace DDS.Net.Server.Helpers
             if (section.ContainsKey(propertyName)) return section[propertyName];
 
             return null;
+        }
+
+        private Tuple<string?, string?> GetSectionAndPropertyName(string key)
+        {
+            if (string.IsNullOrEmpty(key) == false)
+            {
+                List<string> parts = key.TrimmedParts('/');
+
+                if (parts.Count >= 2)
+                {
+                    return new Tuple<string?, string?>(parts[0], parts[1]);
+                }
+            }
+
+            return new Tuple<string?, string?>(null, null);
         }
 
         /// <summary>

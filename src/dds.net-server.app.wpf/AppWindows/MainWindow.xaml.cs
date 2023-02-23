@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace dds.net.server.wpfapp
+namespace dds.net.server.wpfapp.AppWindows
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

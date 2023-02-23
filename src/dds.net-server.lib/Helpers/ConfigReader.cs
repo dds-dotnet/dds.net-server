@@ -28,6 +28,17 @@ namespace DDS.Net.Server.Helpers
             return null;
         }
 
+        private string? GetValueFromSection(string sectionName, string propertyName)
+        {
+            Dictionary<string, string>? section = GetSection(sectionName);
+
+            if (section == null) return null;
+
+            if (section.ContainsKey(propertyName)) return section[propertyName];
+
+            return null;
+        }
+
         /// <summary>
         /// Getting a string value from INI file
         /// </summary>

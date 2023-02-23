@@ -132,6 +132,21 @@ namespace DDS.Net.Server.Helpers
         /// <returns></returns>
         public double GetDouble(string key, double defaultValue = 0)
         {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                string? value = GetValueFromSection(section, property);
+
+                if (value != null)
+                {
+                    if (double.TryParse(value, out double result))
+                    {
+                        return result;
+                    }
+                }
+            }
+
             return defaultValue;
         }
     }

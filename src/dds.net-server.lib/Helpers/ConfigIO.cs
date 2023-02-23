@@ -79,6 +79,8 @@ namespace DDS.Net.Server.Helpers
 
         private void SaveFile()
         {
+            _logger.Info($"Writing configuration to file \"{Filename}\"");
+
             using (StreamWriter stream = File.CreateText(Filename))
             {
                 bool isFirst = true;

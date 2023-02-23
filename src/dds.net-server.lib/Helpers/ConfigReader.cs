@@ -1,4 +1,5 @@
 ﻿using DDS.Net.Server.Extensions;
+using DDS.Net.Server.Interfaces;
 using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.Helpers
@@ -8,6 +9,7 @@ namespace DDS.Net.Server.Helpers
         public string Filename { get; set; }
 
         private Dictionary<string, Dictionary<string, string>> _config;
+        private ILogger _logger;
 
         public ConfigReader(string filename)
         {

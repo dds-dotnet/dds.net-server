@@ -82,6 +82,21 @@ namespace DDS.Net.Server.Helpers
         /// <returns></returns>
         public int GetInteger(string key, int defaultValue = -1)
         {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                string? value = GetValueFromSection(section, property);
+
+                if (value != null)
+                {
+                    if (int.TryParse(value, out int result))
+                    {
+                        return result;
+                    }
+                }
+            }
+
             return defaultValue;
         }
         /// <summary>

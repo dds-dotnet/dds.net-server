@@ -25,7 +25,11 @@ namespace DDS.Net.Server.Helpers
         {
             _config.Clear();
 
-            if (File.Exists(Filename) == false) return;
+            if (File.Exists(Filename) == false)
+            {
+                _logger.Warning($"Cannot load configuration file \"{Filename}\"");
+                return;
+            }
 
             Regex sectionPattern = new Regex(@"^\s*\[([a-zA-Z0-9\s-]+)\]\s*$");
             Regex propertyPattern = new Regex(@"^\s*([a-zA-Z0-9\s-]+)\s*=+\s*([a-zA-Z0-9.\s-]+)\s*$");

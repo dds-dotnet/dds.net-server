@@ -4,14 +4,14 @@ using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.Helpers
 {
-    public class ConfigReader
+    public class ConfigIO
     {
         public string Filename { get; set; }
 
         private Dictionary<string, Dictionary<string, string>> _config;
         private ILogger _logger;
 
-        public ConfigReader(string filename)
+        public ConfigIO(string filename)
         {
             Filename = filename;
             _config = new Dictionary<string, Dictionary<string, string>>();

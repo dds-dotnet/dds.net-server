@@ -1,16 +1,16 @@
 ﻿using DDS.Net.Server.Interfaces;
 using DDS.Net.Server.Interfaces.DefaultImplementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Services
 {
     internal static class DependencyService
     {
-        private static ILogger _logger = new BlankLogger();
+        private static ILogger _logger;
+
+        static DependencyService()
+        {
+            _logger = new BlankLogger();
+        }
 
         public static ILogger GetLogger()
         {

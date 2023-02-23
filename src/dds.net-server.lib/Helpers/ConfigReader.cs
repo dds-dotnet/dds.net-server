@@ -107,6 +107,21 @@ namespace DDS.Net.Server.Helpers
         /// <returns></returns>
         public float GetFloat(string key, float defaultValue = 0)
         {
+            (string? section, string? property) = GetSectionAndPropertyName(key);
+
+            if (section != null && property != null)
+            {
+                string? value = GetValueFromSection(section, property);
+
+                if (value != null)
+                {
+                    if (float.TryParse(value, out float result))
+                    {
+                        return result;
+                    }
+                }
+            }
+
             return defaultValue;
         }
         /// <summary>

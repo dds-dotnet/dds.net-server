@@ -54,6 +54,10 @@ namespace DDS.Net.Server.Helpers
                             {
                                 currentSection = sectionPattern.Match(trimmedLine).Groups[1].Value;
                             }
+                            else
+                            {
+                                _logger.Warning($"Skipping malformed section \"{trimmedLine}\" in configuration file \"{Filename}\"");
+                            }
                         }
                         else
                         {

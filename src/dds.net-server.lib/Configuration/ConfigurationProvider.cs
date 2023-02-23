@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Configuration
 {
-    internal class DefaultConfig
+    internal class ConfigurationProvider
     {
     }
 }

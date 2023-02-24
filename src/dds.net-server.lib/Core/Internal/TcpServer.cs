@@ -13,5 +13,15 @@ namespace DDS.Net.Server.Core.Internal
             : base(IPv4, port, maxClients, logger)
         {
         }
+
+        public override void StartServer()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void StopServer()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

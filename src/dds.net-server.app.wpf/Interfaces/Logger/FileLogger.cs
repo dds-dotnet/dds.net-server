@@ -29,6 +29,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         {
             if (_writer != null)
             {
+                _writer.Flush();
                 _writer.Dispose();
             }
         }

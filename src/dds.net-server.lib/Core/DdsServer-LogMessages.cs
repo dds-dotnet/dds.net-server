@@ -23,14 +23,14 @@
             }
         }
 
-        private void PrintStartingLog()
+        private void PrintLogStarting()
         {
             _logger.Info($"Starting with config:");
 
             PrintPorts();
         }
 
-        private void PrintStoppingLog()
+        private void PrintLogStopping()
         {
             _logger.Info($"Stopping with config:");
 

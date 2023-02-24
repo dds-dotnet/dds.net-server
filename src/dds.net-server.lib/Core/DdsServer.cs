@@ -27,12 +27,12 @@ namespace DDS.Net.Server
 
         public void Start()
         {
-            PrintStartingLog();
+            PrintLogStarting();
         }
 
         public void Stop()
         {
-            PrintStoppingLog();
+            PrintLogStopping();
         }
     }
 }

@@ -49,7 +49,6 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
                 _writer.WriteLine($"");
                 _writer.WriteLine($"");
                 _writer.WriteLine($"");
-                _writer.WriteLine($"");
 
                 _writer.Flush();
                 _writer.Dispose();

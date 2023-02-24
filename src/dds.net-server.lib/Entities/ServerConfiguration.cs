@@ -1,4 +1,6 @@
-﻿namespace DDS.Net.Server.Entities
+﻿using DDS.Net.Server.Interfaces;
+
+namespace DDS.Net.Server.Entities
 {
     public class ServerConfiguration
     {
@@ -10,16 +12,20 @@
         public bool EnableUDP { get; }
         public ushort ListeningPortUDP { get; }
 
+        public ILogger Logger { get; }
+
         public ServerConfiguration(
             string listeningIPv4Address,
             bool enableTCP, ushort tcpPort,
-            bool enableUDP, ushort udpPort)
+            bool enableUDP, ushort udpPort,
+            ILogger logger)
         {
             ListeningAddressIPv4 = listeningIPv4Address;
             EnableTCP = enableTCP;
             ListeningPortTCP = tcpPort;
             EnableUDP = enableUDP;
             ListeningPortUDP = udpPort;
+            Logger = logger;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace DDS.Net.Server.Helpers
         public ConfigIO(string filename, ILogger? logger = null)
         {
             Filename = filename;
-            _config = new Dictionary<string, Dictionary<string, string>>();
+            _config = new();
             _logger = logger;
 
             LoadFile();
@@ -30,8 +30,8 @@ namespace DDS.Net.Server.Helpers
                 return;
             }
 
-            Regex sectionPattern = new Regex(@"^\s*\[([a-zA-Z0-9\s_-]+)\]\s*$");
-            Regex propertyPattern = new Regex(@"^\s*([a-zA-Z0-9\s_-]+)\s*=+\s*([a-zA-Z0-9.\s_-]+)\s*$");
+            Regex sectionPattern = new(@"^\s*\[([a-zA-Z0-9\s_-]+)\]\s*$");
+            Regex propertyPattern = new(@"^\s*([a-zA-Z0-9\s_-]+)\s*=+\s*([a-zA-Z0-9.\s_-]+)\s*$");
 
             string? currentSection = null;
 
@@ -109,7 +109,7 @@ namespace DDS.Net.Server.Helpers
 
             if (section == null)
             {
-                section = new Dictionary<string, string>();
+                section = new();
                 _config.Add(sectionName, section);
             }
 

@@ -1,5 +1,5 @@
 ﻿using DDS.Net.Server.Core.Internal;
-﻿using DDS.Net.Server.Entities;
+using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace DDS.Net.Server
         private readonly ILogger _logger;
 
         private ServerStatus _status = ServerStatus.Stopped;
-        private TcpServer? _tcpServer;
-        private UdpServer? _udpServer;
+        private BaseServer? _tcpServer;
+        private BaseServer? _udpServer;
 
         public DdsServer(ServerConfiguration config)
         {

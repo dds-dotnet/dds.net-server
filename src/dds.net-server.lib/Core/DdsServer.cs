@@ -24,5 +24,15 @@ namespace DDS.Net.Server
             else
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
         }
+
+        public void Start()
+        {
+
+        }
+
+        public void Stop()
+        {
+
+        }
     }
 }

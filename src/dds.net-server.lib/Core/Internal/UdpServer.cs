@@ -9,7 +9,8 @@ namespace DDS.Net.Server.Core.Internal
 {
     internal class UdpServer : CommonServer
     {
-        public UdpServer(string IPv4, ushort port, ILogger logger) : base(IPv4, port, logger)
+        public UdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+            : base(IPv4, port, maxClients, logger)
         {
         }
     }

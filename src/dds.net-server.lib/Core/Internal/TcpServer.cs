@@ -9,7 +9,8 @@ namespace DDS.Net.Server.Core.Internal
 {
     internal class TcpServer : CommonServer
     {
-        public TcpServer(string IPv4, ushort port, ILogger logger) : base(IPv4, port, logger)
+        public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+            : base(IPv4, port, maxClients, logger)
         {
         }
     }

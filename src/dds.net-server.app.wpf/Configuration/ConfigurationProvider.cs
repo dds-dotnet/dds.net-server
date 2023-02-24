@@ -19,8 +19,6 @@ namespace DDS.Net.Server.WpfApp.Configuration
         /// <returns>(isEnabled, configuration)</returns>
         public static Tuple<bool, ServerConfiguration?> GetServerConfiguration(string filename, ILogger logger)
         {
-            bool isEnabled = false;
-
             INIConfigIO _confReader = new INIConfigIO(filename, logger);
 
             string serverEnabledConfig = _confReader.GetString("DDS Connections/Enabled").ToLower();
@@ -28,12 +26,10 @@ namespace DDS.Net.Server.WpfApp.Configuration
             if (serverEnabledConfig.Contains("true") ||
                 serverEnabledConfig.Contains("yes"))
             {
-                isEnabled = true;
-
                 string tcpEnabledConfig = _confReader.GetString("DDS Connections/TCP-Enabled").ToLower();
                 string udpEnabledConfig = _confReader.GetString("DDS Connections/UDP-Enabled").ToLower();
 
-                return new(isEnabled, new ServerConfiguration(
+                return new(true, new ServerConfiguration(
 
                     listeningIPv4Address: _confReader.GetString("DDS Connections/ListeningIPv4"),
 
@@ -50,7 +46,7 @@ namespace DDS.Net.Server.WpfApp.Configuration
                     ));
             }
 
-            return new(isEnabled, null);
+            return new(false, null);
         }
     }
 }

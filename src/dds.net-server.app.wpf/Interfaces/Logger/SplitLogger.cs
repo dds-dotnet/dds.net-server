@@ -49,11 +49,11 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
 
         public void Dispose()
         {
-            if (_logger01 != null && _logger01 is IDisposable disposable01) disposable01.Dispose();
-            if (_logger02 != null && _logger02 is IDisposable disposable02) disposable02.Dispose();
-            if (_logger03 != null && _logger03 is IDisposable disposable03) disposable03.Dispose();
-            if (_logger04 != null && _logger04 is IDisposable disposable04) disposable04.Dispose();
-            if (_logger05 != null && _logger05 is IDisposable disposable05) disposable05.Dispose();
+            if (_logger01 != null && _logger01 is IDisposable disposable01) { disposable01.Dispose(); }
+            if (_logger02 != null && _logger02 is IDisposable disposable02) { disposable02.Dispose(); }
+            if (_logger03 != null && _logger03 is IDisposable disposable03) { disposable03.Dispose(); }
+            if (_logger04 != null && _logger04 is IDisposable disposable04) { disposable04.Dispose(); }
+            if (_logger05 != null && _logger05 is IDisposable disposable05) { disposable05.Dispose(); }
         }
 
         public void Error(string message)

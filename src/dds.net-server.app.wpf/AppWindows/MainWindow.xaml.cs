@@ -1,3 +1,8 @@
+﻿using DDS.Net.Server.Entities;
+using DDS.Net.Server.Helpers;
+using DDS.Net.Server.Interfaces;
+using DDS.Net.Server.WpfApp.Configuration;
+using DDS.Net.Server.WpfApp.Interfaces.Logger;
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +22,12 @@ namespace DDS.Net.Server.WpfApp.AppWindows
 {
     public partial class MainWindow : Window
     {
+        private ILogger _logger;
         public MainWindow()
         {
             InitializeComponent();
+
+            _logger = new FileLogger(Constants.LOG_FILENAME);
         }
     }
 }

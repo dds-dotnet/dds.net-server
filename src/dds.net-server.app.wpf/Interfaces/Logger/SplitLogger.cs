@@ -1,8 +1,9 @@
 ﻿using DDS.Net.Server.Interfaces;
+using System;
 
 namespace DDS.Net.Server.WpfApp.Interfaces.Logger
 {
-    internal class SplitLogger : ILogger
+    internal class SplitLogger : ILogger, IDisposable
     {
         private readonly ILogger? _logger01;
         private readonly ILogger? _logger02;
@@ -44,6 +45,15 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
             _logger03 = logger03;
             _logger04 = logger04;
             _logger05 = logger05;
+        }
+
+        public void Dispose()
+        {
+            if (_logger01 != null && _logger01 is IDisposable disposable01) disposable01.Dispose();
+            if (_logger02 != null && _logger02 is IDisposable disposable02) disposable02.Dispose();
+            if (_logger03 != null && _logger03 is IDisposable disposable03) disposable03.Dispose();
+            if (_logger04 != null && _logger04 is IDisposable disposable04) disposable04.Dispose();
+            if (_logger05 != null && _logger05 is IDisposable disposable05) disposable05.Dispose();
         }
 
         public void Error(string message)

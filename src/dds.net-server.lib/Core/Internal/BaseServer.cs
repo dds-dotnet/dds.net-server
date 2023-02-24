@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -46,12 +47,41 @@ namespace DDS.Net.Server.Core.Internal
                 NetworkInterface[] ifaces =
                     NetworkInterface.GetAllNetworkInterfaces();
 
+                bool isFound = false;
+
                 if (ifaces != null && ifaces.Length > 0)
                 {
                     foreach (NetworkInterface iface in ifaces)
                     {
-                        IPv4InterfaceStatistics ifaceStats = iface.GetIPv4Statistics();
+                        if (iface.OperationalStatus == OperationalStatus.Up)
+                        {
+                            foreach (
+                                UnicastIPAddressInformation addressInfo
+                                in
+                                iface.GetIPProperties().UnicastAddresses)
+                            {
+                                if (addressInfo.Address.AddressFamily == AddressFamily.InterNetwork)
+                                {
+                                    if (addressInfo.Address.ToString() == _IPv4)
+                                    {
+                                        isFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            if (isFound)
+                            {
+                                break;
+                            }
+                        }
                     }
+                }
+
+                if (!isFound)
+                {
+                    logger.Warning($"Local IPv4 Address: \"{IPv4}\" does not exist, using 0.0.0.0 instead");
+                    _IPv4 = "0.0.0.0";
                 }
             }
 

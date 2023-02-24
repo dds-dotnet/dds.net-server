@@ -1,10 +1,6 @@
 ﻿using DDS.Net.Server.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDS.Net.Server.WpfApp.Interfaces.Logger
 {

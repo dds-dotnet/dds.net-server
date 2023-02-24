@@ -15,7 +15,7 @@ namespace DDS.Net.Server.Core.Internal
 
         protected readonly ILogger _logger;
 
-        public BaseServer(string IPv4, ushort port, int maxClients, ILogger logger)
+        protected BaseServer(string IPv4, ushort port, int maxClients, ILogger logger)
         {
             _IPv4 = IPv4;
             _port = port;

@@ -32,7 +32,7 @@ namespace DDS.Net.Server
 
         public void Stop()
         {
-
+            PrintStoppingLog();
         }
     }
 }

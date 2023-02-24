@@ -19,10 +19,10 @@ namespace DDS.Net.Server
 
             _config = configuration;
 
-            if (_config.Logger == null)
-                throw new Exception($"No {nameof(_config.Logger)} instance is provided");
-
-            _logger = _config.Logger;
+            if (_config.Logger != null)
+                _logger = _config.Logger;
+            else
+                throw new Exception($"No instance of {nameof(_config.Logger)} is provided");
         }
     }
 }

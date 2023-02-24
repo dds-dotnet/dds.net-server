@@ -80,7 +80,7 @@ namespace DDS.Net.Server.Core.Internal
 
                 if (!isFound)
                 {
-                    logger.Warning($"Local IPv4 Address: \"{IPv4}\" does not exist, using 0.0.0.0 instead");
+                    logger.Warning($"Local IPv4 Address \"{IPv4}\" does not exist, using \"0.0.0.0\" instead");
                     _IPv4 = "0.0.0.0";
                 }
             }

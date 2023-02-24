@@ -14,6 +14,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
             try
             {
                 _writer = File.CreateText(filename);
+                _writer.AutoFlush = true;
             }
             catch (Exception ex)
             {

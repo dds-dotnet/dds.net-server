@@ -36,6 +36,12 @@ namespace DDS.Net.Server.Core.Internal
                 logger.Warning($"Invalid IPv4 Address: \"{IPv4}\", using 0.0.0.0 instead");
                 _IPv4 = "0.0.0.0";
             }
+
+            if (maxClients <= 0)
+            {
+                logger.Warning($"Invalid maximum number of clients: \"{maxClients}\", using 10 instead");
+                _maxClients = 10;
+            }
         }
 
         public abstract void StartServer();

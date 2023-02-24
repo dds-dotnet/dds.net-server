@@ -10,7 +10,11 @@ namespace DDS.Net.Server.WpfApp.Extensions
     {
         public static void CreateFoldersForFile(this string filename)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(filename)) return;
+
+            string[] folders = filename.Split(
+                new char[] { '\\', '/' },
+                StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

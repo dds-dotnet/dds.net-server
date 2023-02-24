@@ -42,44 +42,63 @@ namespace DDS.Net.Server
 
         public void Start()
         {
-            PrintLogStarting();
-
-            if (_tcpServer == null && _config.EnableTCP)
+            if (_status == ServerStatus.Stopped)
             {
-                try
-                {
-                    _tcpServer = new TcpServer(
-                        _config.ListeningAddressIPv4,
-                        _config.ListeningPortTCP,
-                        _config.MaxClientsTCP,
-                        _logger);
+                SetServerStatus(ServerStatus.Starting);
 
-                    _tcpServer.StartServer();
-                }
-                catch (Exception ex)
+                PrintLogStarting();
+
+                if (_tcpServer == null && _config.EnableTCP)
                 {
-                    _tcpServer = null;
-                    _logger.Error($"Cannot start TCP Server: {ex.Message}");
+                    try
+                    {
+                        _tcpServer = new TcpServer(
+                            _config.ListeningAddressIPv4,
+                            _config.ListeningPortTCP,
+                            _config.MaxClientsTCP,
+                            _logger);
+
+                        _tcpServer.StartServer();
+                    }
+                    catch (Exception ex)
+                    {
+                        _tcpServer = null;
+                        _logger.Error($"Cannot start TCP Server: {ex.Message}");
+                    }
+                }
+
+                if (_udpServer == null && _config.EnableUDP)
+                {
+                    try
+                    {
+                        _udpServer = new UdpServer(
+                            _config.ListeningAddressIPv4,
+                            _config.ListeningPortUDP,
+                            _config.MaxClientsUDP,
+                            _logger);
+
+                        _udpServer.StartServer();
+                    }
+                    catch (Exception ex)
+                    {
+                        _udpServer = null;
+                        _logger.Error($"Cannot start UDP Server: {ex.Message}");
+                    }
+                }
+
+                if (_tcpServer != null || _udpServer != null)
+                {
+                    SetServerStatus(ServerStatus.Started);
                 }
             }
+        }
 
-            if (_udpServer == null && _config.EnableUDP)
+        private void SetServerStatus(ServerStatus newStatus)
+        {
+            if (_status != newStatus)
             {
-                try
-                {
-                    _udpServer = new UdpServer(
-                        _config.ListeningAddressIPv4,
-                        _config.ListeningPortUDP,
-                        _config.MaxClientsUDP,
-                        _logger);
-
-                    _udpServer.StartServer();
-                }
-                catch (Exception ex)
-                {
-                    _udpServer = null;
-                    _logger.Error($"Cannot start UDP Server: {ex.Message}");
-                }
+                _status = newStatus;
+                ServerStatusChanged?.Invoke(this, _status);
             }
         }
 

@@ -1,6 +1,5 @@
 ﻿using DDS.Net.Server.Extensions;
 using DDS.Net.Server.Interfaces;
-using DDS.Net.Server.Services;
 using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.Helpers
@@ -10,13 +9,13 @@ namespace DDS.Net.Server.Helpers
         public string Filename { get; set; }
 
         private Dictionary<string, Dictionary<string, string>> _config;
-        private ILogger _logger;
+        private ILogger? _logger;
 
-        public ConfigIO(string filename)
+        public ConfigIO(string filename, ILogger? logger = null)
         {
             Filename = filename;
             _config = new Dictionary<string, Dictionary<string, string>>();
-            _logger = DependencyService.GetLogger();
+            _logger = logger;
 
             LoadFile();
         }
@@ -27,7 +26,7 @@ namespace DDS.Net.Server.Helpers
 
             if (File.Exists(Filename) == false)
             {
-                _logger.Warning($"Cannot load configuration file \"{Filename}\"");
+                _logger?.Warning($"Cannot load configuration file \"{Filename}\"");
                 return;
             }
 
@@ -56,7 +55,7 @@ namespace DDS.Net.Server.Helpers
                             }
                             else
                             {
-                                _logger.Warning($"Skipping malformed section \"{trimmedLine}\" in configuration file \"{Filename}\"");
+                                _logger?.Warning($"Skipping malformed section \"{trimmedLine}\" in configuration file \"{Filename}\"");
                             }
                         }
                         else
@@ -79,7 +78,7 @@ namespace DDS.Net.Server.Helpers
 
         private void SaveFile()
         {
-            _logger.Info($"Writing configuration to file \"{Filename}\"");
+            _logger?.Info($"Writing configuration to file \"{Filename}\"");
 
             using (StreamWriter stream = File.CreateText(Filename))
             {
@@ -268,7 +267,7 @@ namespace DDS.Net.Server.Helpers
             }
             else
             {
-                _logger.Warning($"Invalid key \"{key}\" for setting \"{value}\"");
+                _logger?.Warning($"Invalid key \"{key}\" for setting \"{value}\"");
             }
         }
         /// <summary>
@@ -287,7 +286,7 @@ namespace DDS.Net.Server.Helpers
             }
             else
             {
-                _logger.Warning($"Invalid key \"{key}\" for setting integer {value}");
+                _logger?.Warning($"Invalid key \"{key}\" for setting integer {value}");
             }
         }
         /// <summary>
@@ -306,7 +305,7 @@ namespace DDS.Net.Server.Helpers
             }
             else
             {
-                _logger.Warning($"Invalid key \"{key}\" for setting float {value}");
+                _logger?.Warning($"Invalid key \"{key}\" for setting float {value}");
             }
         }
         /// <summary>
@@ -325,7 +324,7 @@ namespace DDS.Net.Server.Helpers
             }
             else
             {
-                _logger.Warning($"Invalid key \"{key}\" for setting double {value}");
+                _logger?.Warning($"Invalid key \"{key}\" for setting double {value}");
             }
         }
     }

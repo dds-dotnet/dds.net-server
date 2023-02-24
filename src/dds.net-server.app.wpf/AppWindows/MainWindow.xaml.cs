@@ -3,7 +3,7 @@ using DDS.Net.Server.Helpers;
 using DDS.Net.Server.Interfaces;
 using DDS.Net.Server.WpfApp.Configuration;
 using DDS.Net.Server.WpfApp.Interfaces.Logger;
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,11 +23,22 @@ namespace DDS.Net.Server.WpfApp.AppWindows
     public partial class MainWindow : Window
     {
         private ILogger _logger;
+        private DdsServer? _server;
+
         public MainWindow()
         {
             InitializeComponent();
 
             _logger = new FileLogger(Constants.LOG_FILENAME);
+
+            (bool isEnabled, ServerConfiguration? config) =
+                ConfigurationProvider.GetServerConfiguration(Constants.SERVER_01_CONFIG_FILENAME, _logger);
+
+            if (isEnabled && config != null)
+            {
+                _server = new DdsServer(config);
+                _server.Start();
+            }
         }
     }
 }

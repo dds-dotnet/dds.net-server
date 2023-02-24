@@ -2,10 +2,6 @@
 using DDS.Net.Server.Helpers;
 using DDS.Net.Server.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDS.Net.Server.WpfApp.Configuration
 {
@@ -42,7 +38,7 @@ namespace DDS.Net.Server.WpfApp.Configuration
                     udpMaxClients: _confReader.GetInteger("DDS Connections/UDP-MaxClients"),
 
                     logger: logger
-                    
+
                     ));
             }
 

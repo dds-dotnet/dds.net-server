@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Entities
 {
-    internal class ServerConfiguration
+    public class ServerConfiguration
     {
     }
 }

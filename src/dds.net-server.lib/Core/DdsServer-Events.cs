@@ -2,6 +2,6 @@
 {
     public partial class DdsServer
     {
-        public event EventHandler<ServerStatus> ServerStatusChanged;
+        public event EventHandler<ServerStatus>? ServerStatusChanged;
     }
 }

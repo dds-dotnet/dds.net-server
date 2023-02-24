@@ -1,4 +1,5 @@
 ﻿using DDS.Net.Server.Interfaces;
+using DDS.Net.Server.WpfApp.Extensions;
 using System;
 using System.IO;
 
@@ -13,7 +14,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         {
             try
             {
-                CreateFoldersForFile(filename);
+                filename.CreateFoldersForFile();
 
                 _writer = File.AppendText(filename);
 
@@ -37,11 +38,6 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
             }
 
             _logLevel = logLevel;
-        }
-
-        private void CreateFoldersForFile(string filename)
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

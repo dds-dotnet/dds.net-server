@@ -62,6 +62,25 @@ namespace DDS.Net.Server
                     _logger.Error($"Cannot start TCP Server: {ex.Message}");
                 }
             }
+
+            if (_udpServer == null && _config.EnableUDP)
+            {
+                try
+                {
+                    _udpServer = new UdpServer(
+                        _config.ListeningAddressIPv4,
+                        _config.ListeningPortUDP,
+                        _config.MaxClientsUDP,
+                        _logger);
+
+                    _udpServer.StartServer();
+                }
+                catch (Exception ex)
+                {
+                    _udpServer = null;
+                    _logger.Error($"Cannot start UDP Server: {ex.Message}");
+                }
+            }
         }
 
         public void Stop()

@@ -11,6 +11,12 @@ namespace DDS.Net.Server.WpfApp.Configuration
 {
     internal static class ConfigurationProvider
     {
+        /// <summary>
+        /// Reading ServerConfiguration from given .ini file.
+        /// </summary>
+        /// <param name="filename">.ini file containing configuration</param>
+        /// <param name="logger">for logging and adding instance to returned configuration</param>
+        /// <returns>(isEnabled, configuration)</returns>
         public static Tuple<bool, ServerConfiguration?> GetServerConfiguration(string filename, ILogger logger)
         {
             bool isEnabled = false;

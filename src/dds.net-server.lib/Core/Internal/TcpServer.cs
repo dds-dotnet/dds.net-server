@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal
 {
-    internal class TcpServer
+    internal class TcpServer : CommonServer
     {
         private readonly string _IPv4;
         private readonly ushort _port;

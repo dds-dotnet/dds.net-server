@@ -53,6 +53,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
 
                 _writer.Flush();
                 _writer.Dispose();
+                _writer = null;
             }
         }
 

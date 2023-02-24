@@ -27,6 +27,9 @@ namespace DDS.Net.Server.Core.Internal
 
             _logger = logger;
 
+            // -------------
+            // Validating the given IP address
+            // ---------
             Regex ipv4Pattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
             Regex spacesPattern = new Regex(@"\s*");
 
@@ -52,6 +55,9 @@ namespace DDS.Net.Server.Core.Internal
                 }
             }
 
+            // -------------
+            // Validating given max-clients
+            // ---------
             if (maxClients <= 0)
             {
                 logger.Warning($"Invalid maximum number of clients: \"{maxClients}\", using 10 instead");

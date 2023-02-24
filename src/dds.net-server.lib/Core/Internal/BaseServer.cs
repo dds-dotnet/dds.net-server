@@ -1,4 +1,5 @@
-﻿using DDS.Net.Server.Interfaces;
+﻿using DDS.Net.Server.Extensions;
+using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,41 +45,7 @@ namespace DDS.Net.Server.Core.Internal
             {
                 _IPv4 = spacesPattern.Replace(_IPv4, "");
 
-                NetworkInterface[] ifaces =
-                    NetworkInterface.GetAllNetworkInterfaces();
-
-                bool isFound = false;
-
-                if (ifaces != null && ifaces.Length > 0)
-                {
-                    foreach (NetworkInterface iface in ifaces)
-                    {
-                        if (iface.OperationalStatus == OperationalStatus.Up)
-                        {
-                            foreach (
-                                UnicastIPAddressInformation addressInfo
-                                in
-                                iface.GetIPProperties().UnicastAddresses)
-                            {
-                                if (addressInfo.Address.AddressFamily == AddressFamily.InterNetwork)
-                                {
-                                    if (addressInfo.Address.ToString() == _IPv4)
-                                    {
-                                        isFound = true;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (isFound)
-                            {
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                if (!isFound)
+                if (_IPv4.IsIPAddressAssignedToAnUpInterface())
                 {
                     logger.Warning($"Local IPv4 Address \"{IPv4}\" does not exist, using \"0.0.0.0\" instead");
                     _IPv4 = "0.0.0.0";

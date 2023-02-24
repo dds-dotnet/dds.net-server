@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -40,6 +41,17 @@ namespace DDS.Net.Server.Core.Internal
             else
             {
                 _IPv4 = spacesPattern.Replace(_IPv4, "");
+
+                NetworkInterface[] ifaces =
+                    NetworkInterface.GetAllNetworkInterfaces();
+
+                if (ifaces != null && ifaces.Length > 0)
+                {
+                    foreach (NetworkInterface iface in ifaces)
+                    {
+                        IPv4InterfaceStatistics ifaceStats = iface.GetIPv4Statistics();
+                    }
+                }
             }
 
             if (maxClients <= 0)

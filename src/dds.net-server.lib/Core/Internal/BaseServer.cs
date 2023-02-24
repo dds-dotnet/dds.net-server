@@ -29,7 +29,8 @@ namespace DDS.Net.Server.Core.Internal
             Regex spacesPattern = new Regex(@"\s*");
 
             if (string.IsNullOrEmpty(IPv4) ||
-                IPv4.ToLower().Contains("any"))
+                IPv4.ToLower().Contains("any") ||
+                IPv4.ToLower().Contains("all"))
             {
                 _IPv4 = "0.0.0.0";
             }

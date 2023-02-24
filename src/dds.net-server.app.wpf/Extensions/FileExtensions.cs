@@ -8,7 +8,7 @@ namespace DDS.Net.Server.WpfApp.Extensions
 {
     internal static class FileExtensions
     {
-        public static void CreateFoldersForFile(this string filename)
+        public static void CreateFoldersForFullFilename(this string filename)
         {
             if (string.IsNullOrEmpty(filename)) return;
 

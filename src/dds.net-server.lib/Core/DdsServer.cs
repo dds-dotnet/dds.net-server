@@ -91,6 +91,10 @@ namespace DDS.Net.Server
                     SetServerStatus(ServerStatus.Started);
                 }
             }
+            else
+            {
+                _logger.Warning("Cannot start server when it is not fully stopped");
+        }
         }
 
         private void SetServerStatus(ServerStatus newStatus)

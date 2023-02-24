@@ -14,7 +14,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         {
             try
             {
-                filename.CreateFoldersForFullFilename();
+                filename.CreateFoldersForRelativeFilename();
 
                 _writer = File.AppendText(filename);
 

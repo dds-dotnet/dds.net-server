@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server
 {
-    public class DdsServer
+    public partial class DdsServer
     {
         private readonly ServerConfiguration _config;
         private readonly ILogger _logger;

@@ -12,7 +12,7 @@ namespace DDS.Net.Server.WpfApp.Configuration
         /// </summary>
         /// <param name="filename">.ini file containing configuration</param>
         /// <param name="logger">for logging and adding instance to returned configuration</param>
-        /// <returns>(isEnabled, configuration)</returns>
+        /// <returns>(boolean isEnabled, ServerConfiguration)</returns>
         public static Tuple<bool, ServerConfiguration?> GetServerConfiguration(string filename, ILogger logger)
         {
             INIConfigIO _confReader = new INIConfigIO(filename, logger);

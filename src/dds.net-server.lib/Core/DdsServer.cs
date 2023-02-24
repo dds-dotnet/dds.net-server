@@ -22,7 +22,7 @@ namespace DDS.Net.Server
             if (_config.Logger != null)
                 _logger = _config.Logger;
             else
-                throw new Exception($"No instance of {nameof(_config.Logger)} is provided");
+                throw new Exception($"No instance of {nameof(ILogger)} is provided");
         }
     }
 }

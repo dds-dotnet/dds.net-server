@@ -21,6 +21,8 @@ namespace DDS.Net.Server
         private readonly ServerConfiguration _config;
         private readonly ILogger _logger;
 
+        private ServerStatus _status = ServerStatus.Stopped;
+
         public DdsServer(ServerConfiguration config)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));

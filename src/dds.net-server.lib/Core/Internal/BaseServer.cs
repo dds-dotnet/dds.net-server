@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal
 {
-    internal class BaseServer
+    internal abstract class BaseServer
     {
         protected readonly string _IPv4;
         protected readonly ushort _port;
@@ -23,5 +23,8 @@ namespace DDS.Net.Server.Core.Internal
 
             _logger = logger;
         }
+
+        public abstract void StartServer();
+        public abstract void StopServer();
     }
 }

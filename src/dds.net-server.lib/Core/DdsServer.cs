@@ -43,6 +43,25 @@ namespace DDS.Net.Server
         public void Start()
         {
             PrintLogStarting();
+
+            if (_tcpServer == null && _config.EnableTCP)
+            {
+                try
+                {
+                    _tcpServer = new TcpServer(
+                        _config.ListeningAddressIPv4,
+                        _config.ListeningPortTCP,
+                        _config.MaxClientsTCP,
+                        _logger);
+
+                    _tcpServer.StartServer();
+                }
+                catch (Exception ex)
+                {
+                    _tcpServer = null;
+                    _logger.Error($"Cannot start TCP Server: {ex.Message}");
+                }
+            }
         }
 
         public void Stop()

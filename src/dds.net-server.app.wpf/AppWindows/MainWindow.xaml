@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DDS.Net.Server.WpfApp.AppWindows"
         mc:Ignorable="d"
+        Closing="Window_Closing"
         Title="DDS.Net Server" Height="450" Width="800">
     <Grid>
 

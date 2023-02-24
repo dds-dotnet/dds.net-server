@@ -22,7 +22,7 @@ namespace DDS.Net.Server.WpfApp.AppWindows
 {
     public partial class MainWindow : Window
     {
-        private ILogger _logger;
+        private FileLogger? _logger;
         private DdsServer? _server;
 
         public MainWindow()
@@ -39,6 +39,12 @@ namespace DDS.Net.Server.WpfApp.AppWindows
                 _server = new DdsServer(config);
                 _server.Start();
             }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _logger?.Dispose();
+            _logger = null;
         }
     }
 }

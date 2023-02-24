@@ -13,7 +13,7 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         private readonly LogLevel _logLevel;
         private StreamWriter? _writer;
 
-        public FileLogger(LogLevel logLevel, string filename)
+        public FileLogger(string filename, LogLevel logLevel = LogLevel.Information)
         {
             try
             {

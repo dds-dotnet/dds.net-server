@@ -2,7 +2,7 @@
 {
     public partial class DdsServer
     {
-        private void PrintPorts()
+        private void PrintLogPorts()
         {
             if (_config.EnableTCP)
             {
@@ -25,16 +25,16 @@
 
         private void PrintLogStarting()
         {
-            _logger.Info($"Starting with config:");
+            _logger.Info($"Starting at {DateTime.UtcNow} with config:");
 
-            PrintPorts();
+            PrintLogPorts();
         }
 
         private void PrintLogStopping()
         {
-            _logger.Info($"Stopping with config:");
+            _logger.Info($"Stopping at {DateTime.UtcNow} with config:");
 
-            PrintPorts();
+            PrintLogPorts();
         }
     }
 }

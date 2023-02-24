@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Interfaces
 {
-    internal interface ILogger
+    public interface ILogger
     {
         void Info(string message);
         void Warning(string message);

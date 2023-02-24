@@ -13,11 +13,11 @@ namespace DDS.Net.Server
         private readonly ServerConfiguration _config;
         private readonly ILogger _logger;
 
-        public DdsServer(ServerConfiguration configuration)
+        public DdsServer(ServerConfiguration config)
         {
-            if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+            if (config == null) throw new ArgumentNullException(nameof(config));
 
-            _config = configuration;
+            _config = config;
 
             if (_config.Logger != null)
                 _logger = _config.Logger;

@@ -41,7 +41,7 @@ namespace DDS.Net.Server.Core.Internal
             }
             else if (ipv4Pattern.IsMatch(IPv4) == false)
             {
-                logger.Warning($"Invalid IPv4 Address: \"{IPv4}\", using 0.0.0.0 instead");
+                logger.Warning($"Invalid IPv4 Address: \"{IPv4}\", using \"0.0.0.0\" instead");
                 _IPv4 = "0.0.0.0";
             }
             else

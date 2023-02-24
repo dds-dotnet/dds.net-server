@@ -25,6 +25,7 @@ namespace DDS.Net.Server.Core.Internal
             _logger = logger;
 
             Regex ipv4Pattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
+            Regex spacesPattern = new Regex(@"\s*");
 
             if (string.IsNullOrEmpty(IPv4) ||
                 IPv4.ToLower().Contains("any"))
@@ -35,6 +36,10 @@ namespace DDS.Net.Server.Core.Internal
             {
                 logger.Warning($"Invalid IPv4 Address: \"{IPv4}\", using 0.0.0.0 instead");
                 _IPv4 = "0.0.0.0";
+            }
+            else
+            {
+                _IPv4 = spacesPattern.Replace(_IPv4, "");
             }
 
             if (maxClients <= 0)

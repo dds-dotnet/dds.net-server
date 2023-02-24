@@ -90,6 +90,10 @@ namespace DDS.Net.Server
                 {
                     SetServerStatus(ServerStatus.Started);
                 }
+                else
+                {
+                    SetServerStatus(ServerStatus.Stopped);
+                }
             }
             else
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal
 {
-    internal class TcpServer : CommonServer
+    internal class TcpServer : BaseServer
     {
         public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, logger)

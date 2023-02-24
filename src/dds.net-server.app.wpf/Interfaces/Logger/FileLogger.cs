@@ -13,6 +13,8 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         {
             try
             {
+                CreateFoldersForFile(filename);
+
                 _writer = File.AppendText(filename);
 
                 _writer.WriteLine($"=====================================================================");
@@ -35,6 +37,11 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
             }
 
             _logLevel = logLevel;
+        }
+
+        private void CreateFoldersForFile(string filename)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()

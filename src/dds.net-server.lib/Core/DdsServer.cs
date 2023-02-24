@@ -30,29 +30,6 @@ namespace DDS.Net.Server
             PrintStartingLog();
         }
 
-        private void PrintStartingLog()
-        {
-            _logger.Info($"Starting with config:");
-
-            if (_config.EnableTCP)
-            {
-                _logger.Info($"    TCP Port {_config.ListeningAddressIPv4}:{_config.ListeningPortTCP}");
-            }
-            else
-            {
-                _logger.Info($"    TCP Connections - Disabled");
-            }
-            
-            if (_config.EnableUDP)
-            {
-                _logger.Info($"    UDP Port {_config.ListeningAddressIPv4}:{_config.ListeningPortUDP}");
-            }
-            else
-            {
-                _logger.Info($"    UDP Connections - Disabled");
-            }
-        }
-
         public void Stop()
         {
 

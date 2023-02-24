@@ -94,7 +94,51 @@ namespace DDS.Net.Server
             else
             {
                 _logger.Warning("Cannot start server when it is not fully stopped");
+            }
         }
+
+        public void Stop()
+        {
+            if (_status == ServerStatus.Started)
+            {
+                SetServerStatus(ServerStatus.Stopping);
+
+                PrintLogStopping();
+
+                if (_tcpServer != null)
+                {
+                    try
+                    {
+                        _tcpServer.StopServer();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"TCP Server threw error on stopping: {ex.Message}");
+                    }
+                    
+                    _tcpServer = null;
+                }
+
+                if (_udpServer != null)
+                {
+                    try
+                    {
+                        _udpServer.StopServer();
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error($"UDP Server threw error on stopping: {ex.Message}");
+                    }
+
+                    _udpServer = null;
+                }
+
+                SetServerStatus(ServerStatus.Stopped);
+            }
+            else
+            {
+                _logger.Warning("Cannot stop server when it is not fully started");
+            }
         }
 
         private void SetServerStatus(ServerStatus newStatus)
@@ -104,11 +148,6 @@ namespace DDS.Net.Server
                 _status = newStatus;
                 ServerStatusChanged?.Invoke(this, _status);
             }
-        }
-
-        public void Stop()
-        {
-            PrintLogStopping();
         }
     }
 }

@@ -8,6 +8,14 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server
 {
+    public enum ServerStatus
+    {
+        Stopped,
+        Starting,
+        Started,
+        Stopping
+    }
+
     public partial class DdsServer
     {
         private readonly ServerConfiguration _config;

@@ -1,7 +1,11 @@
-﻿namespace DDS.Net.Server.Core.Internal.Extensions
+﻿using System.Text.RegularExpressions;
+
+namespace DDS.Net.Server.Core.Internal.Extensions
 {
     internal static class StringExtensions
     {
+        private static Regex spacesPattern = new Regex(@"\s*");
+
         public static bool IsNullOrEmpty(this string value)
         {
             return string.IsNullOrEmpty(value);
@@ -11,6 +15,11 @@
         {
             return string.IsNullOrEmpty(value) ||
                    string.IsNullOrWhiteSpace(value);
+        }
+
+        public static string RemoveSpaces(this string value)
+        {
+            return spacesPattern.Replace(value, "");
         }
 
         public static bool ContainsAnyIgnoringCase(this string text,

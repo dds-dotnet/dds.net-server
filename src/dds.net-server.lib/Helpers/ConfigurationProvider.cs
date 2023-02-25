@@ -1,11 +1,9 @@
 ﻿using DDS.Net.Server.Entities;
-using DDS.Net.Server.Helpers;
 using DDS.Net.Server.Interfaces;
-using System;
 
-namespace DDS.Net.Server.WpfApp.Configuration
+namespace DDS.Net.Server.Helpers
 {
-    internal static class ConfigurationProvider
+    public static class ConfigurationProvider
     {
         /// <summary>
         /// Reading ServerConfiguration from given .ini file.

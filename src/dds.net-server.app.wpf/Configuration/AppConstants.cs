@@ -2,7 +2,7 @@
 
 namespace DDS.Net.Server.WpfApp.Configuration
 {
-    internal static class Constants
+    internal static class AppConstants
     {
         static private readonly DateTime _TIMESTAMP = DateTime.Now;
         static public readonly string _TIMESTAMP_TEXT =

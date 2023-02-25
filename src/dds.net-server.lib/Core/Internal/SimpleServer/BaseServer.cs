@@ -33,7 +33,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             Regex ipv4Pattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
             Regex spacesPattern = new Regex(@"\s*");
 
-            if (string.IsNullOrEmpty(localAddressIPv4) ||
+            if (localAddressIPv4.IsEmpty() ||
                 localAddressIPv4.ToLower().ContainsAnyIgnoringCase("any", "all"))
             {
                 this.localAddressIPv4 = "0.0.0.0";

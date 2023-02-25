@@ -30,15 +30,14 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             // -------------
             // Validating the given IP address
             // ---------
-            Regex ipv4Pattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
             Regex spacesPattern = new Regex(@"\s*");
 
             if (localAddressIPv4.IsEmpty() ||
-                localAddressIPv4.ToLower().ContainsAnyIgnoringCase("any", "all"))
+                localAddressIPv4.ContainsAnyIgnoringCase("any", "all"))
             {
                 this.localAddressIPv4 = "0.0.0.0";
             }
-            else if (ipv4Pattern.IsMatch(localAddressIPv4) == false)
+            else if (localAddressIPv4.IsInvalidIPv4Address())
             {
                 logger.Warning($"Invalid IPv4 Address: \"{localAddressIPv4}\", using \"0.0.0.0\" instead");
                 this.localAddressIPv4 = "0.0.0.0";

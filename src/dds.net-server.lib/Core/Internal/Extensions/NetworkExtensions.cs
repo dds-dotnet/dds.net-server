@@ -13,6 +13,11 @@ namespace DDS.Net.Server.Core.Internal.Extensions
             return ipv4AddressPattern.IsMatch(ipv4Address);
         }
 
+        public static bool IsInvalidIPv4Address(this string ipv4Address)
+        {
+            return ipv4AddressPattern.IsMatch(ipv4Address) == false;
+        }
+
         public static bool IsIPAddressAssignedToAnUpInterface(this string ipAddress)
         {
             NetworkInterface[] ifaces = NetworkInterface.GetAllNetworkInterfaces();

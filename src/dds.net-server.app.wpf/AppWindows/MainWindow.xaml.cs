@@ -1,5 +1,5 @@
 ﻿using DDS.Net.Server.Entities;
-using DDS.Net.Server.Helpers;
+using DDS.Net.Server.PublicHelpers;
 using DDS.Net.Server.Interfaces;
 using DDS.Net.Server.WpfApp.Configuration;
 using DDS.Net.Server.WpfApp.Interfaces.Logger;

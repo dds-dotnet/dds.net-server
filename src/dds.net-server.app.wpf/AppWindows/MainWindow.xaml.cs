@@ -29,10 +29,10 @@ namespace DDS.Net.Server.WpfApp.AppWindows
         {
             InitializeComponent();
 
-            _logger = new FileLogger(Constants.LOG_FILENAME);
+            _logger = new FileLogger(AppConstants.LOG_FILENAME);
 
             (bool isEnabled, ServerConfiguration? config) =
-                ConfigurationProvider.GetServerConfiguration(Constants.SERVER_01_CONFIG_FILENAME, _logger);
+                ConfigurationProvider.GetServerConfiguration(AppConstants.SERVER_01_CONFIG_FILENAME, _logger);
 
             if (isEnabled && config != null)
             {

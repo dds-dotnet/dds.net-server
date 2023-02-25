@@ -6,6 +6,7 @@
     <RootNamespace>DDS.Net.Server.WpfApp</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <AssemblyName>$(MSBuildProjectName.Replace(".app.wpf", ""))</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

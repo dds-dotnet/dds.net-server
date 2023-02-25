@@ -1,10 +1,18 @@
 ﻿using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.Core.Internal.Extensions
 {
     internal static class NetworkExtensions
     {
+        private static Regex ipv4AddressPattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
+
+        public static bool IsValidIPv4Address(this string ipv4Address)
+        {
+            return ipv4AddressPattern.IsMatch(ipv4Address);
+        }
+
         public static bool IsIPAddressAssignedToAnUpInterface(this string ipAddress)
         {
             NetworkInterface[] ifaces = NetworkInterface.GetAllNetworkInterfaces();

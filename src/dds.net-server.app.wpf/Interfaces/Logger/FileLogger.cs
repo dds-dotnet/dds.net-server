@@ -1,5 +1,5 @@
 ﻿using DDS.Net.Server.Interfaces;
-using DDS.Net.Server.WpfApp.Extensions;
+using DDS.Net.Server.PublicExtensions;
 using System;
 using System.IO;
 

@@ -11,14 +11,12 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
     internal class TcpServer : BaseServer
     {
-        private volatile ServerStatus status;
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;
 
         public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, SimpleServerType.TCP, logger)
         {
-            status = ServerStatus.Stopped;
         }
 
         public override void StartServer()
@@ -50,6 +48,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
         private void ConnectionListenerThreadFunction()
         {
+
+            SetServerStatus(SimpleServerStatus.Running);
+
             while (isConnectionListenerThreadRunning)
             {
 
@@ -57,6 +58,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
             isConnectionListenerThreadRunning = false;
             connectionListenerThread = null;
+
+            SetServerStatus(SimpleServerStatus.Stopped);
         }
     }
 }

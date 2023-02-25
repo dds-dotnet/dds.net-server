@@ -10,14 +10,12 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
     internal class UdpServer : BaseServer
     {
-        private volatile ServerStatus status;
         private volatile bool isClientListenerThreadRunning = false;
         private Thread? clientListenerThread = null;
 
         public UdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, SimpleServerType.UDP, logger)
         {
-            status = ServerStatus.Stopped;
         }
 
         public override void StartServer()
@@ -49,6 +47,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
         private void ClientListenerThreadFunction()
         {
+            SetServerStatus(SimpleServerStatus.Running);
+
             while (isClientListenerThreadRunning)
             {
 
@@ -57,7 +57,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             isClientListenerThreadRunning = false;
             clientListenerThread = null;
 
-            status = ServerStatus.Stopped;
+            SetServerStatus(SimpleServerStatus.Stopped);
         }
     }
 }

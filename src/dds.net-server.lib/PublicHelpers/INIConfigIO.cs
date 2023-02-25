@@ -2,7 +2,7 @@
 using DDS.Net.Server.Interfaces;
 using System.Text.RegularExpressions;
 
-namespace DDS.Net.Server.Helpers
+namespace DDS.Net.Server.PublicHelpers
 {
     public class INIConfigIO
     {

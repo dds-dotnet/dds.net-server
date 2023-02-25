@@ -1,7 +1,7 @@
 ﻿using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 
-namespace DDS.Net.Server.Helpers
+namespace DDS.Net.Server.PublicHelpers
 {
     public static class ConfigurationProvider
     {

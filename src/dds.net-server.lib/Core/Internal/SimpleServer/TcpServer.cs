@@ -16,7 +16,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         private Thread? connectionListenerThread = null;
 
         public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
-            : base(IPv4, port, maxClients, ServerType.TCP, logger)
+            : base(IPv4, port, maxClients, SimpleServerType.TCP, logger)
         {
             status = ServerStatus.Stopped;
         }

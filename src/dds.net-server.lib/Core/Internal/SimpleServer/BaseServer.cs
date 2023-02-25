@@ -21,12 +21,12 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly IPEndPoint localEndPoint;
         protected readonly Socket? localSocket;
 
-        private readonly ServerType serverType;
+        private readonly SimpleServerType serverType;
 
         protected readonly int maxNumberOfClients;
         protected readonly ILogger logger;
 
-        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, ServerType serverType, ILogger logger)
+        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, SimpleServerType serverType, ILogger logger)
         {
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;
@@ -65,7 +65,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             // ---------
             switch (this.serverType)
             {
-                case ServerType.TCP:
+                case SimpleServerType.TCP:
 
                     try
                     {
@@ -82,7 +82,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                     break;
 
-                case ServerType.UDP:
+                case SimpleServerType.UDP:
 
                     try
                     {

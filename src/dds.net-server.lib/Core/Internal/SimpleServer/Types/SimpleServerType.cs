@@ -1,8 +1,8 @@
 ﻿namespace DDS.Net.Server.Core.Internal.SimpleServer.Types
 {
-    internal enum ServerStatus
+    internal enum SimpleServerType
     {
-        Stopped,
-        Running
+        TCP,
+        UDP
     }
 }

@@ -30,7 +30,6 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             // -------------
             // Validating the given IP address
             // ---------
-            Regex spacesPattern = new Regex(@"\s*");
 
             if (localAddressIPv4.IsEmpty() ||
                 localAddressIPv4.ContainsAnyIgnoringCase("any", "all"))
@@ -44,7 +43,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
             else
             {
-                this.localAddressIPv4 = spacesPattern.Replace(this.localAddressIPv4, "");
+                this.localAddressIPv4 = this.localAddressIPv4.RemoveSpaces();
 
                 if (this.localAddressIPv4.IsIPAddressAssignedToAnUpInterface())
                 {

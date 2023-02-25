@@ -18,16 +18,17 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly ushort localPort;
         protected readonly IPEndPoint localEndPoint;
 
-        protected readonly int maxNumberOfClients;
+        private readonly ServerType serverType;
 
+        protected readonly int maxNumberOfClients;
         protected readonly ILogger logger;
 
-        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, ILogger logger)
+        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, ServerType serverType, ILogger logger)
         {
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;
             this.maxNumberOfClients = maxNumberOfClients;
-
+            this.serverType = serverType;
             this.logger = logger;
 
             // -------------

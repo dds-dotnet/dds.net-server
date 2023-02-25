@@ -15,6 +15,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
     internal abstract partial class BaseServer
     {
+        protected volatile SimpleServerStatus serverStatus = SimpleServerStatus.Stopped;
+
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
 
@@ -33,6 +35,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             SimpleServerType serverType,
             ILogger logger)
         {
+            SetServerStatus(SimpleServerStatus.Stopped);
+
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;
             this.maxNumberOfClients = maxNumberOfClients;
@@ -112,6 +116,15 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             {
                 logger.Warning($"Invalid maximum number of clients: \"{maxNumberOfClients}\", using 10 instead");
                 this.maxNumberOfClients = 10;
+            }
+        }
+
+        protected void SetServerStatus(SimpleServerStatus newStatus)
+        {
+            if (serverStatus != newStatus)
+            {
+                serverStatus = newStatus;
+                ServerStatusChanged?.Invoke(this, serverStatus);
             }
         }
 

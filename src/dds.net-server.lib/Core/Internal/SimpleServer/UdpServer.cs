@@ -47,11 +47,29 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
         private void ClientListenerThreadFunction()
         {
-            SetServerStatus(SimpleServerStatus.Running);
+            bool bindingOk = false;
 
-            while (isClientListenerThreadRunning)
+            try
             {
+                localSocket?.Bind(localEndPoint);
 
+                logger.Info($"UDP socket bound @{localEndPoint}");
+
+                bindingOk = true;
+            }
+            catch(Exception ex)
+            {
+                logger.Error($"UDP socket binding error @{localEndPoint}: {ex.Message}");
+            }
+
+            if (bindingOk)
+            {
+                SetServerStatus(SimpleServerStatus.Running);
+
+                while (isClientListenerThreadRunning)
+                {
+
+                }
             }
 
             isClientListenerThreadRunning = false;

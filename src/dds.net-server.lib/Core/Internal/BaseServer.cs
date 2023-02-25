@@ -13,19 +13,19 @@ namespace DDS.Net.Server.Core.Internal
 {
     internal abstract class BaseServer
     {
-        protected readonly string _IPv4;
-        protected readonly ushort _port;
-        protected readonly int _maxClients;
+        protected readonly string localAddressIPv4;
+        protected readonly ushort localPort;
+        protected readonly int maxNumberOfClients;
 
-        protected readonly ILogger _logger;
+        protected readonly ILogger logger;
 
-        protected BaseServer(string IPv4, ushort port, int maxClients, ILogger logger)
+        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, ILogger logger)
         {
-            _IPv4 = IPv4;
-            _port = port;
-            _maxClients = maxClients;
+            this.localAddressIPv4 = localAddressIPv4;
+            this.localPort = localPort;
+            this.maxNumberOfClients = maxNumberOfClients;
 
-            _logger = logger;
+            this.logger = logger;
 
             // -------------
             // Validating the given IP address
@@ -33,35 +33,35 @@ namespace DDS.Net.Server.Core.Internal
             Regex ipv4Pattern = new Regex(@"\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*\.\s*(\d{1,3})\s*");
             Regex spacesPattern = new Regex(@"\s*");
 
-            if (string.IsNullOrEmpty(IPv4) ||
-                IPv4.ToLower().Contains("any") ||
-                IPv4.ToLower().Contains("all"))
+            if (string.IsNullOrEmpty(localAddressIPv4) ||
+                localAddressIPv4.ToLower().Contains("any") ||
+                localAddressIPv4.ToLower().Contains("all"))
             {
-                _IPv4 = "0.0.0.0";
+                this.localAddressIPv4 = "0.0.0.0";
             }
-            else if (ipv4Pattern.IsMatch(IPv4) == false)
+            else if (ipv4Pattern.IsMatch(localAddressIPv4) == false)
             {
-                logger.Warning($"Invalid IPv4 Address: \"{IPv4}\", using \"0.0.0.0\" instead");
-                _IPv4 = "0.0.0.0";
+                logger.Warning($"Invalid IPv4 Address: \"{localAddressIPv4}\", using \"0.0.0.0\" instead");
+                this.localAddressIPv4 = "0.0.0.0";
             }
             else
             {
-                _IPv4 = spacesPattern.Replace(_IPv4, "");
+                this.localAddressIPv4 = spacesPattern.Replace(this.localAddressIPv4, "");
 
-                if (_IPv4.IsIPAddressAssignedToAnUpInterface())
+                if (this.localAddressIPv4.IsIPAddressAssignedToAnUpInterface())
                 {
-                    logger.Warning($"Local IPv4 Address \"{IPv4}\" does not exist, using \"0.0.0.0\" instead");
-                    _IPv4 = "0.0.0.0";
+                    logger.Warning($"Local IPv4 Address \"{localAddressIPv4}\" does not exist, using \"0.0.0.0\" instead");
+                    this.localAddressIPv4 = "0.0.0.0";
                 }
             }
 
             // -------------
             // Validating given max-clients
             // ---------
-            if (maxClients <= 0)
+            if (maxNumberOfClients <= 0)
             {
-                logger.Warning($"Invalid maximum number of clients: \"{maxClients}\", using 10 instead");
-                _maxClients = 10;
+                logger.Warning($"Invalid maximum number of clients: \"{maxNumberOfClients}\", using 10 instead");
+                this.maxNumberOfClients = 10;
             }
         }
 

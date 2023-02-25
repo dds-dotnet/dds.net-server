@@ -14,4 +14,7 @@ UDP-ListeningPort = 44556
 UDP-MaxClients = 100
 ```
 
-*INIConfigIO* in *DDS.Net.Server.PublicHelpers* namespace refers to the values as *DDS Connections/Enabled*, *DDS Connections/TCP-MaxClients*, etc.
+***INIConfigIO*** (inside *DDS.Net.Server.PublicHelpers* namespace) refers to the values as:
+* ***DDS Connections/Enabled***
+* ***DDS Connections/TCP-MaxClients***
+* etc.

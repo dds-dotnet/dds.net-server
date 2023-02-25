@@ -1,4 +1,5 @@
-﻿using DDS.Net.Server.Entities;
+﻿using DDS.Net.Server.Core.Internal.Extensions;
+using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 
 namespace DDS.Net.Server.PublicHelpers
@@ -15,23 +16,17 @@ namespace DDS.Net.Server.PublicHelpers
         {
             INIConfigIO _confReader = new INIConfigIO(filename, logger);
 
-            string serverEnabledConfig = _confReader.GetString("DDS Connections/Enabled").ToLower();
-
-            if (serverEnabledConfig.Contains("true") ||
-                serverEnabledConfig.Contains("yes"))
+            if (_confReader.GetString("DDS Connections/Enabled").ContainsAnyIgnoringCase("true", "yes"))
             {
-                string tcpEnabledConfig = _confReader.GetString("DDS Connections/TCP-Enabled").ToLower();
-                string udpEnabledConfig = _confReader.GetString("DDS Connections/UDP-Enabled").ToLower();
-
                 return new(true, new ServerConfiguration(
 
                     listeningIPv4Address: _confReader.GetString("DDS Connections/ListeningIPv4"),
 
-                    enableTCP: tcpEnabledConfig.Contains("true") || tcpEnabledConfig.Contains("yes"),
+                    enableTCP: _confReader.GetString("DDS Connections/TCP-Enabled").ContainsAnyIgnoringCase("true", "yes"),
                     tcpPort: (ushort)_confReader.GetInteger("DDS Connections/TCP-ListeningPort"),
                     tcpMaxClients: _confReader.GetInteger("DDS Connections/TCP-MaxClients"),
 
-                    enableUDP: udpEnabledConfig.Contains("true") || udpEnabledConfig.Contains("yes"),
+                    enableUDP: _confReader.GetString("DDS Connections/UDP-Enabled").ContainsAnyIgnoringCase("true", "yes"),
                     udpPort: (ushort)_confReader.GetInteger("DDS Connections/UDP-ListeningPort"),
                     udpMaxClients: _confReader.GetInteger("DDS Connections/UDP-MaxClients"),
 

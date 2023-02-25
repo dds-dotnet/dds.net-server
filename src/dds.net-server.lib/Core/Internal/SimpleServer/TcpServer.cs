@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         {
             lock (this)
             {
-                if (connectionListenerThread == null)
+                if (connectionListenerThread == null &&
+                    localSocket != null)
                 {
                     isConnectionListenerThreadRunning = true;
                     connectionListenerThread = new Thread(ConnectionListenerThreadFunction);

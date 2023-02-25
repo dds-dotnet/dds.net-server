@@ -10,12 +10,6 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
     internal class TcpServer : BaseServer
     {
-        private enum ServerStatus
-        {
-            Stopped,
-            Running
-        }
-
         private volatile ServerStatus status;
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;

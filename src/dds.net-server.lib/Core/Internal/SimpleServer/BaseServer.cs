@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal abstract class BaseServer
+    internal abstract partial class BaseServer
     {
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;

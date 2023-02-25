@@ -1,7 +1,7 @@
 ﻿using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
-namespace DDS.Net.Server.Extensions
+namespace DDS.Net.Server.Core.Internal.Extensions
 {
     internal static class NetworkExtensions
     {

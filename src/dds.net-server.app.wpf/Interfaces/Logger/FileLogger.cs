@@ -18,15 +18,15 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
 
                 _writer = File.AppendText(filename);
 
-                _writer.WriteLine($"=====================================================================");
-                _writer.WriteLine($"| DDS.Net Server                                                    |");
-                _writer.WriteLine($"|-------------------------------------------------------------------|");
-                _writer.WriteLine($"|                                                                   |");
-                _writer.WriteLine($"| Starting log @                                                    |");
-                _writer.WriteLine($"|     Local time: {DateTime.Now,-35}               |");
-                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow,-35}               |");
-                _writer.WriteLine($"|                                                                   |");
-                _writer.WriteLine($"=====================================================================");
+                _writer.WriteLine($"╔═══════════════════════════════════════════════════════════════════╗");
+                _writer.WriteLine($"║ DDS.Net Server                                                    ║");
+                _writer.WriteLine($"║-------------------------------------------------------------------║");
+                _writer.WriteLine($"║                                                                   ║");
+                _writer.WriteLine($"║ Starting log @                                                    ║");
+                _writer.WriteLine($"║     Local time: {DateTime.Now,-35}               ║");
+                _writer.WriteLine($"║     UTC time:   {DateTime.UtcNow,-35}               ║");
+                _writer.WriteLine($"║                                                                   ║");
+                _writer.WriteLine($"╚═══════════════════════════════════════════════════════════════════╝");
 
                 _writer.Flush();
                 _writer.AutoFlush = true;
@@ -44,11 +44,11 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
         {
             if (_writer != null)
             {
-                _writer.WriteLine($"=====================================================================");
-                _writer.WriteLine($"| Stopping log @                                                    |");
-                _writer.WriteLine($"|     Local time: {DateTime.Now,-35}               |");
-                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow,-35}               |");
-                _writer.WriteLine($"=====================================================================");
+                _writer.WriteLine($"╔═══════════════════════════════════════════════════════════════════╗");
+                _writer.WriteLine($"║ Stopping log @                                                    ║");
+                _writer.WriteLine($"║     Local time: {DateTime.Now,-35}               ║");
+                _writer.WriteLine($"║     UTC time:   {DateTime.UtcNow,-35}               ║");
+                _writer.WriteLine($"╚═══════════════════════════════════════════════════════════════════╝");
                 _writer.WriteLine($"");
                 _writer.WriteLine($"");
                 _writer.WriteLine($"");

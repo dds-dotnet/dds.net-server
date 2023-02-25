@@ -16,7 +16,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
     {
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
+
         protected readonly IPEndPoint localEndPoint;
+        protected readonly Socket? localSocket;
 
         private readonly ServerType serverType;
 
@@ -56,6 +58,42 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
 
             localEndPoint = new IPEndPoint(IPAddress.Parse(localAddressIPv4), localPort);
+
+            // -------------
+            // Creating socket
+            // ---------
+            switch (this.serverType)
+            {
+                case ServerType.TCP:
+
+                    try
+                    {
+                        localSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        localSocket.Blocking = false;
+                    }
+                    catch (Exception e)
+                    {
+                        localSocket = null;
+                        logger.Error($"TCP Socket creation error: {e.Message}");
+                    }
+
+                    break;
+
+                case ServerType.UDP:
+
+                    try
+                    {
+                        localSocket = new(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                        localSocket.Blocking = false;
+                    }
+                    catch (Exception e)
+                    {
+                        localSocket = null;
+                        logger.Error($"UDP Socket creation error: {e.Message}");
+                    }
+
+                    break;
+            }
 
             // -------------
             // Validating given max-clients

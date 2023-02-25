@@ -2,6 +2,17 @@
 {
     internal static class StringExtensions
     {
+        public static bool IsNullOrEmpty(this string value)
+        {
+            return string.IsNullOrEmpty(value);
+        }
+
+        public static bool IsEmpty(this string value)
+        {
+            return string.IsNullOrEmpty(value) ||
+                   string.IsNullOrWhiteSpace(value);
+        }
+
         public static bool ContainsAnyIgnoringCase(this string text,
             string text01,
             string text02)

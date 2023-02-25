@@ -3,6 +3,7 @@ using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text;
@@ -15,6 +16,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
     {
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
+        protected readonly IPEndPoint localEndPoint;
+
         protected readonly int maxNumberOfClients;
 
         protected readonly ILogger logger;
@@ -50,6 +53,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     this.localAddressIPv4 = "0.0.0.0";
                 }
             }
+
+            localEndPoint = new IPEndPoint(IPAddress.Parse(localAddressIPv4), localPort);
 
             // -------------
             // Validating given max-clients

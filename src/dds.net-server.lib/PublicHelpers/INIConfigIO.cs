@@ -76,6 +76,12 @@ namespace DDS.Net.Server.PublicHelpers
 
         }
 
+        public void ClearConfig()
+        {
+            _logger?.Info($"Clearing configuration from file \"{Filename}\"");
+            _config.Clear();
+        }
+
         public void SaveFile()
         {
             _logger?.Info($"Writing configuration to file \"{Filename}\"");

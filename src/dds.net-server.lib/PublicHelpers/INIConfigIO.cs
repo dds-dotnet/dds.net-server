@@ -76,12 +76,17 @@ namespace DDS.Net.Server.PublicHelpers
 
         }
 
+        /// <summary>
+        /// Cleans loaded configuration values in-memory only. File is not updated unless saved.
+        /// </summary>
         public void ClearConfig()
         {
             _logger?.Info($"Clearing configuration from file \"{Filename}\"");
             _config.Clear();
         }
-
+        /// <summary>
+        /// Saves currently held configuration values in-memory to already specified file.
+        /// </summary>
         public void SaveFile()
         {
             _logger?.Info($"Writing configuration to file \"{Filename}\"");

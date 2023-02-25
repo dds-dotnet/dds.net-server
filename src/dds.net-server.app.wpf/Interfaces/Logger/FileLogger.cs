@@ -19,13 +19,13 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
                 _writer = File.AppendText(filename);
 
                 _writer.WriteLine($"=====================================================================");
-                _writer.WriteLine($"| DDS.Net Server");
-                _writer.WriteLine($"|---------------");
-                _writer.WriteLine($"|");
-                _writer.WriteLine($"| Starting log @");
-                _writer.WriteLine($"|     Local time: {DateTime.Now}");
-                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow}");
-                _writer.WriteLine($"|");
+                _writer.WriteLine($"| DDS.Net Server                                                    |");
+                _writer.WriteLine($"|-------------------------------------------------------------------|");
+                _writer.WriteLine($"|                                                                   |");
+                _writer.WriteLine($"| Starting log @                                                    |");
+                _writer.WriteLine($"|     Local time: {DateTime.Now,-35}               |");
+                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow,-35}               |");
+                _writer.WriteLine($"|                                                                   |");
                 _writer.WriteLine($"=====================================================================");
 
                 _writer.Flush();

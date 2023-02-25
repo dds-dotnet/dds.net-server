@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDS.Net.Server.Core.Internal.SimpleServer
+namespace DDS.Net.Server.Core.Internal.SimpleServer.Types
 {
     internal enum ServerStatus
     {

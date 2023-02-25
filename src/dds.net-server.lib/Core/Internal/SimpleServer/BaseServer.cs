@@ -1,4 +1,5 @@
 ﻿using DDS.Net.Server.Core.Internal.Extensions;
+using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;

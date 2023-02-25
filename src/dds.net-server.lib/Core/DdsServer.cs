@@ -1,4 +1,4 @@
-﻿using DDS.Net.Server.Core.Internal;
+﻿using DDS.Net.Server.Core.Internal.BasicServer;
 using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 

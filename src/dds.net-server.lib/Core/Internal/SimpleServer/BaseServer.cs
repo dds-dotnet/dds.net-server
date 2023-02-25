@@ -30,7 +30,6 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             // -------------
             // Validating the given IP address
             // ---------
-
             if (localAddressIPv4.IsEmpty() ||
                 localAddressIPv4.ContainsAnyIgnoringCase("any", "all"))
             {

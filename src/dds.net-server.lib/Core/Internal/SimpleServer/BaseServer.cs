@@ -34,8 +34,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             Regex spacesPattern = new Regex(@"\s*");
 
             if (string.IsNullOrEmpty(localAddressIPv4) ||
-                localAddressIPv4.ToLower().Contains("any") ||
-                localAddressIPv4.ToLower().Contains("all"))
+                localAddressIPv4.ToLower().ContainsAnyIgnoringCase("any", "all"))
             {
                 this.localAddressIPv4 = "0.0.0.0";
             }

@@ -45,9 +45,9 @@ namespace DDS.Net.Server.WpfApp.Interfaces.Logger
             if (_writer != null)
             {
                 _writer.WriteLine($"=====================================================================");
-                _writer.WriteLine($"| Stopping log @");
-                _writer.WriteLine($"|     Local time: {DateTime.Now}");
-                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow}");
+                _writer.WriteLine($"| Stopping log @                                                    |");
+                _writer.WriteLine($"|     Local time: {DateTime.Now,-35}               |");
+                _writer.WriteLine($"|     UTC time:   {DateTime.UtcNow,-35}               |");
                 _writer.WriteLine($"=====================================================================");
                 _writer.WriteLine($"");
                 _writer.WriteLine($"");

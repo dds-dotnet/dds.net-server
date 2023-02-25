@@ -68,8 +68,10 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                     try
                     {
-                        localSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                        localSocket.Blocking = false;
+                        localSocket = new(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)
+                        {
+                            Blocking = false
+                        };
                     }
                     catch (Exception e)
                     {
@@ -83,8 +85,10 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                     try
                     {
-                        localSocket = new(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                        localSocket.Blocking = false;
+                        localSocket = new(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)
+                        {
+                            Blocking = false
+                        };
                     }
                     catch (Exception e)
                     {

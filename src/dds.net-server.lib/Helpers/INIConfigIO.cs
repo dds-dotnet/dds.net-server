@@ -1,4 +1,4 @@
-﻿using DDS.Net.Server.Extensions;
+﻿using DDS.Net.Server.PublicExtensions;
 using DDS.Net.Server.Interfaces;
 using System.Text.RegularExpressions;
 
@@ -76,7 +76,7 @@ namespace DDS.Net.Server.Helpers
 
         }
 
-        private void SaveFile()
+        public void SaveFile()
         {
             _logger?.Info($"Writing configuration to file \"{Filename}\"");
 

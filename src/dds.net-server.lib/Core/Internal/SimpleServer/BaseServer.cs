@@ -130,5 +130,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
         public abstract void StartServer();
         public abstract void StopServer();
+
+        public abstract SimpleServerPacketSendingStatus SendPacket(SimpleServerPacket packet);
     }
 }

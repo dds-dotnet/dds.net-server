@@ -9,7 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace DDS.Net.Server.Core.Internal.BasicServer
+namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
     internal abstract class BaseServer
     {

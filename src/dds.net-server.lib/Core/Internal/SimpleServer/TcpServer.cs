@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DDS.Net.Server.Core.Internal.BasicServer
+namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal class UdpServer : BaseServer
+    internal class TcpServer : BaseServer
     {
-        public UdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+        public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, logger)
         {
         }

@@ -6,7 +6,7 @@ namespace DDS.Net.Server.PublicHelpers
     public static class ConfigurationProvider
     {
         /// <summary>
-        /// Reading ServerConfiguration from given .ini file.
+        /// Reading ServerConfiguration object from given .ini file.
         /// </summary>
         /// <param name="filename">.ini file containing configuration</param>
         /// <param name="logger">for logging and adding instance to returned configuration</param>

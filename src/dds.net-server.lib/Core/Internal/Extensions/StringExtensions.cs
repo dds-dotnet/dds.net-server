@@ -65,5 +65,38 @@ namespace DDS.Net.Server.Core.Internal.Extensions
                    text.Contains(text04, StringComparison.CurrentCultureIgnoreCase) ||
                    text.Contains(text05, StringComparison.CurrentCultureIgnoreCase);
         }
+
+        public static bool ContainsAnyIgnoringCase(this string text,
+            string text01,
+            string text02,
+            string text03,
+            string text04,
+            string text05,
+            params string[] textContd)
+        {
+            bool contains =
+                   text.Contains(text01, StringComparison.CurrentCultureIgnoreCase) ||
+                   text.Contains(text02, StringComparison.CurrentCultureIgnoreCase) ||
+                   text.Contains(text03, StringComparison.CurrentCultureIgnoreCase) ||
+                   text.Contains(text04, StringComparison.CurrentCultureIgnoreCase) ||
+                   text.Contains(text05, StringComparison.CurrentCultureIgnoreCase);
+
+            if (contains)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var item in textContd)
+                {
+                    if (text.Contains(item, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

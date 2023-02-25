@@ -15,6 +15,6 @@ UDP-MaxClients = 100
 ```
 
 ***INIConfigIO*** (inside *DDS.Net.Server.PublicHelpers* namespace) refers to the values as:
-* ***DDS Connections/Enabled***
-* ***DDS Connections/TCP-MaxClients***
+* *DDS Connections/Enabled*
+* *DDS Connections/TCP-MaxClients*
 * etc.

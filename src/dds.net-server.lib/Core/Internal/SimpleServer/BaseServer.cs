@@ -26,7 +26,12 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly int maxNumberOfClients;
         protected readonly ILogger logger;
 
-        protected BaseServer(string localAddressIPv4, ushort localPort, int maxNumberOfClients, SimpleServerType serverType, ILogger logger)
+        protected BaseServer(
+            string localAddressIPv4,
+            ushort localPort,
+            int maxNumberOfClients,
+            SimpleServerType serverType,
+            ILogger logger)
         {
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;

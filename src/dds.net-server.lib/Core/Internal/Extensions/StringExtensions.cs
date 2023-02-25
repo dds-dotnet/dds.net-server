@@ -2,7 +2,7 @@
 {
     internal static class StringExtensions
     {
-        public static bool IsContainingAnyIgnoringCase(this string text,
+        public static bool ContainsAnyIgnoringCase(this string text,
             string text01,
             string text02)
         {
@@ -10,7 +10,7 @@
                    text.Contains(text02, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static bool IsContainingAnyIgnoringCase(this string text,
+        public static bool ContainsAnyIgnoringCase(this string text,
             string text01,
             string text02,
             string text03)
@@ -20,7 +20,7 @@
                    text.Contains(text03, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static bool IsContainingAnyIgnoringCase(this string text,
+        public static bool ContainsAnyIgnoringCase(this string text,
             string text01,
             string text02,
             string text03,
@@ -32,7 +32,7 @@
                    text.Contains(text04, StringComparison.CurrentCultureIgnoreCase);
         }
 
-        public static bool IsContainingAnyIgnoringCase(this string text,
+        public static bool ContainsAnyIgnoringCase(this string text,
             string text01,
             string text02,
             string text03,

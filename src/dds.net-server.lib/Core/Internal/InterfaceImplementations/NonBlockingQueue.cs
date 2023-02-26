@@ -7,11 +7,25 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
     {
         public event EventHandler<T>? InputDataAvailable;
 
+        private readonly int _size;
+
         private T[] _queue;
+        private int _writeIndex;
+        private int _readIndex;
 
         public NonBlockingQueue(int queueSize)
         {
-            _queue = new T[queueSize];
+            if (queueSize <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(queueSize));
+            }
+
+            _size = queueSize;
+
+            _queue = new T[_size];
+
+            _writeIndex = 0;
+            _readIndex = 0;
         }
 
         public bool CanDequeueData()

@@ -2,7 +2,8 @@
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class NonBlockingQueue<T> : INonBlockingDataOutputQueueEnd<T>, INonBlockingDataInputQueueEnd<T>
+    internal class NonBlockingQueue<T>
+        : INonBlockingDataOutputQueueEnd<T>, INonBlockingDataInputQueueEnd<T>
     {
         public event EventHandler<T>? InputDataAvailable;
 

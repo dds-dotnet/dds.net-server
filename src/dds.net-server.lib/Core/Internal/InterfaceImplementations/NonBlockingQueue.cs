@@ -7,6 +7,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
     {
         public event EventHandler<T>? InputDataAvailable;
 
+        private T[] _queue;
+
+        public NonBlockingQueue(int queueSize)
+        {
+            _queue = new T[queueSize];
+        }
+
         public bool CanDequeueData()
         {
             throw new NotImplementedException();

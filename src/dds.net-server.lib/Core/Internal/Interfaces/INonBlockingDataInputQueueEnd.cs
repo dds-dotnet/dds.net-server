@@ -2,7 +2,7 @@
 {
     internal interface INonBlockingDataInputQueueEnd<T>
     {
-        event EventHandler<T> InputDataAvailable;
+        event EventHandler<T>? InputDataAvailable;
 
         bool CanDequeueData();
         T DequeueData();

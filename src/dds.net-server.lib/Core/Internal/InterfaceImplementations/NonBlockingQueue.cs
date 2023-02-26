@@ -3,9 +3,11 @@
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
     internal class NonBlockingQueue<T>
-        : INonBlockingDataOutputQueueEnd<T>, INonBlockingDataInputQueueEnd<T>
+        : INonBlockingDataOutputQueueEnd<T>, INonBlockingDataInputQueueEnd<T>, IDisposable
     {
         public event EventHandler<T>? InputDataAvailable;
+
+        private Mutex _mutex;
 
         private T[] _queue;
         private readonly int _size;
@@ -43,6 +45,11 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         }
 
         public void EnqueueData(T data)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }

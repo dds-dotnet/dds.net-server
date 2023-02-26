@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.Interfaces
 {
-    internal interface INonBlockingDataOutputQueue
+    internal interface INonBlockingDataOutputQueueEnd
     {
     }
 }

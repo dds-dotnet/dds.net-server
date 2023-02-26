@@ -9,6 +9,6 @@ namespace DDS.Net.Server.Core.Internal.Interfaces
 {
     internal interface IThreadedDataIO
     {
-        event EventHandler<ThreadedDataIOStatus> ThreadedDataIOStatusChanged;
+        event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
     }
 }

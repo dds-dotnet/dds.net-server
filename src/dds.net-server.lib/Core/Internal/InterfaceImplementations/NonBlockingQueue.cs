@@ -7,10 +7,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
     {
         public event EventHandler<T>? InputDataAvailable;
 
-        private readonly int _size;
-
         private T[] _queue;
-
+        private readonly int _size;
         private int _nextWriteIndex;
         private int _nextReadIndex;
 

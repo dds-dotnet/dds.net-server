@@ -26,7 +26,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     localSocket != null)
                 {
                     isClientListenerThreadRunning = true;
-                    clientListenerThread = new Thread(ClientListenerThreadFunction);
+                    clientListenerThread = new Thread(ClientListenerThread);
                     clientListenerThread.IsBackground = true;
                     clientListenerThread.Start();
                 }
@@ -50,7 +50,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             throw new NotImplementedException();
         }
 
-        private void ClientListenerThreadFunction()
+        private void ClientListenerThread()
         {
             bool bindingOk = false;
 

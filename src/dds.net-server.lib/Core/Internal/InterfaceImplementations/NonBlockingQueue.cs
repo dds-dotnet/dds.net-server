@@ -10,8 +10,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private readonly int _size;
 
         private T[] _queue;
-        private int _writeIndex;
-        private int _readIndex;
+
+        private int _nextWriteIndex;
+        private int _nextReadIndex;
 
         public NonBlockingQueue(int queueSize)
         {
@@ -24,8 +25,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             _queue = new T[_size];
 
-            _writeIndex = 0;
-            _readIndex = 0;
+            _nextWriteIndex = 0;
+            _nextReadIndex = 0;
         }
 
         public bool CanDequeueData()

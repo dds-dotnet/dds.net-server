@@ -5,6 +5,6 @@
         event EventHandler<T> InputDataAvailable;
 
         bool IsDataAvailable();
-        T GetData();
+        T DequeueData();
     }
 }

@@ -13,9 +13,9 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal abstract partial class BaseServer
+    internal abstract partial class SSBaseServer
     {
-        protected volatile SimpleServerStatus serverStatus = SimpleServerStatus.Stopped;
+        protected volatile SSStatus serverStatus = SSStatus.Stopped;
 
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
@@ -23,19 +23,19 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly IPEndPoint localEndPoint;
         protected readonly Socket? localSocket;
 
-        private readonly SimpleServerType serverType;
+        private readonly SSType serverType;
 
         protected readonly int maxNumberOfClients;
         protected readonly ILogger logger;
 
-        protected BaseServer(
+        protected SSBaseServer(
             string localAddressIPv4,
             ushort localPort,
             int maxNumberOfClients,
-            SimpleServerType serverType,
+            SSType serverType,
             ILogger logger)
         {
-            SetServerStatus(SimpleServerStatus.Stopped);
+            SetServerStatus(SSStatus.Stopped);
 
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;
@@ -74,7 +74,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             // ---------
             switch (this.serverType)
             {
-                case SimpleServerType.TCP:
+                case SSType.TCP:
 
                     try
                     {
@@ -91,7 +91,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                     break;
 
-                case SimpleServerType.UDP:
+                case SSType.UDP:
 
                     try
                     {
@@ -119,7 +119,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
         }
 
-        protected void SetServerStatus(SimpleServerStatus newStatus)
+        protected void SetServerStatus(SSStatus newStatus)
         {
             if (serverStatus != newStatus)
             {
@@ -131,6 +131,6 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         public abstract void StartServer();
         public abstract void StopServer();
 
-        public abstract SimpleServerPacketSendingStatus SendPacket(SimpleServerPacket packet);
+        public abstract SSPacketSendingStatus SendPacket(SSPacket packet);
     }
 }

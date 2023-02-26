@@ -18,8 +18,8 @@ namespace DDS.Net.Server
         private readonly ILogger _logger;
 
         private ServerStatus _status = ServerStatus.Stopped;
-        private BaseServer? _tcpServer;
-        private BaseServer? _udpServer;
+        private SSBaseServer? _tcpServer;
+        private SSBaseServer? _udpServer;
 
         public DdsServer(ServerConfiguration config)
         {
@@ -47,7 +47,7 @@ namespace DDS.Net.Server
                 {
                     try
                     {
-                        _tcpServer = new TcpServer(
+                        _tcpServer = new SSTcpServer(
                             _config.ListeningAddressIPv4,
                             _config.ListeningPortTCP,
                             _config.MaxClientsTCP,
@@ -66,7 +66,7 @@ namespace DDS.Net.Server
                 {
                     try
                     {
-                        _udpServer = new UdpServer(
+                        _udpServer = new SSUdpServer(
                             _config.ListeningAddressIPv4,
                             _config.ListeningPortUDP,
                             _config.MaxClientsUDP,

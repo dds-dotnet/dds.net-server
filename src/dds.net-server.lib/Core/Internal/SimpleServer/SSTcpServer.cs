@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal class TcpServer : BaseServer
+    internal class SSTcpServer : SSBaseServer
     {
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;
 
-        public TcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
-            : base(IPv4, port, maxClients, SimpleServerType.TCP, logger)
+        public SSTcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+            : base(IPv4, port, maxClients, SSType.TCP, logger)
         {
         }
 
@@ -46,7 +46,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
         }
 
-        public override SimpleServerPacketSendingStatus SendPacket(SimpleServerPacket packet)
+        public override SSPacketSendingStatus SendPacket(SSPacket packet)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +70,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
             if (bindingOk)
             {
-                SetServerStatus(SimpleServerStatus.Running);
+                SetServerStatus(SSStatus.Running);
 
                 while (isConnectionListenerThreadRunning)
                 {
@@ -81,7 +81,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             isConnectionListenerThreadRunning = false;
             connectionListenerThread = null;
 
-            SetServerStatus(SimpleServerStatus.Stopped);
+            SetServerStatus(SSStatus.Stopped);
         }
     }
 }

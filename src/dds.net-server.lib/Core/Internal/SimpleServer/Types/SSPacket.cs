@@ -2,12 +2,12 @@
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer.Types
 {
-    internal class SimpleServerPacket
+    internal class SSPacket
     {
         public IPEndPoint ClientInfo { get; }
         public byte[] PacketData { get; }
 
-        public SimpleServerPacket(IPEndPoint from, byte[] data)
+        public SSPacket(IPEndPoint from, byte[] data)
         {
             ClientInfo = from;
             PacketData = data;

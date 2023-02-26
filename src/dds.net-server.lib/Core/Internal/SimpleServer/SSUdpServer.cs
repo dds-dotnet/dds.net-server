@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal class UdpServer : BaseServer
+    internal class SSUdpServer : SSBaseServer
     {
         private volatile bool isClientListenerThreadRunning = false;
         private Thread? clientListenerThread = null;
 
-        public UdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
-            : base(IPv4, port, maxClients, SimpleServerType.UDP, logger)
+        public SSUdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+            : base(IPv4, port, maxClients, SSType.UDP, logger)
         {
         }
 
@@ -45,7 +45,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
         }
 
-        public override SimpleServerPacketSendingStatus SendPacket(SimpleServerPacket packet)
+        public override SSPacketSendingStatus SendPacket(SSPacket packet)
         {
             throw new NotImplementedException();
         }
@@ -69,7 +69,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
             if (bindingOk)
             {
-                SetServerStatus(SimpleServerStatus.Running);
+                SetServerStatus(SSStatus.Running);
 
                 while (isClientListenerThreadRunning)
                 {
@@ -80,7 +80,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             isClientListenerThreadRunning = false;
             clientListenerThread = null;
 
-            SetServerStatus(SimpleServerStatus.Stopped);
+            SetServerStatus(SSStatus.Stopped);
         }
     }
 }

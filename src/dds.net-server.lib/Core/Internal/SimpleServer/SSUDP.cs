@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal class SSUdpServer : SSBaseServer
+    internal class SSUDP : SSBase
     {
         private volatile bool isClientListenerThreadRunning = false;
         private Thread? clientListenerThread = null;
 
-        public SSUdpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+        public SSUDP(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, SSType.UDP, logger)
         {
         }

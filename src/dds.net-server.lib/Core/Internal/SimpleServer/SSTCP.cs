@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal class SSTcpServer : SSBaseServer
+    internal class SSTCP : SSBase
     {
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;
 
-        public SSTcpServer(string IPv4, ushort port, int maxClients, ILogger logger)
+        public SSTCP(string IPv4, ushort port, int maxClients, ILogger logger)
             : base(IPv4, port, maxClients, SSType.TCP, logger)
         {
         }

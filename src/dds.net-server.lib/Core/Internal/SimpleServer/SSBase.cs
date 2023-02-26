@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
-    internal abstract partial class SSBaseServer
+    internal abstract partial class SSBase
     {
         protected volatile SSStatus serverStatus = SSStatus.Stopped;
 
@@ -28,7 +28,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly int maxNumberOfClients;
         protected readonly ILogger logger;
 
-        protected SSBaseServer(
+        protected SSBase(
             string localAddressIPv4,
             ushort localPort,
             int maxNumberOfClients,

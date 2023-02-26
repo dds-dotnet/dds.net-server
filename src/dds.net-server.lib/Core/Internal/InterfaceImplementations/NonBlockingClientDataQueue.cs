@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class NonBlockingDataQueue : INonBlockingDataOutputQueueEnd, INonBlockingDataInputQueueEnd
+    internal class NonBlockingClientDataQueue : INonBlockingDataOutputQueueEnd, INonBlockingDataInputQueueEnd
     {
     }
 }

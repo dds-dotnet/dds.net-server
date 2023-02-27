@@ -8,8 +8,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
     {
         public event EventHandler<T>? InputDataAvailable;
 
-        private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 10;
-        private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED = 10;
+        private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 5;
+        private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED = 5;
 
         private Mutex _mutex;
 

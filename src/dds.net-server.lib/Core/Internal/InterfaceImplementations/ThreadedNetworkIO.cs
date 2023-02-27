@@ -221,8 +221,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 thread = null!;
             }
 
-            _tcpServer = null;
-            _udpServer = null;
+            _tcpServer = null!;
+            _udpServer = null!;
         }
 
         private void UpdateStatus(ThreadedDataIOStatus newStatus)

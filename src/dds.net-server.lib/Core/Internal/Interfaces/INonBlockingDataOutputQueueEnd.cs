@@ -2,7 +2,7 @@
 {
     internal interface INonBlockingDataOutputQueueEnd<T>
     {
-        bool CanEnqueueData();
-        void EnqueueData(T data);
+        bool CanEnqueue();
+        void Enqueue(T data);
     }
 }

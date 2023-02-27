@@ -37,7 +37,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             _mutex = new Mutex(false);
         }
 
-        public bool CanDequeueData()
+        public bool CanDequeue()
         {
             lock (_mutex)
             {
@@ -48,7 +48,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
         }
 
-        public bool CanEnqueueData()
+        public bool CanEnqueue()
         {
             lock (_mutex)
             {
@@ -59,9 +59,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
         }
 
-        public T DequeueData()
+        public T Dequeue()
         {
-            while (!CanDequeueData()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
+            while (!CanDequeue()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
 
             lock (_mutex)
             {
@@ -76,11 +76,11 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
         }
 
-        public void EnqueueData(T data)
+        public void Enqueue(T data)
         {
             if (data == null) return;
 
-            while (!CanEnqueueData()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
+            while (!CanEnqueue()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
 
             lock (_mutex)
             {

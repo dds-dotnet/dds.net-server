@@ -4,7 +4,7 @@
     {
         event EventHandler<T>? InputDataAvailable;
 
-        bool CanDequeueData();
-        T DequeueData();
+        bool CanDequeue();
+        T Dequeue();
     }
 }

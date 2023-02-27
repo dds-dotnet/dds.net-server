@@ -7,9 +7,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer.Types
         public IPEndPoint ClientInfo { get; }
         public byte[] PacketData { get; }
 
-        public SSPacket(IPEndPoint from, byte[] data)
+        public SSPacket(IPEndPoint client, byte[] data)
         {
-            ClientInfo = from;
+            ClientInfo = client;
             PacketData = data;
         }
     }

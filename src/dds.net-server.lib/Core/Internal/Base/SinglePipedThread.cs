@@ -17,11 +17,11 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Commands : struct
         where T_Responses : struct
     {
-        public ISyncDataInputQueueEnd<T_Input> QueuedInput { get; private set; }
-        public ISyncDataOutputQueueEnd<T_Output> QueuedOutput { get; private set; }
+        public ISyncDataInputQueueEnd<T_Input> Input { get; private set; }
+        public ISyncDataOutputQueueEnd<T_Output> Output { get; private set; }
 
-        protected readonly SyncQueue<T_Input> dataInputQueue;
-        protected readonly SyncQueue<T_Output> dataOutputQueue;
+        protected readonly SyncQueue<T_Input> inputQueue;
+        protected readonly SyncQueue<T_Output> outputQueue;
 
 
         protected SinglePipedThread(
@@ -32,11 +32,11 @@ namespace DDS.Net.Server.Core.Internal.Base
 
             : base(commandsQueueSize, responsesQueueSize)
         {
-            dataInputQueue = new SyncQueue<T_Input>(inputQueueSize);
-            dataOutputQueue = new SyncQueue<T_Output>(outputQueueSize);
+            inputQueue = new SyncQueue<T_Input>(inputQueueSize);
+            outputQueue = new SyncQueue<T_Output>(outputQueueSize);
 
-            QueuedInput = dataInputQueue;
-            QueuedOutput = dataOutputQueue;
+            Input = inputQueue;
+            Output = outputQueue;
 
         }
     }

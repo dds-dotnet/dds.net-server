@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class PipedThread<T_Input, T_Output, T_Commands, T_Responses>
+    internal abstract class SinglePipedThread<T_Input, T_Output, T_Commands, T_Responses>
         : IDisposable
         where T_Input : class
         where T_Output : class

@@ -80,7 +80,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
             else
             {
-                localEndPoint = new IPEndPoint(IPAddress.Parse(localAddressIPv4), localPort);
+                localEndPoint = new IPEndPoint(IPAddress.Parse(this.localAddressIPv4), localPort);
             }
 
             // -------------

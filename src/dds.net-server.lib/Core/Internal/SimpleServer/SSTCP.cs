@@ -13,7 +13,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
     internal class SSTCP : SSBase
     {
         private volatile bool isConnectionListenerThreadRunning = false;
-        private Thread? connectionListenerThread = null;
+        private volatile bool isDataReceiverThreadRunning = false;
+        private Thread connectionListenerThread = null!;
+        private Thread dataReceiverThread = null!;
 
         private List<Socket> connectedClients;
 

@@ -12,14 +12,13 @@ namespace DDS.Net.Server.Entities
 
         public bool EnableUDP { get; }
         public ushort ListeningPortUDP { get; }
-        public int MaxClientsUDP { get; }
 
         public ILogger Logger { get; }
 
         public ServerConfiguration(
             string listeningIPv4Address,
             bool enableTCP, ushort tcpPort, int tcpMaxClients,
-            bool enableUDP, ushort udpPort, int udpMaxClients,
+            bool enableUDP, ushort udpPort,
             ILogger logger)
         {
             ListeningAddressIPv4 = listeningIPv4Address;
@@ -30,7 +29,6 @@ namespace DDS.Net.Server.Entities
 
             EnableUDP = enableUDP;
             ListeningPortUDP = udpPort;
-            MaxClientsUDP = udpMaxClients;
 
             Logger = logger;
         }

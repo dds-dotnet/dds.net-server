@@ -1,4 +1,8 @@
-﻿using DDS.Net.Server.Core.Internal.SimpleServer;
+﻿using DDS.Net.Server.Core.Internal;
+using DDS.Net.Server.Core.Internal.Entities;
+using DDS.Net.Server.Core.Internal.InterfaceImplementations;
+using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 
@@ -18,21 +22,27 @@ namespace DDS.Net.Server
         private readonly ILogger _logger;
 
         private ServerStatus _status = ServerStatus.Stopped;
-        private SSBase? _tcpServer;
-        private SSBase? _udpServer;
+
+        private SyncQueue<DataFromClient> _networkClientsInputQueue;
+        private SyncQueue<DataToClient> _networkClientsOutputQueue;
+
+        private ThreadedNetworkIO? _networkIO;
 
         public DdsServer(ServerConfiguration config)
         {
             if (config == null) throw new ArgumentNullException(nameof(config));
 
             _config = config;
-            _tcpServer = null;
-            _udpServer = null;
 
             if (_config.Logger != null)
                 _logger = _config.Logger;
             else
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
+
+            _networkClientsInputQueue = new SyncQueue<DataFromClient>(InternalSettings.NETWORK_CLIENTS_INPUT_QUEUE_SIZE);
+            _networkClientsOutputQueue = new SyncQueue<DataToClient>(InternalSettings.NETWORK_CLIENTS_OUTPUT_QUEUE_SIZE);
+
+            _networkIO = null;
         }
 
         public void Start()
@@ -43,49 +53,33 @@ namespace DDS.Net.Server
 
                 PrintLogStarting();
 
-                if (_tcpServer == null && _config.EnableTCP)
+                if (_networkIO == null &&
+                    (_config.EnableTCP || _config.EnableUDP))
                 {
                     try
                     {
-                        _tcpServer = new SSTCP(
-                            _config.ListeningAddressIPv4,
-                            _config.ListeningPortTCP,
-                            _config.MaxClientsTCP,
-                            _logger);
+                        _networkIO = new ThreadedNetworkIO(
+                            _networkClientsOutputQueue,
+                            _networkClientsInputQueue,
 
-                        _tcpServer.StartServer();
+                            _logger,
+
+                            _config.ListeningAddressIPv4,
+
+                            _config.EnableTCP, _config.ListeningPortTCP, _config.MaxClientsTCP,
+                            _config.EnableUDP, _config.ListeningPortUDP, _config.MaxClientsUDP);
+
+                        _networkIO.ThreadedDataIOStatusChanged += OnNetworkIOStatusChanged;
+                        _networkIO.StartIO();
                     }
                     catch (Exception ex)
                     {
-                        _tcpServer = null;
-                        _logger.Error($"Cannot start TCP Server: {ex.Message}");
+                        _networkIO = null;
+                        _logger.Error($"Cannot start NetworkIO: {ex.Message}");
                     }
                 }
 
-                if (_udpServer == null && _config.EnableUDP)
-                {
-                    try
-                    {
-                        _udpServer = new SSUDP(
-                            _config.ListeningAddressIPv4,
-                            _config.ListeningPortUDP,
-                            _config.MaxClientsUDP,
-                            _logger);
-
-                        _udpServer.StartServer();
-                    }
-                    catch (Exception ex)
-                    {
-                        _udpServer = null;
-                        _logger.Error($"Cannot start UDP Server: {ex.Message}");
-                    }
-                }
-
-                if (_tcpServer != null || _udpServer != null)
-                {
-                    SetServerStatus(ServerStatus.Started);
-                }
-                else
+                if (_networkIO == null)
                 {
                     SetServerStatus(ServerStatus.Stopped);
                 }
@@ -93,6 +87,32 @@ namespace DDS.Net.Server
             else
             {
                 _logger.Warning("Cannot start server when it is not fully stopped");
+            }
+        }
+
+        private void OnNetworkIOStatusChanged(object? sender, ThreadedDataIOStatus e)
+        {
+            switch (e)
+            {
+                case ThreadedDataIOStatus.Stopped:
+                    SetServerStatus(ServerStatus.Stopped);
+                    _networkIO = null;
+                    break;
+
+                case ThreadedDataIOStatus.Starting:
+                    SetServerStatus(ServerStatus.Starting);
+                    break;
+
+                case ThreadedDataIOStatus.Started:
+                    SetServerStatus(ServerStatus.Started);
+                    break;
+
+                case ThreadedDataIOStatus.Stopping:
+                    SetServerStatus(ServerStatus.Stopping);
+                    break;
+
+                case ThreadedDataIOStatus.Paused:
+                    break;
             }
         }
 
@@ -104,32 +124,18 @@ namespace DDS.Net.Server
 
                 PrintLogStopping();
 
-                if (_tcpServer != null)
+                if (_networkIO != null)
                 {
                     try
                     {
-                        _tcpServer.StopServer();
+                        _networkIO.StopIO();
                     }
                     catch (Exception ex)
                     {
-                        _logger.Error($"TCP Server threw error on stopping: {ex.Message}");
+                        _logger.Error($"NetworkIO reported error on stopping: {ex.Message}");
                     }
 
-                    _tcpServer = null;
-                }
-
-                if (_udpServer != null)
-                {
-                    try
-                    {
-                        _udpServer.StopServer();
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Error($"UDP Server threw error on stopping: {ex.Message}");
-                    }
-
-                    _udpServer = null;
+                    _networkIO = null;
                 }
 
                 SetServerStatus(ServerStatus.Stopped);

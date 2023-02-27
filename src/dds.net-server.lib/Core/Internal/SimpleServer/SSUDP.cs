@@ -81,6 +81,11 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             {
                 SetServerStatus(SSStatus.Running);
 
+                if (isClientListenerThreadRunning)
+                {
+                    logger.Info($"SSUDP server running @{localEndPoint}");
+                }
+
                 while (isClientListenerThreadRunning)
                 {
 

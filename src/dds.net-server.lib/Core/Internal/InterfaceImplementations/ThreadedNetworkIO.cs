@@ -117,9 +117,20 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private void ThreadFunction()
         {
-            while (isThreadRunning)
+            UpdateStatus(ThreadedDataIOStatus.Starting);
+
+            if (true)
             {
-                Thread.Yield();
+                while (isThreadRunning)
+                {
+                    Thread.Yield();
+                }
+            }
+            else
+            {
+                logger.Error("Unable to start network I/O");
+                UpdateStatus(ThreadedDataIOStatus.Stopped);
+                thread = null!;
             }
         }
 

@@ -216,7 +216,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                         //- Data from TCP Server
                         while (_tcpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
                         {
-
+                            SSPacket packet = _tcpInputQueue.Dequeue();
+                            outputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
                         }
 
                         //- Data to TCP Server
@@ -231,7 +232,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                         //- Data from UDP Server
                         while (_udpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
                         {
-
+                            SSPacket packet = _udpInputQueue.Dequeue();
+                            outputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
                         }
 
                         //- Data to UDP Server

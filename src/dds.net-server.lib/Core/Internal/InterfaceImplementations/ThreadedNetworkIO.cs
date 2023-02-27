@@ -55,8 +55,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpPort = udpPort;
             this.udpMaxClients = udpMaxClients;
 
-            this.thread = new Thread(ThreadFunction);
-            this.thread.Start();
+            this.thread = null!;
         }
 
         private void ThreadFunction()

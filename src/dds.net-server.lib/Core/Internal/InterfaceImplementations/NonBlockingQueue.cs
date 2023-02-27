@@ -26,6 +26,11 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             _queue = new T[queueSize];
 
+            for (int i = 0; i < queueSize; i++)
+            {
+                _queue[i] = null!;
+            }
+
             _nextWriteIndex = 0;
             _nextReadIndex = 0;
 

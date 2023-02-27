@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DDS.Net.Server.Core.Internal.Base
+﻿namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal class PipedThreadBase
+    internal abstract class PipedThreadBase
     {
+        protected PipedThreadBase()
+        {
+        }
+
+        protected abstract void ProcessingLoop();
     }
 }

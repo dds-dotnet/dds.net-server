@@ -1,4 +1,5 @@
-﻿using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+﻿using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,14 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         private volatile bool isClientListenerThreadRunning = false;
         private Thread? clientListenerThread = null;
 
-        public SSUDP(string IPv4, ushort port, int maxClients, ILogger logger)
-            : base(IPv4, port, maxClients, SSType.UDP, logger)
+        public SSUDP(
+            ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
+            ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
+            
+            string IPv4, ushort port, int maxClients, ILogger logger)
+
+            : base(dataInputQueue, dataOutputQueue,
+                   IPv4, port, maxClients, SSType.UDP, logger)
         {
         }
 

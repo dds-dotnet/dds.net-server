@@ -4,6 +4,8 @@ using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -98,7 +100,14 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                         if (dataAvailable > 0)
                         {
+                            byte[] data = new byte[dataAvailable];
 
+                            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                            EndPoint senderRemote = (EndPoint)sender;
+
+                            localSocket.ReceiveFrom(data, SocketFlags.None, ref senderRemote);
+
+                            dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)senderRemote, data));
                         }
                         else
                         {
@@ -117,6 +126,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                         
                         localSocket.SendTo(outData.PacketData, outData.ClientInfo);
                     }
+
+                    Thread.Yield();
                 }
 
                 logger.Info($"SSUDP server @{localEndPoint} exited");

@@ -52,11 +52,6 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             }
         }
 
-        public override SSPacketSendingStatus SendPacket(SSPacket packet)
-        {
-            throw new NotImplementedException();
-        }
-
         private void ClientListenerThread()
         {
             bool bindingOk = false;

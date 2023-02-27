@@ -18,10 +18,10 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
             ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
             
-            string IPv4, ushort port, int maxClients, ILogger logger)
+            string IPv4, ushort port, ILogger logger)
 
             : base(dataInputQueue, dataOutputQueue,
-                   IPv4, port, maxClients, SSType.UDP, logger)
+                   IPv4, port, 100, SSType.UDP, logger)
         {
         }
 

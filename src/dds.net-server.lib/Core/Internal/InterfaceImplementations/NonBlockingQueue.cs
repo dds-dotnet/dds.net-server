@@ -61,6 +61,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             lock (_mutex)
             {
                 T data = _queue[_nextReadIndex];
+                _queue[_nextReadIndex] = null;
 
                 _nextReadIndex++;
                 if (_nextReadIndex == _queue.Length)

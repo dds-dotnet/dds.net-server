@@ -83,7 +83,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                 while (isClientListenerThreadRunning)
                 {
+                    //- 
                     //- Reading from socket and enqueuing received data packet
+                    //- 
 
                     while (true)
                     {
@@ -105,7 +107,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
 
 
+                    //- 
                     //- Reading data from input queue and sending out through socket
+                    //- 
 
                     while (dataInputQueue.CanDequeue())
                     {

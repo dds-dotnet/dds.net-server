@@ -91,6 +91,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                 {
 
                 }
+
+                logger.Info($"SSTCP server @{localEndPoint} exited");
             }
 
             isConnectionListenerThreadRunning = false;

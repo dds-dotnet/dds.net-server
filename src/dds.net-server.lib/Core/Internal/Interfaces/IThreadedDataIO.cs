@@ -2,14 +2,14 @@
 
 namespace DDS.Net.Server.Core.Internal.Interfaces
 {
-    internal interface IThreadedDataIO
+    internal interface IThreadedDataIO<T_InputQueue, T_OutputQueue>
     {
         event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
-        void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd outputQueueEnd);
-        void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd inputQueueEnd);
+        void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd<T_OutputQueue> outputQueueEnd);
+        void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd<T_InputQueue> inputQueueEnd);
 
-        INonBlockingDataOutputQueueEnd GetOutputDataQueueEnd();
-        INonBlockingDataInputQueueEnd GetInputDataQueueEnd();
+        INonBlockingDataOutputQueueEnd<T_OutputQueue> GetOutputDataQueueEnd();
+        INonBlockingDataInputQueueEnd<T_InputQueue> GetInputDataQueueEnd();
     }
 }

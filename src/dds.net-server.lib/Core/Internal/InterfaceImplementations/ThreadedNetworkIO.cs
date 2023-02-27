@@ -26,6 +26,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private readonly ushort udpPort;
         private readonly int udpMaxClients;
 
+        private ThreadedDataIOStatus threadedDataIOStatus;
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
         private volatile bool isThreadRunning;
@@ -41,6 +42,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             bool tcpEnable, ushort tcpPort, int tcpMaxClients,
             bool udpEnable, ushort udpPort, int udpMaxClients)
         {
+            this.threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
+
             this.inputQueue = inputQueue ?? throw new ArgumentNullException(nameof(inputQueue));
             this.outputQueue = outputQueue ?? throw new ArgumentNullException(nameof(outputQueue));
 

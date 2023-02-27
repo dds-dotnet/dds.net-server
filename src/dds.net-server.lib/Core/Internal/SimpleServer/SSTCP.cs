@@ -147,7 +147,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         {
             while (isDataReceiverThreadRunning)
             {
-
+                Thread.Yield();
             }
         }
     }

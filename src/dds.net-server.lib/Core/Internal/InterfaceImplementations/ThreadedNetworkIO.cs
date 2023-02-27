@@ -38,12 +38,12 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             bool tcpEnable, ushort tcpPort, int tcpMaxClients,
             bool udpEnable, ushort udpPort, int udpMaxClients)
         {
-            this.inputQueue = inputQueue;
-            this.outputQueue = outputQueue;
+            this.inputQueue = inputQueue ?? throw new ArgumentNullException(nameof(inputQueue));
+            this.outputQueue = outputQueue ?? throw new ArgumentNullException(nameof(outputQueue));
 
-            this.logger = logger;
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
-            this.listeningIPv4Address = listeningIPv4Address;
+            this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
 
             this.tcpEnable = tcpEnable;
             this.tcpPort = tcpPort;

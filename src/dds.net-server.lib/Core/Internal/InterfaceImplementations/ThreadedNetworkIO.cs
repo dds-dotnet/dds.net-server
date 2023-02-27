@@ -1,6 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal.Entities;
 using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Core.Internal.SimpleServer;
+using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,14 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpPort = udpPort;
             this.udpMaxClients = udpMaxClients;
 
+            this._tcpInputQueue = null!;
+            this._udpInputQueue = null!;
+            this._tcpOutputQueue = null!;
+            this._udpOutputQueue = null!;
+
+            this._tcpServer = null!;
+            this._udpServer = null!;
+
             this.isThreadRunning = false;
             this.thread = null!;
         }
@@ -116,16 +125,27 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
         }
 
-        private SSBase? _tcpServer;
-        private SSBase? _udpServer;
+        private SyncQueue<SSPacket> _tcpInputQueue;
+        private SyncQueue<SSPacket> _udpInputQueue;
+        
+        private SyncQueue<SSPacket> _tcpOutputQueue;
+        private SyncQueue<SSPacket> _udpOutputQueue;
+
+        private SSBase _tcpServer;
+        private SSBase _udpServer;
 
         private void StartServers()
         {
             if (_tcpServer == null && tcpEnable)
             {
+                _tcpInputQueue = new SyncQueue<SSPacket>(InternalSettings.TCP_DATA_FROM_CLIENTS_QUEUE_SIZE);
+                _tcpOutputQueue = new SyncQueue<SSPacket>(InternalSettings.TCP_DATA_TO_CLIENTS_QUEUE_SIZE);
+
                 try
                 {
                     _tcpServer = new SSTCP(
+                        _tcpOutputQueue,
+                        _tcpInputQueue,
                         listeningIPv4Address,
                         tcpPort,
                         tcpMaxClients,
@@ -135,16 +155,28 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 }
                 catch (Exception ex)
                 {
-                    _tcpServer = null;
+                    _tcpServer = null!;
+
+                    _tcpInputQueue.Dispose();
+                    _tcpOutputQueue.Dispose();
+
+                    _tcpInputQueue = null!;
+                    _tcpOutputQueue = null!;
+
                     logger.Error($"Cannot start TCP Server: {ex.Message}");
                 }
             }
 
             if (_udpServer == null && udpEnable)
             {
+                _udpInputQueue = new SyncQueue<SSPacket>(InternalSettings.UDP_DATA_FROM_CLIENTS_QUEUE_SIZE);
+                _udpOutputQueue = new SyncQueue<SSPacket>(InternalSettings.UDP_DATA_TO_CLIENTS_QUEUE_SIZE);
+
                 try
                 {
                     _udpServer = new SSUDP(
+                        _udpOutputQueue,
+                        _udpInputQueue,
                         listeningIPv4Address,
                         udpPort,
                         udpMaxClients,
@@ -154,7 +186,14 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 }
                 catch (Exception ex)
                 {
-                    _udpServer = null;
+                    _udpServer = null!;
+
+                    _udpInputQueue.Dispose();
+                    _udpOutputQueue.Dispose();
+
+                    _udpInputQueue = null!;
+                    _udpOutputQueue = null!;
+
                     logger.Error($"Cannot start UDP Server: {ex.Message}");
                 }
             }

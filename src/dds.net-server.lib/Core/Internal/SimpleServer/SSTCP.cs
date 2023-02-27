@@ -118,6 +118,10 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                             }
                         }
                     }
+                    catch(SocketException)
+                    {
+                        // Doing nothing as we are in non-blocking mode
+                    }
                     catch(Exception ex)
                     {
                         logger.Error($"SSTCP socket accepting failed: {ex.Message}");

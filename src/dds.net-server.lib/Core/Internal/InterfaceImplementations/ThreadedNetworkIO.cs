@@ -22,7 +22,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private readonly bool udpEnable;
         private readonly ushort udpPort;
-        private readonly int udpMaxClients;
 
         private ThreadedDataIOStatus threadedDataIOStatus;
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
@@ -38,7 +37,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             string listeningIPv4Address,
             bool tcpEnable, ushort tcpPort, int tcpMaxClients,
-            bool udpEnable, ushort udpPort, int udpMaxClients)
+            bool udpEnable, ushort udpPort)
         {
             this.threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
 
@@ -55,7 +54,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             this.udpEnable = udpEnable;
             this.udpPort = udpPort;
-            this.udpMaxClients = udpMaxClients;
 
             this._tcpInputQueue = null!;
             this._udpInputQueue = null!;

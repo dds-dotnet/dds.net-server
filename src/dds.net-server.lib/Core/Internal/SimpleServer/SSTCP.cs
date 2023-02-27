@@ -1,4 +1,5 @@
-﻿using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+﻿using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,14 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;
 
-        public SSTCP(string IPv4, ushort port, int maxClients, ILogger logger)
-            : base(IPv4, port, maxClients, SSType.TCP, logger)
+        public SSTCP(
+            ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
+            ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
+            
+            string IPv4, ushort port, int maxClients, ILogger logger)
+
+            : base(dataInputQueue, dataOutputQueue,
+                   IPv4, port, maxClients, SSType.TCP, logger)
         {
         }
 

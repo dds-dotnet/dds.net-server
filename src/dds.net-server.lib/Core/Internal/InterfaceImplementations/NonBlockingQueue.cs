@@ -47,7 +47,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public bool CanEnqueueData()
         {
-            throw new NotImplementedException();
+            lock (_mutex)
+            {
+                if (_queue[_nextWriteIndex] != null)
+                    return true;
+
+                return false;
+            }
         }
 
         public T DequeueData()

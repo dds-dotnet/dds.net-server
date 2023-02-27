@@ -26,7 +26,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly ushort localPort;
 
         protected readonly IPEndPoint localEndPoint;
-        protected readonly Socket? localSocket;
+        protected readonly Socket localSocket;
 
         private readonly SSType serverType;
 
@@ -55,6 +55,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             this.serverType = serverType;
 
             this.logger = logger;
+
+            this.localSocket = null!;
 
             // -------------
             // Validating the given IP address
@@ -98,7 +100,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
                     catch (Exception e)
                     {
-                        localSocket = null;
+                        localSocket = null!;
                         logger.Error($"TCP Socket creation error: {e.Message}");
                     }
 
@@ -115,7 +117,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
                     catch (Exception e)
                     {
-                        localSocket = null;
+                        localSocket = null!;
                         logger.Error($"UDP Socket creation error: {e.Message}");
                     }
 

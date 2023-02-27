@@ -6,6 +6,7 @@ using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -223,7 +224,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                         //- Data to TCP Server
                         while (inputQueue.CanDequeue() && _tcpOutputQueue.CanEnqueue())
                         {
-
+                            DataToClient packet = inputQueue.Dequeue();
+                            IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("TCP:", ""));
+                            _tcpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
                         }
                     }
 
@@ -239,7 +242,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                         //- Data to UDP Server
                         while (inputQueue.CanDequeue() && _udpOutputQueue.CanEnqueue())
                         {
-
+                            DataToClient packet = inputQueue.Dequeue();
+                            IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("UDP:", ""));
+                            _udpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
                         }
                     }
 

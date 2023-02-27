@@ -56,22 +56,22 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public INonBlockingDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()
         {
-            throw new NotImplementedException();
+            return inputQueue;
         }
 
         public INonBlockingDataOutputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
         {
-            throw new NotImplementedException();
+            return outputQueue;
         }
 
         public void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd<DataToClient> inputQueueEnd)
         {
-            throw new NotImplementedException();
+            throw new Exception("The input queue cannot be updated once initialized through constructor");
         }
 
         public void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd<DataFromClient> outputQueueEnd)
         {
-            throw new NotImplementedException();
+            throw new Exception("The output queue cannot be updated once initialized through constructor");
         }
     }
 }

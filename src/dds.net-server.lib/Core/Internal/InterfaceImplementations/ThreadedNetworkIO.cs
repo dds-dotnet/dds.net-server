@@ -114,7 +114,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private void ThreadFunction()
         {
-            throw new NotImplementedException();
+            while (isThreadRunning)
+            {
+                Thread.Yield();
+            }
         }
     }
 }

@@ -2,7 +2,9 @@
 {
     internal interface ISyncDataOutputQueueEnd<T>
     {
-        bool CanEnqueue();
-        void Enqueue(T data);
+        event EventHandler<T>? DataAvailableForOutput;
+
+        bool CanDequeue();
+        T Dequeue();
     }
 }

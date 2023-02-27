@@ -9,8 +9,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
     internal class ThreadedNetworkIO : IThreadedDataIO<DataToClient, DataFromClient>
     {
-        private readonly ISyncDataInputQueueEnd<DataToClient> inputQueue;
-        private readonly ISyncDataOutputQueueEnd<DataFromClient> outputQueue;
+        private readonly ISyncDataOutputQueueEnd<DataToClient> inputQueue;
+        private readonly ISyncDataInputQueueEnd<DataFromClient> outputQueue;
 
         private readonly ILogger logger;
 
@@ -30,8 +30,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private Thread thread;
 
         public ThreadedNetworkIO(
-            ISyncDataInputQueueEnd<DataToClient> inputQueue,
-            ISyncDataOutputQueueEnd<DataFromClient> outputQueue,
+            ISyncDataOutputQueueEnd<DataToClient> inputQueue,
+            ISyncDataInputQueueEnd<DataFromClient> outputQueue,
 
             ILogger logger,
 
@@ -67,22 +67,22 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.thread = null!;
         }
 
-        public ISyncDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()
+        public ISyncDataOutputQueueEnd<DataToClient> GetInputDataQueueEnd()
         {
             return inputQueue;
         }
 
-        public ISyncDataOutputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
+        public ISyncDataInputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
         {
             return outputQueue;
         }
 
-        public void SetInputDataQueueEnd(ISyncDataInputQueueEnd<DataToClient> inputQueueEnd)
+        public void SetInputDataQueueEnd(ISyncDataOutputQueueEnd<DataToClient> inputQueueEnd)
         {
             throw new Exception("The input queue cannot be updated once initialized through constructor");
         }
 
-        public void SetOutputDataQueueEnd(ISyncDataOutputQueueEnd<DataFromClient> outputQueueEnd)
+        public void SetOutputDataQueueEnd(ISyncDataInputQueueEnd<DataFromClient> outputQueueEnd)
         {
             throw new Exception("The output queue cannot be updated once initialized through constructor");
         }

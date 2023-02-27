@@ -2,9 +2,7 @@
 {
     internal interface ISyncDataInputQueueEnd<T>
     {
-        event EventHandler<T>? InputDataAvailable;
-
-        bool CanDequeue();
-        T Dequeue();
+        bool CanEnqueue();
+        void Enqueue(T data);
     }
 }

@@ -28,7 +28,6 @@ namespace DDS.Net.Server.PublicHelpers
 
                     enableUDP: _confReader.GetString("DDS Connections/UDP-Enabled").ContainsAnyIgnoringCase("true", "yes"),
                     udpPort: (ushort)_confReader.GetInteger("DDS Connections/UDP-ListeningPort"),
-                    udpMaxClients: _confReader.GetInteger("DDS Connections/UDP-MaxClients"),
 
                     logger: logger
 

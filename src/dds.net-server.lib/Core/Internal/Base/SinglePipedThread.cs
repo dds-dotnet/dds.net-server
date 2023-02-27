@@ -16,6 +16,9 @@ namespace DDS.Net.Server.Core.Internal.Base
         public ISyncDataInputQueueEnd<T_Input> QueuedInput { get; private set; }
         public ISyncDataOutputQueueEnd<T_Output> QueuedOutput { get; private set; }
 
+        public ISyncDataInputQueueEnd<T_Commands> QueuedCommands { get; private set; }
+        public ISyncDataOutputQueueEnd<T_Responses> QueuedResponses { get; private set; }
+
         public void Dispose()
         {
         }

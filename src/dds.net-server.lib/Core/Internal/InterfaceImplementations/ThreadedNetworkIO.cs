@@ -89,7 +89,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                     isThreadRunning = true;
 
                     thread = new Thread(ThreadFunction);
+
+                    thread.Priority = ThreadPriority.Normal;
                     thread.IsBackground = true;
+
                     thread.Start();
                 }
             }

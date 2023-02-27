@@ -211,6 +211,36 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
                 while (isThreadRunning)
                 {
+                    if (_tcpServer != null)
+                    {
+                        //- Data from TCP Server
+                        while (_tcpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                        {
+
+                        }
+
+                        //- Data to TCP Server
+                        while (inputQueue.CanDequeue() && _tcpOutputQueue.CanEnqueue())
+                        {
+
+                        }
+                    }
+
+                    if (_udpServer != null)
+                    {
+                        //- Data from UDP Server
+                        while (_udpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                        {
+
+                        }
+
+                        //- Data to UDP Server
+                        while (inputQueue.CanDequeue() && _udpOutputQueue.CanEnqueue())
+                        {
+
+                        }
+                    }
+
                     Thread.Yield();
                 }
             }

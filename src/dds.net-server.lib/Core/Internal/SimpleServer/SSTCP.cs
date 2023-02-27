@@ -15,7 +15,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         private volatile bool isConnectionListenerThreadRunning = false;
         private Thread? connectionListenerThread = null;
 
-        private Socket[] connectedClients;
+        private List<Socket> connectedClients;
 
         public SSTCP(
             ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
@@ -26,12 +26,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             : base(dataInputQueue, dataOutputQueue,
                    IPv4, port, maxClients, SSType.TCP, logger)
         {
-            connectedClients = new Socket[maxClients];
-
-            for (int i = 0; i < connectedClients.Length; i++)
-            {
-                connectedClients[i] = null!;
-            }
+            connectedClients = new();
         }
 
         public override void StartServer()

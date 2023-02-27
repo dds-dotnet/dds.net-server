@@ -78,7 +78,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                 }
             }
 
-            if (bindingOk)
+            if (bindingOk && localSocket != null)
             {
                 SetServerStatus(SSStatus.Running);
 

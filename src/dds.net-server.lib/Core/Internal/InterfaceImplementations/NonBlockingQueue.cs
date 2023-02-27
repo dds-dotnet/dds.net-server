@@ -90,6 +90,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 if (_nextWriteIndex == _queue.Length)
                     _nextWriteIndex = 0;
             }
+
+            InputDataAvailable?.Invoke(this, data);
         }
 
         public void Dispose()

@@ -119,9 +119,52 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private SSBase? _tcpServer;
         private SSBase? _udpServer;
 
+        private void StartServers()
+        {
+            if (_tcpServer == null && tcpEnable)
+            {
+                try
+                {
+                    _tcpServer = new SSTCP(
+                        listeningIPv4Address,
+                        tcpPort,
+                        tcpMaxClients,
+                        logger);
+
+                    _tcpServer.StartServer();
+                }
+                catch (Exception ex)
+                {
+                    _tcpServer = null;
+                    logger.Error($"Cannot start TCP Server: {ex.Message}");
+                }
+            }
+
+            if (_udpServer == null && udpEnable)
+            {
+                try
+                {
+                    _udpServer = new SSUDP(
+                        listeningIPv4Address,
+                        udpPort,
+                        udpMaxClients,
+                        logger);
+
+                    _udpServer.StartServer();
+                }
+                catch (Exception ex)
+                {
+                    _udpServer = null;
+                    logger.Error($"Cannot start UDP Server: {ex.Message}");
+                }
+            }
+        }
+
         private void ThreadFunction()
         {
             UpdateStatus(ThreadedDataIOStatus.Starting);
+
+            StartServers();
 
             if (true)
             {

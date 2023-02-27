@@ -67,7 +67,7 @@ namespace DDS.Net.Server
                             _config.ListeningAddressIPv4,
 
                             _config.EnableTCP, _config.ListeningPortTCP, _config.MaxClientsTCP,
-                            _config.EnableUDP, _config.ListeningPortUDP, _config.MaxClientsUDP);
+                            _config.EnableUDP, _config.ListeningPortUDP);
 
                         _networkIO.ThreadedDataIOStatusChanged += OnNetworkIOStatusChanged;
                         _networkIO.StartIO();

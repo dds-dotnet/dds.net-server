@@ -9,6 +9,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         public event EventHandler<T>? InputDataAvailable;
 
         private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 10;
+        private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED = 10;
 
         private Mutex _mutex;
 
@@ -71,7 +72,16 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public void EnqueueData(T data)
         {
-            throw new NotImplementedException();
+            while (!CanEnqueueData()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
+
+            lock (_mutex)
+            {
+                _queue[_nextWriteIndex] = data;
+
+                _nextWriteIndex++;
+                if (_nextWriteIndex == _queue.Length)
+                    _nextWriteIndex = 0;
+            }
         }
 
         public void Dispose()

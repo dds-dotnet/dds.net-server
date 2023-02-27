@@ -105,7 +105,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
 
 
-                    //- Reading data from input queue and sending through socket
+                    //- Reading data from input queue and sending out through socket
 
                     while (dataInputQueue.CanDequeue())
                     {

@@ -4,7 +4,7 @@ namespace DDS.Net.Server.Core.Internal.Extensions
 {
     internal static class StringExtensions
     {
-        private static Regex spacesPattern = new Regex(@"\s*");
+        private static Regex spacesPattern = new Regex(@"\s+");
 
         public static bool IsNullOrEmpty(this string value)
         {

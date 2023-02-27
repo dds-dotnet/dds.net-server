@@ -39,8 +39,8 @@ namespace DDS.Net.Server
             else
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
 
-            _networkClientsInputQueue = new SyncQueue<DataFromClient>(InternalSettings.NETWORK_CLIENTS_INPUT_QUEUE_SIZE);
-            _networkClientsOutputQueue = new SyncQueue<DataToClient>(InternalSettings.NETWORK_CLIENTS_OUTPUT_QUEUE_SIZE);
+            _networkClientsInputQueue = new SyncQueue<DataFromClient>(InternalSettings.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE);
+            _networkClientsOutputQueue = new SyncQueue<DataToClient>(InternalSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE);
 
             _networkIO = null;
         }

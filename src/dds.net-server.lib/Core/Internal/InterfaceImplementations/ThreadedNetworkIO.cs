@@ -175,7 +175,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                         _udpInputQueue,
                         listeningIPv4Address,
                         udpPort,
-                        udpMaxClients,
                         logger);
 
                     _udpServer.StartServer();

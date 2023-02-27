@@ -19,6 +19,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
     {
         protected volatile SSStatus serverStatus = SSStatus.Stopped;
 
+        protected readonly ISyncDataInputQueueEnd<SSPacket> dataInputQueue;
+        protected readonly ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue;
+
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
 
@@ -33,18 +36,24 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected SSBase(
             ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
             ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
+
             string localAddressIPv4,
             ushort localPort,
             int maxNumberOfClients,
             SSType serverType,
+
             ILogger logger)
         {
             SetServerStatus(SSStatus.Stopped);
+
+            this.dataInputQueue = dataInputQueue;
+            this.dataOutputQueue = dataOutputQueue;
 
             this.localAddressIPv4 = localAddressIPv4;
             this.localPort = localPort;
             this.maxNumberOfClients = maxNumberOfClients;
             this.serverType = serverType;
+
             this.logger = logger;
 
             // -------------

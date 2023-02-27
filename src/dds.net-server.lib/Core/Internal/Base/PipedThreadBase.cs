@@ -2,10 +2,6 @@
 {
     internal abstract class PipedThreadBase
     {
-        protected PipedThreadBase()
-        {
-        }
-
         protected abstract void ProcessingLoop();
     }
 }

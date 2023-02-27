@@ -28,7 +28,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
-        private bool isThreadRunning;
+        private volatile bool isThreadRunning;
         private Thread thread;
 
         public ThreadedNetworkIO(

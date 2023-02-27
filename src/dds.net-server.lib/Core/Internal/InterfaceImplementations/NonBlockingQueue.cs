@@ -44,7 +44,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         {
             lock (_mutex)
             {
-                if (_queue[_nextWriteIndex] != null)
+                if (_queue[_nextWriteIndex] == null)
                     return true;
 
                 return false;

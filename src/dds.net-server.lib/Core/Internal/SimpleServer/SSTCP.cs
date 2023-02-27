@@ -93,7 +93,23 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                 while (isConnectionListenerThreadRunning)
                 {
+                    try
+                    {
+                        Socket newSocket = localSocket.Accept();
 
+                        if(connectedClients.Count < maxNumberOfClients)
+                        {
+                            connectedClients.Add(newSocket);
+                        }
+                        else
+                        {
+                            newSocket.Close();
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        logger.Error($"SSTCP socket accepting failed: {ex.Message}");
+                    }
                 }
 
                 logger.Info($"SSTCP server @{localEndPoint} exited");

@@ -90,6 +90,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                 {
 
                 }
+
+                logger.Info($"SSUDP server @{localEndPoint} exited");
             }
 
             isClientListenerThreadRunning = false;

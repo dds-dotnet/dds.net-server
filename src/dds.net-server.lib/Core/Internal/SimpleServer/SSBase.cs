@@ -74,7 +74,14 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                 }
             }
 
-            localEndPoint = new IPEndPoint(IPAddress.Parse(localAddressIPv4), localPort);
+            if (this.localAddressIPv4 == "0.0.0.0")
+            {
+                localEndPoint = new IPEndPoint(IPAddress.Any, localPort);
+            }
+            else
+            {
+                localEndPoint = new IPEndPoint(IPAddress.Parse(localAddressIPv4), localPort);
+            }
 
             // -------------
             // Creating socket

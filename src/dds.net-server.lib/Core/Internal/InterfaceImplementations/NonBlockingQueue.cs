@@ -89,7 +89,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

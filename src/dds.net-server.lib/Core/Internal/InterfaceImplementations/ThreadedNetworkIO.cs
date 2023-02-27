@@ -56,6 +56,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpMaxClients = udpMaxClients;
 
             this.thread = new Thread(ThreadFunction);
+            this.thread.Start();
         }
 
         private void ThreadFunction()

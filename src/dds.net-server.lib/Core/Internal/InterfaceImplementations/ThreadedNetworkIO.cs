@@ -3,12 +3,7 @@ using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
@@ -128,7 +123,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private SyncQueue<SSPacket> _tcpInputQueue;
         private SyncQueue<SSPacket> _udpInputQueue;
-        
+
         private SyncQueue<SSPacket> _tcpOutputQueue;
         private SyncQueue<SSPacket> _udpOutputQueue;
 
@@ -205,7 +200,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             UpdateStatus(ThreadedDataIOStatus.Starting);
 
             StartServers();
-            
+
             if (_tcpServer != null || _udpServer != null)
             {
                 UpdateStatus(ThreadedDataIOStatus.Started);

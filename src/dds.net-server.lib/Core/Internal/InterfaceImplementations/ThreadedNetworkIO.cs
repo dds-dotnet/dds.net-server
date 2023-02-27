@@ -1,5 +1,6 @@
 ﻿using DDS.Net.Server.Core.Internal.Entities;
 using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -115,6 +116,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
         }
 
+        private SSBase? _tcpServer;
+        private SSBase? _udpServer;
+
         private void ThreadFunction()
         {
             UpdateStatus(ThreadedDataIOStatus.Starting);
@@ -132,6 +136,9 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 UpdateStatus(ThreadedDataIOStatus.Stopped);
                 thread = null!;
             }
+
+            _tcpServer = null;
+            _udpServer = null;
         }
 
         private void UpdateStatus(ThreadedDataIOStatus newStatus)

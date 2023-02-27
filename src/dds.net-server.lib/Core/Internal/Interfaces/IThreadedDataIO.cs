@@ -6,10 +6,10 @@ namespace DDS.Net.Server.Core.Internal.Interfaces
     {
         event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
-        void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd<T_OutputQueue> outputQueueEnd);
-        void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd<T_InputQueue> inputQueueEnd);
+        void SetOutputDataQueueEnd(ISyncDataOutputQueueEnd<T_OutputQueue> outputQueueEnd);
+        void SetInputDataQueueEnd(ISyncDataInputQueueEnd<T_InputQueue> inputQueueEnd);
 
-        INonBlockingDataOutputQueueEnd<T_OutputQueue> GetOutputDataQueueEnd();
-        INonBlockingDataInputQueueEnd<T_InputQueue> GetInputDataQueueEnd();
+        ISyncDataOutputQueueEnd<T_OutputQueue> GetOutputDataQueueEnd();
+        ISyncDataInputQueueEnd<T_InputQueue> GetInputDataQueueEnd();
     }
 }

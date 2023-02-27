@@ -2,8 +2,8 @@
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class NonBlockingQueue<T>
-        : INonBlockingDataOutputQueueEnd<T>, INonBlockingDataInputQueueEnd<T>, IDisposable
+    internal class SyncQueue<T>
+        : ISyncDataOutputQueueEnd<T>, ISyncDataInputQueueEnd<T>, IDisposable
         where T : class
     {
         public event EventHandler<T>? InputDataAvailable;
@@ -17,7 +17,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private int _nextWriteIndex;
         private int _nextReadIndex;
 
-        public NonBlockingQueue(int queueSize)
+        public SyncQueue(int queueSize)
         {
             if (queueSize <= 0)
             {

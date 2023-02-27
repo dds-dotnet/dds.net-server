@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.Interfaces
 {
-    internal interface INonBlockingDataInputQueueEnd<T>
+    internal interface ISyncDataInputQueueEnd<T>
     {
         event EventHandler<T>? InputDataAvailable;
 

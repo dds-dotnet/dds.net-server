@@ -11,8 +11,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
     internal class ThreadedNetworkIO : IThreadedDataIO<DataToClient, DataFromClient>
     {
-        private readonly INonBlockingDataInputQueueEnd<DataToClient> inputQueue;
-        private readonly INonBlockingDataOutputQueueEnd<DataFromClient> outputQueue;
+        private readonly ISyncDataInputQueueEnd<DataToClient> inputQueue;
+        private readonly ISyncDataOutputQueueEnd<DataFromClient> outputQueue;
 
         private readonly ILogger logger;
 
@@ -29,8 +29,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
         public ThreadedNetworkIO(
-            INonBlockingDataInputQueueEnd<DataToClient> inputQueue,
-            INonBlockingDataOutputQueueEnd<DataFromClient> outputQueue,
+            ISyncDataInputQueueEnd<DataToClient> inputQueue,
+            ISyncDataOutputQueueEnd<DataFromClient> outputQueue,
 
             ILogger logger,
 
@@ -54,22 +54,22 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpMaxClients = udpMaxClients;
         }
 
-        public INonBlockingDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()
+        public ISyncDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()
         {
             return inputQueue;
         }
 
-        public INonBlockingDataOutputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
+        public ISyncDataOutputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
         {
             return outputQueue;
         }
 
-        public void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd<DataToClient> inputQueueEnd)
+        public void SetInputDataQueueEnd(ISyncDataInputQueueEnd<DataToClient> inputQueueEnd)
         {
             throw new Exception("The input queue cannot be updated once initialized through constructor");
         }
 
-        public void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd<DataFromClient> outputQueueEnd)
+        public void SetOutputDataQueueEnd(ISyncDataOutputQueueEnd<DataFromClient> outputQueueEnd)
         {
             throw new Exception("The output queue cannot be updated once initialized through constructor");
         }

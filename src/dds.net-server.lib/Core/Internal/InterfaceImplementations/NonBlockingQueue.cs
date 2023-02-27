@@ -61,7 +61,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             lock (_mutex)
             {
                 T data = _queue[_nextReadIndex];
-                _queue[_nextReadIndex] = null;
+                _queue[_nextReadIndex] = null!;
 
                 _nextReadIndex++;
                 if (_nextReadIndex == _queue.Length)
@@ -73,6 +73,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public void EnqueueData(T data)
         {
+            if (data == null) return;
+
             while (!CanEnqueueData()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
 
             lock (_mutex)

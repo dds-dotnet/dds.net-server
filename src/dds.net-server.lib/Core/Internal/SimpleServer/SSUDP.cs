@@ -113,7 +113,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                     while (dataInputQueue.CanDequeue())
                     {
-                        SSPacket sSPacket = dataInputQueue.Dequeue();
+                        SSPacket outData = dataInputQueue.Dequeue();
+                        
+                        localSocket.SendTo(outData.PacketData, outData.ClientInfo);
                     }
                 }
 

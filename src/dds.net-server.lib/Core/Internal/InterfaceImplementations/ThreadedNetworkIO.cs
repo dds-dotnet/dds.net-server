@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class ThreadedNetworkIO : IThreadedDataIO
+    internal class ThreadedNetworkIO : IThreadedDataIO<DataToClient, DataFromClient>
     {
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
-        public INonBlockingDataInputQueueEnd GetInputDataQueueEnd()
+        public INonBlockingDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()
         {
             throw new NotImplementedException();
         }
 
-        public INonBlockingDataOutputQueueEnd GetOutputDataQueueEnd()
+        public INonBlockingDataOutputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
         {
             throw new NotImplementedException();
         }
 
-        public void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd inputQueueEnd)
+        public void SetInputDataQueueEnd(INonBlockingDataInputQueueEnd<DataToClient> inputQueueEnd)
         {
             throw new NotImplementedException();
         }
 
-        public void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd outputQueueEnd)
+        public void SetOutputDataQueueEnd(INonBlockingDataOutputQueueEnd<DataFromClient> outputQueueEnd)
         {
             throw new NotImplementedException();
         }

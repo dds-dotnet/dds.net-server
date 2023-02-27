@@ -11,7 +11,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private Mutex _mutex;
 
         private T?[] _queue;
-        private readonly int _size;
         private int _nextWriteIndex;
         private int _nextReadIndex;
 
@@ -22,14 +21,12 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 throw new ArgumentOutOfRangeException(nameof(queueSize));
             }
 
-            _size = queueSize;
-
-            _queue = new T[_size];
+            _queue = new T[queueSize];
 
             _nextWriteIndex = 0;
             _nextReadIndex = 0;
 
-            for (int i = 0; i < _size; i++)
+            for (int i = 0; i < queueSize; i++)
             {
                 _queue[i] = null;
             }
@@ -39,7 +36,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public bool CanDequeueData()
         {
-            throw new NotImplementedException();
+            lock (_mutex)
+            {
+                if (_queue[_nextReadIndex] != null)
+                    return true;
+
+                return false;
+            }
         }
 
         public bool CanEnqueueData()

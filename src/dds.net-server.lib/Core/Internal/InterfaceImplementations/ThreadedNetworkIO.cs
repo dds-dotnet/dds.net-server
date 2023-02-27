@@ -82,5 +82,15 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         {
             throw new Exception("The output queue cannot be updated once initialized through constructor");
         }
+
+        public void StartIO()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopIO()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

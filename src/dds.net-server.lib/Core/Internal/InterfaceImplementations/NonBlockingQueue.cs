@@ -10,7 +10,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private Mutex _mutex;
 
-        private T[] _queue;
+        private T?[] _queue;
         private readonly int _size;
         private int _nextWriteIndex;
         private int _nextReadIndex;
@@ -28,6 +28,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             _nextWriteIndex = 0;
             _nextReadIndex = 0;
+
+            for (int i = 0; i < _size; i++)
+            {
+                _queue[i] = null;
+            }
+
+            _mutex = new Mutex(false);
         }
 
         public bool CanDequeueData()

@@ -122,5 +122,14 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                 Thread.Yield();
             }
         }
+
+        private void UpdateStatus(ThreadedDataIOStatus newStatus)
+        {
+            if (threadedDataIOStatus != newStatus)
+            {
+                threadedDataIOStatus = newStatus;
+                ThreadedDataIOStatusChanged?.Invoke(this, newStatus);
+            }
+        }
     }
 }

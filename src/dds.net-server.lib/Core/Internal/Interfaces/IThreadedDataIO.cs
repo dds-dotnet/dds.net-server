@@ -9,6 +9,9 @@ namespace DDS.Net.Server.Core.Internal.Interfaces
         void StartIO();
         void StopIO();
 
+        void SetOutputDataQueueEnd(ISyncDataOutputQueueEnd<DataFromClient> outputQueueEnd);
+        void SetInputDataQueueEnd(ISyncDataInputQueueEnd<DataToClient> inputQueueEnd);
+
         ISyncDataOutputQueueEnd<T_OutputQueue> GetOutputDataQueueEnd();
         ISyncDataInputQueueEnd<T_InputQueue> GetInputDataQueueEnd();
     }

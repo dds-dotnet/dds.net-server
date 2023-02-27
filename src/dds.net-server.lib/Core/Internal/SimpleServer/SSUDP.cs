@@ -83,7 +83,34 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
 
                 while (isClientListenerThreadRunning)
                 {
+                    //- Reading from socket and enqueuing received data packet
 
+                    while (true)
+                    {
+                        if (dataOutputQueue.CanEnqueue() == false)
+                        {
+                            break;
+                        }
+
+                        int dataAvailable = localSocket.Available;
+
+                        if (dataAvailable > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+
+                    //- Reading data from input queue and sending through socket
+
+                    while (dataInputQueue.CanDequeue())
+                    {
+                        SSPacket sSPacket = dataInputQueue.Dequeue();
+                    }
                 }
 
                 logger.Info($"SSUDP server @{localEndPoint} exited");

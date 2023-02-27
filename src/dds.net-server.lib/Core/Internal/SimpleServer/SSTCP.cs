@@ -93,6 +93,9 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     logger.Info($"SSTCP server running @{localEndPoint}");
                 }
 
+                isDataReceiverThreadRunning = true;
+                dataReceiverThread = new Thread(DataReceiverThread);
+
                 while (isConnectionListenerThreadRunning)
                 {
                     try
@@ -121,13 +124,26 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
                 }
 
+                logger.Info($"SSTCP server @{localEndPoint} exiting - waiting for data receiver to exit");
+
+                isDataReceiverThreadRunning = false;
+                dataReceiverThread.Join();
+
                 logger.Info($"SSTCP server @{localEndPoint} exited");
             }
 
             isConnectionListenerThreadRunning = false;
-            connectionListenerThread = null;
+            connectionListenerThread = null!;
 
             SetServerStatus(SSStatus.Stopped);
+        }
+
+        private void DataReceiverThread()
+        {
+            while (isDataReceiverThreadRunning)
+            {
+
+            }
         }
     }
 }

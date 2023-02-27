@@ -28,6 +28,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
 
+        private Thread thread;
+
         public ThreadedNetworkIO(
             ISyncDataInputQueueEnd<DataToClient> inputQueue,
             ISyncDataOutputQueueEnd<DataFromClient> outputQueue,
@@ -52,6 +54,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpEnable = udpEnable;
             this.udpPort = udpPort;
             this.udpMaxClients = udpMaxClients;
+
+            this.thread = new Thread(ThreadFunction);
+        }
+
+        private void ThreadFunction()
+        {
+            throw new NotImplementedException();
         }
 
         public ISyncDataInputQueueEnd<DataToClient> GetInputDataQueueEnd()

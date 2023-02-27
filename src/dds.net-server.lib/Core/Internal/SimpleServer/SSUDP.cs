@@ -21,7 +21,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
             string IPv4, ushort port, ILogger logger)
 
             : base(dataInputQueue, dataOutputQueue,
-                   IPv4, port, 100, SSType.UDP, logger)
+                   IPv4, port, int.MaxValue, SSType.UDP, logger)
         {
         }
 

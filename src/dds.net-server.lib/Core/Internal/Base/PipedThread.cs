@@ -14,8 +14,8 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Commands : struct
         where T_Responses : struct
     {
-        public ISyncDataInputQueueEnd<T_Input> InputQueueEnd { get; private set; }
-        public ISyncDataOutputQueueEnd<T_Output> OutputQueueEnd { get; private set; }
+        public ISyncDataOutputQueueEnd<T_Input> QueuedInput { get; private set; }
+        public ISyncDataInputQueueEnd<T_Output> QueuedOutput { get; private set; }
 
         public void Dispose()
         {

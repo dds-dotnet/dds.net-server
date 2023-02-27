@@ -62,17 +62,20 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         {
             bool bindingOk = false;
 
-            try
+            if (localSocket != null)
             {
-                localSocket?.Bind(localEndPoint);
+                try
+                {
+                    localSocket.Bind(localEndPoint);
 
-                logger.Info($"TCP socket bound @{localEndPoint}");
+                    logger.Info($"TCP socket bound @{localEndPoint}");
 
-                bindingOk = true;
-            }
-            catch (Exception ex)
-            {
-                logger.Error($"TCP socket binding error @{localEndPoint}: {ex.Message}");
+                    bindingOk = true;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"TCP socket binding error @{localEndPoint}: {ex.Message}");
+                }
             }
 
             if (bindingOk)

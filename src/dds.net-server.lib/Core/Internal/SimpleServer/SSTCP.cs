@@ -97,13 +97,16 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     {
                         Socket newSocket = localSocket.Accept();
 
-                        if(connectedClients.Count < maxNumberOfClients)
+                        lock (this)
                         {
-                            connectedClients.Add(newSocket);
-                        }
-                        else
-                        {
-                            newSocket.Close();
+                            if (connectedClients.Count < maxNumberOfClients)
+                            {
+                                connectedClients.Add(newSocket);
+                            }
+                            else
+                            {
+                                newSocket.Close();
+                            }
                         }
                     }
                     catch(Exception ex)

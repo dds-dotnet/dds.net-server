@@ -70,6 +70,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                 try
                 {
                     localSocket.Bind(localEndPoint);
+                    localSocket.Listen(10);
 
                     logger.Info($"TCP socket bound @{localEndPoint}");
 

@@ -102,9 +102,13 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                             if (connectedClients.Count < maxNumberOfClients)
                             {
                                 connectedClients.Add(newSocket);
+
+                                logger.Info($"SSTCP new connection accepted from {newSocket.RemoteEndPoint}");
                             }
                             else
                             {
+                                logger.Warning($"SSTCP rejecting new connection from {newSocket.RemoteEndPoint}, as number of connected clients is {connectedClients.Count}");
+
                                 newSocket.Close();
                             }
                         }

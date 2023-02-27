@@ -4,7 +4,9 @@ using DDS.Net.Server.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -147,6 +149,31 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         {
             while (isDataReceiverThreadRunning)
             {
+                lock (this)
+                {
+                    foreach (Socket socket in connectedClients)
+                    {
+                        if (socket.Connected == false)
+                        {
+                            connectedClients.Remove(socket);
+
+                            logger.Info($"SSTCP connection from {socket.RemoteEndPoint} lost");
+
+                            break;
+                        }
+
+                        int dataAvailable = socket.Available;
+
+                        if (dataAvailable > 0)
+                        {
+                            byte[] bytes = new byte[dataAvailable];
+                            socket.Receive(bytes);
+
+                            dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, bytes));
+                        }
+                    }
+                }
+
                 Thread.Yield();
             }
         }

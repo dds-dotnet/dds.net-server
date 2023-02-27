@@ -165,9 +165,11 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             UpdateStatus(ThreadedDataIOStatus.Starting);
 
             StartServers();
-
-            if (true)
+            
+            if (_tcpServer != null || _udpServer != null)
             {
+                UpdateStatus(ThreadedDataIOStatus.Started);
+
                 while (isThreadRunning)
                 {
                     Thread.Yield();

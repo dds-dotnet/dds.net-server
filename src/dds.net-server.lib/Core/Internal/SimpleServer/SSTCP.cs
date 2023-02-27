@@ -1,14 +1,8 @@
 ﻿using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {
@@ -24,7 +18,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         public SSTCP(
             ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
             ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
-            
+
             string IPv4, ushort port, int maxClients, ILogger logger)
 
             : base(dataInputQueue, dataOutputQueue,
@@ -115,7 +109,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                             }
                         }
                     }
-                    catch(SocketException)
+                    catch (SocketException)
                     {
                         // Doing nothing as we are in non-blocking mode; so,
                         //     Accept is expected to throw SocketException

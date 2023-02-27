@@ -23,7 +23,7 @@ namespace DDS.Net.Server.Core.Internal.Base
             Responses = responsesQueue;
         }
 
-        protected abstract void Process();
+        protected abstract void DoWork();
 
         public abstract void Dispose();
     }

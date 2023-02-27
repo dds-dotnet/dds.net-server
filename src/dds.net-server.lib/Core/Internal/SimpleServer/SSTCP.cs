@@ -174,6 +174,36 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                     }
                 }
 
+                while (dataInputQueue.CanDequeue())
+                {
+                    SSPacket packet = dataInputQueue.Dequeue();
+
+                    lock (this)
+                    {
+                        foreach (Socket socket in connectedClients)
+                        {
+                            IPEndPoint sockEP = (IPEndPoint)socket.RemoteEndPoint!;
+
+                            if (sockEP.Address.Equals(packet.ClientInfo.Address) &&
+                                sockEP.Port == packet.ClientInfo.Port)
+                            {
+                                if (socket.Connected)
+                                {
+                                    socket.Send(packet.PacketData);
+                                }
+                                else
+                                {
+                                    connectedClients.Remove(socket);
+
+                                    logger.Warning($"SSTCP connection from {socket.RemoteEndPoint} lost - cannot send data");
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
                 Thread.Yield();
             }
         }

@@ -8,19 +8,19 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Commands : struct
         where T_Responses : struct
     {
-        public ISyncDataInputQueueEnd<T_Commands> QueuedCommands { get; private set; }
-        public ISyncDataOutputQueueEnd<T_Responses> QueuedResponses { get; private set; }
+        public ISyncDataInputQueueEnd<T_Commands> Commands { get; private set; }
+        public ISyncDataOutputQueueEnd<T_Responses> Responses { get; private set; }
 
-        protected readonly SyncQueueStruct<T_Commands> commandsInputQueue;
-        protected readonly SyncQueueStruct<T_Responses> responsesOutputQueue;
+        protected readonly SyncQueueStruct<T_Commands> commandsQueue;
+        protected readonly SyncQueueStruct<T_Responses> responsesQueue;
 
         protected PipedThreadBase(int commandsQueueSize, int responsesQueueSize)
         {
-            commandsInputQueue = new SyncQueueStruct<T_Commands>(commandsQueueSize);
-            responsesOutputQueue = new SyncQueueStruct<T_Responses>(responsesQueueSize);
+            commandsQueue = new SyncQueueStruct<T_Commands>(commandsQueueSize);
+            responsesQueue = new SyncQueueStruct<T_Responses>(responsesQueueSize);
 
-            QueuedCommands = commandsInputQueue;
-            QueuedResponses = responsesOutputQueue;
+            Commands = commandsQueue;
+            Responses = responsesQueue;
         }
 
         protected abstract void Process();

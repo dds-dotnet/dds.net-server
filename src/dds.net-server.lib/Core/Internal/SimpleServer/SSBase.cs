@@ -1,4 +1,6 @@
-﻿using DDS.Net.Server.Core.Internal.Extensions;
+﻿using DDS.Net.Server.Core.Internal.Entities;
+using DDS.Net.Server.Core.Internal.Extensions;
+using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System;
@@ -29,6 +31,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly ILogger logger;
 
         protected SSBase(
+            ISyncDataInputQueueEnd<SSPacket> dataInputQueue,
+            ISyncDataOutputQueueEnd<SSPacket> dataOutputQueue,
             string localAddressIPv4,
             ushort localPort,
             int maxNumberOfClients,

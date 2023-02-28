@@ -35,32 +35,26 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         public override void Dispose()
         {
-            throw new NotImplementedException();
-        }
-
-        protected override void DoCleanup()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void DoInit()
         {
-            throw new NotImplementedException();
         }
 
         protected override void DoWork()
         {
-            throw new NotImplementedException();
+        }
+
+        protected override void DoCleanup()
+        {
         }
 
         protected override void ProcessCommand(VarsHandlerCommands command)
         {
-            throw new NotImplementedException();
         }
 
         protected override void ProcessInput(DataFromClient input)
         {
-            throw new NotImplementedException();
         }
     }
 }

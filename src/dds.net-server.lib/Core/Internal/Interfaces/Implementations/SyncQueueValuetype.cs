@@ -1,6 +1,4 @@
-﻿using DDS.Net.Server.Core.Internal.Interfaces;
-
-namespace DDS.Net.Server.Core.Internal.Interfaces.Implementations
+﻿namespace DDS.Net.Server.Core.Internal.Interfaces.Implementations
 {
     internal class SyncQueueValuetype<T>
         : ISyncDataWriterQueueEnd<T>, ISyncDataReaderQueueEnd<T>, IDisposable

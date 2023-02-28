@@ -64,8 +64,6 @@ namespace DDS.Net.Server.Core.Internal.Base
                                 if (_isThreadRunning && inputQueue.CanDequeue()) CheckInputs();
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning && inputQueue2.CanDequeue()) CheckInputs2();
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && (outputQueue.CanEnqueue() || outputQueue2.CanEnqueue())) GenerateOutputs();
 
                                 Thread.Yield();
                             }

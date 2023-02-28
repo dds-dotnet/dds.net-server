@@ -39,43 +39,6 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected override void StartThread(Action? threadFunction = null)
-        {
-            lock (this)
-            {
-                if (_thread == null)
-                {
-                    _isThreadRunning = true;
-
-                    if (threadFunction != null)
-                    {
-                        _thread = new Thread(threadFunction.Invoke);
-                    }
-                    else
-                    {
-                        _thread = new Thread(() =>
-                        {
-                            DoInit();
-
-                            while (_isThreadRunning)
-                            {
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && commandsQueue.CanDequeue()) ProcessCommand(commandsQueue.Dequeue());
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && inputQueue.CanDequeue()) CheckInputs();
-
-                                Thread.Yield();
-                            }
-
-                            DoCleanup();
-                        });
-                    }
-
-                    _thread.Start();
-                }
-            }
-        }
-
         protected override void CheckInputs()
         {
             while (inputQueue.CanDequeue())

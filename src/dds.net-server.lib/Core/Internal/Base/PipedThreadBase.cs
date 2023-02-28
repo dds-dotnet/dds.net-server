@@ -33,12 +33,14 @@ namespace DDS.Net.Server.Core.Internal.Base
 
         }
 
-        protected void Exit(T_Responses lastResponse)
+        protected void Exit()
         {
 
         }
 
         protected abstract void CheckCommands();
+        protected abstract void CheckInputs();
+        protected abstract void GenerateOutputs();
         protected abstract void DoWork();
 
         public abstract void Dispose();

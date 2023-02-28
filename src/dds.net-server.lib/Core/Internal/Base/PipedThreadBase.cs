@@ -28,14 +28,30 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
+        private volatile bool _isThreadRunning = false;
+        private Thread _thread;
+
         protected void StartThread(Action? threadFunction = null)
         {
-
+            lock(this)
+            {
+                if (_thread == null)
+                {
+                    _isThreadRunning = true;
+                }
+            }
         }
 
         protected void Exit()
         {
-
+            lock (this)
+            {
+                if (_thread != null)
+                {
+                    _isThreadRunning = false;
+                    _thread = null!;
+                }
+            }
         }
 
         protected abstract void CheckCommands();

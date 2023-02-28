@@ -28,9 +28,10 @@ namespace DDS.Net.Server.Core.Internal.Base
                     int inputQueueSize,
                     int outputQueueSize,
                     int commandsQueueSize,
-                    int responsesQueueSize)
+                    int responsesQueueSize,
+                    bool startThread = true)
 
-            : base(commandsQueueSize, responsesQueueSize)
+            : base(commandsQueueSize, responsesQueueSize, false)
         {
             inputQueue = new SyncQueue<T_Input>(inputQueueSize);
             outputQueue = new SyncQueue<T_Output>(outputQueueSize);
@@ -38,6 +39,15 @@ namespace DDS.Net.Server.Core.Internal.Base
             Input = inputQueue;
             Output = outputQueue;
 
+            if (startThread)
+            {
+                StartThread();
+            }
+        }
+
+        protected override void StartThread()
+        {
+            base.StartThread();
         }
     }
 }

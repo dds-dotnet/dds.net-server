@@ -26,15 +26,21 @@ namespace DDS.Net.Server.Core.Internal.Base
 
         protected DoublePipedThread(int inputQueue1Size, int outputQueue1Size,
                                     int inputQueue2Size, int outputQueue2Size,
-                                    int commandsQueueSize, int responsesQueueSize)
+                                    int commandsQueueSize, int responsesQueueSize,
+                                    bool startThread = true)
 
-            : base(inputQueue1Size, outputQueue1Size, commandsQueueSize, responsesQueueSize)
+            : base(inputQueue1Size, outputQueue1Size, commandsQueueSize, responsesQueueSize, false)
         {
             inputQueue2 = new SyncQueue<T_Input2>(inputQueue2Size);
             outputQueue2 = new SyncQueue<T_Output2>(outputQueue2Size);
 
             Input2 = inputQueue2;
             Output2 = outputQueue2;
+
+            if (startThread)
+            {
+                StartThread();
+            }
         }
     }
 }

@@ -6,7 +6,7 @@
     <RootNamespace>DDS.Net.Server.WpfApp</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <AssemblyName>$(MSBuildProjectName.Replace(".app.wpf", ""))</AssemblyName>
+    <AssemblyName>$(MSBuildProjectName.Replace(".app.wpf", "").Replace("dds.net", "DDS.Net").Replace("-server", " Server"))</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

@@ -238,15 +238,15 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             _udpOutputQueue = null!;
         }
 
-        public override void Dispose()
-        {
-        }
-
         protected override void ProcessInput(DataToClient input)
         {
         }
 
         protected override void ProcessCommand(ThreadedDataIOCommands command)
+        {
+        }
+
+        public override void Dispose()
         {
         }
     }

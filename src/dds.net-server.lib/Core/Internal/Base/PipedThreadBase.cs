@@ -28,8 +28,8 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        private volatile bool _isThreadRunning = false;
-        private Thread _thread;
+        protected volatile bool _isThreadRunning = false;
+        protected Thread _thread;
 
         protected void StartThread(Action? threadFunction = null)
         {

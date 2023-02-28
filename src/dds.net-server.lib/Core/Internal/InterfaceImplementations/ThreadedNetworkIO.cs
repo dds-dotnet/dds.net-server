@@ -147,49 +147,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private void ThreadFunction()
         {
-            if (_tcpServer != null || _udpServer != null)
-            {
-                while (isThreadRunning)
-                {
-                    if (_tcpServer != null)
-                    {
-                        //- Data from TCP Server
-                        while (_tcpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
-                        {
-                            SSPacket packet = _tcpInputQueue.Dequeue();
-                            outputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
-                        }
-
-                        //- Data to TCP Server
-                        while (inputQueue.CanDequeue() && _tcpOutputQueue.CanEnqueue())
-                        {
-                            DataToClient packet = inputQueue.Dequeue();
-                            IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("TCP:", ""));
-                            _tcpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
-                        }
-                    }
-
-                    if (_udpServer != null)
-                    {
-                        //- Data from UDP Server
-                        while (_udpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
-                        {
-                            SSPacket packet = _udpInputQueue.Dequeue();
-                            outputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
-                        }
-
-                        //- Data to UDP Server
-                        while (inputQueue.CanDequeue() && _udpOutputQueue.CanEnqueue())
-                        {
-                            DataToClient packet = inputQueue.Dequeue();
-                            IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("UDP:", ""));
-                            _udpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
-                        }
-                    }
-
-                    Thread.Yield();
-                }
-            }
+            
         }
 
         private void UpdateStatus(ThreadedDataIOStatus newStatus)
@@ -240,7 +198,41 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         protected override void DoWork()
         {
-            throw new NotImplementedException();
+            if (_tcpServer != null)
+            {
+                //- Data from TCP Server
+                while (_tcpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                {
+                    SSPacket packet = _tcpInputQueue.Dequeue();
+                    outputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
+                }
+
+                //- Data to TCP Server
+                while (inputQueue.CanDequeue() && _tcpOutputQueue.CanEnqueue())
+                {
+                    DataToClient packet = inputQueue.Dequeue();
+                    IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("TCP:", ""));
+                    _tcpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
+                }
+            }
+
+            if (_udpServer != null)
+            {
+                //- Data from UDP Server
+                while (_udpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                {
+                    SSPacket packet = _udpInputQueue.Dequeue();
+                    outputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
+                }
+
+                //- Data to UDP Server
+                while (inputQueue.CanDequeue() && _udpOutputQueue.CanEnqueue())
+                {
+                    DataToClient packet = inputQueue.Dequeue();
+                    IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("UDP:", ""));
+                    _udpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
+                }
+            }
         }
 
         protected override void DoCleanup()
@@ -257,7 +249,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public override void Dispose()
         {
-            throw new NotImplementedException();
         }
     }
 }

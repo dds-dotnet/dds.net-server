@@ -1,11 +1,11 @@
-﻿namespace DDS.Net.Server.Core.Internal.Entities
+﻿namespace DDS.Net.Server.Core.Internal.Base.Entities
 {
-    internal class DataToClient
+    internal class DataFromClient
     {
         public string ClientRef { get; }
         public byte[] Data { get; set; }
 
-        public DataToClient(string client, byte[] data)
+        public DataFromClient(string client, byte[] data)
         {
             ClientRef = client;
             Data = data;

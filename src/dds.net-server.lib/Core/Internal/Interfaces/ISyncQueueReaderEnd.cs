@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.Interfaces
 {
-    internal interface ISyncDataReaderQueueEnd<T>
+    internal interface ISyncQueueReaderEnd<T>
     {
         event EventHandler<T>? DataAvailableForReading;
 

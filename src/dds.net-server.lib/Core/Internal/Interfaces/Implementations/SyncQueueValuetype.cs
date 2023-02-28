@@ -1,7 +1,7 @@
 ﻿namespace DDS.Net.Server.Core.Internal.Interfaces.Implementations
 {
     internal class SyncQueueValuetype<T>
-        : ISyncDataWriterQueueEnd<T>, ISyncDataReaderQueueEnd<T>, IDisposable
+        : ISyncQueueWriterEnd<T>, ISyncQueueReaderEnd<T>, IDisposable
         where T : struct
     {
         public event EventHandler<T>? DataAvailableForReading;

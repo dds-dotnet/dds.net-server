@@ -11,8 +11,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
     {
         protected volatile SSStatus serverStatus = SSStatus.Stopped;
 
-        protected readonly ISyncDataReaderQueueEnd<SSPacket> dataInputQueue;
-        protected readonly ISyncDataWriterQueueEnd<SSPacket> dataOutputQueue;
+        protected readonly ISyncQueueReaderEnd<SSPacket> dataInputQueue;
+        protected readonly ISyncQueueWriterEnd<SSPacket> dataOutputQueue;
 
         protected readonly string localAddressIPv4;
         protected readonly ushort localPort;
@@ -26,8 +26,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         protected readonly ILogger logger;
 
         protected SSBase(
-            ISyncDataReaderQueueEnd<SSPacket> dataInputQueue,
-            ISyncDataWriterQueueEnd<SSPacket> dataOutputQueue,
+            ISyncQueueReaderEnd<SSPacket> dataInputQueue,
+            ISyncQueueWriterEnd<SSPacket> dataOutputQueue,
 
             string localAddressIPv4,
             ushort localPort,

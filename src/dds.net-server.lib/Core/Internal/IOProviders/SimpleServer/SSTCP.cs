@@ -17,8 +17,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
         private List<Socket> connectedClients;
 
         public SSTCP(
-            ISyncDataReaderQueueEnd<SSPacket> dataInputQueue,
-            ISyncDataWriterQueueEnd<SSPacket> dataOutputQueue,
+            ISyncQueueReaderEnd<SSPacket> dataInputQueue,
+            ISyncQueueWriterEnd<SSPacket> dataOutputQueue,
 
             string IPv4, ushort port, int maxClients, ILogger logger)
 

@@ -23,8 +23,8 @@ namespace DDS.Net.Server
 
         private ServerStatus _status = ServerStatus.Stopped;
 
-        private ISyncDataReaderQueueEnd<DataFromClient> _dataFromNetwork = null!;
-        private ISyncDataWriterQueueEnd<DataToClient> _dataToNetwork = null!;
+        private ISyncQueueReaderEnd<DataFromClient> _dataFromNetwork = null!;
+        private ISyncQueueWriterEnd<DataToClient> _dataToNetwork = null!;
 
         private NetworkIO? _networkIO;
 

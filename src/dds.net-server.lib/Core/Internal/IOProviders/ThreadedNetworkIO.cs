@@ -6,6 +6,7 @@ using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System.Net;
+using System.Net.Sockets;
 
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
@@ -197,14 +198,6 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                     SSPacket packet = _tcpInputQueue.Dequeue();
                     outputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
                 }
-
-                //- Data to TCP Server
-                while (inputQueue.CanDequeue() && _tcpOutputQueue.CanEnqueue())
-                {
-                    DataToClient packet = inputQueue.Dequeue();
-                    IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("TCP:", ""));
-                    _tcpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
-                }
             }
 
             if (_udpServer != null)
@@ -214,14 +207,6 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 {
                     SSPacket packet = _udpInputQueue.Dequeue();
                     outputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
-                }
-
-                //- Data to UDP Server
-                while (inputQueue.CanDequeue() && _udpOutputQueue.CanEnqueue())
-                {
-                    DataToClient packet = inputQueue.Dequeue();
-                    IPEndPoint target = IPEndPoint.Parse(packet.ClientRef.Replace("UDP:", ""));
-                    _udpOutputQueue.Enqueue(new SSPacket(target, packet.Data));
                 }
             }
         }
@@ -243,6 +228,24 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
         protected override void ProcessInput(DataToClient input)
         {
+            string targetRef = input.ClientRef;
+
+            if (targetRef.StartsWith("TCP:") && _tcpServer != null)
+            {
+
+                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("TCP:", ""));
+
+                _tcpOutputQueue.Enqueue(new SSPacket(target, input.Data));
+
+            }
+            else if(targetRef.StartsWith("UDP:") && _udpServer != null)
+            {
+
+                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("UDP:", ""));
+
+                _udpOutputQueue.Enqueue(new SSPacket(target, input.Data));
+
+            }
         }
 
         protected override void ProcessCommand(ThreadedDataIOCommands command)

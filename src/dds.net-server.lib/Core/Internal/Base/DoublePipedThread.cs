@@ -34,24 +34,46 @@ namespace DDS.Net.Server.Core.Internal.Base
 
             if (startThread)
             {
-                StartThread(() =>
+                StartThread();
+            }
+        }
+
+        protected override void StartThread(Action? threadFunction = null)
+        {
+            lock (this)
+            {
+                if (_thread == null)
                 {
-                    DoInit();
+                    _isThreadRunning = true;
 
-                    while (_isThreadRunning)
+                    if (threadFunction != null)
                     {
-                        if (_isThreadRunning) DoWork();
-                        if (_isThreadRunning && commandsQueue.CanDequeue()) CheckCommands();
-                        if (_isThreadRunning) DoWork();
-                        if (_isThreadRunning && (inputQueue.CanDequeue() || inputQueue2.CanDequeue())) CheckInputs();
-                        if (_isThreadRunning) DoWork();
-                        if (_isThreadRunning && (outputQueue.CanEnqueue() || outputQueue2.CanEnqueue())) GenerateOutputs();
+                        _thread = new Thread(threadFunction.Invoke);
+                    }
+                    else
+                    {
+                        _thread = new Thread(() =>
+                        {
+                            DoInit();
 
-                        Thread.Yield();
+                            while (_isThreadRunning)
+                            {
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning && commandsQueue.CanDequeue()) CheckCommands();
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning && (inputQueue.CanDequeue() || inputQueue2.CanDequeue())) CheckInputs();
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning && (outputQueue.CanEnqueue() || outputQueue2.CanEnqueue())) GenerateOutputs();
+
+                                Thread.Yield();
+                            }
+
+                            DoCleanup();
+                        });
                     }
 
-                    DoCleanup();
-                });
+                    _thread.Start();
+                }
             }
         }
     }

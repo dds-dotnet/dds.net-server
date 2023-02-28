@@ -1,12 +1,11 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Entities;
 using DDS.Net.Server.Core.Internal.InterfaceImplementations;
-using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer;
 using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System.Net;
-using System.Threading;
 
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
@@ -171,18 +170,6 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
         }
 
-        protected override void CheckCommands()
-        {
-        }
-
-        protected override void CheckInputs()
-        {
-        }
-
-        protected override void GenerateOutputs()
-        {
-        }
-
         protected override void DoInit()
         {
             UpdateStatus(ThreadedDataIOStatus.Starting);
@@ -252,6 +239,14 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
         }
 
         public override void Dispose()
+        {
+        }
+
+        protected override void ProcessInput(DataToClient input)
+        {
+        }
+
+        protected override void ProcessCommand(ThreadedDataIOCommands command)
         {
         }
     }

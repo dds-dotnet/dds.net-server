@@ -49,10 +49,19 @@ namespace DDS.Net.Server.Core.Internal.Base
                         {
                             while (_isThreadRunning)
                             {
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning) CheckCommands();
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning) CheckInputs();
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning) GenerateOutputs();
+
                                 Thread.Yield();
                             }
                         });
                     }
+
+                    _thread.Start();
                 }
             }
         }

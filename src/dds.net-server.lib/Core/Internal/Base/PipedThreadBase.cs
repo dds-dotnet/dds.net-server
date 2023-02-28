@@ -31,7 +31,7 @@ namespace DDS.Net.Server.Core.Internal.Base
         protected volatile bool _isThreadRunning = false;
         protected Thread _thread = null!;
 
-        protected void StartThread(Action? threadFunction = null)
+        protected virtual void StartThread(Action? threadFunction = null)
         {
             lock(this)
             {

@@ -10,7 +10,7 @@ using System.Net.Sockets;
 
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
-    internal class ThreadedNetworkIO
+    internal class NetworkIO
         : SinglePipedThread<DataToClient, DataFromClient, ThreadedDataIOCommands, ThreadedDataIOStatus>
     {
         private ThreadedDataIOStatus threadedDataIOStatus;
@@ -26,7 +26,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
         private readonly bool udpEnable;
         private readonly ushort udpPort;
 
-        public ThreadedNetworkIO(
+        public NetworkIO(
             ILogger logger,
 
             int inputQueueSize,

@@ -26,7 +26,7 @@ namespace DDS.Net.Server
         private ISyncDataReaderQueueEnd<DataFromClient> _dataFromNetwork = null!;
         private ISyncDataWriterQueueEnd<DataToClient> _dataToNetwork = null!;
 
-        private ThreadedNetworkIO? _networkIO;
+        private NetworkIO? _networkIO;
 
         public DdsServer(ServerConfiguration config)
         {
@@ -55,7 +55,7 @@ namespace DDS.Net.Server
                 {
                     try
                     {
-                        _networkIO = new ThreadedNetworkIO(
+                        _networkIO = new NetworkIO(
                             _logger,
 
                             InternalSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,

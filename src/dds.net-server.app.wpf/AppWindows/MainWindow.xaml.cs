@@ -43,6 +43,7 @@ namespace DDS.Net.Server.WpfApp.AppWindows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            _server?.Stop();
             _logger?.Dispose();
             _logger = null;
         }

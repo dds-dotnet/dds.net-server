@@ -9,6 +9,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 {
     internal class SSUDP : SSBase
     {
+        private readonly int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
+
         private volatile bool isClientListenerThreadRunning = false;
         private Thread? clientListenerThread = null;
 
@@ -81,6 +83,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
                 while (isClientListenerThreadRunning)
                 {
+                    bool hasDoneAnythingInIteration = false;
+
                     //- 
                     //- Reading from socket and enqueuing received data packet
                     //- 
@@ -104,6 +108,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                             localSocket.ReceiveFrom(data, SocketFlags.None, ref senderRemote);
 
                             dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)senderRemote, data));
+
+                            hasDoneAnythingInIteration = true;
                         }
                         else
                         {
@@ -121,9 +127,19 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                         SSPacket outData = dataInputQueue.Dequeue();
 
                         localSocket.SendTo(outData.PacketData, outData.ClientInfo);
+
+                        hasDoneAnythingInIteration = true;
                     }
 
-                    Thread.Yield();
+
+                    //- 
+                    //- Sleep when nothing is done :-)
+                    //- 
+
+                    if (hasDoneAnythingInIteration == false)
+                    {
+                        Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
+                    }
                 }
 
                 logger.Info($"SSUDP server @{localEndPoint} exited");

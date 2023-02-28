@@ -3,24 +3,24 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class PipedThreadBase<T_Commands, T_Responses> : IDisposable
+    internal abstract class PipedProcessBase<T_Command, T_Response> : IDisposable
 
-        where T_Commands : struct
-        where T_Responses : struct
+        where T_Command : struct
+        where T_Response : struct
     {
-        public ISyncQueueWriterEnd<T_Commands> Commands { get; private set; }
-        public ISyncQueueReaderEnd<T_Responses> Responses { get; private set; }
+        public ISyncQueueWriterEnd<T_Command> CommandWriter { get; private set; }
+        public ISyncQueueReaderEnd<T_Response> ResponseReader { get; private set; }
 
-        protected readonly SyncQueueValuetype<T_Commands> commandsQueue;
-        protected readonly SyncQueueValuetype<T_Responses> responsesQueue;
+        protected readonly SyncQueueValuetype<T_Command> CommandQueue;
+        protected readonly SyncQueueValuetype<T_Response> ResponseQueue;
 
-        protected PipedThreadBase(int commandsQueueSize, int responsesQueueSize, bool startThread = true)
+        protected PipedProcessBase(int commandsQueueSize, int responsesQueueSize, bool startThread = true)
         {
-            commandsQueue = new SyncQueueValuetype<T_Commands>(commandsQueueSize);
-            responsesQueue = new SyncQueueValuetype<T_Responses>(responsesQueueSize);
+            CommandQueue = new SyncQueueValuetype<T_Command>(commandsQueueSize);
+            ResponseQueue = new SyncQueueValuetype<T_Response>(responsesQueueSize);
 
-            Commands = commandsQueue;
-            Responses = responsesQueue;
+            CommandWriter = CommandQueue;
+            ResponseReader = ResponseQueue;
 
             if (startThread)
             {
@@ -52,7 +52,7 @@ namespace DDS.Net.Server.Core.Internal.Base
                             while (_isThreadRunning)
                             {
                                 if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && commandsQueue.CanDequeue()) ProcessCommand(commandsQueue.Dequeue());
+                                if (_isThreadRunning && CommandQueue.CanDequeue()) ProcessCommand(CommandQueue.Dequeue());
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning) CheckInputs();
 
@@ -80,7 +80,7 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected abstract void ProcessCommand(T_Commands command);
+        protected abstract void ProcessCommand(T_Command command);
         protected abstract void CheckInputs();
         protected abstract void DoInit();
         protected abstract void DoWork();

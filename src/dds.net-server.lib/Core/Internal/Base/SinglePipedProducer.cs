@@ -3,22 +3,22 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class SinglePipedThread<T_Input, T_Output, T_Commands, T_Responses>
-        : PipedThreadBase<T_Commands, T_Responses>, IDisposable
+    internal abstract class SinglePipedProducer<T_Input, T_Output, T_Commands, T_Responses>
+        : PipedProcessBase<T_Commands, T_Responses>, IDisposable
 
         where T_Input : class
         where T_Output : class
         where T_Commands : struct
         where T_Responses : struct
     {
-        public ISyncQueueWriterEnd<T_Input> Input { get; private set; }
-        public ISyncQueueReaderEnd<T_Output> Output { get; private set; }
+        public ISyncQueueWriterEnd<T_Input> InputWriter { get; private set; }
+        public ISyncQueueReaderEnd<T_Output> OutputReader { get; private set; }
 
-        protected readonly SyncQueue<T_Input> inputQueue;
-        protected readonly SyncQueue<T_Output> outputQueue;
+        protected readonly SyncQueue<T_Input> InputQueue;
+        protected readonly SyncQueue<T_Output> OutputQueue;
 
 
-        protected SinglePipedThread(
+        protected SinglePipedProducer(
                     int inputQueueSize,
                     int outputQueueSize,
                     int commandsQueueSize,
@@ -27,11 +27,11 @@ namespace DDS.Net.Server.Core.Internal.Base
 
             : base(commandsQueueSize, responsesQueueSize, false)
         {
-            inputQueue = new SyncQueue<T_Input>(inputQueueSize);
-            outputQueue = new SyncQueue<T_Output>(outputQueueSize);
+            InputQueue = new SyncQueue<T_Input>(inputQueueSize);
+            OutputQueue = new SyncQueue<T_Output>(outputQueueSize);
 
-            Input = inputQueue;
-            Output = outputQueue;
+            InputWriter = InputQueue;
+            OutputReader = OutputQueue;
 
             if (startThread)
             {
@@ -41,9 +41,9 @@ namespace DDS.Net.Server.Core.Internal.Base
 
         protected override void CheckInputs()
         {
-            while (inputQueue.CanDequeue())
+            while (InputQueue.CanDequeue())
             {
-                ProcessInput(inputQueue.Dequeue());
+                ProcessInput(InputQueue.Dequeue());
             }
         }
 

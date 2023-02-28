@@ -71,10 +71,10 @@ namespace DDS.Net.Server
                             _config.EnableTCP, _config.ListeningPortTCP, _config.MaxClientsTCP,
                             _config.EnableUDP, _config.ListeningPortUDP);
 
-                        _dataFromNetwork = _networkIO.Output;
-                        _dataToNetwork = _networkIO.Input;
+                        _dataFromNetwork = _networkIO.OutputReader;
+                        _dataToNetwork = _networkIO.InputWriter;
 
-                        _networkIO.Responses.DataAvailableForReading += OnNetworkIOStatusChanged;
+                        _networkIO.ResponseReader.DataAvailableForReading += OnNetworkIOStatusChanged;
 
 
                         _varsHandler = new VarsHandler(
@@ -83,7 +83,7 @@ namespace DDS.Net.Server
                             InternalSettings.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
                             InternalSettings.VARS_HANDLER_RESPONSES_QUEUE_SIZE);
 
-                        _varsHandler.Responses.DataAvailableForReading += OnVarsHandlerStatusChanged;
+                        _varsHandler.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;
 
 
                         _networkIO.StartIO();

@@ -10,7 +10,7 @@ using System.Net;
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
     internal class NetworkIO
-        : SinglePipedThread<DataToClient, DataFromClient, DataIOProviderCommands, DataIOProviderStatus>
+        : SinglePipedProducer<DataToClient, DataFromClient, DataIOProviderCommands, DataIOProviderStatus>
     {
         private DataIOProviderStatus threadedDataIOStatus;
 
@@ -45,9 +45,9 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             threadedDataIOStatus = DataIOProviderStatus.Stopped;
 
-            if (responsesQueue.CanEnqueue())
+            if (ResponseQueue.CanEnqueue())
             {
-                responsesQueue.Enqueue(threadedDataIOStatus);
+                ResponseQueue.Enqueue(threadedDataIOStatus);
             }
             else
             {
@@ -159,9 +159,9 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             {
                 threadedDataIOStatus = newStatus;
 
-                if (responsesQueue.CanEnqueue())
+                if (ResponseQueue.CanEnqueue())
                 {
-                    responsesQueue.Enqueue(newStatus);
+                    ResponseQueue.Enqueue(newStatus);
                 }
                 else
                 {
@@ -192,20 +192,20 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             if (_tcpServer != null)
             {
                 //- Data from TCP Server
-                while (_tcpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                while (_tcpInputQueue.CanDequeue() && OutputQueue.CanEnqueue())
                 {
                     SSPacket packet = _tcpInputQueue.Dequeue();
-                    outputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
+                    OutputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
                 }
             }
 
             if (_udpServer != null)
             {
                 //- Data from UDP Server
-                while (_udpInputQueue.CanDequeue() && outputQueue.CanEnqueue())
+                while (_udpInputQueue.CanDequeue() && OutputQueue.CanEnqueue())
                 {
                     SSPacket packet = _udpInputQueue.Dequeue();
-                    outputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
+                    OutputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
                 }
             }
         }

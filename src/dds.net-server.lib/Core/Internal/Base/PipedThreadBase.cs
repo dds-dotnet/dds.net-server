@@ -52,7 +52,7 @@ namespace DDS.Net.Server.Core.Internal.Base
                             while (_isThreadRunning)
                             {
                                 if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && commandsQueue.CanDequeue()) CheckCommands();
+                                if (_isThreadRunning && commandsQueue.CanDequeue()) ProcessCommand(commandsQueue.Dequeue());
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning) CheckInputs();
                                 if (_isThreadRunning) DoWork();
@@ -82,7 +82,7 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected abstract void CheckCommands();
+        protected abstract void ProcessCommand(T_Commands command);
         protected abstract void CheckInputs();
         protected abstract void GenerateOutputs();
         protected abstract void DoInit();

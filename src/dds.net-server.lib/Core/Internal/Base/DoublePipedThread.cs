@@ -39,7 +39,24 @@ namespace DDS.Net.Server.Core.Internal.Base
 
             if (startThread)
             {
-                StartThread();
+                StartThread(() =>
+                {
+                    DoInit();
+
+                    while (_isThreadRunning)
+                    {
+                        if (_isThreadRunning) DoWork();
+                        if (_isThreadRunning && commandsQueue.CanDequeue()) CheckCommands();
+                        if (_isThreadRunning) DoWork();
+                        if (_isThreadRunning && (inputQueue.CanDequeue() || inputQueue2.CanDequeue())) CheckInputs();
+                        if (_isThreadRunning) DoWork();
+                        if (_isThreadRunning && (outputQueue.CanEnqueue() || outputQueue2.CanEnqueue())) GenerateOutputs();
+
+                        Thread.Yield();
+                    }
+
+                    DoCleanup();
+                });
             }
         }
     }

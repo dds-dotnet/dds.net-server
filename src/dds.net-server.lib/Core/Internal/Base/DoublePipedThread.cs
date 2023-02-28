@@ -61,7 +61,9 @@ namespace DDS.Net.Server.Core.Internal.Base
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning && commandsQueue.CanDequeue()) ProcessCommand(commandsQueue.Dequeue());
                                 if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && (inputQueue.CanDequeue() || inputQueue2.CanDequeue())) CheckInputs();
+                                if (_isThreadRunning && inputQueue.CanDequeue()) CheckInputs();
+                                if (_isThreadRunning) DoWork();
+                                if (_isThreadRunning && inputQueue2.CanDequeue()) CheckInputs2();
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning && (outputQueue.CanEnqueue() || outputQueue2.CanEnqueue())) GenerateOutputs();
 
@@ -76,5 +78,15 @@ namespace DDS.Net.Server.Core.Internal.Base
                 }
             }
         }
+
+        private void CheckInputs2()
+        {
+            while (inputQueue2.CanDequeue())
+            {
+                ProcessInput2(inputQueue2.Dequeue());
+            }
+        }
+
+        protected abstract void ProcessInput2(T_Input2 input);
     }
 }

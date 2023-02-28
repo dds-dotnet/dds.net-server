@@ -28,7 +28,7 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected virtual void StartThread()
+        protected void StartThread(Action? threadFunction = null)
         {
 
         }

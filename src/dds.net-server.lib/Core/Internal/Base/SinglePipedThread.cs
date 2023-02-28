@@ -44,10 +44,5 @@ namespace DDS.Net.Server.Core.Internal.Base
                 StartThread();
             }
         }
-
-        protected override void StartThread()
-        {
-            base.StartThread();
-        }
     }
 }

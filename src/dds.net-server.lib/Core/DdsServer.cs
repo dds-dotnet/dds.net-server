@@ -1,8 +1,8 @@
 ﻿using DDS.Net.Server.Core.Internal;
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.IOProcessor;
 using DDS.Net.Server.Core.Internal.IOProviders;
-using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 
@@ -27,6 +27,7 @@ namespace DDS.Net.Server
         private ISyncQueueWriterEnd<DataToClient> _dataToNetwork = null!;
 
         private NetworkIO? _networkIO;
+        private VarsHandler? _varsHandler;
 
         public DdsServer(ServerConfiguration config)
         {
@@ -40,6 +41,7 @@ namespace DDS.Net.Server
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
 
             _networkIO = null;
+            _varsHandler = null;
         }
 
         public void Start()
@@ -73,12 +75,26 @@ namespace DDS.Net.Server
                         _dataToNetwork = _networkIO.Input;
 
                         _networkIO.Responses.DataAvailableForReading += OnNetworkIOStatusChanged;
+
+
+                        _varsHandler = new VarsHandler(
+                            _dataFromNetwork,
+                            _dataToNetwork,
+                            InternalSettings.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
+                            InternalSettings.VARS_HANDLER_RESPONSES_QUEUE_SIZE);
+
+                        _varsHandler.Responses.DataAvailableForReading += OnVarsHandlerStatusChanged;
+
+
                         _networkIO.StartIO();
+                        _varsHandler.StartHandler();
                     }
                     catch (Exception ex)
                     {
                         _networkIO = null;
-                        _logger.Error($"Cannot start NetworkIO: {ex.Message}");
+                        _varsHandler = null;
+
+                        _logger.Error($"Cannot start NetworkIO and VarsHandler: {ex.Message}");
                     }
                 }
 
@@ -91,6 +107,10 @@ namespace DDS.Net.Server
             {
                 _logger.Warning("Cannot start server when it is not fully stopped");
             }
+        }
+
+        private void OnVarsHandlerStatusChanged(object? sender, VarsHandlerStatus e)
+        {
         }
 
         private void OnNetworkIOStatusChanged(object? sender, DataIOProviderStatus e)
@@ -126,6 +146,12 @@ namespace DDS.Net.Server
                 SetServerStatus(ServerStatus.Stopping);
 
                 PrintLogStopping();
+
+                if (_varsHandler != null)
+                {
+                    _varsHandler.StopHandler();
+                    _varsHandler = null;
+                }
 
                 if (_networkIO != null)
                 {

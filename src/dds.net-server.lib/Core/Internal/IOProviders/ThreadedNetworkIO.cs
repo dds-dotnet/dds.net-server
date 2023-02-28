@@ -1,13 +1,14 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Entities;
+using DDS.Net.Server.Core.Internal.InterfaceImplementations;
 using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Core.Internal.SimpleServer;
-using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System.Net;
 using System.Threading;
 
-namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
+namespace DDS.Net.Server.Core.Internal.IOProviders
 {
     internal class ThreadedNetworkIO
         : SinglePipedThread<DataToClient, DataFromClient, ThreadedDataIOCommands, ThreadedDataIOStatus>
@@ -40,10 +41,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             : base(inputQueueSize, outputQueueSize, commandsQueueSize, responsesQueueSize, false)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            
+
             this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
 
-            this.threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
+            threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
 
             if (responsesQueue.CanEnqueue())
             {
@@ -61,13 +62,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this.udpEnable = udpEnable;
             this.udpPort = udpPort;
 
-            this._tcpInputQueue = null!;
-            this._udpInputQueue = null!;
-            this._tcpOutputQueue = null!;
-            this._udpOutputQueue = null!;
+            _tcpInputQueue = null!;
+            _udpInputQueue = null!;
+            _tcpOutputQueue = null!;
+            _udpOutputQueue = null!;
 
-            this._tcpServer = null!;
-            this._udpServer = null!;
+            _tcpServer = null!;
+            _udpServer = null!;
         }
 
         public void StartIO()

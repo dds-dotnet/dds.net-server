@@ -1,7 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal;
 using DDS.Net.Server.Core.Internal.Entities;
-using DDS.Net.Server.Core.Internal.InterfaceImplementations;
 using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Core.Internal.IOProviders;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;

@@ -1,10 +1,11 @@
 ﻿using DDS.Net.Server.Core.Internal.Interfaces;
-using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
+using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System.Net;
 using System.Net.Sockets;
 
-namespace DDS.Net.Server.Core.Internal.SimpleServer
+namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 {
     internal class SSUDP : SSBase
     {
@@ -98,7 +99,7 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
                             byte[] data = new byte[dataAvailable];
 
                             IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-                            EndPoint senderRemote = (EndPoint)sender;
+                            EndPoint senderRemote = sender;
 
                             localSocket.ReceiveFrom(data, SocketFlags.None, ref senderRemote);
 

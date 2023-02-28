@@ -1,10 +1,11 @@
 ﻿using DDS.Net.Server.Core.Internal.Interfaces;
-using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
+using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System.Net;
 using System.Net.Sockets;
 
-namespace DDS.Net.Server.Core.Internal.SimpleServer
+namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 {
     internal class SSTCP : SSBase
     {

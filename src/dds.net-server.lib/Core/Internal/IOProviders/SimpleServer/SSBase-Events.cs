@@ -1,4 +1,4 @@
-﻿using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+﻿using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 
 namespace DDS.Net.Server.Core.Internal.SimpleServer
 {

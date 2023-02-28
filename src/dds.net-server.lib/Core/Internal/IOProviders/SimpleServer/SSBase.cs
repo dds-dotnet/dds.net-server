@@ -1,6 +1,6 @@
 ﻿using DDS.Net.Server.Core.Internal.Extensions;
 using DDS.Net.Server.Core.Internal.Interfaces;
-using DDS.Net.Server.Core.Internal.SimpleServer.Types;
+using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System.Net;
 using System.Net.Sockets;

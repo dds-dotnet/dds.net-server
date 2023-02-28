@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace DDS.Net.Server.Core.Internal.SimpleServer.Types
+namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types
 {
     internal class SSPacket
     {

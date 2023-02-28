@@ -1,4 +1,5 @@
-﻿using DDS.Net.Server.Core.Internal.Entities;
+﻿using DDS.Net.Server.Core.Internal.Base;
+using DDS.Net.Server.Core.Internal.Entities;
 using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Core.Internal.SimpleServer.Types;
@@ -7,10 +8,10 @@ using System.Net;
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class ThreadedNetworkIO : IThreadedDataIO<DataToClient, DataFromClient>
+    internal class ThreadedNetworkIO
+        : SinglePipedThread<DataToClient, DataFromClient, ThreadedDataIOCommands, ThreadedDataIOStatus>
     {
-        private readonly ISyncDataOutputQueueEnd<DataToClient> inputQueue;
-        private readonly ISyncDataInputQueueEnd<DataFromClient> outputQueue;
+        private ThreadedDataIOStatus threadedDataIOStatus;
 
         private readonly ILogger logger;
 
@@ -23,30 +24,34 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private readonly bool udpEnable;
         private readonly ushort udpPort;
 
-        private ThreadedDataIOStatus threadedDataIOStatus;
-        public event EventHandler<ThreadedDataIOStatus>? ThreadedDataIOStatusChanged;
-
-        private volatile bool isThreadRunning;
-        private Thread thread;
-
         public ThreadedNetworkIO(
-            ISyncDataOutputQueueEnd<DataToClient> inputQueue,
-            ISyncDataInputQueueEnd<DataFromClient> outputQueue,
-
             ILogger logger,
+
+            int inputQueueSize,
+            int outputQueueSize,
+            int commandsQueueSize,
+            int responsesQueueSize,
 
             string listeningIPv4Address,
             bool tcpEnable, ushort tcpPort, int tcpMaxClients,
             bool udpEnable, ushort udpPort)
+
+            : base(inputQueueSize, outputQueueSize, commandsQueueSize, responsesQueueSize, false)
         {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            
+            this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
+
             this.threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
 
-            this.inputQueue = inputQueue ?? throw new ArgumentNullException(nameof(inputQueue));
-            this.outputQueue = outputQueue ?? throw new ArgumentNullException(nameof(outputQueue));
-
-            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-
-            this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
+            if (responsesQueue.CanEnqueue())
+            {
+                responsesQueue.Enqueue(threadedDataIOStatus);
+            }
+            else
+            {
+                logger.Error("NetworkIO response queue full");
+            }
 
             this.tcpEnable = tcpEnable;
             this.tcpPort = tcpPort;
@@ -63,60 +68,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             this._tcpServer = null!;
             this._udpServer = null!;
 
-            this.isThreadRunning = false;
-            this.thread = null!;
-        }
-
-        public ISyncDataOutputQueueEnd<DataToClient> GetInputDataQueueEnd()
-        {
-            return inputQueue;
-        }
-
-        public ISyncDataInputQueueEnd<DataFromClient> GetOutputDataQueueEnd()
-        {
-            return outputQueue;
-        }
-
-        public void SetInputDataQueueEnd(ISyncDataOutputQueueEnd<DataToClient> inputQueueEnd)
-        {
-            throw new Exception("The input queue cannot be updated once initialized through constructor");
-        }
-
-        public void SetOutputDataQueueEnd(ISyncDataInputQueueEnd<DataFromClient> outputQueueEnd)
-        {
-            throw new Exception("The output queue cannot be updated once initialized through constructor");
-        }
-
-        public void StartIO()
-        {
-            lock (this)
-            {
-                if (thread == null)
-                {
-                    isThreadRunning = true;
-
-                    thread = new Thread(ThreadFunction);
-
-                    thread.Priority = ThreadPriority.Normal;
-                    thread.IsBackground = true;
-
-                    thread.Start();
-                }
-            }
-        }
-
-        public void StopIO()
-        {
-            lock (this)
-            {
-                if (thread != null)
-                {
-                    isThreadRunning = false;
-
-                    thread.Join();
-                    thread = null!;
-                }
-            }
+            StartThread();
         }
 
         private SyncQueue<SSPacket> _tcpInputQueue;
@@ -265,8 +217,55 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             if (threadedDataIOStatus != newStatus)
             {
                 threadedDataIOStatus = newStatus;
-                ThreadedDataIOStatusChanged?.Invoke(this, newStatus);
+
+                if (responsesQueue.CanEnqueue())
+                {
+                    responsesQueue.Enqueue(newStatus);
+                }
+                else
+                {
+                    logger.Error("NetworkIO response queue full");
+                }
             }
+        }
+
+        protected override void CheckCommands()
+        {
+        }
+
+        protected override void CheckInputs()
+        {
+        }
+
+        protected override void GenerateOutputs()
+        {
+        }
+
+        protected override void DoInit()
+        {
+            UpdateStatus(ThreadedDataIOStatus.Starting);
+
+            StartServers();
+
+            if (_tcpServer != null || _udpServer != null)
+            {
+                UpdateStatus(ThreadedDataIOStatus.Started);
+            }
+        }
+
+        protected override void DoWork()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void DoCleanup()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

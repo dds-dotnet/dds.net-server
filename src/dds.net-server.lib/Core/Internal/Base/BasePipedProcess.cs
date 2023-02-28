@@ -8,6 +8,8 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Command : struct
         where T_Response : struct
     {
+        private static int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
+
         public ISyncQueueWriterEnd<T_Command> CommandWriter { get; private set; }
         public ISyncQueueReaderEnd<T_Response> ResponseReader { get; private set; }
 
@@ -80,11 +82,11 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected abstract void ProcessCommand(T_Command command);
-        protected abstract void CheckInputs();
-        protected abstract void DoInit();
-        protected abstract void DoWork();
-        protected abstract void DoCleanup();
+        protected abstract int ProcessCommand(T_Command command);
+        protected abstract int CheckInputs();
+        protected abstract int DoInit();
+        protected abstract int DoWork();
+        protected abstract int DoCleanup();
 
         public abstract void Dispose();
     }

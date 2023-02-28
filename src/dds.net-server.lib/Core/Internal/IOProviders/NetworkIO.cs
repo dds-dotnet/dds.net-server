@@ -6,7 +6,6 @@ using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Interfaces;
 using System.Net;
-using System.Net.Sockets;
 
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
@@ -235,7 +234,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("TCP:", ""));
                 _tcpOutputQueue.Enqueue(new SSPacket(target, input.Data));
             }
-            else if(targetRef.StartsWith("UDP:") && _udpServer != null)
+            else if (targetRef.StartsWith("UDP:") && _udpServer != null)
             {
                 IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("UDP:", ""));
                 _udpOutputQueue.Enqueue(new SSPacket(target, input.Data));

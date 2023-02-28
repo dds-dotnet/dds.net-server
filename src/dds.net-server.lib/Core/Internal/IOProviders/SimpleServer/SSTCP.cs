@@ -143,6 +143,9 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
         {
             while (isDataReceiverThreadRunning)
             {
+                //- 
+                //- Receiving data from clients when available
+                //- 
                 lock (this)
                 {
                     foreach (Socket socket in connectedClients)
@@ -150,6 +153,10 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                         if (socket.Connected == false)
                         {
                             connectedClients.Remove(socket);
+
+                            //- sending null to packet processor to indicate that the client has disconnected
+                            //
+                            dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, null!));
 
                             logger.Info($"SSTCP connection from {socket.RemoteEndPoint} lost");
 
@@ -168,6 +175,10 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                     }
                 }
 
+
+                //- 
+                //- Sending data to clients
+                //- 
                 while (dataInputQueue.CanDequeue())
                 {
                     SSPacket packet = dataInputQueue.Dequeue();
@@ -188,6 +199,10 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                                 else
                                 {
                                     connectedClients.Remove(socket);
+
+                                    //- sending null to packet processor to indicate that the client has disconnected
+                                    //
+                                    dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, null!));
 
                                     logger.Warning($"SSTCP connection from {socket.RemoteEndPoint} lost - cannot send data");
                                 }

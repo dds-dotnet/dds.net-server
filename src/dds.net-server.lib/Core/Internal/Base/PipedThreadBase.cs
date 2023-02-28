@@ -47,6 +47,8 @@ namespace DDS.Net.Server.Core.Internal.Base
                     {
                         _thread = new Thread(() =>
                         {
+                            DoInit();
+
                             while (_isThreadRunning)
                             {
                                 if (_isThreadRunning) DoWork();
@@ -58,6 +60,8 @@ namespace DDS.Net.Server.Core.Internal.Base
 
                                 Thread.Yield();
                             }
+
+                            DoCleanup();
                         });
                     }
 
@@ -81,7 +85,9 @@ namespace DDS.Net.Server.Core.Internal.Base
         protected abstract void CheckCommands();
         protected abstract void CheckInputs();
         protected abstract void GenerateOutputs();
+        protected abstract void DoInit();
         protected abstract void DoWork();
+        protected abstract void DoCleanup();
 
         public abstract void Dispose();
     }

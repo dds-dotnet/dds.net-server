@@ -33,24 +33,29 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             Exit();
         }
 
-        protected override void DoInit()
+        protected override int DoInit()
         {
+            return 0;
         }
 
-        protected override void DoWork()
+        protected override int DoWork()
         {
+            return 0;
         }
 
-        protected override void DoCleanup()
+        protected override int DoCleanup()
         {
+            return 0;
         }
 
-        protected override void ProcessCommand(VarsHandlerCommands command)
+        protected override int ProcessCommand(VarsHandlerCommands command)
         {
+            return 0;
         }
 
-        protected override void ProcessInput(DataFromClient input)
+        protected override int ProcessInput(DataFromClient input)
         {
+            return 0;
         }
 
         public override void Dispose()

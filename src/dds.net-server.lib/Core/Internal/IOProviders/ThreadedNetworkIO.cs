@@ -228,6 +228,9 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
         protected override void DoCleanup()
         {
+            _tcpServer?.StopServer();
+            _udpServer?.StopServer();
+
             _tcpServer = null!;
             _udpServer = null!;
 

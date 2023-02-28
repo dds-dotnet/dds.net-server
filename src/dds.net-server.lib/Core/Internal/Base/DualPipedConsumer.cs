@@ -41,17 +41,23 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        protected override void CheckInputs()
+        protected override int CheckInputs()
         {
+            int workDone = 0;
+
             while (InputQueue.CanDequeue())
             {
                 ProcessInput(InputQueue.Dequeue());
+                workDone++;
             }
 
             while (InputQueue2.CanDequeue())
             {
                 ProcessInput2(InputQueue2.Dequeue());
+                workDone++;
             }
+
+            return workDone;
         }
 
         protected abstract void ProcessInput(T_Input1 input);

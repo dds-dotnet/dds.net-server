@@ -38,7 +38,7 @@ namespace DDS.Net.Server.Core.Internal.Base
 
         }
 
-        protected abstract T_Responses HandleCommand(T_Commands command);
+        protected abstract void CheckCommands();
         protected abstract void DoWork();
 
         public abstract void Dispose();

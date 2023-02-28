@@ -13,6 +13,8 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Commands : struct
         where T_Responses : struct
     {
+        private static int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
+
         public ISyncQueueWriterEnd<T_Input2> InputWriter2 { get; private set; }
         public ISyncQueueReaderEnd<T_Output2> OutputReader2 { get; private set; }
 
@@ -56,16 +58,39 @@ namespace DDS.Net.Server.Core.Internal.Base
                         {
                             DoInit();
 
+                            int workStatus1 = 0;
+                            int workStatus2 = 0;
+                            int workStatus3 = 0;
+                            int processCommandStatus = 0;
+                            int checkInputsStatus1 = 0;
+                            int checkInputsStatus2 = 0;
+
                             while (_isThreadRunning)
                             {
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && CommandQueue.CanDequeue()) ProcessCommand(CommandQueue.Dequeue());
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && InputQueue.CanDequeue()) CheckInputs();
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && InputQueue2.CanDequeue()) CheckInputs2();
+                                workStatus1 = 0;
+                                workStatus2 = 0;
+                                workStatus3 = 0;
+                                processCommandStatus = 0;
+                                checkInputsStatus1 = 0;
+                                checkInputsStatus2 = 0;
 
-                                Thread.Yield();
+                                if (_isThreadRunning) { workStatus1 = DoWork(); }
+                                if (_isThreadRunning && CommandQueue.CanDequeue()) { processCommandStatus = ProcessCommand(CommandQueue.Dequeue()); }
+                                if (_isThreadRunning) { workStatus2 = DoWork(); }
+                                if (_isThreadRunning && InputQueue.CanDequeue()) { checkInputsStatus1 = CheckInputs(); }
+                                if (_isThreadRunning) { workStatus3 = DoWork(); }
+                                if (_isThreadRunning && InputQueue2.CanDequeue()) { checkInputsStatus2 = CheckInputs2(); }
+
+                                if (_isThreadRunning &&
+                                    workStatus1 == 0 &&
+                                    workStatus2 == 0 &&
+                                    workStatus3 == 0 &&
+                                    processCommandStatus == 0 &&
+                                    checkInputsStatus1 == 0 &&
+                                    checkInputsStatus2 == 0)
+                                {
+                                    Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
+                                }
                             }
 
                             DoCleanup();
@@ -77,12 +102,17 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
-        private void CheckInputs2()
+        private int CheckInputs2()
         {
+            int workDone = 0;
+
             while (InputQueue2.CanDequeue())
             {
                 ProcessInput2(InputQueue2.Dequeue());
+                workDone++;
             }
+
+            return workDone;
         }
 
         protected abstract void ProcessInput2(T_Input2 input);

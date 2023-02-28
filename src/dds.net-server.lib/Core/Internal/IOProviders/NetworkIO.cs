@@ -1,6 +1,6 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
-using DDS.Net.Server.Core.Internal.InterfaceImplementations;
+using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer;
 using DDS.Net.Server.Core.Internal.IOProviders.SimpleServer.Types;
 using DDS.Net.Server.Core.Internal.SimpleServer;

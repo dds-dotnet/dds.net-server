@@ -1,10 +1,10 @@
 ﻿using DDS.Net.Server.Core.Internal.Interfaces;
 
-namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
+namespace DDS.Net.Server.Core.Internal.Interfaces.Implementations
 {
-    internal class SyncQueueValuetype<T>
+    internal class SyncQueue<T>
         : ISyncDataWriterQueueEnd<T>, ISyncDataReaderQueueEnd<T>, IDisposable
-        where T : struct
+        where T : class
     {
         public event EventHandler<T>? DataAvailableForReading;
 
@@ -14,11 +14,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private Mutex _mutex;
 
         private T[] _queue;
-        private bool[] _queueElementPresent;
         private int _nextWriteIndex;
         private int _nextReadIndex;
 
-        public SyncQueueValuetype(int queueSize)
+        public SyncQueue(int queueSize)
         {
             if (queueSize <= 0)
             {
@@ -26,12 +25,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             }
 
             _queue = new T[queueSize];
-            _queueElementPresent = new bool[queueSize];
 
             for (int i = 0; i < queueSize; i++)
             {
-                _queue[i] = default;
-                _queueElementPresent[i] = false;
+                _queue[i] = null!;
             }
 
             _nextWriteIndex = 0;
@@ -44,7 +41,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         {
             lock (_mutex)
             {
-                return _queueElementPresent[_nextReadIndex];
+                if (_queue[_nextReadIndex] != null)
+                    return true;
+
+                return false;
             }
         }
 
@@ -52,7 +52,10 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         {
             lock (_mutex)
             {
-                return _queueElementPresent[_nextWriteIndex] == false;
+                if (_queue[_nextWriteIndex] == null)
+                    return true;
+
+                return false;
             }
         }
 
@@ -63,7 +66,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             lock (_mutex)
             {
                 T data = _queue[_nextReadIndex];
-                _queueElementPresent[_nextReadIndex] = false;
+                _queue[_nextReadIndex] = null!;
 
                 _nextReadIndex++;
                 if (_nextReadIndex == _queue.Length)
@@ -75,12 +78,13 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         public void Enqueue(T data)
         {
+            if (data == null) return;
+
             while (!CanEnqueue()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
 
             lock (_mutex)
             {
                 _queue[_nextWriteIndex] = data;
-                _queueElementPresent[_nextWriteIndex] = true;
 
                 _nextWriteIndex++;
                 if (_nextWriteIndex == _queue.Length)

@@ -63,8 +63,6 @@ namespace DDS.Net.Server.Core.Internal.Base
                                 if (_isThreadRunning && commandsQueue.CanDequeue()) ProcessCommand(commandsQueue.Dequeue());
                                 if (_isThreadRunning) DoWork();
                                 if (_isThreadRunning && inputQueue.CanDequeue()) CheckInputs();
-                                if (_isThreadRunning) DoWork();
-                                if (_isThreadRunning && outputQueue.CanEnqueue()) GenerateOutputs();
 
                                 Thread.Yield();
                             }

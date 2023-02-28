@@ -3,7 +3,7 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class SingleConsumerPipedThread<T_Input, T_Output, T_Commands, T_Responses>
+    internal abstract class SinglePipedThreadConsumer<T_Input, T_Output, T_Commands, T_Responses>
         : PipedThreadBase<T_Commands, T_Responses>, IDisposable
 
         where T_Input : class
@@ -14,7 +14,7 @@ namespace DDS.Net.Server.Core.Internal.Base
         public ISyncQueueReaderEnd<T_Input> Input { get; private set; }
         public ISyncQueueWriterEnd<T_Output> Output { get; private set; }
 
-        protected SingleConsumerPipedThread(
+        protected SinglePipedThreadConsumer(
                     ISyncQueueReaderEnd<T_Input> input,
                     ISyncQueueWriterEnd<T_Output> output,
                     int commandsQueueSize,

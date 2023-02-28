@@ -10,7 +10,7 @@ using DDS.Net.Server.Core.Internal.Interfaces;
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
     internal class VarsHandler
-        : SingleConsumerPipedThread<DataFromClient, DataToClient, VarsHandlerCommands, VarsHandlerStatus>
+        : SinglePipedThreadConsumer<DataFromClient, DataToClient, VarsHandlerCommands, VarsHandlerStatus>
     {
         public VarsHandler(
                     ISyncQueueReaderEnd<DataFromClient> dataReaderEnd,

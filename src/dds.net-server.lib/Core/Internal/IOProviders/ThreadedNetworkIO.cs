@@ -232,19 +232,17 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             if (targetRef.StartsWith("TCP:") && _tcpServer != null)
             {
-
                 IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("TCP:", ""));
-
                 _tcpOutputQueue.Enqueue(new SSPacket(target, input.Data));
-
             }
             else if(targetRef.StartsWith("UDP:") && _udpServer != null)
             {
-
                 IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("UDP:", ""));
-
                 _udpOutputQueue.Enqueue(new SSPacket(target, input.Data));
-
+            }
+            else
+            {
+                logger.Error($"NetworkIO sending to network failed for {targetRef}");
             }
         }
 

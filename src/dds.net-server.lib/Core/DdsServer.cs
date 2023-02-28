@@ -23,8 +23,8 @@ namespace DDS.Net.Server
 
         private ServerStatus _status = ServerStatus.Stopped;
 
-        private SyncQueue<DataFromClient> _networkClientsInputQueue;
-        private SyncQueue<DataToClient> _networkClientsOutputQueue;
+        private ISyncDataOutputQueueEnd<DataFromClient> _dataFromNetwork = null!;
+        private ISyncDataInputQueueEnd<DataToClient> _dataToNetwork = null!;
 
         private ThreadedNetworkIO? _networkIO;
 
@@ -38,9 +38,6 @@ namespace DDS.Net.Server
                 _logger = _config.Logger;
             else
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
-
-            _networkClientsInputQueue = new SyncQueue<DataFromClient>(InternalSettings.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE);
-            _networkClientsOutputQueue = new SyncQueue<DataToClient>(InternalSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE);
 
             _networkIO = null;
         }
@@ -59,17 +56,23 @@ namespace DDS.Net.Server
                     try
                     {
                         _networkIO = new ThreadedNetworkIO(
-                            _networkClientsOutputQueue,
-                            _networkClientsInputQueue,
-
                             _logger,
+
+                            InternalSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,
+                            InternalSettings.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE,
+                            InternalSettings.NETWORK_COMMANDS_QUEUE_SIZE,
+                            InternalSettings.NETWORK_RESPONSES_QUEUE_SIZE,
+
 
                             _config.ListeningAddressIPv4,
 
                             _config.EnableTCP, _config.ListeningPortTCP, _config.MaxClientsTCP,
                             _config.EnableUDP, _config.ListeningPortUDP);
 
-                        _networkIO.ThreadedDataIOStatusChanged += OnNetworkIOStatusChanged;
+                        _dataFromNetwork = _networkIO.Output;
+                        _dataToNetwork = _networkIO.Input;
+
+                        _networkIO.Responses.DataAvailableForOutput += OnNetworkIOStatusChanged;
                         _networkIO.StartIO();
                     }
                     catch (Exception ex)

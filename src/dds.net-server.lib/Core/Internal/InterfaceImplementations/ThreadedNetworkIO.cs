@@ -68,8 +68,16 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
             this._tcpServer = null!;
             this._udpServer = null!;
+        }
 
+        public void StartIO()
+        {
             StartThread();
+        }
+
+        public void StopIO()
+        {
+            Exit();
         }
 
         private SyncQueue<SSPacket> _tcpInputQueue;
@@ -143,11 +151,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                     logger.Error($"Cannot start UDP Server: {ex.Message}");
                 }
             }
-        }
-
-        private void ThreadFunction()
-        {
-            
         }
 
         private void UpdateStatus(ThreadedDataIOStatus newStatus)

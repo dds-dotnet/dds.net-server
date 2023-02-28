@@ -142,11 +142,9 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
         private void DataReceiverThread()
         {
-            bool hasDoneAnythingInIteration = false;
-
             while (isDataReceiverThreadRunning)
             {
-                hasDoneAnythingInIteration = false;
+                bool hasDoneAnythingInIteration = false;
 
                 //- 
                 //- Receiving data from clients when available

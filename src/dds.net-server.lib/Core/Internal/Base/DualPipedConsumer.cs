@@ -60,7 +60,7 @@ namespace DDS.Net.Server.Core.Internal.Base
             return workDone;
         }
 
-        protected abstract void ProcessInput(T_Input1 input);
-        protected abstract void ProcessInput2(T_Input2 input);
+        protected abstract int ProcessInput(T_Input1 input);
+        protected abstract int ProcessInput2(T_Input2 input);
     }
 }

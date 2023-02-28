@@ -71,13 +71,15 @@ namespace DDS.Net.Server.Core.Internal.Base
                                 if (_isThreadRunning) { workStatus2 = DoWork(); } 
                                 if (_isThreadRunning) { checkInputsStatus = CheckInputs(); }
 
-                                if (_isThreadRunning &&
-                                    workStatus1 == 0 &&
-                                    workStatus2 == 0 &&
-                                    processCommandStatus == 0 &&
-                                    checkInputsStatus == 0)
+                                if (_isThreadRunning)
                                 {
-                                    Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
+                                    if (workStatus1 == 0 &&
+                                        workStatus2 == 0 &&
+                                        processCommandStatus == 0 &&
+                                        checkInputsStatus == 0)
+                                    {
+                                        Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
+                                    }
                                 }
                             }
 

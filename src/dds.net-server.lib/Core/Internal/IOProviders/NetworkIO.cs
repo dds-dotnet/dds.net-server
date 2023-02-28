@@ -170,7 +170,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
         }
 
-        protected override void DoInit()
+        protected override int DoInit()
         {
             UpdateStatus(DataIOProviderStatus.Starting);
 
@@ -185,10 +185,14 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 logger.Error("Unable to start network I/O");
                 UpdateStatus(DataIOProviderStatus.Stopped);
             }
+
+            return 0;
         }
 
-        protected override void DoWork()
+        protected override int DoWork()
         {
+            int workDone = 0;
+
             if (_tcpServer != null)
             {
                 //- Data from TCP Server
@@ -196,6 +200,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 {
                     SSPacket packet = _tcpInputQueue.Dequeue();
                     OutputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
+
+                    workDone++;
                 }
             }
 
@@ -206,11 +212,15 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 {
                     SSPacket packet = _udpInputQueue.Dequeue();
                     OutputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
+
+                    workDone++;
                 }
             }
+
+            return workDone;
         }
 
-        protected override void DoCleanup()
+        protected override int DoCleanup()
         {
             _tcpServer?.StopServer();
             _udpServer?.StopServer();
@@ -223,9 +233,11 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             _udpInputQueue = null!;
             _udpOutputQueue = null!;
+
+            return 0;
         }
 
-        protected override void ProcessInput(DataToClient input)
+        protected override int ProcessInput(DataToClient input)
         {
             string targetRef = input.ClientRef;
 
@@ -243,10 +255,13 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             {
                 logger.Error($"NetworkIO sending to network failed for {targetRef}");
             }
+
+            return 1;
         }
 
-        protected override void ProcessCommand(DataIOProviderCommands command)
+        protected override int ProcessCommand(DataIOProviderCommands command)
         {
+            return 0;
         }
 
         public override void Dispose()

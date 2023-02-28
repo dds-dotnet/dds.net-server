@@ -5,6 +5,7 @@ using DDS.Net.Server.Core.Internal.SimpleServer;
 using DDS.Net.Server.Core.Internal.SimpleServer.Types;
 using DDS.Net.Server.Interfaces;
 using System.Net;
+using System.Threading;
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
@@ -146,14 +147,8 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         private void ThreadFunction()
         {
-            UpdateStatus(ThreadedDataIOStatus.Starting);
-
-            StartServers();
-
             if (_tcpServer != null || _udpServer != null)
             {
-                UpdateStatus(ThreadedDataIOStatus.Started);
-
                 while (isThreadRunning)
                 {
                     if (_tcpServer != null)
@@ -195,21 +190,6 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                     Thread.Yield();
                 }
             }
-            else
-            {
-                logger.Error("Unable to start network I/O");
-                UpdateStatus(ThreadedDataIOStatus.Stopped);
-                thread = null!;
-            }
-
-            _tcpServer = null!;
-            _udpServer = null!;
-
-            _tcpInputQueue = null!;
-            _tcpOutputQueue = null!;
-
-            _udpInputQueue = null!;
-            _udpOutputQueue = null!;
         }
 
         private void UpdateStatus(ThreadedDataIOStatus newStatus)
@@ -251,6 +231,11 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
             {
                 UpdateStatus(ThreadedDataIOStatus.Started);
             }
+            else
+            {
+                logger.Error("Unable to start network I/O");
+                UpdateStatus(ThreadedDataIOStatus.Stopped);
+            }
         }
 
         protected override void DoWork()
@@ -260,7 +245,14 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 
         protected override void DoCleanup()
         {
-            throw new NotImplementedException();
+            _tcpServer = null!;
+            _udpServer = null!;
+
+            _tcpInputQueue = null!;
+            _tcpOutputQueue = null!;
+
+            _udpInputQueue = null!;
+            _udpOutputQueue = null!;
         }
 
         public override void Dispose()

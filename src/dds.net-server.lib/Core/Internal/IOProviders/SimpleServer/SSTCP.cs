@@ -9,7 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 {
     internal class SSTCP : SSBase
     {
-        private readonly int SLEEP_TIME_MS_WHEN_CONNECTION_NOT_WAITING = 50;
+        private readonly int SLEEP_TIME_MS_WHEN_NO_CONNECTION_WAITING = 100;
 
         private volatile bool isConnectionListenerThreadRunning = false;
         private volatile bool isDataReceiverThreadRunning = false;
@@ -116,13 +116,13 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                     {
                         // Doing nothing as we are in non-blocking mode; so,
                         //     Accept is expected to throw SocketException
+
+                        Thread.Sleep(SLEEP_TIME_MS_WHEN_NO_CONNECTION_WAITING);
                     }
                     catch (Exception ex)
                     {
                         logger.Error($"SSTCP socket accepting failed: {ex.Message}");
                     }
-
-                    Thread.Sleep(SLEEP_TIME_MS_WHEN_CONNECTION_NOT_WAITING);
                 }
 
                 logger.Info($"SSTCP server @{localEndPoint} exiting - waiting for data receiver to exit");

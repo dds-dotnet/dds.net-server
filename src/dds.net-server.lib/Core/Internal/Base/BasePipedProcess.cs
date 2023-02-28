@@ -57,20 +57,25 @@ namespace DDS.Net.Server.Core.Internal.Base
                             int workStatus1 = 0;
                             int workStatus2 = 0;
                             int processCommandStatus = 0;
-                            int checkInputStatus = 0;
+                            int checkInputsStatus = 0;
 
                             while (_isThreadRunning)
                             {
+                                workStatus1 = 0;
+                                workStatus2 = 0;
+                                processCommandStatus = 0;
+                                checkInputsStatus = 0;
+
                                 if (_isThreadRunning) { workStatus1 = DoWork(); }
                                 if (_isThreadRunning && CommandQueue.CanDequeue()) { processCommandStatus = ProcessCommand(CommandQueue.Dequeue()); }
                                 if (_isThreadRunning) { workStatus2 = DoWork(); } 
-                                if (_isThreadRunning) { checkInputStatus = CheckInputs(); }
+                                if (_isThreadRunning) { checkInputsStatus = CheckInputs(); }
 
                                 if (_isThreadRunning &&
                                     workStatus1 != 0 &&
                                     workStatus2 != 0 &&
                                     processCommandStatus != 0 &&
-                                    checkInputStatus != 0)
+                                    checkInputsStatus != 0)
                                 {
                                     Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
                                 }

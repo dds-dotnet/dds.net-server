@@ -10,6 +10,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
     internal class SSTCP : SSBase
     {
         private readonly int SLEEP_TIME_MS_WHEN_NO_CONNECTION_WAITING = 100;
+        private readonly int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
 
         private volatile bool isConnectionListenerThreadRunning = false;
         private volatile bool isDataReceiverThreadRunning = false;
@@ -141,8 +142,12 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
         private void DataReceiverThread()
         {
+            bool hasDoneAnythingInIteration = false;
+
             while (isDataReceiverThreadRunning)
             {
+                hasDoneAnythingInIteration = false;
+
                 //- 
                 //- Receiving data from clients when available
                 //- 
@@ -160,6 +165,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
                             logger.Info($"SSTCP connection from {socket.RemoteEndPoint} lost");
 
+                            hasDoneAnythingInIteration = true;
+
                             break;
                         }
 
@@ -171,6 +178,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                             socket.Receive(bytes);
 
                             dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, bytes));
+
+                            hasDoneAnythingInIteration = true;
                         }
                     }
                 }
@@ -181,6 +190,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                 //- 
                 while (dataInputQueue.CanDequeue())
                 {
+                    hasDoneAnythingInIteration = true;
+
                     SSPacket packet = dataInputQueue.Dequeue();
 
                     lock (this)
@@ -213,7 +224,10 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                     }
                 }
 
-                Thread.Yield();
+                if (hasDoneAnythingInIteration == false)
+                {
+                    Thread.Sleep(SLEEP_TIME_MS_WHEN_DONE_NOTHING);
+                }
             }
         }
     }

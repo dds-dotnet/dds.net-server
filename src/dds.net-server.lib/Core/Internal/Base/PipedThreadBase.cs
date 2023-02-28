@@ -38,6 +38,21 @@ namespace DDS.Net.Server.Core.Internal.Base
                 if (_thread == null)
                 {
                     _isThreadRunning = true;
+
+                    if (threadFunction != null)
+                    {
+                        _thread = new Thread(threadFunction.Invoke);
+                    }
+                    else
+                    {
+                        _thread = new Thread(() =>
+                        {
+                            while (_isThreadRunning)
+                            {
+                                Thread.Yield();
+                            }
+                        });
+                    }
                 }
             }
         }

@@ -33,6 +33,12 @@ namespace DDS.Net.Server.Core.Internal.Base
 
         }
 
+        protected void Exit(T_Responses lastResponse)
+        {
+
+        }
+
+        protected abstract T_Responses HandleCommand(T_Commands command);
         protected abstract void DoWork();
 
         public abstract void Dispose();

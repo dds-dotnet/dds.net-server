@@ -33,10 +33,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             Exit();
         }
 
-        public override void Dispose()
-        {
-        }
-
         protected override void DoInit()
         {
         }
@@ -54,6 +50,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         }
 
         protected override void ProcessInput(DataFromClient input)
+        {
+        }
+
+        public override void Dispose()
         {
         }
     }

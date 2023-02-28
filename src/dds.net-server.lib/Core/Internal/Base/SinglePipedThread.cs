@@ -77,5 +77,15 @@ namespace DDS.Net.Server.Core.Internal.Base
                 }
             }
         }
+
+        protected override void CheckInputs()
+        {
+            while (inputQueue.CanDequeue())
+            {
+                ProcessInput(inputQueue.Dequeue());
+            }
+        }
+
+        protected abstract void ProcessInput(T_Input input);
     }
 }

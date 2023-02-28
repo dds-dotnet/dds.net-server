@@ -11,13 +11,13 @@ namespace DDS.Net.Server.Core.Internal.Base
         public ISyncDataWriterQueueEnd<T_Commands> Commands { get; private set; }
         public ISyncDataReaderQueueEnd<T_Responses> Responses { get; private set; }
 
-        protected readonly SyncQueueStruct<T_Commands> commandsQueue;
-        protected readonly SyncQueueStruct<T_Responses> responsesQueue;
+        protected readonly SyncQueueValuetype<T_Commands> commandsQueue;
+        protected readonly SyncQueueValuetype<T_Responses> responsesQueue;
 
         protected PipedThreadBase(int commandsQueueSize, int responsesQueueSize, bool startThread = true)
         {
-            commandsQueue = new SyncQueueStruct<T_Commands>(commandsQueueSize);
-            responsesQueue = new SyncQueueStruct<T_Responses>(responsesQueueSize);
+            commandsQueue = new SyncQueueValuetype<T_Commands>(commandsQueueSize);
+            responsesQueue = new SyncQueueValuetype<T_Responses>(responsesQueueSize);
 
             Commands = commandsQueue;
             Responses = responsesQueue;

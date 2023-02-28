@@ -2,7 +2,7 @@
 
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
-    internal class SyncQueueStruct<T>
+    internal class SyncQueueValuetype<T>
         : ISyncDataWriterQueueEnd<T>, ISyncDataReaderQueueEnd<T>, IDisposable
         where T : struct
     {
@@ -18,7 +18,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
         private int _nextWriteIndex;
         private int _nextReadIndex;
 
-        public SyncQueueStruct(int queueSize)
+        public SyncQueueValuetype(int queueSize)
         {
             if (queueSize <= 0)
             {

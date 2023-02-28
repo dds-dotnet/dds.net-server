@@ -3,10 +3,10 @@
 namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
 {
     internal class SyncQueue<T>
-        : ISyncDataInputQueueEnd<T>, ISyncDataOutputQueueEnd<T>, IDisposable
+        : ISyncDataWriterQueueEnd<T>, ISyncDataReaderQueueEnd<T>, IDisposable
         where T : class
     {
-        public event EventHandler<T>? DataAvailableForOutput;
+        public event EventHandler<T>? DataAvailableForReading;
 
         private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED = 5;
         private readonly int SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED = 5;
@@ -91,7 +91,7 @@ namespace DDS.Net.Server.Core.Internal.InterfaceImplementations
                     _nextWriteIndex = 0;
             }
 
-            DataAvailableForOutput?.Invoke(this, data);
+            DataAvailableForReading?.Invoke(this, data);
         }
 
         public void Dispose()

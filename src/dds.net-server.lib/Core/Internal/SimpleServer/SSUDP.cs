@@ -12,8 +12,8 @@ namespace DDS.Net.Server.Core.Internal.SimpleServer
         private Thread? clientListenerThread = null;
 
         public SSUDP(
-            ISyncDataOutputQueueEnd<SSPacket> dataInputQueue,
-            ISyncDataInputQueueEnd<SSPacket> dataOutputQueue,
+            ISyncDataReaderQueueEnd<SSPacket> dataInputQueue,
+            ISyncDataWriterQueueEnd<SSPacket> dataOutputQueue,
 
             string IPv4, ushort port, ILogger logger)
 

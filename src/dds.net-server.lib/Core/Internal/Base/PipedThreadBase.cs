@@ -8,8 +8,8 @@ namespace DDS.Net.Server.Core.Internal.Base
         where T_Commands : struct
         where T_Responses : struct
     {
-        public ISyncDataInputQueueEnd<T_Commands> Commands { get; private set; }
-        public ISyncDataOutputQueueEnd<T_Responses> Responses { get; private set; }
+        public ISyncDataWriterQueueEnd<T_Commands> Commands { get; private set; }
+        public ISyncDataReaderQueueEnd<T_Responses> Responses { get; private set; }
 
         protected readonly SyncQueueStruct<T_Commands> commandsQueue;
         protected readonly SyncQueueStruct<T_Responses> responsesQueue;

@@ -23,8 +23,8 @@ namespace DDS.Net.Server
 
         private ServerStatus _status = ServerStatus.Stopped;
 
-        private ISyncDataOutputQueueEnd<DataFromClient> _dataFromNetwork = null!;
-        private ISyncDataInputQueueEnd<DataToClient> _dataToNetwork = null!;
+        private ISyncDataReaderQueueEnd<DataFromClient> _dataFromNetwork = null!;
+        private ISyncDataWriterQueueEnd<DataToClient> _dataToNetwork = null!;
 
         private ThreadedNetworkIO? _networkIO;
 
@@ -72,7 +72,7 @@ namespace DDS.Net.Server
                         _dataFromNetwork = _networkIO.Output;
                         _dataToNetwork = _networkIO.Input;
 
-                        _networkIO.Responses.DataAvailableForOutput += OnNetworkIOStatusChanged;
+                        _networkIO.Responses.DataAvailableForReading += OnNetworkIOStatusChanged;
                         _networkIO.StartIO();
                     }
                     catch (Exception ex)

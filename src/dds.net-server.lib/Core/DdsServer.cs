@@ -93,28 +93,28 @@ namespace DDS.Net.Server
             }
         }
 
-        private void OnNetworkIOStatusChanged(object? sender, ThreadedDataIOStatus e)
+        private void OnNetworkIOStatusChanged(object? sender, DataIOProviderStatus e)
         {
             switch (e)
             {
-                case ThreadedDataIOStatus.Stopped:
+                case DataIOProviderStatus.Stopped:
                     SetServerStatus(ServerStatus.Stopped);
                     _networkIO = null;
                     break;
 
-                case ThreadedDataIOStatus.Starting:
+                case DataIOProviderStatus.Starting:
                     SetServerStatus(ServerStatus.Starting);
                     break;
 
-                case ThreadedDataIOStatus.Started:
+                case DataIOProviderStatus.Started:
                     SetServerStatus(ServerStatus.Started);
                     break;
 
-                case ThreadedDataIOStatus.Stopping:
+                case DataIOProviderStatus.Stopping:
                     SetServerStatus(ServerStatus.Stopping);
                     break;
 
-                case ThreadedDataIOStatus.Paused:
+                case DataIOProviderStatus.Paused:
                     break;
             }
         }

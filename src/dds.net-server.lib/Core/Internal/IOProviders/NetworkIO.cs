@@ -10,9 +10,9 @@ using System.Net;
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
     internal class NetworkIO
-        : SinglePipedThread<DataToClient, DataFromClient, ThreadedDataIOCommands, ThreadedDataIOStatus>
+        : SinglePipedThread<DataToClient, DataFromClient, DataIOProviderCommands, DataIOProviderStatus>
     {
-        private ThreadedDataIOStatus threadedDataIOStatus;
+        private DataIOProviderStatus threadedDataIOStatus;
 
         private readonly ILogger logger;
 
@@ -43,7 +43,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
 
-            threadedDataIOStatus = ThreadedDataIOStatus.Stopped;
+            threadedDataIOStatus = DataIOProviderStatus.Stopped;
 
             if (responsesQueue.CanEnqueue())
             {
@@ -153,7 +153,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
         }
 
-        private void UpdateStatus(ThreadedDataIOStatus newStatus)
+        private void UpdateStatus(DataIOProviderStatus newStatus)
         {
             if (threadedDataIOStatus != newStatus)
             {
@@ -172,18 +172,18 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
         protected override void DoInit()
         {
-            UpdateStatus(ThreadedDataIOStatus.Starting);
+            UpdateStatus(DataIOProviderStatus.Starting);
 
             StartServers();
 
             if (_tcpServer != null || _udpServer != null)
             {
-                UpdateStatus(ThreadedDataIOStatus.Started);
+                UpdateStatus(DataIOProviderStatus.Started);
             }
             else
             {
                 logger.Error("Unable to start network I/O");
-                UpdateStatus(ThreadedDataIOStatus.Stopped);
+                UpdateStatus(DataIOProviderStatus.Stopped);
             }
         }
 
@@ -245,7 +245,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
         }
 
-        protected override void ProcessCommand(ThreadedDataIOCommands command)
+        protected override void ProcessCommand(DataIOProviderCommands command)
         {
         }
 

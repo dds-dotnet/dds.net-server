@@ -4,7 +4,7 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 namespace DDS.Net.Server.Core.Internal.Base
 {
     internal abstract class SinglePipedProducer<T_Input, T_Output, T_Commands, T_Responses>
-        : PipedProcessBase<T_Commands, T_Responses>, IDisposable
+        : BasePipedProcess<T_Commands, T_Responses>, IDisposable
 
         where T_Input : class
         where T_Output : class

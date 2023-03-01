@@ -267,6 +267,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)((value >>  0) & 0x0ff);
         }
 
+        //- 
+        //- Unsigned Byte (1-Byte Unsigned Integer)
+        //- 
         public static byte ReadUnsignedByte(this byte[] data, ref int offset)
         {
             if (data == null)

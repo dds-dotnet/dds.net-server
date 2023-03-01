@@ -110,6 +110,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)(value? 1 : 0);
         }
 
+        //- 
+        //- Byte (1-Byte Signed Integer)
+        //- 
         public static sbyte ReadByte(this byte[] data, ref int offset)
         {
             if (data == null)

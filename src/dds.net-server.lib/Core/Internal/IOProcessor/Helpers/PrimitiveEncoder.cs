@@ -219,6 +219,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)((value >>  0) & 0x0ff);
         }
 
+        //- 
+        //- QWord (8-Byte Signed Integer)
+        //- 
         public static long ReadQWord(this byte[] data, ref int offset)
         {
             if (data == null)

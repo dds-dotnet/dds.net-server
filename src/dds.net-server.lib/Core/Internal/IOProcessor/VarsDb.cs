@@ -13,6 +13,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal class VarsDb
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
+        private readonly ILogger logger;
+
         public VarsDb(
                     ISyncQueueReaderEnd<DataFromClient> dataReaderEnd,
                     ISyncQueueWriterEnd<DataToClient> dataWriterEnd,
@@ -22,7 +24,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             : base(dataReaderEnd, dataWriterEnd, commandsQueueSize, responsesQueueSize)
         {
-            
+            this.logger = logger;
         }
 
         public void StartHandler()
@@ -37,6 +39,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         protected override int DoInit()
         {
+            logger.Info("Starting VarsDb");
             return 0;
         }
 
@@ -47,6 +50,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         protected override int DoCleanup()
         {
+            logger.Info("Ending VarsDb");
             return 0;
         }
 

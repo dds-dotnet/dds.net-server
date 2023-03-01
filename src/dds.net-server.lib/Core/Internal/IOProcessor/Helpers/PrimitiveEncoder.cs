@@ -4,6 +4,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 {
     internal static class PrimitiveEncoder
     {
+        //- 
+        //- String
+        //- 
         public static string ReadString(this byte[] data, ref int offset)
         {
             if (data == null)

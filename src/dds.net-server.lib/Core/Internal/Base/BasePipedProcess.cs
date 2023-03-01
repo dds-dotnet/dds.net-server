@@ -5,21 +5,21 @@ namespace DDS.Net.Server.Core.Internal.Base
 {
     internal abstract class BasePipedProcess<T_Command, T_Response> : IDisposable
 
-        where T_Command : struct
-        where T_Response : struct
+        where T_Command : class
+        where T_Response : class
     {
         private static int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
 
         public ISyncQueueWriterEnd<T_Command> CommandWriter { get; private set; }
         public ISyncQueueReaderEnd<T_Response> ResponseReader { get; private set; }
 
-        protected readonly SyncQueueValuetype<T_Command> CommandQueue;
-        protected readonly SyncQueueValuetype<T_Response> ResponseQueue;
+        protected readonly SyncQueue<T_Command> CommandQueue;
+        protected readonly SyncQueue<T_Response> ResponseQueue;
 
         protected BasePipedProcess(int commandsQueueSize, int responsesQueueSize, bool startThread = true)
         {
-            CommandQueue = new SyncQueueValuetype<T_Command>(commandsQueueSize);
-            ResponseQueue = new SyncQueueValuetype<T_Response>(responsesQueueSize);
+            CommandQueue = new SyncQueue<T_Command>(commandsQueueSize);
+            ResponseQueue = new SyncQueue<T_Response>(responsesQueueSize);
 
             CommandWriter = CommandQueue;
             ResponseReader = ResponseQueue;

@@ -179,6 +179,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)(value & 0x0ff);
         }
 
+        //- 
+        //- DWord (4-Byte Signed Integer)
+        //- 
         public static int ReadDWord(this byte[] data, ref int offset)
         {
             if (data == null)

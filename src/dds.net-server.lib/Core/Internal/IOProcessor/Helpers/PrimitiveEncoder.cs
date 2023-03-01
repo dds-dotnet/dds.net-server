@@ -1,9 +1,49 @@
-﻿using System.Text;
+﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 {
     internal static class PrimitiveEncoder
     {
+        //- 
+        //- Byte (1-Byte Signed Integer)
+        //- 
+        public static VarType ReadVarType(this byte[] data, ref int offset)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            int v = data[offset++];
+
+            if (v >= 0 && v < (int)VarType.UNKNOWN)
+            {
+                return (VarType)v;
+            }
+
+            return VarType.UNKNOWN;
+        }
+        public static void WriteVarType(this byte[] data, ref int offset, VarType value)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            data[offset++] = (byte)value;
+        }
+
         //- 
         //- String
         //- 

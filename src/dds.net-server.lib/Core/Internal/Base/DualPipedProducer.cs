@@ -3,15 +3,15 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class DualPipedProducer<T_Input1, T_Output1, T_Input2, T_Output2, T_Commands, T_Responses>
-        : SinglePipedProducer<T_Input1, T_Output1, T_Commands, T_Responses>, IDisposable
+    internal abstract class DualPipedProducer<T_Input1, T_Output1, T_Input2, T_Output2, T_Command, T_Response>
+        : SinglePipedProducer<T_Input1, T_Output1, T_Command, T_Response>, IDisposable
 
         where T_Input1 : class
         where T_Input2 : class
         where T_Output1 : class
         where T_Output2 : class
-        where T_Commands : struct
-        where T_Responses : struct
+        where T_Command : class
+        where T_Response : class
     {
         private static int SLEEP_TIME_MS_WHEN_DONE_NOTHING = 10;
 

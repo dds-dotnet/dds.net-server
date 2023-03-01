@@ -375,6 +375,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)((value >>  0) & 0x0ff);
         }
 
+        //- 
+        //- Unsigned QWord (8-Byte Unsigned Integer)
+        //- 
         public static ulong ReadUnsignedQWord(this byte[] data, ref int offset)
         {
             if (data == null)

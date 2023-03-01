@@ -3,13 +3,13 @@ using DDS.Net.Server.Core.Internal.Interfaces.Implementations;
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class SinglePipedProducer<T_Input, T_Output, T_Commands, T_Responses>
-        : BasePipedProcess<T_Commands, T_Responses>, IDisposable
+    internal abstract class SinglePipedProducer<T_Input, T_Output, T_Command, T_Response>
+        : BasePipedProcess<T_Command, T_Response>, IDisposable
 
         where T_Input : class
         where T_Output : class
-        where T_Commands : struct
-        where T_Responses : struct
+        where T_Command : class
+        where T_Response : class
     {
         public ISyncQueueWriterEnd<T_Input> InputWriter { get; private set; }
         public ISyncQueueReaderEnd<T_Output> OutputReader { get; private set; }

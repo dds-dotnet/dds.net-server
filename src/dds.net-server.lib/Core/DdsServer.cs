@@ -109,7 +109,7 @@ namespace DDS.Net.Server
             }
         }
 
-        private void OnVarsHandlerStatusChanged(object? sender, VarsHandlerStatus e)
+        private void OnVarsHandlerStatusChanged(object? sender, VarsDbStatus e)
         {
         }
 

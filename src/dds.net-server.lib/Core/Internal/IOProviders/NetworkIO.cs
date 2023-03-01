@@ -10,7 +10,7 @@ using System.Net;
 namespace DDS.Net.Server.Core.Internal.IOProviders
 {
     internal class NetworkIO
-        : SinglePipedProducer<DataToClient, DataFromClient, DataIOProviderCommands, DataIOProviderStatus>
+        : SinglePipedProducer<DataToClient, DataFromClient, DataIOProviderCommand, DataIOProviderStatus>
     {
         private DataIOProviderStatus threadedDataIOStatus;
 
@@ -259,7 +259,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             return 1;
         }
 
-        protected override int ProcessCommand(DataIOProviderCommands command)
+        protected override int ProcessCommand(DataIOProviderCommand command)
         {
             return 0;
         }

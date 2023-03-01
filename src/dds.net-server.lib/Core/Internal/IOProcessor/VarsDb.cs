@@ -9,10 +9,10 @@ using DDS.Net.Server.Core.Internal.Interfaces;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
-    internal class VarsHandler
-        : SinglePipedConsumer<DataFromClient, DataToClient, VarsHandlerCommands, VarsHandlerStatus>
+    internal class VarsDb
+        : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
-        public VarsHandler(
+        public VarsDb(
                     ISyncQueueReaderEnd<DataFromClient> dataReaderEnd,
                     ISyncQueueWriterEnd<DataToClient> dataWriterEnd,
                     int commandsQueueSize,
@@ -48,7 +48,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             return 0;
         }
 
-        protected override int ProcessCommand(VarsHandlerCommands command)
+        protected override int ProcessCommand(VarsDbCommand command)
         {
             return 0;
         }

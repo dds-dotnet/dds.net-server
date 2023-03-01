@@ -27,7 +27,7 @@ namespace DDS.Net.Server
         private ISyncQueueWriterEnd<DataToClient> _dataToNetwork = null!;
 
         private NetworkIO? _networkIO;
-        private VarsHandler? _varsHandler;
+        private VarsDb? _varsHandler;
 
         public DdsServer(ServerConfiguration config)
         {
@@ -77,7 +77,7 @@ namespace DDS.Net.Server
                         _networkIO.ResponseReader.DataAvailableForReading += OnNetworkIOStatusChanged;
 
 
-                        _varsHandler = new VarsHandler(
+                        _varsHandler = new VarsDb(
                             _dataFromNetwork,
                             _dataToNetwork,
                             InternalSettings.VARS_HANDLER_COMMANDS_QUEUE_SIZE,

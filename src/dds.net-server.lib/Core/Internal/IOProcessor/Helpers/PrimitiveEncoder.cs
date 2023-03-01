@@ -176,5 +176,28 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             return value;
         }
 
+        public static ulong ReadUnsignedQWord(this byte[] data, ref int offset)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset + 7 >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            ulong value = data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+
+            return value;
+        }
     }
 }

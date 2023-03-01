@@ -78,6 +78,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
         }
 
+        //- 
+        //- Boolean
+        //- 
         public static bool ReadBoolean(this byte[] data, ref int offset)
         {
             if (data == null)

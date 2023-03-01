@@ -127,6 +127,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 
             return (sbyte)data[offset++];
         }
+        public static void WriteByte(this byte[] data, ref int offset, sbyte value)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            data[offset++] = (byte)value;
+        }
 
         public static short ReadWord(this byte[] data, ref int offset)
         {

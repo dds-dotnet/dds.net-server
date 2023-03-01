@@ -58,7 +58,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            return (sbyte)data[offset++];
+            return Convert.ToSByte(data[offset++]);
         }
 
         public static short ReadWord(this byte[] data, ref int offset)

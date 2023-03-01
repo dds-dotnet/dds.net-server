@@ -17,5 +17,7 @@
 
         Single,        // 4-Byte Floating-point
         Double,        // 8-Byte Floating-point
+
+        UNKNOWN
     }
 }

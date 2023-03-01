@@ -115,26 +115,26 @@ namespace DDS.Net.Server
 
         private void OnNetworkIOStatusChanged(object? sender, DataIOProviderStatus e)
         {
-            switch (e)
+            switch (e.Status)
             {
-                case DataIOProviderStatus.Stopped:
+                case DataIOProviderRunningStatus.Stopped:
                     SetServerStatus(ServerStatus.Stopped);
                     _networkIO = null;
                     break;
 
-                case DataIOProviderStatus.Starting:
+                case DataIOProviderRunningStatus.Starting:
                     SetServerStatus(ServerStatus.Starting);
                     break;
 
-                case DataIOProviderStatus.Started:
+                case DataIOProviderRunningStatus.Started:
                     SetServerStatus(ServerStatus.Started);
                     break;
 
-                case DataIOProviderStatus.Stopping:
+                case DataIOProviderRunningStatus.Stopping:
                     SetServerStatus(ServerStatus.Stopping);
                     break;
 
-                case DataIOProviderStatus.Paused:
+                case DataIOProviderRunningStatus.Paused:
                     break;
             }
         }

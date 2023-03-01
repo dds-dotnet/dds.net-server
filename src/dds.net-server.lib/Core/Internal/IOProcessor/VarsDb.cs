@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DDS.Net.Server.Core.Internal.Interfaces;
+using DDS.Net.Server.Interfaces;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -16,7 +17,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     ISyncQueueReaderEnd<DataFromClient> dataReaderEnd,
                     ISyncQueueWriterEnd<DataToClient> dataWriterEnd,
                     int commandsQueueSize,
-                    int responsesQueueSize)
+                    int responsesQueueSize,
+                    ILogger logger)
 
             : base(dataReaderEnd, dataWriterEnd, commandsQueueSize, responsesQueueSize)
         {

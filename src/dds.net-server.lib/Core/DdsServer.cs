@@ -81,7 +81,8 @@ namespace DDS.Net.Server
                             _dataFromNetwork,
                             _dataToNetwork,
                             SettingQueueSize.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
-                            SettingQueueSize.VARS_HANDLER_RESPONSES_QUEUE_SIZE);
+                            SettingQueueSize.VARS_HANDLER_RESPONSES_QUEUE_SIZE,
+                            _logger);
 
                         _varsHandler.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;
 

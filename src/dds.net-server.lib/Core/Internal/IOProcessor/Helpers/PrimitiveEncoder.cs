@@ -33,6 +33,50 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 
             return retval;
         }
+        public static void WriteString(this byte[] data, ref int offset, string value)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            int size = 0;
+            byte[] bytes = null!;
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                bytes = Encoding.Unicode.GetBytes(value);
+                size = bytes.Length;
+
+                if (offset < 0 || offset + 1 + bytes.Length >= data.Length)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(offset));
+                }
+                if (size > 65535)
+                {
+                    throw new Exception($"String too long - having {size} bytes");
+                }
+            }
+            else
+            {
+                if (offset < 0 || offset + 1 >= data.Length)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(offset));
+                }
+            }
+
+            data[offset + 1] = (byte)(size & 0x0ff);
+            data[offset + 0] = (byte)((size >> 8) & 0x0ff);
+            offset += 2;
+
+            if (size > 0)
+            {
+                for (int i = 0; i < size; i++)
+                {
+                    data[offset++] = bytes[i];
+                }
+            }
+        }
 
         public static bool ReadBoolean(this byte[] data, ref int offset)
         {

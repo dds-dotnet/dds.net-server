@@ -156,5 +156,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             return (ushort)value;
         }
 
+        public static uint ReadUnsignedDWord(this byte[] data, ref int offset)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset + 3 >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            uint value = data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+
+            return value;
+        }
+
     }
 }

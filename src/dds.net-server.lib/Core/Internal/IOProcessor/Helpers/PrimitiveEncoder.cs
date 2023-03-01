@@ -299,6 +299,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = value;
         }
 
+        //- 
+        //- Unsigned Word (2-Byte Unsigned Integer)
+        //- 
         public static ushort ReadUnsignedWord(this byte[] data, ref int offset)
         {
             if (data == null)

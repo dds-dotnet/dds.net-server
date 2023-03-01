@@ -142,6 +142,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             data[offset++] = (byte)value;
         }
 
+        //- 
+        //- Word (2-Byte Signed Integer)
+        //- 
         public static short ReadWord(this byte[] data, ref int offset)
         {
             if (data == null)

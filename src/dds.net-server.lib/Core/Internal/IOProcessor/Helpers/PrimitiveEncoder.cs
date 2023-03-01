@@ -463,6 +463,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
         }
 
+        //- 
+        //- Double (8-Byte Floating-point)
+        //- 
         public static double ReadDouble(this byte[] data, ref int offset)
         {
             if (data == null)

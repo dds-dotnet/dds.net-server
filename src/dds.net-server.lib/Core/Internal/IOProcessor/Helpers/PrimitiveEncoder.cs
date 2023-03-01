@@ -444,6 +444,24 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 
             return value;
         }
+        public static void WriteSingle(this byte[] data, ref int offset, float value)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset + 3 >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            byte[] converted = BitConverter.GetBytes(value);
+            for (int i = 0; i < 4; i++)
+            {
+                data[offset++] = converted[i];
+            }
+        }
 
         public static double ReadDouble(this byte[] data, ref int offset)
         {

@@ -60,10 +60,10 @@ namespace DDS.Net.Server
                         _networkIO = new NetworkIO(
                             _logger,
 
-                            InternalSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,
-                            InternalSettings.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE,
-                            InternalSettings.NETWORK_COMMANDS_QUEUE_SIZE,
-                            InternalSettings.NETWORK_RESPONSES_QUEUE_SIZE,
+                            SettingQueueSize.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,
+                            SettingQueueSize.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE,
+                            SettingQueueSize.NETWORK_COMMANDS_QUEUE_SIZE,
+                            SettingQueueSize.NETWORK_RESPONSES_QUEUE_SIZE,
 
 
                             _config.ListeningAddressIPv4,
@@ -80,8 +80,8 @@ namespace DDS.Net.Server
                         _varsHandler = new VarsDb(
                             _dataFromNetwork,
                             _dataToNetwork,
-                            InternalSettings.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
-                            InternalSettings.VARS_HANDLER_RESPONSES_QUEUE_SIZE);
+                            SettingQueueSize.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
+                            SettingQueueSize.VARS_HANDLER_RESPONSES_QUEUE_SIZE);
 
                         _varsHandler.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;
 

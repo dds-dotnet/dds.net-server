@@ -2,6 +2,6 @@
 {
     internal class Settings
     {
-        public static readonly int BASE_TIME_SLOT_MS = 25;
+        public static readonly int BASE_TIME_SLOT_MS = 50;
     }
 }

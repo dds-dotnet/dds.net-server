@@ -43,7 +43,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             this.listeningIPv4Address = listeningIPv4Address ?? throw new ArgumentNullException(nameof(listeningIPv4Address));
 
-            threadedDataIOStatus = DataIOProviderStatus.Stopped;
+            threadedDataIOStatus = new DataIOProviderStatus() { Status = DataIOProviderRunningStatus.Stopped };
 
             if (ResponseQueue.CanEnqueue())
             {
@@ -153,15 +153,15 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
         }
 
-        private void UpdateStatus(DataIOProviderStatus newStatus)
+        private void UpdateStatus(DataIOProviderRunningStatus newStatus)
         {
-            if (threadedDataIOStatus != newStatus)
+            if (threadedDataIOStatus.Status != newStatus)
             {
-                threadedDataIOStatus = newStatus;
+                threadedDataIOStatus.Status = newStatus;
 
                 if (ResponseQueue.CanEnqueue())
                 {
-                    ResponseQueue.Enqueue(newStatus);
+                    ResponseQueue.Enqueue(threadedDataIOStatus);
                 }
                 else
                 {
@@ -172,18 +172,18 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
         protected override int DoInit()
         {
-            UpdateStatus(DataIOProviderStatus.Starting);
+            UpdateStatus(DataIOProviderRunningStatus.Starting);
 
             StartServers();
 
             if (_tcpServer != null || _udpServer != null)
             {
-                UpdateStatus(DataIOProviderStatus.Started);
+                UpdateStatus(DataIOProviderRunningStatus.Started);
             }
             else
             {
                 logger.Error("Unable to start network I/O");
-                UpdateStatus(DataIOProviderStatus.Stopped);
+                UpdateStatus(DataIOProviderRunningStatus.Stopped);
             }
 
             return 0;

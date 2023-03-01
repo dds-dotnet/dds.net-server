@@ -2,13 +2,13 @@
 
 namespace DDS.Net.Server.Core.Internal.Base
 {
-    internal abstract class DualPipedConsumer<T_Input1, T_Output1, T_Input2, T_Output2, T_Commands, T_Responses>
-        : BasePipedProcess<T_Commands, T_Responses>, IDisposable
+    internal abstract class DualPipedConsumer<T_Input1, T_Output1, T_Input2, T_Output2, T_Command, T_Response>
+        : BasePipedProcess<T_Command, T_Response>, IDisposable
 
         where T_Input1 : class
         where T_Output1 : class
-        where T_Commands : struct
-        where T_Responses : struct
+        where T_Command : class
+        where T_Response : class
     {
         protected ISyncQueueReaderEnd<T_Input1> InputQueue { get; private set; }
         protected ISyncQueueWriterEnd<T_Output1> OutputQueue { get; private set; }

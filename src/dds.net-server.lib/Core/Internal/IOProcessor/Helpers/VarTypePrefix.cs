@@ -6,23 +6,27 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
     {
         public static string VarNamePrefix(this VarType varType)
         {
-            switch (varType)
+            return varType switch
             {
-                case VarType.String: return "_str_";
-                case VarType.Boolean: return "_bool_";
-                case VarType.Byte: return "_byte_";
-                case VarType.Word: return "_word_";
-                case VarType.DWord: return "_dword_";
-                case VarType.QWord: return "_qword_";
-                case VarType.UnsignedByte: return "_ubyte_";
-                case VarType.UnsignedWord: return "_uword_";
-                case VarType.UnsignedDWord: return "_udword_";
-                case VarType.UnsignedQWord: return "_uqword_";
-                case VarType.Single: return "_sngl_";
-                case VarType.Double: return "_dbl_";
-            }
+                VarType.String =>        "_str_",
 
-            return $"_{varType.ToString()}_";
+                VarType.Boolean =>       "_bool_",
+
+                VarType.Byte =>          "_byte_",
+                VarType.Word =>          "_word_",
+                VarType.DWord =>         "_dword_",
+                VarType.QWord =>         "_qword_",
+
+                VarType.UnsignedByte =>  "_ubyte_",
+                VarType.UnsignedWord =>  "_uword_",
+                VarType.UnsignedDWord => "_udword_",
+                VarType.UnsignedQWord => "_uqword_",
+
+                VarType.Single =>        "_sngl_",
+                VarType.Double =>        "_dbl_",
+
+                _ => $"_{varType.ToString()}_",
+            };
         }
     }
 }

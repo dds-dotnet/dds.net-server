@@ -284,6 +284,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 
             return data[offset++];
         }
+        public static void WriteUnsignedByte(this byte[] data, ref int offset, byte value)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (offset < 0 || offset >= data.Length)
+            {
+                throw new ArgumentOutOfRangeException(nameof(offset));
+            }
+
+            data[offset++] = value;
+        }
 
         public static ushort ReadUnsignedWord(this byte[] data, ref int offset)
         {

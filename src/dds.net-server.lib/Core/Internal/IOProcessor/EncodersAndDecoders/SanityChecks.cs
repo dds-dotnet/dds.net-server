@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
-    internal static class SanityCheck
+    internal static class SanityChecks
     {
         public static byte[] ThrowIfNotHavingRequiredBytes(this byte[] data, ref int offset, int requiredSize)
         {

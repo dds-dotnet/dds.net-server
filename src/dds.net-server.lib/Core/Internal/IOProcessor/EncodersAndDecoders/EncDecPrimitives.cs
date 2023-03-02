@@ -327,10 +327,31 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
-            double value = BitConverter.ToDouble(data, offset);
-            offset += 8;
 
-            return value;
+            if (BitConverter.IsLittleEndian)
+            {
+                byte[] bytes = new byte[8];
+                bytes[0] = data[offset + 0];
+                bytes[1] = data[offset + 1];
+                bytes[2] = data[offset + 2];
+                bytes[3] = data[offset + 3];
+                bytes[4] = data[offset + 4];
+                bytes[5] = data[offset + 5];
+                bytes[6] = data[offset + 6];
+                bytes[7] = data[offset + 7];
+
+                double value = BitConverter.ToDouble(bytes.ReverseArray(), 0);
+                offset += 8;
+
+                return value;
+            }
+            else
+            {
+                double value = BitConverter.ToDouble(data, offset);
+                offset += 8;
+
+                return value;
+            }
         }
         public static void WriteDouble(this byte[] data, ref int offset, double value)
         {

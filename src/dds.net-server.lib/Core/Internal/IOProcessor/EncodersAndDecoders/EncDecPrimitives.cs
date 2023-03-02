@@ -12,7 +12,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int length = data[offset++];
-            length = length << 8 | data[offset++];
+            length = (length << 8) | data[offset++];
 
             if (offset + length > data.Length)
             {
@@ -58,7 +58,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             }
 
             data[offset + 1] = (byte)(size & 0x0ff);
-            data[offset + 0] = (byte)(size >> 8 & 0x0ff);
+            data[offset + 0] = (byte)((size >> 8) & 0x0ff);
             offset += 2;
 
             if (size > 0)
@@ -110,7 +110,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int value = data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return (short)value;
         }
@@ -118,7 +118,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
             data[offset++] = (byte)(value & 0x0ff);
         }
 
@@ -130,9 +130,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             int value = data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return value;
         }
@@ -140,10 +140,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
-            data[offset++] = (byte)(value >> 24 & 0x0ff);
-            data[offset++] = (byte)(value >> 16 & 0x0ff);
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
-            data[offset++] = (byte)(value >> 0 & 0x0ff);
+            data[offset++] = (byte)((value >> 24) & 0x0ff);
+            data[offset++] = (byte)((value >> 16) & 0x0ff);
+            data[offset++] = (byte)((value >> 8)  & 0x0ff);
+            data[offset++] = (byte)((value >> 0)  & 0x0ff);
         }
 
         //- 
@@ -154,13 +154,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             long value = data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return value;
         }
@@ -168,14 +168,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
-            data[offset++] = (byte)(value >> 56 & 0x0ff);
-            data[offset++] = (byte)(value >> 48 & 0x0ff);
-            data[offset++] = (byte)(value >> 40 & 0x0ff);
-            data[offset++] = (byte)(value >> 32 & 0x0ff);
-            data[offset++] = (byte)(value >> 24 & 0x0ff);
-            data[offset++] = (byte)(value >> 16 & 0x0ff);
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
-            data[offset++] = (byte)(value >> 0 & 0x0ff);
+            data[offset++] = (byte)((value >> 56) & 0x0ff);
+            data[offset++] = (byte)((value >> 48) & 0x0ff);
+            data[offset++] = (byte)((value >> 40) & 0x0ff);
+            data[offset++] = (byte)((value >> 32) & 0x0ff);
+            data[offset++] = (byte)((value >> 24) & 0x0ff);
+            data[offset++] = (byte)((value >> 16) & 0x0ff);
+            data[offset++] = (byte)((value >> 8)  & 0x0ff);
+            data[offset++] = (byte)((value >> 0)  & 0x0ff);
         }
 
         //- 
@@ -202,7 +202,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int value = data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return (ushort)value;
         }
@@ -210,8 +210,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
-            data[offset++] = (byte)(value >> 0 & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)((value >> 0) & 0x0ff);
         }
 
         //- 
@@ -222,9 +222,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             uint value = data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return value;
         }
@@ -232,10 +232,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
-            data[offset++] = (byte)(value >> 24 & 0x0ff);
-            data[offset++] = (byte)(value >> 16 & 0x0ff);
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
-            data[offset++] = (byte)(value >> 0 & 0x0ff);
+            data[offset++] = (byte)((value >> 24) & 0x0ff);
+            data[offset++] = (byte)((value >> 16) & 0x0ff);
+            data[offset++] = (byte)((value >> 8)  & 0x0ff);
+            data[offset++] = (byte)((value >> 0)  & 0x0ff);
         }
 
         //- 
@@ -246,13 +246,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             ulong value = data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
-            value = value << 8 | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
+            value = (value << 8) | data[offset++];
 
             return value;
         }
@@ -261,14 +261,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
-            data[offset++] = (byte)(value >> 56 & 0x0ff);
-            data[offset++] = (byte)(value >> 48 & 0x0ff);
-            data[offset++] = (byte)(value >> 40 & 0x0ff);
-            data[offset++] = (byte)(value >> 32 & 0x0ff);
-            data[offset++] = (byte)(value >> 24 & 0x0ff);
-            data[offset++] = (byte)(value >> 16 & 0x0ff);
-            data[offset++] = (byte)(value >> 8 & 0x0ff);
-            data[offset++] = (byte)(value >> 0 & 0x0ff);
+            data[offset++] = (byte)((value >> 56) & 0x0ff);
+            data[offset++] = (byte)((value >> 48) & 0x0ff);
+            data[offset++] = (byte)((value >> 40) & 0x0ff);
+            data[offset++] = (byte)((value >> 32) & 0x0ff);
+            data[offset++] = (byte)((value >> 24) & 0x0ff);
+            data[offset++] = (byte)((value >> 16) & 0x0ff);
+            data[offset++] = (byte)((value >>  8) & 0x0ff);
+            data[offset++] = (byte)((value >>  0) & 0x0ff);
         }
 
         //- 

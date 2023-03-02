@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal enum VarType
+    internal enum VariableType
     {
         String = 0,
         Boolean,

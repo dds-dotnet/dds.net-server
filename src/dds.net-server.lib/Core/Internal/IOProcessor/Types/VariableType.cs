@@ -3,20 +3,20 @@
     internal enum VariableType
     {
         String = 0,
-        Boolean,
+        Boolean = 1,
 
-        Byte,          // 1-Byte Signed Integer
-        Word,          // 2-Byte Signed Integer
-        DWord,         // 4-Byte Signed Integer
-        QWord,         // 8-Byte Signed Integer
+        Byte = 2,          // 1-Byte Signed Integer
+        Word = 3,          // 2-Byte Signed Integer
+        DWord = 4,         // 4-Byte Signed Integer
+        QWord = 5,         // 8-Byte Signed Integer
 
-        UnsignedByte,  // 1-Byte Unsigned Integer
-        UnsignedWord,  // 2-Byte Unsigned Integer
-        UnsignedDWord, // 4-Byte Unsigned Integer
-        UnsignedQWord, // 8-Byte Unsigned Integer
+        UnsignedByte = 6,  // 1-Byte Unsigned Integer
+        UnsignedWord = 7,  // 2-Byte Unsigned Integer
+        UnsignedDWord = 8, // 4-Byte Unsigned Integer
+        UnsignedQWord = 9, // 8-Byte Unsigned Integer
 
-        Single,        // 4-Byte Floating-point
-        Double,        // 8-Byte Floating-point
+        Single = 10,        // 4-Byte Floating-point
+        Double = 11,        // 8-Byte Floating-point
 
         UNKNOWN
     }

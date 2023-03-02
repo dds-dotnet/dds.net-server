@@ -7,7 +7,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
-        private Timer _periodicUpdatesTimer;
+        private Timer _periodicUpdatesTimer = null!;
         private int _periodicUpdatesCounter = 0;
         private volatile bool _isPeriodicUpdatesTimerRunning = false;
 

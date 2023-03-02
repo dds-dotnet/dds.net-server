@@ -127,15 +127,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static int ReadDWord(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             int value = data[offset++];
             value = value << 8 | data[offset++];
@@ -146,15 +138,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteDWord(this byte[] data, ref int offset, int value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             data[offset++] = (byte)(value >> 24 & 0x0ff);
             data[offset++] = (byte)(value >> 16 & 0x0ff);

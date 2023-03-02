@@ -358,9 +358,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             byte[] converted = BitConverter.GetBytes(value);
-            for (int i = 0; i < 8; i++)
+            
+            if (BitConverter.IsLittleEndian)
             {
-                data[offset++] = converted[i];
+                for (int i = 7; i >= 0; i--)
+                {
+                    data[offset++] = converted[i];
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    data[offset++] = converted[i];
+                }
             }
         }
     }

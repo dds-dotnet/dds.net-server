@@ -199,15 +199,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static ushort ReadUnsignedWord(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 1 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int value = data[offset++];
             value = value << 8 | data[offset++];
@@ -216,15 +208,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteUnsignedWord(this byte[] data, ref int offset, ushort value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 1 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             data[offset++] = (byte)(value >> 8 & 0x0ff);
             data[offset++] = (byte)(value >> 0 & 0x0ff);

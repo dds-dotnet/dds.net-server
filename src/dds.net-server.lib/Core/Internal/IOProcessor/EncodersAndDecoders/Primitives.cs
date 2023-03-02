@@ -1,9 +1,9 @@
 ﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
 using System.Text;
 
-namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
+namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
-    internal static class PrimitiveEncoder
+    internal static class Primitives
     {
         //- 
         //- Byte (1-Byte Signed Integer)
@@ -60,7 +60,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             int length = data[offset++];
-            length = (length << 8) | data[offset++];
+            length = length << 8 | data[offset++];
 
             if (offset + length > data.Length)
             {
@@ -106,7 +106,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             data[offset + 1] = (byte)(size & 0x0ff);
-            data[offset + 0] = (byte)((size >> 8) & 0x0ff);
+            data[offset + 0] = (byte)(size >> 8 & 0x0ff);
             offset += 2;
 
             if (size > 0)
@@ -147,7 +147,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)(value? 1 : 0);
+            data[offset++] = (byte)(value ? 1 : 0);
         }
 
         //- 
@@ -198,7 +198,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             int value = data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
 
             return (short)value;
         }
@@ -215,7 +215,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
 
-            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
             data[offset++] = (byte)(value & 0x0ff);
         }
 
@@ -235,9 +235,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             int value = data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
 
             return value;
         }
@@ -253,10 +253,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)((value >> 24) & 0x0ff);
-            data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >>  8) & 0x0ff);
-            data[offset++] = (byte)((value >>  0) & 0x0ff);
+            data[offset++] = (byte)(value >> 24 & 0x0ff);
+            data[offset++] = (byte)(value >> 16 & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)(value >> 0 & 0x0ff);
         }
 
         //- 
@@ -275,13 +275,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             long value = data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
 
             return value;
         }
@@ -297,14 +297,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)((value >> 56) & 0x0ff);
-            data[offset++] = (byte)((value >> 48) & 0x0ff);
-            data[offset++] = (byte)((value >> 40) & 0x0ff);
-            data[offset++] = (byte)((value >> 32) & 0x0ff);
-            data[offset++] = (byte)((value >> 24) & 0x0ff);
-            data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >>  8) & 0x0ff);
-            data[offset++] = (byte)((value >>  0) & 0x0ff);
+            data[offset++] = (byte)(value >> 56 & 0x0ff);
+            data[offset++] = (byte)(value >> 48 & 0x0ff);
+            data[offset++] = (byte)(value >> 40 & 0x0ff);
+            data[offset++] = (byte)(value >> 32 & 0x0ff);
+            data[offset++] = (byte)(value >> 24 & 0x0ff);
+            data[offset++] = (byte)(value >> 16 & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)(value >> 0 & 0x0ff);
         }
 
         //- 
@@ -355,7 +355,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             int value = data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
 
             return (ushort)value;
         }
@@ -371,8 +371,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)((value >> 8) & 0x0ff);
-            data[offset++] = (byte)((value >> 0) & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)(value >> 0 & 0x0ff);
         }
 
         //- 
@@ -391,9 +391,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             uint value = data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
 
             return value;
         }
@@ -409,10 +409,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)((value >> 24) & 0x0ff);
-            data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >>  8) & 0x0ff);
-            data[offset++] = (byte)((value >>  0) & 0x0ff);
+            data[offset++] = (byte)(value >> 24 & 0x0ff);
+            data[offset++] = (byte)(value >> 16 & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)(value >> 0 & 0x0ff);
         }
 
         //- 
@@ -431,13 +431,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
             }
 
             ulong value = data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
-            value = (value << 8) | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
+            value = value << 8 | data[offset++];
 
             return value;
         }
@@ -454,14 +454,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
-            data[offset++] = (byte)((value >> 56) & 0x0ff);
-            data[offset++] = (byte)((value >> 48) & 0x0ff);
-            data[offset++] = (byte)((value >> 40) & 0x0ff);
-            data[offset++] = (byte)((value >> 32) & 0x0ff);
-            data[offset++] = (byte)((value >> 24) & 0x0ff);
-            data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >>  8) & 0x0ff);
-            data[offset++] = (byte)((value >>  0) & 0x0ff);
+            data[offset++] = (byte)(value >> 56 & 0x0ff);
+            data[offset++] = (byte)(value >> 48 & 0x0ff);
+            data[offset++] = (byte)(value >> 40 & 0x0ff);
+            data[offset++] = (byte)(value >> 32 & 0x0ff);
+            data[offset++] = (byte)(value >> 24 & 0x0ff);
+            data[offset++] = (byte)(value >> 16 & 0x0ff);
+            data[offset++] = (byte)(value >> 8 & 0x0ff);
+            data[offset++] = (byte)(value >> 0 & 0x0ff);
         }
 
         //- 

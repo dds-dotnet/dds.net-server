@@ -3,6 +3,10 @@
     internal class VariableDefinition
     {
         public VariableType VariableType { get; set; } = VariableType.UNKNOWN;
+
+        public int ID { get; set; }
+        public string Name { get; set; } = "";
+        
         public List<VariableProvider> Providers { get; set; } = new();
         public List<VariableSubscriber> Subscribers { get; set; } = new();
     }

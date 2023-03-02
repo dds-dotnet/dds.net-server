@@ -43,7 +43,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
 
-            StartTimedWork();
+            StartPeriodicUpdates();
 
             return 0;
         }
@@ -57,7 +57,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             logger.Info("Ending Variables Database");
 
-            StopTimedWork();
+            StopPeriodicUpdates();
 
             return 0;
         }

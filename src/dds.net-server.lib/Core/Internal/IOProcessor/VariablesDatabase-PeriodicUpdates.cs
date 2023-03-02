@@ -7,73 +7,73 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
-        private Timer _timer;
-        private int _timedWorkCounter = 0;
-        private volatile bool _isTimedWorkRunning = false;
+        private Timer _periodicUpdatesTimer;
+        private int _periodicUpdatesCounter = 0;
+        private volatile bool _isPeriodicUpdatesTimerRunning = false;
 
-        private void StartTimedWork()
+        private void StartPeriodicUpdates()
         {
-            if (_isTimedWorkRunning == false)
+            if (_isPeriodicUpdatesTimerRunning == false)
             {
-                _timedWorkCounter = 0;
-                _isTimedWorkRunning = true;
+                _periodicUpdatesCounter = 0;
+                _isPeriodicUpdatesTimerRunning = true;
 
                 try
                 {
-                    _timer = new Timer(TimerCallback);
-                    _timer.Change(Settings.BASE_TIME_SLOT_MS, Timeout.Infinite);
+                    _periodicUpdatesTimer = new Timer(TimerCallback);
+                    _periodicUpdatesTimer.Change(Settings.BASE_TIME_SLOT_MS, Timeout.Infinite);
                 }
                 catch (Exception ex)
                 {
-                    _timer = null!;
-                    logger.Error($"Variables Database - Timed work cannot be executed: {ex.Message}");
+                    _periodicUpdatesTimer = null!;
+                    logger.Error($"Variables Database - periodic updates cannot be executed: {ex.Message}");
                 }
             }
         }
 
-        private void StopTimedWork()
+        private void StopPeriodicUpdates()
         {
-            _isTimedWorkRunning = false;
+            _isPeriodicUpdatesTimerRunning = false;
 
-            if (_timer != null)
+            if (_periodicUpdatesTimer != null)
             {
-                _timer.Change(Timeout.Infinite, Timeout.Infinite);
-                _timer.Dispose();
+                _periodicUpdatesTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                _periodicUpdatesTimer.Dispose();
             }
         }
 
         private void TimerCallback(object? o)
         {
-            DoTimedWork();
+            DecidePeriodicUpdates();
 
-            if (_isTimedWorkRunning)
+            if (_isPeriodicUpdatesTimerRunning)
             {
                 try
                 {
-                    _timer.Change(Settings.BASE_TIME_SLOT_MS, Timeout.Infinite);
+                    _periodicUpdatesTimer.Change(Settings.BASE_TIME_SLOT_MS, Timeout.Infinite);
                 }
                 catch (Exception) { }
             }
         }
 
-        private void DoTimedWork()
+        private void DecidePeriodicUpdates()
         {
-            _timedWorkCounter++;
+            _periodicUpdatesCounter++;
 
-            UpdateClients(Periodicity.Highest);
+            DoPeriodicUpdate(Periodicity.Highest);
 
-            if (_timedWorkCounter % 2 == 0) UpdateClients(Periodicity.High);
-            if (_timedWorkCounter % 4 == 0) UpdateClients(Periodicity.Normal);
-            if (_timedWorkCounter % 8 == 0) UpdateClients(Periodicity.Low);
+            if (_periodicUpdatesCounter % 2 == 0) DoPeriodicUpdate(Periodicity.High);
+            if (_periodicUpdatesCounter % 4 == 0) DoPeriodicUpdate(Periodicity.Normal);
+            if (_periodicUpdatesCounter % 8 == 0) DoPeriodicUpdate(Periodicity.Low);
 
-            if (_timedWorkCounter % 16 == 0)
+            if (_periodicUpdatesCounter % 16 == 0)
             {
-                UpdateClients(Periodicity.Lowest);
-                _timedWorkCounter = 0;
+                DoPeriodicUpdate(Periodicity.Lowest);
+                _periodicUpdatesCounter = 0;
             }
         }
 
-        private void UpdateClients(Periodicity periodicity)
+        private void DoPeriodicUpdate(Periodicity periodicity)
         {
         }
     }

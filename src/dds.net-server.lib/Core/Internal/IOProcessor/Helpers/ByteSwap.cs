@@ -2,7 +2,7 @@
 {
     internal static class ByteSwap
     {
-        public static byte[] ReverseArray(this byte[] data)
+        public static byte[] SwapBytes(this byte[] data)
         {
             for (int i = 0; i < data.Length / 2; i++)
             {

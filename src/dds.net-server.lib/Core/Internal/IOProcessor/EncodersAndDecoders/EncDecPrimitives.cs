@@ -287,7 +287,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                 bytes[2] = data[offset + 2];
                 bytes[3] = data[offset + 3];
 
-                float value = BitConverter.ToSingle(bytes.ReverseArray(), 0);
+                float value = BitConverter.ToSingle(bytes.SwapBytes(), 0);
                 offset += 4;
                 return value;
             }
@@ -340,7 +340,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                 bytes[6] = data[offset + 6];
                 bytes[7] = data[offset + 7];
 
-                double value = BitConverter.ToDouble(bytes.ReverseArray(), 0);
+                double value = BitConverter.ToDouble(bytes.SwapBytes(), 0);
                 offset += 8;
 
                 return value;

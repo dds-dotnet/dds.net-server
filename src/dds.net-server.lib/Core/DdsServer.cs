@@ -88,7 +88,7 @@ namespace DDS.Net.Server
 
 
                         _networkIO.StartIO();
-                        _varsHandler.StartHandler();
+                        _varsHandler.StartDatabase();
                     }
                     catch (Exception ex)
                     {
@@ -150,7 +150,7 @@ namespace DDS.Net.Server
 
                 if (_varsHandler != null)
                 {
-                    _varsHandler.StopHandler();
+                    _varsHandler.StopDatabase();
                     _varsHandler = null;
                 }
 

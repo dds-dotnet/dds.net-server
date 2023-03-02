@@ -27,12 +27,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             this.logger = logger;
         }
 
-        public void StartHandler()
+        public void StartDatabase()
         {
             StartThread();
         }
 
-        public void StopHandler()
+        public void StopDatabase()
         {
             Exit();
         }

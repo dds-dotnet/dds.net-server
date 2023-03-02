@@ -4,7 +4,7 @@
     {
         public VariableType VariableType { get; set; } = VariableType.UNKNOWN;
 
-        public int ID { get; set; }
+        public ushort ID { get; set; }
         public string Name { get; set; } = "";
         
         public List<VariableProvider> Providers { get; set; } = new();

@@ -1,24 +1,26 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
+﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+
+namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
     internal static class EncDecVariableType
     {
         //- 
         //- VariableType
         //- 
-        public static Types.VariableType ReadVariableType(this byte[] data, ref int offset)
+        public static VariableType ReadVariableType(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             int v = data[offset++];
 
-            if (v >= 0 && v < (int)Types.VariableType.UNKNOWN)
+            if (v >= 0 && v < (int)VariableType.UNKNOWN)
             {
-                return (Types.VariableType)v;
+                return (VariableType)v;
             }
 
-            return Types.VariableType.UNKNOWN;
+            return VariableType.UNKNOWN;
         }
-        public static void WriteVariableType(this byte[] data, ref int offset, Types.VariableType value)
+        public static void WriteVariableType(this byte[] data, ref int offset, VariableType value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 

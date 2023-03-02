@@ -25,7 +25,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
                 VarType.Single =>        "_sngl_",
                 VarType.Double =>        "_dbl_",
 
-                _ => $"_{varType.ToString()}_",
+                _ => $"_{varType}_",
             };
         }
     }

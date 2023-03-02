@@ -20,7 +20,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 try
                 {
-                    _periodicUpdatesTimer = new Timer(TimerCallback);
+                    _periodicUpdatesTimer = new Timer(PeriodicUpdatesTimerCallback);
                     _periodicUpdatesTimer.Change(Settings.BASE_TIME_SLOT_MS, Timeout.Infinite);
                 }
                 catch (Exception ex)
@@ -42,7 +42,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
         }
 
-        private void TimerCallback(object? o)
+        private void PeriodicUpdatesTimerCallback(object? o)
         {
             DecidePeriodicUpdates();
 

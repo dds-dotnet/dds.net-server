@@ -23,7 +23,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WritePacketID(this byte[] data, ref int offset, PacketID value)
         {
-            data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int v = (int)value;
 

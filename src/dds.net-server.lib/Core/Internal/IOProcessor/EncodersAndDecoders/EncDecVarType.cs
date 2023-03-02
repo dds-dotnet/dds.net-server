@@ -7,15 +7,7 @@
         //- 
         public static Types.VarType ReadVarType(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.CheckForRequiredSize(ref offset, 1);
 
             int v = data[offset++];
 
@@ -28,15 +20,7 @@
         }
         public static void WriteVarType(this byte[] data, ref int offset, Types.VarType value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.CheckForRequiredSize(ref offset, 1);
 
             data[offset++] = (byte)value;
         }

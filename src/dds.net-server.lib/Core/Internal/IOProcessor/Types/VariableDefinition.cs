@@ -6,6 +6,7 @@
 
         public ushort ID { get; set; }
         public string Name { get; set; } = "";
+        public object Value { get; set; } = null!;
         
         public List<VariableProvider> Providers { get; set; } = new();
         public List<VariableSubscriber> Subscribers { get; set; } = new();

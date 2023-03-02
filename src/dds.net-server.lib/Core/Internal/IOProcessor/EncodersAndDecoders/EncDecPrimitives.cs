@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using DDS.Net.Server.Core.Internal.IOProcessor.Helpers;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
@@ -142,8 +143,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             data[offset++] = (byte)((value >> 24) & 0x0ff);
             data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >> 8)  & 0x0ff);
-            data[offset++] = (byte)((value >> 0)  & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)((value >> 0) & 0x0ff);
         }
 
         //- 
@@ -174,8 +175,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data[offset++] = (byte)((value >> 32) & 0x0ff);
             data[offset++] = (byte)((value >> 24) & 0x0ff);
             data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >> 8)  & 0x0ff);
-            data[offset++] = (byte)((value >> 0)  & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)((value >> 0) & 0x0ff);
         }
 
         //- 
@@ -234,8 +235,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             data[offset++] = (byte)((value >> 24) & 0x0ff);
             data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >> 8)  & 0x0ff);
-            data[offset++] = (byte)((value >> 0)  & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)((value >> 0) & 0x0ff);
         }
 
         //- 
@@ -267,8 +268,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             data[offset++] = (byte)((value >> 32) & 0x0ff);
             data[offset++] = (byte)((value >> 24) & 0x0ff);
             data[offset++] = (byte)((value >> 16) & 0x0ff);
-            data[offset++] = (byte)((value >>  8) & 0x0ff);
-            data[offset++] = (byte)((value >>  0) & 0x0ff);
+            data[offset++] = (byte)((value >> 8) & 0x0ff);
+            data[offset++] = (byte)((value >> 0) & 0x0ff);
         }
 
         //- 
@@ -278,10 +279,24 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
-            float value = BitConverter.ToSingle(data, offset);
-            offset += 4;
+            if (BitConverter.IsLittleEndian)
+            {
+                byte[] bytes = new byte[4];
+                bytes[0] = data[offset + 0];
+                bytes[1] = data[offset + 1];
+                bytes[2] = data[offset + 2];
+                bytes[3] = data[offset + 3];
 
-            return value;
+                float value = BitConverter.ToSingle(bytes.ReverseArray(), offset);
+                offset += 4;
+                return value;
+            }
+            else
+            {
+                float value = BitConverter.ToSingle(data, offset);
+                offset += 4;
+                return value;
+            }
         }
         public static void WriteSingle(this byte[] data, ref int offset, float value)
         {

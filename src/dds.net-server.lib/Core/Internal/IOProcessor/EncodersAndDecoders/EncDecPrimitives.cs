@@ -183,29 +183,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static byte ReadUnsignedByte(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             return data[offset++];
         }
         public static void WriteUnsignedByte(this byte[] data, ref int offset, byte value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             data[offset++] = value;
         }

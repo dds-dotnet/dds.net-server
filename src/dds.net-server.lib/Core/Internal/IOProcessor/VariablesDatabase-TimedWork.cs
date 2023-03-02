@@ -58,6 +58,23 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         private void DoTimedWork()
         {
+            _timedWorkCounter++;
+
+            UpdateClients(Periodicity.Highest);
+
+            if (_timedWorkCounter % 2 == 0) UpdateClients(Periodicity.High);
+            if (_timedWorkCounter % 4 == 0) UpdateClients(Periodicity.Normal);
+            if (_timedWorkCounter % 8 == 0) UpdateClients(Periodicity.Low);
+
+            if (_timedWorkCounter % 16 == 0)
+            {
+                UpdateClients(Periodicity.Lowest);
+                _timedWorkCounter = 0;
+            }
+        }
+
+        private void UpdateClients(Periodicity periodicity)
+        {
         }
     }
 }

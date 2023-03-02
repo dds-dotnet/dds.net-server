@@ -2,7 +2,7 @@
 {
     internal static class SanityCheck
     {
-        public static void CheckForRequiredSize(this byte[] data, ref int offset, int requiredSize)
+        public static byte[] CheckForRequiredSize(this byte[] data, ref int offset, int requiredSize)
         {
             if (data == null)
             {
@@ -22,6 +22,8 @@
                     nameof(offset),
                     $"Array of {data.Length} bytes requires to have data of {requiredSize} bytes starting at {offset} byte offset");
             }
+
+            return data;
         }
     }
 }

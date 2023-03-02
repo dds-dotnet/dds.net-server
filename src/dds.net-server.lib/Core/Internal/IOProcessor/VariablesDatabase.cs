@@ -10,7 +10,7 @@ using DDS.Net.Server.Interfaces;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
-    internal class VariablesDatabase
+    internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
         private readonly ILogger logger;

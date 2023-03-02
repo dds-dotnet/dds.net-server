@@ -219,15 +219,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static uint ReadUnsignedDWord(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             uint value = data[offset++];
             value = value << 8 | data[offset++];
@@ -238,15 +230,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteUnsignedDWord(this byte[] data, ref int offset, uint value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             data[offset++] = (byte)(value >> 24 & 0x0ff);
             data[offset++] = (byte)(value >> 16 & 0x0ff);
@@ -259,15 +243,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static ulong ReadUnsignedQWord(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             ulong value = data[offset++];
             value = value << 8 | data[offset++];
@@ -283,15 +259,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
         public static void WriteUnsignedQWord(this byte[] data, ref int offset, ulong value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             data[offset++] = (byte)(value >> 56 & 0x0ff);
             data[offset++] = (byte)(value >> 48 & 0x0ff);
@@ -308,15 +276,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static float ReadSingle(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             float value = BitConverter.ToSingle(data, offset);
             offset += 4;
@@ -325,15 +285,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteSingle(this byte[] data, ref int offset, float value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 3 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
 
             byte[] converted = BitConverter.GetBytes(value);
             for (int i = 0; i < 4; i++)
@@ -347,15 +299,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static double ReadDouble(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             double value = BitConverter.ToDouble(data, offset);
             offset += 8;
@@ -364,15 +308,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteDouble(this byte[] data, ref int offset, double value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             byte[] converted = BitConverter.GetBytes(value);
             for (int i = 0; i < 8; i++)

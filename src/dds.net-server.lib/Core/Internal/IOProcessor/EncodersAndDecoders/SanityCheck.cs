@@ -2,7 +2,7 @@
 {
     internal static class SanityCheck
     {
-        public static byte[] CheckForRequiredSize(this byte[] data, ref int offset, int requiredSize)
+        public static byte[] ThrowIfNotHavingRequiredBytes(this byte[] data, ref int offset, int requiredSize)
         {
             if (data == null)
             {

@@ -7,7 +7,7 @@
         //- 
         public static Types.VarType ReadVarType(this byte[] data, ref int offset)
         {
-            data.CheckForRequiredSize(ref offset, 1);
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             int v = data[offset++];
 
@@ -20,7 +20,7 @@
         }
         public static void WriteVarType(this byte[] data, ref int offset, Types.VarType value)
         {
-            data.CheckForRequiredSize(ref offset, 1);
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             data[offset++] = (byte)value;
         }

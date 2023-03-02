@@ -9,15 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static string ReadString(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 1 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int length = data[offset++];
             length = length << 8 | data[offset++];

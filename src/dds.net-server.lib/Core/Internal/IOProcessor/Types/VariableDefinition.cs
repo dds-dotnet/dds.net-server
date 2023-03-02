@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
+﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
     internal class VariableDefinition
     {
+        public VariableType VariableType { get; set; } = VariableType.UNKNOWN;
+        public List<VariableProvider> Providers { get; set; } = new();
+        public List<VariableSubscriber> Subscribers { get; set; } = new();
     }
 }

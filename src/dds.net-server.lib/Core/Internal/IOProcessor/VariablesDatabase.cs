@@ -40,6 +40,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         protected override int DoInit()
         {
             logger.Info("Starting Variables Database");
+
+
+
+            StartTimedWork();
+
             return 0;
         }
 
@@ -51,6 +56,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         protected override int DoCleanup()
         {
             logger.Info("Ending Variables Database");
+
+            StopTimedWork();
+
             return 0;
         }
 

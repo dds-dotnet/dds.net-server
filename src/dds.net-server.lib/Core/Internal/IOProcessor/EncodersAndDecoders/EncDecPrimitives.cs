@@ -151,15 +151,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         public static long ReadQWord(this byte[] data, ref int offset)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             long value = data[offset++];
             value = value << 8 | data[offset++];
@@ -174,15 +166,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         }
         public static void WriteQWord(this byte[] data, ref int offset, long value)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
-
-            if (offset < 0 || offset + 7 >= data.Length)
-            {
-                throw new ArgumentOutOfRangeException(nameof(offset));
-            }
+            data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
 
             data[offset++] = (byte)(value >> 56 & 0x0ff);
             data[offset++] = (byte)(value >> 48 & 0x0ff);

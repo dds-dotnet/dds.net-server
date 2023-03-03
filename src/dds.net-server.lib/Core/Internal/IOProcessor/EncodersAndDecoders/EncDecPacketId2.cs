@@ -2,7 +2,7 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
-    internal static class EncDecPacketID
+    internal static class EncDecPacketId2
     {
         //- 
         //- PacketID

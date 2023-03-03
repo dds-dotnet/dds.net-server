@@ -18,6 +18,10 @@
         /// Updating primitive variable values at the client
         /// </summary>
         PrimitivesUpdateFromServer = 3,
+        /// <summary>
+        /// Containing error response from server
+        /// </summary>
+        ErrorResponseFromServer = 4,
 
 
 

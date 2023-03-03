@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Core\Internal\IOProcessor\Types\PacketId.cs2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Core\Internal\IOProcessor\Types\PacketId.cs2" />
+  </ItemGroup>
+
 </Project>

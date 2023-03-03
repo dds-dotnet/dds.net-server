@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal enum PacketID
+    internal enum PacketId
     {
         /// <summary>
         /// Information exchange

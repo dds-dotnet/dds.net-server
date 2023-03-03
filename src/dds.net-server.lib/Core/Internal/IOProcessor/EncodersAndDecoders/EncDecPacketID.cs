@@ -7,21 +7,21 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- PacketID
         //- 
-        public static PacketID ReadPacketID(this byte[] data, ref int offset)
+        public static PacketId ReadPacketID(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
             int v = data[offset++];
             v = (v << 8) | data[offset++];
 
-            if (v >= 0 && v < (int)PacketID.UNKNOWN)
+            if (v >= 0 && v < (int)PacketId.UNKNOWN)
             {
-                return (PacketID)v;
+                return (PacketId)v;
             }
 
-            return PacketID.UNKNOWN;
+            return PacketId.UNKNOWN;
         }
-        public static void WritePacketID(this byte[] data, ref int offset, PacketID value)
+        public static void WritePacketID(this byte[] data, ref int offset, PacketId value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 

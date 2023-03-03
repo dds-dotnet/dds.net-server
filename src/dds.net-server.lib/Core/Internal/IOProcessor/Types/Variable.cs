@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal class VariableDefinition<T>
+    internal class Variable<T>
         where T : struct
     {
         public VariableType VariableType { get; set; } = VariableType.UNKNOWN;

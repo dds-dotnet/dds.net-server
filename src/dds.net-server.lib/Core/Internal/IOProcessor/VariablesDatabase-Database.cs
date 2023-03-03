@@ -8,7 +8,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
         private Mutex _primitivesDatabaseMutex = new();
-        private Dictionary<string, VariableDefinition> _primitivesDatabaseDictionary = new();
+        private Dictionary<string, Variable> _primitivesDatabaseDictionary = new();
 
         private void InitializeDatabase()
         {

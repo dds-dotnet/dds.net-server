@@ -4,7 +4,7 @@
     {
         public VariableType VariableType { get; set; } = VariableType.UNKNOWN;
 
-        public ushort ID { get; set; }
+        public ushort Id { get; set; }
 
         public long SignedValue { get; set; }
         public ulong UnsignedValue { get; set; }

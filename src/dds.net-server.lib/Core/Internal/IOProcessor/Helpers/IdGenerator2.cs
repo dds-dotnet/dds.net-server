@@ -1,16 +1,16 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Helpers
 {
-    internal static class IDGenerator
+    internal static class IdGenerator2
     {
         private static Mutex mutex = new();
-        private static ushort nextID = 0;
+        private static ushort nextId = 0;
 
         public static ushort GetNextID()
         {
             lock (mutex)
             {
-                nextID++;
-                return nextID;
+                nextId++;
+                return nextId;
             }
         }
     }

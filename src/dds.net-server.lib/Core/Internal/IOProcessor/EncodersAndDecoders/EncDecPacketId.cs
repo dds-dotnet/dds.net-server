@@ -2,12 +2,12 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
-    internal static class EncDecPacketId2
+    internal static class EncDecPacketId
     {
         //- 
-        //- PacketID
+        //- PacketId
         //- 
-        public static PacketId ReadPacketID(this byte[] data, ref int offset)
+        public static PacketId ReadPacketId(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 
@@ -21,7 +21,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return PacketId.UNKNOWN;
         }
-        public static void WritePacketID(this byte[] data, ref int offset, PacketId value)
+        public static void WritePacketId(this byte[] data, ref int offset, PacketId value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
 

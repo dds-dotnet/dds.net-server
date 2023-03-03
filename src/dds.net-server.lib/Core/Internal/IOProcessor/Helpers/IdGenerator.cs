@@ -2,15 +2,15 @@
 {
     internal static class IdGenerator
     {
-        private static Mutex mutex = new();
-        private static ushort nextId = 0;
+        private static Mutex nextVariableIdMutex = new();
+        private static ushort nextVariableId = 0;
 
-        public static ushort GetNextId()
+        public static ushort GetNextVariableId()
         {
-            lock (mutex)
+            lock (nextVariableIdMutex)
             {
-                nextId++;
-                return nextId;
+                nextVariableId++;
+                return nextVariableId;
             }
         }
     }

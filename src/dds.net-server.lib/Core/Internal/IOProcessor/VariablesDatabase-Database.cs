@@ -7,9 +7,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
-        private Dictionary<string, Variable<ulong>>  _usignPrimDbDict = new();
-        private Dictionary<string, Variable<long>>   _signPrimDbDict = new();
-        private Dictionary<string, Variable<double>> _fpPrimDbDict = new();
+        private Dictionary<string, Variable> _primitivesDbDict = new();
 
         private void InitializeDatabase()
         {
@@ -17,19 +15,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         private void ClearDatabase()
         {
-            lock (_usignPrimDbDict)
+            lock (_primitivesDbDict)
             {
-                _usignPrimDbDict.Clear();
-            }
-
-            lock (_signPrimDbDict)
-            {
-                _signPrimDbDict.Clear();
-            }
-
-            lock (_fpPrimDbDict)
-            {
-                _fpPrimDbDict.Clear();
+                _primitivesDbDict.Clear();
             }
         }
     }

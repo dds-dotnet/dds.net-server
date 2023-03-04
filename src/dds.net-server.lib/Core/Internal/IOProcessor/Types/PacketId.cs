@@ -19,7 +19,7 @@
         /// </summary>
         PrimitivesUpdateFromServer = 3,
         /// <summary>
-        /// Containing error response from server
+        /// Error responses from the server
         /// </summary>
         ErrorResponseFromServer = 4,
 

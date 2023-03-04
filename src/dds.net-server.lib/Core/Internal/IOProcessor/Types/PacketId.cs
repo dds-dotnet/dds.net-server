@@ -3,7 +3,7 @@
     internal enum PacketId
     {
         /// <summary>
-        /// Information exchange
+        /// Initialization information / configuration exchange
         /// </summary>
         HandShake = 0,
         /// <summary>

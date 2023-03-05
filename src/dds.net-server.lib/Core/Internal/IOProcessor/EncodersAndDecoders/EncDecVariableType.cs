@@ -1,4 +1,4 @@
-﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+﻿using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {

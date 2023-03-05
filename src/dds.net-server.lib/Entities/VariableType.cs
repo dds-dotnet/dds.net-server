@@ -1,6 +1,6 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
+﻿namespace DDS.Net.Server.Entities
 {
-    internal enum VariableType
+    public enum VariableType
     {
         /// <summary>
         /// Represents a string of characters

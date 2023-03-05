@@ -7,20 +7,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- VariableType
         //- 
-        public static VariableType ReadVariableType(this byte[] data, ref int offset)
+        public static PrimitiveVariableType ReadVariableType(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 
             int v = data[offset++];
 
-            if (v >= 0 && v < (int)VariableType.UNKNOWN)
+            if (v >= 0 && v < (int)PrimitiveVariableType.UNKNOWN)
             {
-                return (VariableType)v;
+                return (PrimitiveVariableType)v;
             }
 
-            return VariableType.UNKNOWN;
+            return PrimitiveVariableType.UNKNOWN;
         }
-        public static void WriteVariableType(this byte[] data, ref int offset, VariableType value)
+        public static void WriteVariableType(this byte[] data, ref int offset, PrimitiveVariableType value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
 

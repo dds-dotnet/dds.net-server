@@ -45,6 +45,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbDoubles.Clear();
                 _dbCompoundVariables.Clear();
 
+                //- 
+                //- Processing Primitive variables
+                //- 
                 foreach (VariableSettings settings in variablesConfiguration.Settings)
                 {
                     ushort id = IdGenerator.GetNextVariableId();
@@ -55,9 +58,22 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     {
 
                     }
-                    else if (settings is CompoundVariableSettings c)
+                }
+
+                //- 
+                //- Processing Compound variables
+                //- 
+                foreach (VariableSettings settings in variablesConfiguration.Settings)
+                {
+                    ushort id = IdGenerator.GetNextVariableId();
+
+                    _dbNameToId.Add(settings.VariableName, id);
+
+                    if (settings is CompoundVariableSettings c)
                     {
-                        _dbCompoundVariables.Add(id, new CompoundVariable(id, settings.VariableName));
+                        CompoundVariable cv = new(id, settings.VariableName);
+
+                        _dbCompoundVariables.Add(id, cv);
                     }
                 }
             }

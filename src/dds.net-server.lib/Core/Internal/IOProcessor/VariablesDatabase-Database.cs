@@ -40,6 +40,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         private void ClearDatabase()
         {
+            lock (_dbMutex)
+            {
+                _dbNameToId.Clear();
+                _dbIdToValue.Clear();
+            }
         }
     }
 }

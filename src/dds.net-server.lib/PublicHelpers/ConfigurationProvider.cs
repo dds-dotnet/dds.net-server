@@ -50,11 +50,36 @@ namespace DDS.Net.Server.PublicHelpers
 
             foreach (string variableName in _confReader.GetSectionNames())
             {
-                variablesConfiguration.AddVariableSettings(
-                    new VariableSettings(variableName)
-                    {
+                try
+                {
+                    VariableType variableType =
+                        Enum.Parse<VariableType>(_confReader.GetString($"{variableName}/VariableType"));
 
-                    });
+                    if (variableType == VariableType.Compound)
+                    {
+                        string primVal = _confReader.GetString($"{variableName}/PrimitiveNames");
+                        string[] primValsSplit = primVal.Split(
+                                            ',',
+                                            StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                        variablesConfiguration.AddVariableSettings(
+                            new CompoundVariableSettings(
+                                variableName,
+                                new List<string>(primValsSplit)));
+                    }
+                    else if (variableType == VariableType.Primitive)
+                    {
+                        PrimitiveType primitiveType =
+                            Enum.Parse<PrimitiveType>(_confReader.GetString($"{variableName}/PrimitiveType"));
+
+                        variablesConfiguration.AddVariableSettings(
+                            new PrimitiveVariableSettings(variableName, primitiveType));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    logger.Error($"Config reading error: {ex.Message}");
+                }
             }
 
             return variablesConfiguration;

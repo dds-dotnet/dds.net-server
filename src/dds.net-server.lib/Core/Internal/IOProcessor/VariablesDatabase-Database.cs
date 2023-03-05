@@ -1,6 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -10,7 +11,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private Dictionary<string, ushort> _dbNameToId = new();
         private Dictionary<ushort, Variable> _dbIdToValue = new();
 
-        private void InitializeDatabase()
+        private void InitializeDatabase(VariablesConfiguration variablesConfiguration)
         {
         }
 

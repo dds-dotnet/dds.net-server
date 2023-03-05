@@ -36,7 +36,10 @@ namespace DDS.Net.Server.WpfApp.AppWindows
 
             if (isEnabled && config != null)
             {
-                _server = new DdsServer(config);
+                _server = new DdsServer(
+                    config,
+                    ConfigurationProvider.GetVariablesConfiguration(AppConstants.VARIABLES_CONFIG_FILENAME, _logger));
+
                 _server.Start();
             }
         }

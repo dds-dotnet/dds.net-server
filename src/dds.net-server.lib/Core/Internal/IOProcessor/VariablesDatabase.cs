@@ -7,12 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Interfaces;
+using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
+        private readonly VariablesConfiguration variablesConfiguration;
         private readonly ILogger logger;
 
         public VariablesDatabase(
@@ -20,10 +22,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     ISyncQueueWriterEnd<DataToClient> dataWriterEnd,
                     int commandsQueueSize,
                     int responsesQueueSize,
+                    VariablesConfiguration variablesConfiguration,
                     ILogger logger)
 
             : base(dataReaderEnd, dataWriterEnd, commandsQueueSize, responsesQueueSize)
         {
+            this.variablesConfiguration = variablesConfiguration;
             this.logger = logger;
         }
 
@@ -41,7 +45,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             logger.Info("Starting Variables Database");
 
-            InitializeDatabase();
+            InitializeDatabase(variablesConfiguration);
             StartPeriodicUpdates();
 
             return 0;

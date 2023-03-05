@@ -19,6 +19,7 @@ namespace DDS.Net.Server
     public partial class DdsServer
     {
         private readonly ServerConfiguration _serverConfig;
+        private readonly VariablesConfiguration _variablesConfig;
         private readonly ILogger _logger;
 
         private ServerStatus _status = ServerStatus.Stopped;
@@ -29,14 +30,13 @@ namespace DDS.Net.Server
         private NetworkIO? _networkIO;
         private VariablesDatabase? _varsHandler;
 
-        public DdsServer(ServerConfiguration config)
+        public DdsServer(ServerConfiguration config, VariablesConfiguration variablesConfig)
         {
             _serverConfig = config ?? throw new ArgumentNullException(nameof(config));
+            _variablesConfig = variablesConfig ?? throw new ArgumentNullException(nameof(variablesConfig));
 
             if (_serverConfig.Logger != null)
-
-            if (_config.Logger != null)
-                _logger = _config.Logger;
+                _logger = _serverConfig.Logger;
             else
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
 
@@ -82,6 +82,7 @@ namespace DDS.Net.Server
                             _dataToNetwork,
                             SettingQueueSize.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
                             SettingQueueSize.VARS_HANDLER_RESPONSES_QUEUE_SIZE,
+                            _variablesConfig,
                             _logger);
 
                         _varsHandler.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;

@@ -56,7 +56,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     if (settings is PrimitiveVariableSettings p)
                     {
-                        AddPrimitiveVariable(p);
+                        AddPrimitiveVariableFromSettings(p);
                     }
                 }
 
@@ -79,7 +79,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
         }
 
-        private void AddPrimitiveVariable(PrimitiveVariableSettings primitiveSettings)
+        private void AddPrimitiveVariableFromSettings(PrimitiveVariableSettings primitiveSettings)
         {
             switch (primitiveSettings.PrimitiveType)
             {

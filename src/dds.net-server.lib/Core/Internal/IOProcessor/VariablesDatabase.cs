@@ -45,7 +45,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             logger.Info("Starting Variables Database");
 
-            InitializeDatabase(variablesConfiguration);
+            InitializeDatabase();
             StartPeriodicUpdates();
 
             return 0;

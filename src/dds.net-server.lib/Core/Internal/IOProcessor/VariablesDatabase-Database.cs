@@ -11,7 +11,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private Dictionary<string, ushort> _dbNameToId = new();
         private Dictionary<ushort, Variable> _dbIdToValue = new();
 
-        private void InitializeDatabase(VariablesConfiguration variablesConfiguration)
+        private void InitializeDatabase()
         {
         }
 

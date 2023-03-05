@@ -9,7 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 
         public T Value { get; set; }
 
-        public PrimitiveVariable(ushort id) : base(id)
+        public PrimitiveVariable(ushort id, string name) : base(id, name)
         {
             if (typeof(T) == typeof(bool))         { PrimitiveType = PrimitiveType.Boolean;       }
             else if (typeof(T) == typeof(sbyte))   { PrimitiveType = PrimitiveType.Byte;          }

@@ -2,7 +2,7 @@
 {
     internal class CompoundVariable : Variable
     {
-        public CompoundVariable(ushort id) : base(id)
+        public CompoundVariable(ushort id, string name) : base(id, name)
         {
 
         }

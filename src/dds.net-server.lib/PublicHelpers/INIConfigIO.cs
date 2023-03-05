@@ -168,6 +168,18 @@ namespace DDS.Net.Server.PublicHelpers
         }
 
         /// <summary>
+        /// Getting all the section names from INI file
+        /// </summary>
+        /// <returns>IEnumerable<string> of section names</returns>
+        public IEnumerable<string> GetSectionNames()
+        {
+            foreach (string sectionName in _config.Keys)
+            {
+                yield return sectionName;
+            }
+        }
+
+        /// <summary>
         /// Getting a string value from INI file
         /// </summary>
         /// <param name="key">Section Name / Property Name</param>

@@ -46,8 +46,18 @@ namespace DDS.Net.Server.PublicHelpers
         public static VariablesConfiguration GetVariablesConfiguration(string filename, ILogger logger)
         {
             INIConfigIO _confReader = new INIConfigIO(filename, logger);
+            VariablesConfiguration variablesConfiguration = new VariablesConfiguration();
 
-            return new();
+            foreach (string variableName in _confReader.GetSectionNames())
+            {
+                variablesConfiguration.AddVariableSettings(
+                    new VariableSettings(variableName)
+                    {
+
+                    });
+            }
+
+            return variablesConfiguration;
         }
     }
 }

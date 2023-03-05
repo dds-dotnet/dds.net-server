@@ -18,7 +18,7 @@ namespace DDS.Net.Server
 
     public partial class DdsServer
     {
-        private readonly ServerConfiguration _config;
+        private readonly ServerConfiguration _serverConfig;
         private readonly ILogger _logger;
 
         private ServerStatus _status = ServerStatus.Stopped;
@@ -31,9 +31,9 @@ namespace DDS.Net.Server
 
         public DdsServer(ServerConfiguration config)
         {
-            if (config == null) throw new ArgumentNullException(nameof(config));
+            _serverConfig = config ?? throw new ArgumentNullException(nameof(config));
 
-            _config = config;
+            if (_serverConfig.Logger != null)
 
             if (_config.Logger != null)
                 _logger = _config.Logger;
@@ -53,7 +53,7 @@ namespace DDS.Net.Server
                 PrintLogStarting();
 
                 if (_networkIO == null &&
-                    (_config.EnableTCP || _config.EnableUDP))
+                    (_serverConfig.EnableTCP || _serverConfig.EnableUDP))
                 {
                     try
                     {
@@ -66,10 +66,10 @@ namespace DDS.Net.Server
                             SettingQueueSize.NETWORK_RESPONSES_QUEUE_SIZE,
 
 
-                            _config.ListeningAddressIPv4,
+                            _serverConfig.ListeningAddressIPv4,
 
-                            _config.EnableTCP, _config.ListeningPortTCP, _config.MaxClientsTCP,
-                            _config.EnableUDP, _config.ListeningPortUDP);
+                            _serverConfig.EnableTCP, _serverConfig.ListeningPortTCP, _serverConfig.MaxClientsTCP,
+                            _serverConfig.EnableUDP, _serverConfig.ListeningPortUDP);
 
                         _dataFromNetwork = _networkIO.OutputReader;
                         _dataToNetwork = _networkIO.InputWriter;

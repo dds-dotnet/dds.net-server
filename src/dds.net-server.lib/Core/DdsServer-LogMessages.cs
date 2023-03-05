@@ -4,18 +4,18 @@
     {
         private void PrintLogPorts()
         {
-            if (_config.EnableTCP)
+            if (_serverConfig.EnableTCP)
             {
-                _logger.Info($"    TCP Port {_config.ListeningAddressIPv4}:{_config.ListeningPortTCP}");
+                _logger.Info($"    TCP Port {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortTCP}");
             }
             else
             {
                 _logger.Info($"    TCP Connections - Disabled");
             }
 
-            if (_config.EnableUDP)
+            if (_serverConfig.EnableUDP)
             {
-                _logger.Info($"    UDP Port {_config.ListeningAddressIPv4}:{_config.ListeningPortUDP}");
+                _logger.Info($"    UDP Port {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortUDP}");
             }
             else
             {

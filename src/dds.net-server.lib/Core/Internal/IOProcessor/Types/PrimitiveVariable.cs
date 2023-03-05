@@ -2,14 +2,14 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal class PrimitiveVariable<T>
+    internal class PrimitiveVariable<T> : Variable
         where T : struct
     {
         public PrimitiveType PrimitiveType { get; private set; }
 
         public T Value { get; set; }
 
-        public PrimitiveVariable()
+        public PrimitiveVariable(ushort id) : base(id)
         {
             if (typeof(T) == typeof(bool))         { PrimitiveType = PrimitiveType.Boolean;       }
             else if (typeof(T) == typeof(sbyte))   { PrimitiveType = PrimitiveType.Byte;          }

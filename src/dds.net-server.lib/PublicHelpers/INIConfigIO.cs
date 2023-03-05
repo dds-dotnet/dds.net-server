@@ -30,6 +30,7 @@ namespace DDS.Net.Server.PublicHelpers
                 return;
             }
 
+            Regex commentPattern = new(@"[;].*$");
             Regex sectionPattern = new(@"^\s*\[([a-zA-Z0-9\s_-]+)\]\s*$");
             Regex propertyPattern = new(@"^\s*([a-zA-Z0-9\s_-]+)\s*=+\s*([a-zA-Z0-9.\s_-]+)\s*$");
 
@@ -43,7 +44,7 @@ namespace DDS.Net.Server.PublicHelpers
 
                     if (string.IsNullOrEmpty(line) == false)
                     {
-                        string trimmedLine = line.Trim();
+                        string trimmedLine = commentPattern.Replace(line.Trim(), string.Empty);
 
                         if (trimmedLine.StartsWith('['))
                         {

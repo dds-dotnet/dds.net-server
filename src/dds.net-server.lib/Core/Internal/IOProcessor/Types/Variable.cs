@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal class Variable
+    internal abstract class Variable
     {
         public ushort Id { get; private set; }
 

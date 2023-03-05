@@ -4,7 +4,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
     internal class Variable
     {
-        public PrimitiveVariableType VariableType { get; set; } = PrimitiveVariableType.UNKNOWN;
+        public PrimitiveType VariableType { get; set; } = PrimitiveType.UNKNOWN;
 
         public ushort Id { get; set; }
 

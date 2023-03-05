@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Entities
 {
-    public enum PrimitiveVariableType
+    public enum PrimitiveType
     {
         /// <summary>
         /// Represents a string of characters

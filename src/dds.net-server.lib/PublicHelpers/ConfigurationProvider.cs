@@ -45,7 +45,7 @@ namespace DDS.Net.Server.PublicHelpers
         /// <exception cref="NotImplementedException"></exception>
         public static VariablesConfiguration GetVariablesConfiguration(string filename, ILogger logger)
         {
-            throw new NotImplementedException();
+            return new();
         }
     }
 }

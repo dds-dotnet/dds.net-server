@@ -44,31 +44,34 @@ namespace DDS.Net.Server.PublicHelpers
 
                     if (string.IsNullOrEmpty(line) == false)
                     {
-                        string trimmedLine = commentPattern.Replace(line.Trim(), string.Empty);
+                        string trimmedLine = commentPattern.Replace(line, string.Empty).Trim();
 
-                        if (trimmedLine.StartsWith('['))
+                        if (trimmedLine != "")
                         {
-                            currentSection = null;
-
-                            if (sectionPattern.IsMatch(trimmedLine))
+                            if (trimmedLine.StartsWith('['))
                             {
-                                currentSection = sectionPattern.Match(trimmedLine).Groups[1].Value;
+                                currentSection = null;
+
+                                if (sectionPattern.IsMatch(trimmedLine))
+                                {
+                                    currentSection = sectionPattern.Match(trimmedLine).Groups[1].Value;
+                                }
+                                else
+                                {
+                                    _logger?.Warning($"Skipping malformed section \"{trimmedLine}\" in configuration file \"{Filename}\"");
+                                }
                             }
                             else
                             {
-                                _logger?.Warning($"Skipping malformed section \"{trimmedLine}\" in configuration file \"{Filename}\"");
-                            }
-                        }
-                        else
-                        {
-                            if (currentSection != null && propertyPattern.IsMatch(trimmedLine))
-                            {
-                                Match match = propertyPattern.Match(trimmedLine);
+                                if (currentSection != null && propertyPattern.IsMatch(trimmedLine))
+                                {
+                                    Match match = propertyPattern.Match(trimmedLine);
 
-                                string property = match.Groups[1].Value.Trim();
-                                string value = match.Groups[2].Value.Trim();
+                                    string property = match.Groups[1].Value.Trim();
+                                    string value = match.Groups[2].Value.Trim();
 
-                                InsertValueInConfiguration(currentSection, property, value);
+                                    InsertValueInConfiguration(currentSection, property, value);
+                                }
                             }
                         }
                     }

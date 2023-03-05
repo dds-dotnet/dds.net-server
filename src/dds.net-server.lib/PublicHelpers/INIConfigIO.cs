@@ -32,7 +32,7 @@ namespace DDS.Net.Server.PublicHelpers
 
             Regex commentPattern = new(@"[;].*$");
             Regex sectionPattern = new(@"^\s*\[([a-zA-Z0-9\s_-]+)\]\s*$");
-            Regex propertyPattern = new(@"^\s*([a-zA-Z0-9\s_-]+)\s*=+\s*([a-zA-Z0-9.\s_-]+)\s*$");
+            Regex propertyPattern = new(@"^\s*([a-zA-Z0-9\s_-]+)\s*=+\s*(.*)$");
 
             string? currentSection = null;
 

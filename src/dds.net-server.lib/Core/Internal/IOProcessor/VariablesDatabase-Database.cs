@@ -56,7 +56,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     if (settings is PrimitiveVariableSettings p)
                     {
-
+                        AddPrimitiveVariable(p);
                     }
                 }
 
@@ -76,6 +76,51 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                         _dbCompoundVariables.Add(id, cv);
                     }
                 }
+            }
+        }
+
+        private void AddPrimitiveVariable(PrimitiveVariableSettings primitiveSettings)
+        {
+            switch (primitiveSettings.PrimitiveType)
+            {
+                case PrimitiveType.String:
+                    break;
+
+                case PrimitiveType.Boolean:
+                    break;
+
+                case PrimitiveType.Byte:
+                    break;
+
+                case PrimitiveType.Word:
+                    break;
+
+                case PrimitiveType.DWord:
+                    break;
+
+                case PrimitiveType.QWord:
+                    break;
+
+                case PrimitiveType.UnsignedByte:
+                    break;
+
+                case PrimitiveType.UnsignedWord:
+                    break;
+
+                case PrimitiveType.UnsignedDWord:
+                    break;
+
+                case PrimitiveType.UnsignedQWord:
+                    break;
+
+                case PrimitiveType.Single:
+                    break;
+
+                case PrimitiveType.Double:
+                    break;
+
+                case PrimitiveType.UNKNOWN:
+                    break;
             }
         }
 

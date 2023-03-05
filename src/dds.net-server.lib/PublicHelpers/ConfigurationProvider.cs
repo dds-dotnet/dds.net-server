@@ -45,6 +45,8 @@ namespace DDS.Net.Server.PublicHelpers
         /// <exception cref="NotImplementedException"></exception>
         public static VariablesConfiguration GetVariablesConfiguration(string filename, ILogger logger)
         {
+            INIConfigIO _confReader = new INIConfigIO(filename, logger);
+
             return new();
         }
     }

@@ -57,7 +57,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     }
                     else if (settings is CompoundVariableSettings c)
                     {
-                        _dbCompoundVariables.Add(id, new CompoundVariable(id));
+                        _dbCompoundVariables.Add(id, new CompoundVariable(id, settings.VariableName));
                     }
                 }
             }

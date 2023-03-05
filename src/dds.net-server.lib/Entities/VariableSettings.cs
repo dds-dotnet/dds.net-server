@@ -2,11 +2,11 @@
 {
     public class VariableSettings
     {
-        public string Name { get; private set; }
+        public string VariableName { get; private set; }
 
         public VariableSettings(string name)
         {
-            Name = name;
+            VariableName = name;
         }
     }
 }

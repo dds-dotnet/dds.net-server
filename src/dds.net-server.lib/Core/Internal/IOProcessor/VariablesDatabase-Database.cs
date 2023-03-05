@@ -25,6 +25,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     ushort id = IdGenerator.GetNextVariableId();
 
                     _dbNameToId.Add(settings.VariableName, id);
+
+                    if (settings is PrimitiveVariableSettings p)
+                    {
+
+                    }
+                    else if (settings is CompoundVariableSettings c)
+                    {
+
+                    }
                 }
             }
         }

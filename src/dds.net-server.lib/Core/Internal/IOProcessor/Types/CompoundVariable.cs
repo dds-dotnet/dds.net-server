@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
+﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal class CompoundVariable
+    internal class CompoundVariable : Variable
     {
+        public CompoundVariable(ushort id) : base(id)
+        {
+
+        }
     }
 }

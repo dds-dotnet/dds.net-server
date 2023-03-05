@@ -36,5 +36,16 @@ namespace DDS.Net.Server.PublicHelpers
 
             return new(false, null);
         }
+        /// <summary>
+        /// Reading VariablesConfiguration object from provided .ini file.
+        /// </summary>
+        /// <param name="filename">.ini file containing configuration</param>
+        /// <param name="logger">logging</param>
+        /// <returns>VariablesConfiguration object read from .ini file</returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static VariablesConfiguration GetVariablesConfiguration(string filename, ILogger logger)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

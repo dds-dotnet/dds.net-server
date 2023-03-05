@@ -28,7 +28,7 @@ namespace DDS.Net.Server
         private ISyncQueueWriterEnd<DataToClient> _dataToNetwork = null!;
 
         private NetworkIO? _networkIO;
-        private VariablesDatabase? _varsHandler;
+        private VariablesDatabase? _varsDatabase;
 
         public DdsServer(ServerConfiguration config, VariablesConfiguration variablesConfig)
         {
@@ -41,7 +41,7 @@ namespace DDS.Net.Server
                 throw new Exception($"No instance of {nameof(ILogger)} is provided");
 
             _networkIO = null;
-            _varsHandler = null;
+            _varsDatabase = null;
         }
 
         public void Start()
@@ -77,7 +77,7 @@ namespace DDS.Net.Server
                         _networkIO.ResponseReader.DataAvailableForReading += OnNetworkIOStatusChanged;
 
 
-                        _varsHandler = new VariablesDatabase(
+                        _varsDatabase = new VariablesDatabase(
                             _dataFromNetwork,
                             _dataToNetwork,
                             SettingQueueSize.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
@@ -85,16 +85,16 @@ namespace DDS.Net.Server
                             _variablesConfig,
                             _logger);
 
-                        _varsHandler.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;
+                        _varsDatabase.ResponseReader.DataAvailableForReading += OnVarsHandlerStatusChanged;
 
 
                         _networkIO.StartIO();
-                        _varsHandler.StartDatabase();
+                        _varsDatabase.StartDatabase();
                     }
                     catch (Exception ex)
                     {
                         _networkIO = null;
-                        _varsHandler = null;
+                        _varsDatabase = null;
 
                         _logger.Error($"Cannot start NetworkIO and VarsHandler: {ex.Message}");
                     }
@@ -149,10 +149,10 @@ namespace DDS.Net.Server
 
                 PrintLogStopping();
 
-                if (_varsHandler != null)
+                if (_varsDatabase != null)
                 {
-                    _varsHandler.StopDatabase();
-                    _varsHandler = null;
+                    _varsDatabase.StopDatabase();
+                    _varsDatabase = null;
                 }
 
                 if (_networkIO != null)

@@ -12,5 +12,8 @@
             Id = id;
             Name = name;
         }
+
+        public abstract int GetSizeOnBuffer();
+        public abstract void WriteOnBuffer(ref byte[] buffer, ref int offset);
     }
 }

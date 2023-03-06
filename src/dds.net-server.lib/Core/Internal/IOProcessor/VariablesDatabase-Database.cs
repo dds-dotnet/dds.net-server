@@ -11,7 +11,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     {
         private Mutex _dbMutex = new();
         private Dictionary<string, ushort> _dbNameToId = new();
-        private Dictionary<ushort, PrimitiveStringVariable> _dbStrings = new();
+        private Dictionary<ushort, StringVariable> _dbStrings = new();
         private Dictionary<ushort, PrimitiveVariable<bool>> _dbBooleans = new();
         private Dictionary<ushort, PrimitiveVariable<sbyte>> _dbBytes = new();
         private Dictionary<ushort, PrimitiveVariable<short>> _dbWords = new();

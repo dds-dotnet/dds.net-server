@@ -3,14 +3,13 @@ using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
-    internal class ByteVariable<T> : BaseVariable
+    internal class ByteVariable : BasePrimitive
     {
-        public PrimitiveType PrimitiveType { get; private set; } = PrimitiveType.Byte;
-
         public sbyte Value { get; set; }
 
         public ByteVariable(ushort id, string name) : base(id, name)
         {
+            PrimitiveType = PrimitiveType.Byte;
         }
 
         public override int GetSizeOnBuffer()

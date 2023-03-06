@@ -6,7 +6,6 @@
         public string Name { get; private set; }
 
         public List<VariableProvider> Providers { get; set; } = new();
-        public List<VariableSubscriber> Subscribers { get; set; } = new();
 
         public BaseVariable(ushort id, string name)
         {

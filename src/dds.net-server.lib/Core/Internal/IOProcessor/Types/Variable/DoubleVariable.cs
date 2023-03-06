@@ -3,14 +3,13 @@ using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
-    internal class DoubleVariable<T> : BaseVariable
+    internal class DoubleVariable : BasePrimitive
     {
-        public PrimitiveType PrimitiveType { get; private set; } = PrimitiveType.Double;
-
         public double Value { get; set; }
 
         public DoubleVariable(ushort id, string name) : base(id, name)
         {
+            PrimitiveType = PrimitiveType.Double;
         }
 
         public override int GetSizeOnBuffer()

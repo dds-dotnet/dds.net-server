@@ -13,7 +13,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private Mutex _dbMutex = new();
         private Dictionary<string, ushort> _dbNameToId = new();
         private Dictionary<ushort, BaseVariable> _dbVariables = new();
-        private Dictionary<VariableSubscriber, List<BaseVariable>> _dbSubscribedVariables = new();
+        private List<VariableSubscriber> _dbSubscribers = new();
 
         private void InitializeDatabase()
         {
@@ -21,7 +21,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 _dbNameToId.Clear();
                 _dbVariables.Clear();
-                _dbSubscribedVariables.Clear();
+                _dbSubscribers.Clear();
 
                 //- 
                 //- Processing Primitive variables
@@ -108,7 +108,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 _dbNameToId.Clear();
                 _dbVariables.Clear();
-                _dbSubscribedVariables.Clear();
+                _dbSubscribers.Clear();
             }
         }
     }

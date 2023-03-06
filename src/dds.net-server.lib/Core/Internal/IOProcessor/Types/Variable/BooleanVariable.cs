@@ -3,14 +3,13 @@ using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
-    internal class BooleanVariable : BaseVariable
+    internal class BooleanVariable : BasePrimitive
     {
-        public PrimitiveType PrimitiveType { get; private set; } = PrimitiveType.Boolean;
-
         public bool Value { get; set; }
 
         public BooleanVariable(ushort id, string name) : base(id, name)
         {
+            PrimitiveType = PrimitiveType.Boolean;
         }
 
         public override int GetSizeOnBuffer()

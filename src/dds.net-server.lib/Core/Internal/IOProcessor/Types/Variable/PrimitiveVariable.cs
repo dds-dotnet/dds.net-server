@@ -24,5 +24,26 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             else if (typeof(T) == typeof(double)) { PrimitiveType = PrimitiveType.Double; }
             else { PrimitiveType = PrimitiveType.UNKNOWN; }
         }
+
+        public override int GetSizeOnBuffer()
+        {
+            if (typeof(T) == typeof(bool))        { return 1; }
+            else if (typeof(T) == typeof(sbyte))  { return 1; }
+            else if (typeof(T) == typeof(short))  { return 2; }
+            else if (typeof(T) == typeof(int))    { return 4; }
+            else if (typeof(T) == typeof(long))   { return 8; }
+            else if (typeof(T) == typeof(byte))   { return 1; }
+            else if (typeof(T) == typeof(ushort)) { return 2; }
+            else if (typeof(T) == typeof(uint))   { return 4; }
+            else if (typeof(T) == typeof(ulong))  { return 8; }
+            else if (typeof(T) == typeof(float))  { return 4; }
+            else if (typeof(T) == typeof(double)) { return 8; }
+            else { throw new Exception("Unknown variable size cannot be estimated"); }
+        }
+
+        public override void WriteOnBuffer(ref byte[] buffer, ref int offset)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

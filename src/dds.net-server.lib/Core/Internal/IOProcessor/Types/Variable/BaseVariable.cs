@@ -11,7 +11,6 @@
         {
             Id = id;
             Name = name;
-
         }
     }
 }

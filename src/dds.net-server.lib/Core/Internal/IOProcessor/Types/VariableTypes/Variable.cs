@@ -1,4 +1,4 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
+﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.VariableTypes
 {
     internal abstract class Variable
     {

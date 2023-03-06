@@ -1,6 +1,6 @@
 ﻿using DDS.Net.Server.Entities;
 
-namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
+namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.VariableTypes
 {
     internal class PrimitiveStringVariable : Variable
     {

@@ -1,7 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.Helpers;
-using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types.VariableTypes;
 using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor

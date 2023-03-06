@@ -2,13 +2,13 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types
 {
-    internal class PrimitiveStringVariable
+    internal class PrimitiveStringVariable : Variable
     {
         public PrimitiveType PrimitiveType { get; private set; } = PrimitiveType.String;
 
         public string Value { get; set; }
 
-        public PrimitiveStringVariable()
+        public PrimitiveStringVariable(ushort id, string name) : base(id, name)
         {
             Value = string.Empty;
         }

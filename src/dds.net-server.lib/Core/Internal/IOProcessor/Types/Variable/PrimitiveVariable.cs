@@ -1,6 +1,6 @@
 ﻿using DDS.Net.Server.Entities;
 
-namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.VariableTypes
+namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal class PrimitiveVariable<T> : Variable
         where T : struct

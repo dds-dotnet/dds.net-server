@@ -1,4 +1,4 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.VariableTypes
+﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal class CompoundVariable : Variable
     {

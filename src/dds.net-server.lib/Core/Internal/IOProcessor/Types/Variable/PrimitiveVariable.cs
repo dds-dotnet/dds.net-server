@@ -2,7 +2,7 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
-    internal class PrimitiveVariable<T> : Variable
+    internal class PrimitiveVariable<T> : BaseVariable
         where T : struct
     {
         public PrimitiveType PrimitiveType { get; private set; }

@@ -5,6 +5,8 @@
         public ushort Id { get; private set; }
         public string Name { get; private set; }
 
+        protected static int IdSizeOnBuffer = sizeof(short);
+
         public List<VariableProvider> Providers { get; set; } = new();
 
         public BaseVariable(ushort id, string name)

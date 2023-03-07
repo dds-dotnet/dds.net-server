@@ -52,8 +52,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
         public void WriteOnBuffer(ref byte[] buffer, ref int offset)
         {
-            WriteIdOnBuffer(ref buffer, ref offset);
-            WriteVariableTypeOnBuffer(ref buffer, ref offset);
+            buffer.WriteUnsignedWord(ref offset, Id);
+            buffer.WriteVariableType(ref offset, VariableType);
+
             WriteTypeOnBuffer(ref buffer, ref offset);
             WriteValueOnBuffer(ref buffer, ref offset);
         }
@@ -69,23 +70,5 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
         protected abstract void WriteValueOnBuffer(ref byte[] buffer, ref int offset);
-        /// <summary>
-        /// Writing ID on the buffer
-        /// </summary>
-        /// <param name="buffer">Buffer on which value is to be written</param>
-        /// <param name="offset">offset on which the value is to be written in buffer</param>
-        private void WriteIdOnBuffer(ref byte[] buffer, ref int offset)
-        {
-            buffer.WriteUnsignedWord(ref offset, Id);
-        }
-        /// <summary>
-        /// Writing Variable Type on the buffer
-        /// </summary>
-        /// <param name="buffer">Buffer on which value is to be written</param>
-        /// <param name="offset">offset on which the value is to be written in buffer</param>
-        private void WriteVariableTypeOnBuffer(ref byte[] buffer, ref int offset)
-        {
-            buffer.WriteVariableType(ref offset, VariableType);
-        }
     }
 }

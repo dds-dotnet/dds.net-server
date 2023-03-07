@@ -1,4 +1,5 @@
 ﻿using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
@@ -6,6 +7,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
     {
         public ushort Id { get; private set; }
         public string Name { get; private set; }
+
+        public VariableType VariableType { get; protected set; }
 
         private static int IdSizeOnBuffer = sizeof(short);
 
@@ -21,12 +24,24 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 
 
         /// <summary>
-        /// Total size => [ID]-[Type]-[Value]
+        /// Total size => [ID]-[Variable Type]-[Type]-[Value]
         /// </summary>
         /// <returns></returns>
         public int GetSizeOnBuffer()
         {
-            return IdSizeOnBuffer + GetTypeSizeOnBuffer() + GetValueSizeOnBuffer();
+            return
+                IdSizeOnBuffer +
+                GetVariableTypeSizeOnBuffer() +
+                GetTypeSizeOnBuffer() +
+                GetValueSizeOnBuffer();
+        }
+        /// <summary>
+        /// Required size of variable type on the buffer
+        /// </summary>
+        /// <returns>Size in bytes required to write variable type on buffer</returns>
+        private int GetVariableTypeSizeOnBuffer()
+        {
+            return VariableType.GetSizeOnBuffer();
         }
         /// <summary>
         /// Required size of type on the buffer
@@ -47,6 +62,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         public void WriteOnBuffer(ref byte[] buffer, ref int offset)
         {
             WriteIdOnBuffer(ref buffer, ref offset);
+            WriteVariableTypeOnBuffer(ref buffer, ref offset);
             WriteTypeOnBuffer(ref buffer, ref offset);
             WriteValueOnBuffer(ref buffer, ref offset);
         }
@@ -70,6 +86,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         private void WriteIdOnBuffer(ref byte[] buffer, ref int offset)
         {
             buffer.WriteUnsignedWord(ref offset, Id);
+        }
+        /// <summary>
+        /// Writing Variable Type on the buffer
+        /// </summary>
+        /// <param name="buffer">Buffer on which value is to be written</param>
+        /// <param name="offset">offset on which the value is to be written in buffer</param>
+        private void WriteVariableTypeOnBuffer(ref byte[] buffer, ref int offset)
+        {
+            buffer.WriteVariableType(ref offset, VariableType);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
@@ -29,6 +30,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             data[offset++] = (byte)((v >> 8) & 0x0ff);
             data[offset++] = (byte)((v >> 0) & 0x0ff);
+        }
+        public static int GetSizeOnBuffer(this PacketId packetId)
+        {
+            return 2;
         }
     }
 }

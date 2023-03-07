@@ -31,7 +31,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 
         public override int GetSizeOnBuffer()
         {
-            return 2 + _bytes.Length;
+            return 2 + _bytes.Length + PrimitiveType.GetSizeOnBuffer() + IdSizeOnBuffer;
         }
 
         public override void WriteOnBuffer(ref byte[] buffer, ref int offset)

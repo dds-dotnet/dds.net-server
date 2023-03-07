@@ -13,12 +13,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             int v = data[offset++];
 
-            if (v >= 0 && v < (int)PrimitiveType.UNKNOWN)
+            if (v >= 0 && v < (int)PrimitiveType.UnknownPrimitiveType)
             {
                 return (PrimitiveType)v;
             }
 
-            return PrimitiveType.UNKNOWN;
+            return PrimitiveType.UnknownPrimitiveType;
         }
         public static void WriteVariableType(this byte[] data, ref int offset, PrimitiveType value)
         {

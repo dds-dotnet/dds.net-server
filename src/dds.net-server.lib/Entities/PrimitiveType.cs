@@ -54,6 +54,6 @@
         /// <summary>
         /// Unknown type
         /// </summary>
-        UNKNOWN
+        UnknownPrimitiveType
     }
 }

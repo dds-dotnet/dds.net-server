@@ -6,7 +6,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
     {
         public UNKNOWNVariable(ushort id, string name) : base(id, name)
         {
-            PrimitiveType = PrimitiveType.UNKNOWN;
+            PrimitiveType = PrimitiveType.UnknownPrimitiveType;
         }
 
         protected override int GetValueSizeOnBuffer()

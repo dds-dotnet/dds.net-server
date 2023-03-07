@@ -97,7 +97,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 case PrimitiveType.Double:
                     break;
 
-                case PrimitiveType.UNKNOWN:
+                case PrimitiveType.UnknownPrimitiveType:
                     break;
             }
         }

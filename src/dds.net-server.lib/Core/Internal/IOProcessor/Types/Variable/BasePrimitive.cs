@@ -5,7 +5,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal abstract class BasePrimitive : BaseVariable
     {
-        public PrimitiveType PrimitiveType { get; protected set; } = PrimitiveType.UNKNOWN;
+        public PrimitiveType PrimitiveType { get; protected set; } = PrimitiveType.UnknownPrimitiveType;
 
         public BasePrimitive(ushort id, string name) : base(id, name)
         {

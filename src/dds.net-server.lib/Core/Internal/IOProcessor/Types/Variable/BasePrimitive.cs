@@ -9,6 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 
         public BasePrimitive(ushort id, string name) : base(id, name)
         {
+            VariableType = VariableType.Primitive;
         }
 
         protected override int GetTypeSizeOnBuffer()
@@ -18,7 +19,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 
         protected override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
         {
-            buffer.WriteVariableType(ref offset, PrimitiveType);
+            buffer.WritePrimitiveType(ref offset, PrimitiveType);
         }
     }
 }

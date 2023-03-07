@@ -55,13 +55,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
-        public abstract void WriteTypeOnBuffer(ref byte[] buffer, ref int offset);
+        protected abstract void WriteTypeOnBuffer(ref byte[] buffer, ref int offset);
         /// <summary>
         /// Write value onto the buffer
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
-        public abstract void WriteValueOnBuffer(ref byte[] buffer, ref int offset);
+        protected abstract void WriteValueOnBuffer(ref byte[] buffer, ref int offset);
         /// <summary>
         /// Writing ID on the buffer
         /// </summary>

@@ -9,6 +9,8 @@
 
         public List<VariableProvider> Providers { get; set; } = new();
 
+        public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+
         public BaseVariable(ushort id, string name)
         {
             Id = id;

@@ -1,4 +1,6 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
+﻿using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+
+namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal abstract class BaseVariable
     {
@@ -28,5 +30,14 @@
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in buffer - also updated after writing</param>
         public abstract void WriteOnBuffer(ref byte[] buffer, ref int offset);
+        /// <summary>
+        /// Writing ID on the buffer
+        /// </summary>
+        /// <param name="buffer">Buffer on which value is to be written</param>
+        /// <param name="offset">offset on which the value is to be written in buffer</param>
+        protected void WriteIdOnBuffer(ref byte[] buffer, ref int offset)
+        {
+            buffer.WriteUnsignedWord(ref offset, Id);
+        }
     }
 }

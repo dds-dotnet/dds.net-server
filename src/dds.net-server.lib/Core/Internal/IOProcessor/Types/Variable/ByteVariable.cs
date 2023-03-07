@@ -12,12 +12,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             PrimitiveType = PrimitiveType.Byte;
         }
 
-        public override int GetSizeOnBuffer()
+        protected override int GetValueSizeOnBuffer()
         {
-            return 1 + PrimitiveType.GetSizeOnBuffer() + IdSizeOnBuffer;
+            return 1;
         }
 
-        public override void WriteOnBuffer(ref byte[] buffer, ref int offset)
+        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
             buffer.WriteByte(ref offset, Value);
         }

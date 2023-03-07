@@ -22,7 +22,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             Name = name;
         }
 
-
         /// <summary>
         /// Total size => [ID]-[Variable Type]-[Type]-[Value]
         /// </summary>
@@ -31,17 +30,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         {
             return
                 IdSizeOnBuffer +
-                GetVariableTypeSizeOnBuffer() +
+                VariableType.GetSizeOnBuffer() +
                 GetTypeSizeOnBuffer() +
                 GetValueSizeOnBuffer();
-        }
-        /// <summary>
-        /// Required size of variable type on the buffer
-        /// </summary>
-        /// <returns>Size in bytes required to write variable type on buffer</returns>
-        private int GetVariableTypeSizeOnBuffer()
-        {
-            return VariableType.GetSizeOnBuffer();
         }
         /// <summary>
         /// Required size of type on the buffer

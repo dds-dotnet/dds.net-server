@@ -3,6 +3,7 @@
     public enum VariableType
     {
         Primitive,
-        Compound
+        Compound,
+        UnknownVariableType
     }
 }

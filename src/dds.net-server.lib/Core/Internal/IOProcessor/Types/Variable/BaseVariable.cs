@@ -5,15 +5,28 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal abstract class BaseVariable
     {
+        /// <summary>
+        /// Identifier for the variable
+        /// </summary>
         public ushort Id { get; private set; }
+        /// <summary>
+        /// Name associated with the variable
+        /// </summary>
         public string Name { get; private set; }
-
+        /// <summary>
+        /// Main type of the variable i.e., primitive or compound, etc.
+        /// </summary>
         public VariableType VariableType { get; protected set; }
 
         private static int IdSizeOnBuffer = sizeof(short);
 
+        /// <summary>
+        /// List of value providers for the variable
+        /// </summary>
         public List<VariableProvider> Providers { get; set; } = new();
-
+        /// <summary>
+        /// Last update timestamp
+        /// </summary>
         public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
 
         public BaseVariable(ushort id, string name)

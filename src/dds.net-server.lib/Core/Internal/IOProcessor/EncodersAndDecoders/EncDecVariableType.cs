@@ -26,5 +26,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             data[offset++] = (byte)value;
         }
+        public static int GetSizeOnBuffer(this PrimitiveType primitiveType)
+        {
+            return 1;
+        }
     }
 }

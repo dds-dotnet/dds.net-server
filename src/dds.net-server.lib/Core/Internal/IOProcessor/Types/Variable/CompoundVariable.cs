@@ -1,10 +1,12 @@
-﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
+﻿using DDS.Net.Server.Entities;
+
+namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal class CompoundVariable : BaseVariable
     {
         public CompoundVariable(ushort id, string name) : base(id, name)
         {
-
+            VariableType = VariableType.Compound;
         }
 
         protected override int GetTypeSizeOnBuffer()

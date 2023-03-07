@@ -2,10 +2,10 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
-    internal static class EncDecVariableType
+    internal static class EncDecPrimitiveType
     {
         //- 
-        //- VariableType
+        //- PrimitiveType
         //- 
         public static PrimitiveType ReadVariableType(this byte[] data, ref int offset)
         {

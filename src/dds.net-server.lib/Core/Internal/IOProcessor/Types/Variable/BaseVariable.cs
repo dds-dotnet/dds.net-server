@@ -18,7 +18,7 @@
         }
 
         /// <summary>
-        /// Total size => [ID][Type][Value]
+        /// Total size => [ID]-[Type]-[Value]
         /// </summary>
         /// <returns></returns>
         public abstract int GetSizeOnBuffer();

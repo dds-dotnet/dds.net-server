@@ -6,5 +6,25 @@
         {
 
         }
+
+        protected override int GetTypeSizeOnBuffer()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override int GetValueSizeOnBuffer()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

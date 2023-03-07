@@ -29,12 +29,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             PrimitiveType = PrimitiveType.String;
         }
 
-        public override int GetSizeOnBuffer()
+        protected override int GetValueSizeOnBuffer()
         {
-            return 2 + _bytes.Length + PrimitiveType.GetSizeOnBuffer() + IdSizeOnBuffer;
+            return 2 + _bytes.Length;
         }
 
-        public override void WriteOnBuffer(ref byte[] buffer, ref int offset)
+        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
             buffer.WriteString(ref offset, Value);
         }

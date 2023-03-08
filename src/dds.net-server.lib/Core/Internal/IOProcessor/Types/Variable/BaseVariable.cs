@@ -78,28 +78,27 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             WriteTypeOnBuffer(ref buffer, ref offset);
             WriteValueOnBuffer(ref buffer, ref offset);
         }
-
         /// <summary>
         /// Required size of type on the buffer
         /// </summary>
         /// <returns>Size in bytes required to write type on buffer</returns>
-        protected abstract int GetTypeSizeOnBuffer();
+        public abstract int GetTypeSizeOnBuffer();
         /// <summary>
         /// Required size of value on the buffer
         /// </summary>
         /// <returns>Number of bytes required to write value on the buffer</returns>
-        protected abstract int GetValueSizeOnBuffer();
+        public abstract int GetValueSizeOnBuffer();
         /// <summary>
         /// Write type of data on the buffer
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
-        protected abstract void WriteTypeOnBuffer(ref byte[] buffer, ref int offset);
+        public abstract void WriteTypeOnBuffer(ref byte[] buffer, ref int offset);
         /// <summary>
         /// Write value onto the buffer
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
-        protected abstract void WriteValueOnBuffer(ref byte[] buffer, ref int offset);
+        public abstract void WriteValueOnBuffer(ref byte[] buffer, ref int offset);
     }
 }

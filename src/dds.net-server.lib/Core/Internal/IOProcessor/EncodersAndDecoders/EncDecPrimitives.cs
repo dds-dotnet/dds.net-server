@@ -8,6 +8,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- String
         //- 
+
+        /// <summary>
+        /// Reads an encoded string from given data buffer
+        /// </summary>
+        /// <param name="data">The buffer containing data</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>string read from data buffer</returns>
+        /// <exception cref="Exception"></exception>
         public static string ReadString(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);

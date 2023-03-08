@@ -34,12 +34,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                         continue;
                     }
 
-                    ushort id = IdGenerator.GetNextVariableId();
-
-                    _dbVariableIds.Add(settings.VariableName, id);
-
                     if (settings is PrimitiveVariableSettings p)
                     {
+                        ushort id = IdGenerator.GetNextVariableId();
+
+                        _dbVariableIds.Add(settings.VariableName, id);
+
                         AddPrimitiveVariableFromSettings(id, p);
                     }
                 }
@@ -55,12 +55,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                         continue;
                     }
 
-                    ushort id = IdGenerator.GetNextVariableId();
-
-                    _dbVariableIds.Add(settings.VariableName, id);
-
                     if (settings is CompoundVariableSettings c)
                     {
+                        ushort id = IdGenerator.GetNextVariableId();
+
+                        _dbVariableIds.Add(settings.VariableName, id);
+
                         CompoundVariable cv = new(id, settings.VariableName);
 
                         foreach (string pn in c.PrimitiveNames)

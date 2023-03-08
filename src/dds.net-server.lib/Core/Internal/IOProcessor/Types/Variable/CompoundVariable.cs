@@ -4,7 +4,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
     internal class CompoundVariable : BaseVariable
     {
-        public List<BaseVariable> Composition { get; private set; } = new();
+        public List<BaseVariable> VariablesGroup { get; private set; } = new();
 
         public CompoundVariable(ushort id, string name) : base(id, name)
         {
@@ -19,7 +19,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         {
             if (variable == null) { throw new ArgumentNullException(nameof(variable)); }
 
-            Composition.Add(variable);
+            VariablesGroup.Add(variable);
         }
 
         protected override int GetTypeSizeOnBuffer()

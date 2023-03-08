@@ -49,6 +49,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 //- 
                 foreach (VariableSettings settings in variablesConfiguration.Settings)
                 {
+                    if (_dbVariableIds.ContainsKey(settings.VariableName))
+                    {
+                        logger.Error($"Variable named \"{settings.VariableName}\" cannot be added twice");
+                        continue;
+                    }
+
                     ushort id = IdGenerator.GetNextVariableId();
 
                     _dbVariableIds.Add(settings.VariableName, id);

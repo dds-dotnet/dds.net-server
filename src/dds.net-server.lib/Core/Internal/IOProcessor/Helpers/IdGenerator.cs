@@ -3,14 +3,18 @@
     internal static class IdGenerator
     {
         private static Mutex nextVariableIdMutex = new();
-        private static ushort nextVariableId = 0;
+        private static ushort lastAssignedVariableId = 0;
 
+        /// <summary>
+        /// Generates and provides a new unique ID that can be assigned to the next variable.
+        /// </summary>
+        /// <returns>Generated ID to be assigned to next registered variable.</returns>
         public static ushort GetNextVariableId()
         {
             lock (nextVariableIdMutex)
             {
-                nextVariableId++;
-                return nextVariableId;
+                lastAssignedVariableId++;
+                return lastAssignedVariableId;
             }
         }
     }

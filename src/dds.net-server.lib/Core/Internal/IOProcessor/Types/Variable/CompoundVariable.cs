@@ -10,6 +10,17 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         {
             VariableType = VariableType.Compound;
         }
+        /// <summary>
+        /// Adds a variable to the composition / group.
+        /// </summary>
+        /// <param name="variable">The variable.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void AddVariable(BaseVariable variable)
+        {
+            if (variable == null) { throw new ArgumentNullException(nameof(variable)); }
+
+            Composition.Add(variable);
+        }
 
         protected override int GetTypeSizeOnBuffer()
         {

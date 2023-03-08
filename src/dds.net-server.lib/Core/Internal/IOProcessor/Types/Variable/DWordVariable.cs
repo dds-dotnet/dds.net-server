@@ -12,12 +12,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             PrimitiveType = PrimitiveType.DWord;
         }
 
-        protected override int GetValueSizeOnBuffer()
+        public override int GetValueSizeOnBuffer()
         {
             return 4;
         }
 
-        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
             buffer.WriteDWord(ref offset, Value);
         }

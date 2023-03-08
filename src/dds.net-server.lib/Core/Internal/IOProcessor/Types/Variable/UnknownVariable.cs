@@ -9,12 +9,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             PrimitiveType = PrimitiveType.UnknownPrimitiveType;
         }
 
-        protected override int GetValueSizeOnBuffer()
+        public override int GetValueSizeOnBuffer()
         {
             throw new Exception("Unknown variable - size cannot be estimated");
         }
 
-        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
             throw new Exception("Unknown variable - cannot be written on buffer");
         }

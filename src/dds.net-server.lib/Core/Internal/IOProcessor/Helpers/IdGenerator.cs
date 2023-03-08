@@ -8,7 +8,7 @@
         /// <summary>
         /// Generates and provides a new unique ID that can be assigned to the next variable.
         /// </summary>
-        /// <returns>Generated ID to be assigned to next registered variable.</returns>
+        /// <returns>Generated ID to be assigned to the next registered variable.</returns>
         public static ushort GetNextVariableId()
         {
             lock (nextVariableIdMutex)

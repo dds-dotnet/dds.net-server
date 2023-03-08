@@ -111,6 +111,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return data[offset++] != 0;
         }
+        /// <summary>
+        /// Writes Boolean [True / False] into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">The Boolean value</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteBoolean(this byte[] data, ref int offset, bool value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -137,6 +146,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return (sbyte)data[offset++];
         }
+        /// <summary>
+        /// Writes Signed 1-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">1-byte Signed Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteByte(this byte[] data, ref int offset, sbyte value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -166,6 +184,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return (short)value;
         }
+        /// <summary>
+        /// Writes Signed 2-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">2-byte Signed Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteWord(this byte[] data, ref int offset, short value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
@@ -198,6 +225,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return value;
         }
+        /// <summary>
+        /// Writes Signed 4-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">4-byte Signed Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteDWord(this byte[] data, ref int offset, int value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -236,6 +272,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return value;
         }
+        /// <summary>
+        /// Writes Signed 8-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">8-byte Signed Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteQWord(this byte[] data, ref int offset, long value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
@@ -269,6 +314,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return data[offset++];
         }
+        /// <summary>
+        /// Writes Unsigned 1-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">1-byte Unsigned Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteUnsignedByte(this byte[] data, ref int offset, byte value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -298,6 +352,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return (ushort)value;
         }
+        /// <summary>
+        /// Writes Unsigned 2-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">2-byte Unsigned Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteUnsignedWord(this byte[] data, ref int offset, ushort value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
@@ -330,6 +393,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return value;
         }
+        /// <summary>
+        /// Writes Unsigned 4-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">4-byte Unsigned Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteUnsignedDWord(this byte[] data, ref int offset, uint value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -368,7 +440,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return value;
         }
-
+        /// <summary>
+        /// Writes Unsigned 8-byte Integer into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">8-byte Unsigned Integer to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteUnsignedQWord(this byte[] data, ref int offset, ulong value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
@@ -419,6 +499,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                 return value;
             }
         }
+        /// <summary>
+        /// Writes Single-precision (float - 4-byte) floating-point number into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">The float value to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteSingle(this byte[] data, ref int offset, float value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -446,7 +535,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
 
         /// <summary>
-        /// Reads Double-precision (float - 8-byte) floating-point number from the given data buffer
+        /// Reads Double-precision (double - 8-byte) floating-point number from the given data buffer
         /// </summary>
         /// <param name="data">The data buffer</param>
         /// <param name="offset">Offset in the data buffer - updated afterwards to point
@@ -484,6 +573,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                 return value;
             }
         }
+        /// <summary>
+        /// Writes Double-precision (double - 8-byte) floating-point number into the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">The double value to be written to the data buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteDouble(this byte[] data, ref int offset, double value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);

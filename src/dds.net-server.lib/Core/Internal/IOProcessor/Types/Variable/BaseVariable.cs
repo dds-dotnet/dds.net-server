@@ -89,7 +89,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// </summary>
         /// <returns>Number of bytes required to write value on the buffer</returns>
         protected abstract int GetValueSizeOnBuffer();
-
         /// <summary>
         /// Write type of data on the buffer
         /// </summary>

@@ -121,7 +121,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     break;
             }
         }
-
+        /// <summary>
+        /// Clears out all the held variables and their associated data.
+        /// </summary>
         private void ClearDatabase()
         {
             lock (_dbMutex)

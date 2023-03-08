@@ -9,14 +9,18 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// Identifier for the variable
         /// </summary>
         public ushort Id { get; private set; }
+
         /// <summary>
         /// Name associated with the variable
         /// </summary>
         public string Name { get; private set; }
+
         /// <summary>
         /// Main type of the variable i.e., primitive or compound, etc.
         /// </summary>
         public VariableType VariableType { get; protected set; }
+
+
         /// <summary>
         /// Number of bytes ID takes on buffer
         /// </summary>
@@ -26,18 +30,22 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// </summary>
         private static readonly int VariableTypeSizeOnBuffer = VariableType.Primitive.GetSizeOnBuffer();
 
+
         /// <summary>
         /// List of value providers for the variable
         /// </summary>
         public List<VariableProvider> Providers { get; set; } = new();
+
         /// <summary>
         /// Last update timestamp
         /// </summary>
         public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+
         /// <summary>
         /// Timestamp for when the variable was sent to subscribers
         /// </summary>
         public DateTime LastSentToSubscribers { get; set; } = DateTime.Now;
+
 
         public BaseVariable(ushort id, string name)
         {

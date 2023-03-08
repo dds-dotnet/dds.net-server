@@ -69,57 +69,59 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 case PrimitiveType.String:
                     _dbVariables.Add(id, new StringVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.Boolean:
                     _dbVariables.Add(id, new BooleanVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.Byte:
                     _dbVariables.Add(id, new ByteVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.Word:
                     _dbVariables.Add(id, new WordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.DWord:
                     _dbVariables.Add(id, new DWordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.QWord:
                     _dbVariables.Add(id, new QWordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.UnsignedByte:
                     _dbVariables.Add(id, new UnsignedByteVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.UnsignedWord:
                     _dbVariables.Add(id, new UnsignedWordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.UnsignedDWord:
                     _dbVariables.Add(id, new UnsignedDWordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.UnsignedQWord:
                     _dbVariables.Add(id, new UnsignedQWordVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.Single:
                     _dbVariables.Add(id, new SingleVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.Double:
                     _dbVariables.Add(id, new DoubleVariable(id, primitiveSettings.VariableName));
-                    break;
+                    return;
 
                 case PrimitiveType.UnknownPrimitiveType:
                     _dbVariables.Add(id, new UnknownVariable(id, primitiveSettings.VariableName));
                     logger.Error($"Unknown primitive \"{primitiveSettings.VariableName}\" must be avoided");
-                    break;
+                    return;
             }
+
+            throw new NotImplementedException($"Variable type {primitiveSettings.PrimitiveType} not implemented!");
         }
         /// <summary>
         /// Clears out all the held variables and their associated data.

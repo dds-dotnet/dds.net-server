@@ -22,24 +22,55 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             VariablesGroup.Add(variable);
         }
 
-        protected override int GetTypeSizeOnBuffer()
+        public override int GetTypeSizeOnBuffer()
         {
-            throw new NotImplementedException();
+            //- 
+            //- We do not have sub-types here unlike the primitive types.
+            //- Thereby, its sub-type will take 0-bytes on the data buffer.
+            //- 
+
+            return 0;
         }
 
-        protected override int GetValueSizeOnBuffer()
+        public override int GetValueSizeOnBuffer()
         {
-            throw new NotImplementedException();
+            //- 
+            //- We do not have sub-types here unlike the primitive types.
+            //- Thereby, its sub-type will take 0-bytes on the data buffer.
+            //- So, we only return the summed size of internal variables.
+            //- 
+
+            int sum = 0;
+
+            foreach (var variable in VariablesGroup)
+            {
+                sum += variable.GetSizeOnBuffer();
+            }
+
+            return sum;
         }
 
-        protected override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
         {
-            throw new NotImplementedException();
+            //- 
+            //- We do not have sub-types here unlike the primitive types.
+            //- Thereby, its sub-type will take 0-bytes on the data buffer.
+            //- So, we do not write anything here.
+            //- 
         }
 
-        protected override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
-            throw new NotImplementedException();
+            //- 
+            //- We do not have sub-types here unlike the primitive types.
+            //- Thereby, its sub-type will take 0-bytes on the data buffer.
+            //- So, we only write the internal variables.
+            //- 
+
+            foreach (var variable in VariablesGroup)
+            {
+                variable.WriteValueOnBuffer(ref buffer, ref offset);
+            }
         }
     }
 }

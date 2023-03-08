@@ -64,13 +64,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 else
                                 {
                                     logger.Error($"Variable named \"{pn}\" with id {vid} " +
-                                                 $"does not exist in DB to add to composite named \"{c.VariableName}\"");
+                                                 $"does not exist in DB to add to CompoundVariable named \"{c.VariableName}\"");
                                 }
                             }
                             else
                             {
                                 logger.Error($"Variable named \"{pn}\" does not exist in DB " +
-                                             $"to add to composite named \"{c.VariableName}\"");
+                                             $"to add to CompoundVariable named \"{c.VariableName}\"");
                             }
                         }
 

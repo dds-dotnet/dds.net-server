@@ -29,6 +29,6 @@
         /// <summary>
         /// Unknown packet
         /// </summary>
-        UNKNOWN
+        UnknownPacket
     }
 }

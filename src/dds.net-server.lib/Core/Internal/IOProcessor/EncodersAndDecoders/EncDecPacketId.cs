@@ -15,12 +15,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
             int v = data[offset++];
             v = (v << 8) | data[offset++];
 
-            if (v >= 0 && v < (int)PacketId.UNKNOWN)
+            if (v >= 0 && v < (int)PacketId.UnknownPacket)
             {
                 return (PacketId)v;
             }
 
-            return PacketId.UNKNOWN;
+            return PacketId.UnknownPacket;
         }
         public static void WritePacketId(this byte[] data, ref int offset, PacketId value)
         {

@@ -17,8 +17,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// Main type of the variable i.e., primitive or compound, etc.
         /// </summary>
         public VariableType VariableType { get; protected set; }
-
-        private static int IdSizeOnBuffer = sizeof(short);
+        /// <summary>
+        /// Number of bytes ID takes on buffer
+        /// </summary>
+        private static readonly int IdSizeOnBuffer = sizeof(short);
 
         /// <summary>
         /// List of value providers for the variable

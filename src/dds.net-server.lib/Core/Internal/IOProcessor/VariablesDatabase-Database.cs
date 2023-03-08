@@ -14,7 +14,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private Dictionary<string, ushort> _dbVariableIds = new();
         private Dictionary<ushort, BaseVariable> _dbVariables = new();
         private List<VariableSubscriber> _dbSubscribers = new();
-
+        /// <summary>
+        /// Initializing the database from provided settings
+        /// </summary>
         private void InitializeDatabase()
         {
             lock (_dbMutex)

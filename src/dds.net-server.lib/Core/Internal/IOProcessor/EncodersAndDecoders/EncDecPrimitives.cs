@@ -37,6 +37,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             return retval;
         }
+        /// <summary>
+        /// Writes given string to the given buffer encoded with size (total bytes)
+        /// </summary>
+        /// <param name="data">The buffer containing data</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <param name="value">String to be written to the given buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="Exception"></exception>
         public static void WriteString(this byte[] data, ref int offset, string value)
         {
             if (data == null)

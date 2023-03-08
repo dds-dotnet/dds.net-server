@@ -51,6 +51,29 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     {
                         CompoundVariable cv = new(id, settings.VariableName);
 
+                        foreach (string pn in c.PrimitiveNames)
+                        {
+                            if (_dbVariableIds.ContainsKey(pn))
+                            {
+                                ushort vid = _dbVariableIds[pn];
+
+                                if (_dbVariables.ContainsKey(vid))
+                                {
+                                    cv.AddVariable(_dbVariables[vid]);
+                                }
+                                else
+                                {
+                                    logger.Error($"Variable named \"{pn}\" with id {vid} " +
+                                                 $"does not exist in DB to add to composite named \"{c.VariableName}\"");
+                                }
+                            }
+                            else
+                            {
+                                logger.Error($"Variable named \"{pn}\" does not exist in DB " +
+                                             $"to add to composite named \"{c.VariableName}\"");
+                            }
+                        }
+
                         _dbVariables.Add(id, cv);
                     }
                 }

@@ -2,6 +2,15 @@
 {
     internal static class SanityChecks
     {
+        /// <summary>
+        /// Checks if the data buffer can be read / written with required number of bytes
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the buffer</param>
+        /// <param name="requiredSize">Number of bytes required in the buffer</param>
+        /// <returns>The same data buffer - for chaining the call with others</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static byte[] ThrowIfNotHavingRequiredBytes(this byte[] data, ref int offset, int requiredSize)
         {
             if (data == null)

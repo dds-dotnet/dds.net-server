@@ -16,6 +16,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         /// <param name="offset">offset in the data buffer - updated afterwards to point
         /// to the next element in the buffer</param>
         /// <returns>PacketId</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static PacketId ReadPacketId(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
@@ -37,6 +39,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         /// <param name="offset">Offset in the data buffer - updated afterwards to point
         /// to the next element in the buffer</param>
         /// <param name="value">value to be written to the buffer</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WritePacketId(this byte[] data, ref int offset, PacketId value)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);

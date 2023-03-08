@@ -95,6 +95,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Boolean
         //- 
+
+        /// <summary>
+        /// Reads Boolean [True / False] from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Boolean value [True / False]</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static bool ReadBoolean(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -111,6 +121,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Byte (1-Byte Signed Integer)
         //- 
+
+        /// <summary>
+        /// Reads Signed 1-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Byte (1-byte Signed Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static sbyte ReadByte(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -127,6 +147,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Word (2-Byte Signed Integer)
         //- 
+
+        /// <summary>
+        /// Reads Signed 2-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Word (2-byte Signed Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static short ReadWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
@@ -147,6 +177,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- DWord (4-Byte Signed Integer)
         //- 
+
+        /// <summary>
+        /// Reads Signed 4-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>DWord (4-byte Signed Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static int ReadDWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -171,6 +211,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- QWord (8-Byte Signed Integer)
         //- 
+
+        /// <summary>
+        /// Reads Signed 8-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>QWord (8-byte Signed Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static long ReadQWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
@@ -203,6 +253,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Unsigned Byte (1-Byte Unsigned Integer)
         //- 
+
+        /// <summary>
+        /// Reads Unsigned 1-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Unsigned Byte (1-byte Unsigned Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static byte ReadUnsignedByte(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 1);
@@ -219,6 +279,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Unsigned Word (2-Byte Unsigned Integer)
         //- 
+
+        /// <summary>
+        /// Reads Unsigned 2-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Unsigned Word (2-byte Unsigned Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static ushort ReadUnsignedWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 2);
@@ -239,6 +309,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Unsigned DWord (4-Byte Unsigned Integer)
         //- 
+
+        /// <summary>
+        /// Reads Unsigned 4-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Unsigned DWord (4-byte Unsigned Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static uint ReadUnsignedDWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -263,6 +343,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Unsigned QWord (8-Byte Unsigned Integer)
         //- 
+
+        /// <summary>
+        /// Reads Unsigned 8-byte Integer from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>Unsigned QWord (8-byte Unsigned Integer)</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static ulong ReadUnsignedQWord(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);
@@ -296,6 +386,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Single (4-Byte Floating-point)
         //- 
+
+        /// <summary>
+        /// Reads Single-precision (float - 4-byte) floating-point number from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>float value</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static float ReadSingle(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 4);
@@ -344,6 +444,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         //- 
         //- Double (8-Byte Floating-point)
         //- 
+
+        /// <summary>
+        /// Reads Double-precision (float - 8-byte) floating-point number from the given data buffer
+        /// </summary>
+        /// <param name="data">The data buffer</param>
+        /// <param name="offset">Offset in the data buffer - updated afterwards to point
+        /// to the next element in the buffer</param>
+        /// <returns>double value</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static double ReadDouble(this byte[] data, ref int offset)
         {
             data.ThrowIfNotHavingRequiredBytes(ref offset, 8);

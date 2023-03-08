@@ -21,6 +21,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// Number of bytes ID takes on buffer
         /// </summary>
         private static readonly int IdSizeOnBuffer = sizeof(short);
+        /// <summary>
+        /// Number of bytes VariableType takes on buffer
+        /// </summary>
+        private static readonly int VariableTypeSizeOnBuffer = VariableType.Primitive.GetSizeOnBuffer();
 
         /// <summary>
         /// List of value providers for the variable
@@ -49,7 +53,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         {
             return
                 IdSizeOnBuffer +
-                VariableType.GetSizeOnBuffer() +
+                VariableTypeSizeOnBuffer +
                 GetTypeSizeOnBuffer() +
                 GetValueSizeOnBuffer();
         }

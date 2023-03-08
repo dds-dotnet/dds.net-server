@@ -129,7 +129,12 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                 logger.Info($"SSTCP server @{localEndPoint} exiting - waiting for data receiver to exit");
 
                 isDataReceiverThreadRunning = false;
-                dataReceiverThread.Join();
+
+                try
+                {
+                    dataReceiverThread.Join();
+                }
+                catch (Exception) { }
 
                 logger.Info($"SSTCP server @{localEndPoint} exited");
             }

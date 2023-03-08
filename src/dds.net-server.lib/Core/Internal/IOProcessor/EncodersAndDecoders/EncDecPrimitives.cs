@@ -16,6 +16,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         /// <param name="offset">Offset in the data buffer - updated afterwards to point
         /// to the next element in the buffer</param>
         /// <returns>string read from data buffer</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="Exception"></exception>
         public static string ReadString(this byte[] data, ref int offset)
         {

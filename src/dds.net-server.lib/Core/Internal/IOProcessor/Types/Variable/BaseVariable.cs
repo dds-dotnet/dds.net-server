@@ -66,17 +66,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
                 GetValueSizeOnBuffer();
         }
         /// <summary>
-        /// Required size of type on the buffer
-        /// </summary>
-        /// <returns>Size in bytes required to write type on buffer</returns>
-        protected abstract int GetTypeSizeOnBuffer();
-        /// <summary>
-        /// Required size of value on the buffer
-        /// </summary>
-        /// <returns>Number of bytes required to write value on the buffer</returns>
-        protected abstract int GetValueSizeOnBuffer();
-
-        /// <summary>
         /// Write everything including ID, Type and Value on the buffer
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
@@ -89,6 +78,18 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             WriteTypeOnBuffer(ref buffer, ref offset);
             WriteValueOnBuffer(ref buffer, ref offset);
         }
+
+        /// <summary>
+        /// Required size of type on the buffer
+        /// </summary>
+        /// <returns>Size in bytes required to write type on buffer</returns>
+        protected abstract int GetTypeSizeOnBuffer();
+        /// <summary>
+        /// Required size of value on the buffer
+        /// </summary>
+        /// <returns>Number of bytes required to write value on the buffer</returns>
+        protected abstract int GetValueSizeOnBuffer();
+
         /// <summary>
         /// Write type of data on the buffer
         /// </summary>

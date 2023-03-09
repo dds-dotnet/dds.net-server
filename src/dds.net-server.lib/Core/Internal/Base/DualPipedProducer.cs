@@ -117,6 +117,11 @@ namespace DDS.Net.Server.Core.Internal.Base
             return workDone;
         }
 
+        /// <summary>
+        /// Process the input coming from queue.
+        /// </summary>
+        /// <param name="input">Input coming from queue.</param>
+        /// <returns>Number of tasks done, 0 if nothing is done during invocation.</returns>
         protected abstract int ProcessInput2(T_Input2 input);
     }
 }

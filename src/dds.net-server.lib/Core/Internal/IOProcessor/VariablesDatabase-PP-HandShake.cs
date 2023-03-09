@@ -35,6 +35,24 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              */
 
+            //- 
+            //- Reading client information
+            //- 
+
+            try
+            {
+                string clientApplicationName = data.ReadString(ref offset);
+                string clientLibraryVersion = data.ReadString(ref offset);
+
+                logger.Info($"{clientApplicationName} v{clientLibraryVersion} connected from {clientRef}");
+            }
+            catch (Exception) { }
+
+
+            //- 
+            //- Sending server information
+            //- 
+
             if (_serverInfo == null)
             {
                 byte[] sname = Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME);

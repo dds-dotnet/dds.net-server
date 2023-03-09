@@ -94,6 +94,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     try
                     {
                         PacketId pid = input.Data.ReadPacketId(ref offset);
+
                         switch (pid)
                         {
                             case PacketId.HandShake:
@@ -109,15 +110,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 break;
 
                             case PacketId.PrimitivesUpdateFromServer:
-                                logger.Warning($"PrimitivesUpdateFromServer packet received from {input.ClientRef}");
+                                logger.Warning($"Wrong packet \"PrimitivesUpdateFromServer\" received from {input.ClientRef}");
                                 break;
 
                             case PacketId.ErrorResponseFromServer:
-                                logger.Warning($"ErrorResponseFromServer packet received from {input.ClientRef}");
+                                logger.Warning($"Wrong packet \"ErrorResponseFromServer\" received from {input.ClientRef}");
                                 break;
 
                             default:
-                                logger.Warning($"Unknown packet {pid} received from {input.ClientRef}");
+                                logger.Warning($"Unknown packet \"{pid}\" received from {input.ClientRef}");
                                 break;
                         }
                     }

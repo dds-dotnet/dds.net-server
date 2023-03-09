@@ -109,15 +109,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 break;
 
                             case PacketId.PrimitivesUpdateFromServer:
-                                logger.Error($"PrimitivesUpdateFromServer packet received from {input.ClientRef}");
+                                logger.Warning($"PrimitivesUpdateFromServer packet received from {input.ClientRef}");
                                 break;
 
                             case PacketId.ErrorResponseFromServer:
-                                logger.Error($"ErrorResponseFromServer packet received from {input.ClientRef}");
+                                logger.Warning($"ErrorResponseFromServer packet received from {input.ClientRef}");
                                 break;
 
                             default:
-                                logger.Info($"Unknown packet {pid} received from {input.ClientRef}");
+                                logger.Warning($"Unknown packet {pid} received from {input.ClientRef}");
                                 break;
                         }
                     }

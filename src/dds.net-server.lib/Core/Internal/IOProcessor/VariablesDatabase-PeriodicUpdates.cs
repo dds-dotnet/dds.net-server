@@ -11,6 +11,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private int _periodicUpdatesCounter = 0;
         private volatile bool _isPeriodicUpdatesTimerRunning = false;
 
+        /// <summary>
+        /// Starts periodic updates of variables to their subscribers.
+        /// </summary>
         private void StartPeriodicUpdates()
         {
             if (_isPeriodicUpdatesTimerRunning == false)
@@ -30,7 +33,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
-
+        /// <summary>
+        /// Stops periodic updates of variables to their subscribers.
+        /// </summary>
         private void StopPeriodicUpdates()
         {
             _isPeriodicUpdatesTimerRunning = false;
@@ -41,7 +46,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _periodicUpdatesTimer.Dispose();
             }
         }
-
+        /// <summary>
+        /// The timer callback, invoked at every Settings.BASE_TIME_SLOT_MS milliseconds
+        /// </summary>
+        /// <param name="o">Unused object.</param>
         private void PeriodicUpdatesTimerCallback(object? o)
         {
             DecidePeriodicUpdates();
@@ -55,7 +63,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 catch (Exception) { }
             }
         }
-
+        /// <summary>
+        /// Decides upon which Periodicity of variables should be sent to their subscribers.
+        /// </summary>
         private void DecidePeriodicUpdates()
         {
             _periodicUpdatesCounter++;
@@ -72,7 +82,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _periodicUpdatesCounter = 0;
             }
         }
-
+        /// <summary>
+        /// Sends variables with selected periodicity to their subscribers.
+        /// </summary>
+        /// <param name="periodicity"></param>
         private void DoPeriodicUpdate(Periodicity periodicity)
         {
         }

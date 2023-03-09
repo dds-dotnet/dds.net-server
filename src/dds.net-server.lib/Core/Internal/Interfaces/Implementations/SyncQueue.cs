@@ -59,18 +59,25 @@
 
         public T Dequeue()
         {
-            while (!CanDequeue()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
-
-            lock (_mutex)
+            while (true)
             {
-                T data = _queue[_nextReadIndex];
-                _queue[_nextReadIndex] = null!;
+                lock (_mutex)
+                {
+                    if (_queue[_nextReadIndex] != null)
+                    {
+                        T data = _queue[_nextReadIndex];
+                        _queue[_nextReadIndex] = null!;
 
-                _nextReadIndex++;
-                if (_nextReadIndex == _queue.Length)
-                    _nextReadIndex = 0;
+                        _nextReadIndex++;
 
-                return data;
+                        if (_nextReadIndex == _queue.Length)
+                            _nextReadIndex = 0;
+
+                        return data;
+                    }
+                }
+
+                Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_DEQUEUED);
             }
         }
 

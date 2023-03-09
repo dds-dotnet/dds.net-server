@@ -53,6 +53,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         protected override int DoWork()
         {
+            //- 
+            //- No need to do anything here as we are using Periodic Updates
+            //- through timer to do periodic work, and packet parsing to do
+            //- work related with communication.
+            //- 
+
             return 0;
         }
 

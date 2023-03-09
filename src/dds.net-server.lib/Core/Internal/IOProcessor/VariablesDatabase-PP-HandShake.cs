@@ -1,11 +1,15 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
+using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
+        byte[] _serverInfo = null;
+
         /// <summary>
         /// Processing the HandShake packet.
         /// Replies with PacketId.HandShake or PacketId.ErrorResponseFromServer.
@@ -26,10 +30,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              *     Server -> Client
              *     ----------------
-             *     [String: Server Application Name]
-             *     [String: Server Library Version]
+             *     [String: Server Name]
+             *     [String: Server Version]
              *     
              */
+
+            if (_serverInfo == null)
+            {
+                byte[] sname = Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME);
+                byte[] svers = Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION);
+                
+                _serverInfo = new byte[sname.Length + svers.Length + 4];
+
+                int _serverInfoOffset = 0;
+
+                _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_NAME);
+                _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_VERSION);
+            }
+
+            OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
         }
     }
 }

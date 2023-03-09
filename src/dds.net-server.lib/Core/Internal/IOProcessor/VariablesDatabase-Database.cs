@@ -172,5 +172,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbSubscribers.Clear();
             }
         }
+        /// <summary>
+        /// Removes the client from subscription and provision; i.e., the client is disconnected.
+        /// </summary>
+        /// <param name="clientRef">Reference to the client.</param>
+        private void RemoveProviderAndSubscriber(string clientRef)
+        {
+            lock (_dbMutex)
+            {
+                // TODO: To be implemented
+            }
+        }
     }
 }

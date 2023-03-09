@@ -79,6 +79,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
         protected override int ProcessInput(DataFromClient input)
         {
+            if (input != null)
+            {
+                if (input.Data == null)
+                {
+                    RemoveProviderAndSubscriber(input.ClientRef);
+                }
+                return 1;
+            }
+
             return 0;
         }
 

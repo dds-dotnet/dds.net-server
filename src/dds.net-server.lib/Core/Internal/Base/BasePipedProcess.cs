@@ -107,6 +107,10 @@ namespace DDS.Net.Server.Core.Internal.Base
         protected abstract int ProcessCommand(T_Command command);
         protected abstract int CheckInputs();
         protected abstract int DoInit();
+        /// <summary>
+        /// Performing a task for single iteration.
+        /// </summary>
+        /// <returns>Number of tasks done, 0 if nothing is done during invocation.</returns>
         protected abstract int DoWork();
         protected abstract int DoCleanup();
 

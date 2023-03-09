@@ -26,6 +26,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              *     Server -> Client
              *     ----------------
+             *     [String: Server Application Name]
+             *     [String: Server Library Version]
+             *     
              */
         }
     }

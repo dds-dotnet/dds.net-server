@@ -104,14 +104,31 @@ namespace DDS.Net.Server.Core.Internal.Base
             }
         }
 
+        /// <summary>
+        /// Process the received command.
+        /// </summary>
+        /// <param name="command">The command</param>
+        /// <returns>Number of tasks done, 0 if nothing is done during invocation.</returns>
         protected abstract int ProcessCommand(T_Command command);
+        /// <summary>
+        /// Check available inputs for single iteration.
+        /// </summary>
+        /// <returns>Number of tasks done, 0 if nothing is done during invocation.</returns>
         protected abstract int CheckInputs();
+        /// <summary>
+        /// Initialization.
+        /// </summary>
+        /// <returns>Initialization status.</returns>
         protected abstract int DoInit();
         /// <summary>
         /// Performing a task for single iteration.
         /// </summary>
         /// <returns>Number of tasks done, 0 if nothing is done during invocation.</returns>
         protected abstract int DoWork();
+        /// <summary>
+        /// Cleanup.
+        /// </summary>
+        /// <returns>Cleanup status.</returns>
         protected abstract int DoCleanup();
 
         public abstract void Dispose();

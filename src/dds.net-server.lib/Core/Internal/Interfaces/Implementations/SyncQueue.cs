@@ -85,15 +85,24 @@
         {
             if (data == null) return;
 
-            while (!CanEnqueue()) Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
-
-            lock (_mutex)
+            while (true)
             {
-                _queue[_nextWriteIndex] = data;
+                lock (_mutex)
+                {
+                    if (_queue[_nextWriteIndex] == null)
+                    {
+                        _queue[_nextWriteIndex] = data;
 
-                _nextWriteIndex++;
-                if (_nextWriteIndex == _queue.Length)
-                    _nextWriteIndex = 0;
+                        _nextWriteIndex++;
+
+                        if (_nextWriteIndex == _queue.Length)
+                            _nextWriteIndex = 0;
+
+                        break;
+                    }
+                }
+
+                Thread.Sleep(SLEEP_TIME_MS_WHEN_DATA_CANNOT_BE_ENQUEUED);
             }
 
             DataAvailableForReading?.Invoke(this, data);

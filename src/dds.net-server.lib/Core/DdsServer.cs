@@ -60,10 +60,10 @@ namespace DDS.Net.Server
                         _networkIO = new NetworkIO(
                             _logger,
 
-                            SettingQueueSize.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,
-                            SettingQueueSize.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE,
-                            SettingQueueSize.NETWORK_COMMANDS_QUEUE_SIZE,
-                            SettingQueueSize.NETWORK_RESPONSES_QUEUE_SIZE,
+                            QueueSizeSettings.NETWORK_DATA_TO_CLIENTS_QUEUE_SIZE,
+                            QueueSizeSettings.NETWORK_DATA_FROM_CLIENTS_QUEUE_SIZE,
+                            QueueSizeSettings.NETWORK_COMMANDS_QUEUE_SIZE,
+                            QueueSizeSettings.NETWORK_RESPONSES_QUEUE_SIZE,
 
 
                             _serverConfig.ListeningAddressIPv4,
@@ -80,8 +80,8 @@ namespace DDS.Net.Server
                         _varsDatabase = new VariablesDatabase(
                             _dataFromNetwork,
                             _dataToNetwork,
-                            SettingQueueSize.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
-                            SettingQueueSize.VARS_HANDLER_RESPONSES_QUEUE_SIZE,
+                            QueueSizeSettings.VARS_HANDLER_COMMANDS_QUEUE_SIZE,
+                            QueueSizeSettings.VARS_HANDLER_RESPONSES_QUEUE_SIZE,
                             _variablesConfig,
                             _logger);
 

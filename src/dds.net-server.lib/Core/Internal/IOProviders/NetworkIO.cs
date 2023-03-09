@@ -93,8 +93,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
         {
             if (_tcpServer == null && tcpEnable)
             {
-                _tcpInputQueue = new SyncQueue<SSPacket>(SettingQueueSize.TCP_DATA_FROM_CLIENTS_QUEUE_SIZE);
-                _tcpOutputQueue = new SyncQueue<SSPacket>(SettingQueueSize.TCP_DATA_TO_CLIENTS_QUEUE_SIZE);
+                _tcpInputQueue = new SyncQueue<SSPacket>(QueueSizeSettings.TCP_DATA_FROM_CLIENTS_QUEUE_SIZE);
+                _tcpOutputQueue = new SyncQueue<SSPacket>(QueueSizeSettings.TCP_DATA_TO_CLIENTS_QUEUE_SIZE);
 
                 try
                 {
@@ -124,8 +124,8 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
 
             if (_udpServer == null && udpEnable)
             {
-                _udpInputQueue = new SyncQueue<SSPacket>(SettingQueueSize.UDP_DATA_FROM_CLIENTS_QUEUE_SIZE);
-                _udpOutputQueue = new SyncQueue<SSPacket>(SettingQueueSize.UDP_DATA_TO_CLIENTS_QUEUE_SIZE);
+                _udpInputQueue = new SyncQueue<SSPacket>(QueueSizeSettings.UDP_DATA_FROM_CLIENTS_QUEUE_SIZE);
+                _udpOutputQueue = new SyncQueue<SSPacket>(QueueSizeSettings.UDP_DATA_TO_CLIENTS_QUEUE_SIZE);
 
                 try
                 {

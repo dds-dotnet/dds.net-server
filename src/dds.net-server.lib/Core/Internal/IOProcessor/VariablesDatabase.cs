@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using DDS.Net.Server.Core.Internal.Interfaces;
 using DDS.Net.Server.Interfaces;
 using DDS.Net.Server.Entities;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -87,7 +89,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
                 else
                 {
+                    int offset = 0;
 
+                    try
+                    {
+                        PacketId pid = input.Data.ReadPacketId(ref offset);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error($"Packet parsing error: {ex.Message}");
+                    }
                 }
 
                 return 1;

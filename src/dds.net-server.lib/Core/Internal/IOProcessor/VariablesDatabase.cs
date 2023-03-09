@@ -94,6 +94,32 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     try
                     {
                         PacketId pid = input.Data.ReadPacketId(ref offset);
+                        switch (pid)
+                        {
+                            case PacketId.HandShake:
+                                ProcessPacket_HandShake(input.ClientRef, input.Data, ref offset);
+                                break;
+
+                            case PacketId.VariableRegistration:
+                                ProcessPacket_VariableRegistration(input.ClientRef, input.Data, ref offset);
+                                break;
+
+                            case PacketId.PrimitivesUpdateAtServer:
+                                ProcessPacket_PrimitivesUpdateAtServer(input.ClientRef, input.Data, ref offset);
+                                break;
+
+                            case PacketId.PrimitivesUpdateFromServer:
+                                logger.Error($"PrimitivesUpdateFromServer packet received from {input.ClientRef}");
+                                break;
+
+                            case PacketId.ErrorResponseFromServer:
+                                logger.Error($"ErrorResponseFromServer packet received from {input.ClientRef}");
+                                break;
+
+                            case PacketId.UnknownPacket:
+                                logger.Info($"Unknown packet received from {input.ClientRef}");
+                                break;
+                        }
                     }
                     catch (Exception ex)
                     {

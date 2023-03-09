@@ -8,6 +8,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     {
         /// <summary>
         /// Processing the HandShake packet.
+        /// Replies with PacketId.HandShake or PacketId.ErrorResponseFromServer.
         /// </summary>
         /// <param name="clientRef">Sender's information / address.</param>
         /// <param name="data">The data packet.</param>

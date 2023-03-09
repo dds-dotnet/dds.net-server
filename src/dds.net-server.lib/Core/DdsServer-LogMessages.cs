@@ -1,4 +1,6 @@
-﻿namespace DDS.Net.Server
+﻿using DDS.Net.Server.Core.Internal;
+
+namespace DDS.Net.Server
 {
     public partial class DdsServer
     {
@@ -25,7 +27,8 @@
 
         private void PrintLogStarting()
         {
-            _logger.Info($"Starting at {DateTime.UtcNow} with config:");
+            _logger.Info($"Starting {VersionInfo.SERVER_NAME} v{VersionInfo.SERVER_VERSION} " +
+                         $"at {DateTime.UtcNow} with config:");
 
             PrintLogPorts();
         }

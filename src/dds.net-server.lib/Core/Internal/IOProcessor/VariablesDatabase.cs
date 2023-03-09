@@ -116,8 +116,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 logger.Error($"ErrorResponseFromServer packet received from {input.ClientRef}");
                                 break;
 
-                            case PacketId.UnknownPacket:
-                                logger.Info($"Unknown packet received from {input.ClientRef}");
+                            default:
+                                logger.Info($"Unknown packet {pid} received from {input.ClientRef}");
                                 break;
                         }
                     }

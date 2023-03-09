@@ -15,6 +15,19 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="offset">Offset from where packet parsing is to be started.</param>
         private void ProcessPacket_VariableRegistration(string clientRef, byte[] data, ref int offset)
         {
+            /*
+             * Packet Format:
+             * --------------
+             * 
+             *     Client -> Server
+             *     ----------------
+             *     ->
+             *     
+             *     Server -> Client
+             *     ----------------
+             *     ->
+             *     
+             */
         }
     }
 }

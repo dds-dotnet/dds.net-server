@@ -2,6 +2,9 @@
 {
     internal class Settings
     {
+        public static readonly string SERVER_NAME = "DDS.Net Server";
+        public static readonly string SERVER_VERSION = "1.0.0";
+
         public static readonly int BASE_TIME_SLOT_MS = 50;
 
         public static readonly int MAX_VARIABLE_NAME_LENGTH = 127;

@@ -83,7 +83,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 if (input.Data == null)
                 {
-                    RemoveProviderAndSubscriber(input.ClientRef);
+                    RemoveClient(input.ClientRef);
                 }
                 return 1;
             }

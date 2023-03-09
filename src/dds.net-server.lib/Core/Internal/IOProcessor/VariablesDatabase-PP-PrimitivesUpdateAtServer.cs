@@ -8,6 +8,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     {
         /// <summary>
         /// Processing the PrimitivesUpdateAtServer packet.
+        /// Replies with PacketId.PrimitivesUpdateAtServer or PacketId.ErrorResponseFromServer.
         /// </summary>
         /// <param name="clientRef">Sender's information / address.</param>
         /// <param name="data">The data packet.</param>

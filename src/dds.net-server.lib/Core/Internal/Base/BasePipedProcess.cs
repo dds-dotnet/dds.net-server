@@ -33,6 +33,10 @@ namespace DDS.Net.Server.Core.Internal.Base
         protected volatile bool _isThreadRunning = false;
         protected Thread _thread = null!;
 
+        /// <summary>
+        /// Starts up the thread for processing.
+        /// </summary>
+        /// <param name="threadFunction">Provide a function only when default behavior is to be overridden.</param>
         protected virtual void StartThread(Action? threadFunction = null)
         {
             lock(this)
@@ -91,7 +95,9 @@ namespace DDS.Net.Server.Core.Internal.Base
                 }
             }
         }
-
+        /// <summary>
+        /// Exit the process.
+        /// </summary>
         protected void Exit()
         {
             lock (this)

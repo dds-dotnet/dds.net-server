@@ -124,7 +124,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     }
                     catch (Exception ex)
                     {
-                        logger.Error($"Packet parsing error: {ex.Message}");
+                        logger.Error($"Packet processing error: {ex.Message}");
                     }
                 }
 

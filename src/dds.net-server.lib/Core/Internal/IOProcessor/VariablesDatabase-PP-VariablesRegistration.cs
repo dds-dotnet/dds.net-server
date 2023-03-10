@@ -21,11 +21,18 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              * 
              *     Client -> Server
              *     ----------------
-             *     ->
+             *     [String: Variable Name]
+             *     [Periodicity: Update Periodicity]
+             *     [Boolean: Register or Unregister] - True = Register, False = Unregister
+             *     ...
+             *     ...
              *     
              *     Server -> Client
              *     ----------------
-             *     ->
+             *     [String: Variable Name]
+             *     [UnsignedWord: Variable Id]
+             *     ...
+             *     ...
              *     
              */
         }

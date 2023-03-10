@@ -110,7 +110,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 break;
 
                             case PacketId.VariablesUpdateFromServer:
-                                logger.Warning($"Wrong packet \"PrimitivesUpdateFromServer\" received from {input.ClientRef}");
+                                logger.Warning($"Wrong packet \"VariablesUpdateFromServer\" received from {input.ClientRef}");
                                 break;
 
                             case PacketId.ErrorResponseFromServer:
@@ -118,7 +118,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 break;
 
                             default:
-                                logger.Warning($"Unknown packet \"{pid}\" received from {input.ClientRef}");
+                                logger.Warning($"Unhandled packet \"{pid}\" received from {input.ClientRef}");
                                 break;
                         }
                     }

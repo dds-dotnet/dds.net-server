@@ -64,7 +64,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// </summary>
         /// <param name="data">Data buffer.</param>
         /// <param name="offset">Reading offset in the buffer.</param>
-        /// <returns>variableName, periodicity, isRegister</returns>
+        /// <returns>Tuple (
+        /// string: variableName,
+        /// Periodicity: update periodicity,
+        /// bool: is registering
+        /// )</returns>
         private Tuple<string, Periodicity, bool> ReadVariableRegistrationElements(byte[] data, ref int offset)
         {
             string variableName = data.ReadString(ref offset);

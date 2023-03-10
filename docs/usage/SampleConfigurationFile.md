@@ -11,7 +11,6 @@ TCP-ListeningPort = 44556
 TCP-MaxClients = 100
 UDP-Enabled = Yes
 UDP-ListeningPort = 44556
-UDP-MaxClients = 100
 ```
 
 ***INIConfigIO*** (inside *DDS.Net.Server.PublicHelpers* namespace) refers to the values as:

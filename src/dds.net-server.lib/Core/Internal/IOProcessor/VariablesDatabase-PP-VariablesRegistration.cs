@@ -69,7 +69,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// Periodicity: update periodicity,
         /// bool: is registering
         /// )</returns>
-        private Tuple<string, Periodicity, bool> ReadVariableRegistrationElements(byte[] data, ref int offset)
+        private static Tuple<string, Periodicity, bool> ReadVariableRegistrationElements(byte[] data, ref int offset)
         {
             string variableName = data.ReadString(ref offset);
             Periodicity periodicity = data.ReadPeriodicity(ref offset);

@@ -26,15 +26,19 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              * Packet Format:
              * --------------
              * 
-             *     Client -> Server
-             *     ----------------
+             *     Client -> Server : PacketId.HandShake
+             *     -------------------------------------
              *     [String: Client Application Name]
              *     [String: Client Library Version]
              *     
-             *     Server -> Client
-             *     ----------------
+             *     Server -> Client : PacketId.HandShake
+             *     -------------------------------------
              *     [String: Server Name]
              *     [String: Server Version]
+             *     
+             *     Server -> Client : PacketId.ErrorResponseFromServer
+             *     ---------------------------------------------------
+             *     [String: Error Message]
              *     
              */
 

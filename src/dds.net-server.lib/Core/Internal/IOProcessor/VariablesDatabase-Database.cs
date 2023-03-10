@@ -183,5 +183,21 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 // TODO: To be implemented
             }
         }
+        private ushort RegisterVariableClient(string clientRef, string variableName, Periodicity periodicity)
+        {
+            lock (_dbMutex)
+            {
+                // TODO: To be implemented
+                throw new NotImplementedException();
+            }
+        }
+        private ushort UnregisterVariableClient(string clientRef, string variableName, Periodicity periodicity)
+        {
+            lock (_dbMutex)
+            {
+                // TODO: To be implemented
+                throw new NotImplementedException();
+            }
+        }
     }
 }

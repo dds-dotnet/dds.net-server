@@ -109,7 +109,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 ProcessPacket_VariablesUpdateAtServer(input.ClientRef, input.Data, ref offset);
                                 break;
 
-                            case PacketId.PrimitivesUpdateFromServer:
+                            case PacketId.VariablesUpdateFromServer:
                                 logger.Warning($"Wrong packet \"PrimitivesUpdateFromServer\" received from {input.ClientRef}");
                                 break;
 

@@ -15,9 +15,9 @@
         /// </summary>
         VariablesUpdateAtServer = 2,
         /// <summary>
-        /// Updating primitive variable values at the client
+        /// Updating variable values at the client
         /// </summary>
-        PrimitivesUpdateFromServer = 3,
+        VariablesUpdateFromServer = 3,
         /// <summary>
         /// Error responses from the server
         /// </summary>

@@ -7,8 +7,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
         /// <summary>
-        /// Processing the VariablesUpdateAtServer packet.
-        /// Replies with PacketId.VariablesUpdateAtServer or PacketId.ErrorResponseFromServer.
+        /// Processing the <c cref="PacketId.VariablesUpdateAtServer">VariablesUpdateAtServer</c> packet.
+        /// Replies with
+        /// <c cref="PacketId.VariablesUpdateAtServer">VariablesUpdateAtServer</c> or
+        /// <c cref="PacketId.ErrorResponseFromServer">ErrorResponseFromServer</c>.
         /// </summary>
         /// <param name="clientRef">Sender's information / address.</param>
         /// <param name="data">The data packet.</param>

@@ -9,7 +9,7 @@
         /// <summary>
         /// Registering variables with the server
         /// </summary>
-        VariableRegistration = 1,
+        VariablesRegistration = 1,
         /// <summary>
         /// Updating primitive variable values at the server
         /// </summary>

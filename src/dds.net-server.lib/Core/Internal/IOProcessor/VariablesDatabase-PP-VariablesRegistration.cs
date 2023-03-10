@@ -49,9 +49,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 while (offset < data.Length)
                 {
-                    string variableName = data.ReadString(ref offset);
-                    Periodicity periodicity = data.ReadPeriodicity(ref offset);
-                    bool isRegister = data.ReadBoolean(ref offset);
+                    (string variableName, Periodicity periodicity, bool isRegister) =
+                        ReadVariableRegistrationElements(data, ref offset);
                 }
             }
             catch (Exception ex)
@@ -59,6 +58,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 SendErrorPacket(clientRef, ex.Message);
                 return;
             }
+        }
+        /// <summary>
+        /// Reads variable registration elements from the given packet.
+        /// </summary>
+        /// <param name="data">Data buffer.</param>
+        /// <param name="offset">Reading offset in the buffer.</param>
+        /// <returns>variableName, periodicity, isRegister</returns>
+        private Tuple<string, Periodicity, bool> ReadVariableRegistrationElements(byte[] data, ref int offset)
+        {
+            string variableName = data.ReadString(ref offset);
+            Periodicity periodicity = data.ReadPeriodicity(ref offset);
+            bool isRegister = data.ReadBoolean(ref offset);
+
+            return new Tuple<string, Periodicity, bool>(variableName, periodicity, isRegister);
         }
     }
 }

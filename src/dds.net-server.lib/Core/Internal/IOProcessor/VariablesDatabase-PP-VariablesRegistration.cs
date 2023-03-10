@@ -31,6 +31,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     ----------------
              *     [String: Variable Name]
              *     [UnsignedWord: Variable Id]
+             *     [Boolean: Register or Unregister] - True = Register, False = Unregister
              *     ...
              *     ...
              *     

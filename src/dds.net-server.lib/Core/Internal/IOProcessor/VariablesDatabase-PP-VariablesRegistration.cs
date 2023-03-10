@@ -19,16 +19,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              * Packet Format:
              * --------------
              * 
-             *     Client -> Server
-             *     ----------------
+             *     Client -> Server : PacketId.VariablesRegistration
+             *     -------------------------------------------------
              *     [String: Variable Name]
              *     [Periodicity: Update Periodicity]
              *     [Boolean: Register or Unregister] - True = Register, False = Unregister
              *     ...
              *     ...
              *     
-             *     Server -> Client
-             *     ----------------
+             *     Server -> Client : PacketId.VariablesRegistration
+             *     -------------------------------------------------
              *     [String: Variable Name]
              *     [UnsignedWord: Variable Id]
              *     [Boolean: Register or Unregister] - True = Register, False = Unregister

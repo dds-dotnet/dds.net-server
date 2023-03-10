@@ -23,7 +23,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             int v = data[offset++];
 
-            if (v >= 0 && v < (int)Periodicity.Lowest)
+            if (v >= 0 && v <= (int)Periodicity.Lowest)
             {
                 return (Periodicity)v;
             }

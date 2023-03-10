@@ -1,6 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types;
 using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
@@ -58,10 +59,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 byte[] sname = Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME);
                 byte[] svers = Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION);
                 
-                _serverInfo = new byte[sname.Length + svers.Length + 4];
+                _serverInfo = new byte[
+                    PacketId.HandShake.GetSizeOnBuffer() +
+                    sname.Length +
+                    svers.Length +
+                    4];
 
                 int _serverInfoOffset = 0;
 
+                _serverInfo.WritePacketId(ref _serverInfoOffset, PacketId.HandShake);
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_NAME);
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_VERSION);
             }

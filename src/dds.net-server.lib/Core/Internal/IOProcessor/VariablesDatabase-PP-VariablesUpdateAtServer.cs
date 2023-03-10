@@ -7,13 +7,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
         /// <summary>
-        /// Processing the PrimitivesUpdateAtServer packet.
-        /// Replies with PacketId.PrimitivesUpdateAtServer or PacketId.ErrorResponseFromServer.
+        /// Processing the VariablesUpdateAtServer packet.
+        /// Replies with PacketId.VariablesUpdateAtServer or PacketId.ErrorResponseFromServer.
         /// </summary>
         /// <param name="clientRef">Sender's information / address.</param>
         /// <param name="data">The data packet.</param>
         /// <param name="offset">Offset from where packet parsing is to be started.</param>
-        private void ProcessPacket_PrimitivesUpdateAtServer(string clientRef, byte[] data, ref int offset)
+        private void ProcessPacket_VariablesUpdateAtServer(string clientRef, byte[] data, ref int offset)
         {
             /*
              * Packet Format:

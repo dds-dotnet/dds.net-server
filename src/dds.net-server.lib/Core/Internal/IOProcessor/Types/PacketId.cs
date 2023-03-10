@@ -11,9 +11,9 @@
         /// </summary>
         VariablesRegistration = 1,
         /// <summary>
-        /// Updating primitive variable values at the server
+        /// Updating variable values at the server
         /// </summary>
-        PrimitivesUpdateAtServer = 2,
+        VariablesUpdateAtServer = 2,
         /// <summary>
         /// Updating primitive variable values at the client
         /// </summary>

@@ -105,8 +105,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                 ProcessPacket_VariablesRegistration(input.ClientRef, input.Data, ref offset);
                                 break;
 
-                            case PacketId.PrimitivesUpdateAtServer:
-                                ProcessPacket_PrimitivesUpdateAtServer(input.ClientRef, input.Data, ref offset);
+                            case PacketId.VariablesUpdateAtServer:
+                                ProcessPacket_VariablesUpdateAtServer(input.ClientRef, input.Data, ref offset);
                                 break;
 
                             case PacketId.PrimitivesUpdateFromServer:

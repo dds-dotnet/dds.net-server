@@ -97,7 +97,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             //- Sending response to the client
             //- 
 
-            //- Size of buffer
+            //- Calculating required size of response buffer
 
             int sizeRequired = 0;
 

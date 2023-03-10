@@ -56,14 +56,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (_serverInfo == null)
             {
-                byte[] sname = Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME);
-                byte[] svers = Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION);
-                
                 _serverInfo = new byte[
                     PacketId.HandShake.GetSizeOnBuffer() +
-                    sname.Length +
-                    svers.Length +
-                    4];
+                    2 + VersionInfo.SERVER_NAME.Length +
+                    2 + VersionInfo.SERVER_VERSION.Length];
 
                 int _serverInfoOffset = 0;
 

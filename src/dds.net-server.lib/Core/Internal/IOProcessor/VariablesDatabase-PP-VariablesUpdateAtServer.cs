@@ -27,6 +27,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     ----------------
              *     ->
              *     
+             *     Server -> Client : PacketId.ErrorResponseFromServer
+             *     ---------------------------------------------------
+             *     [String: Error Message]
+             *     
              */
         }
     }

@@ -55,16 +55,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
             catch (Exception ex)
             {
-                byte[] _errorInfo = new byte[
-                    PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
-                    2 + ex.Message.Length];
-
-                int _errorInfoOffset = 0;
-
-                _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
-                _errorInfo.WriteString(ref _errorInfoOffset, ex.Message);
-
-                OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
+                SendErrorPacket(clientRef, ex.Message);
 
                 return;
             }
@@ -87,6 +78,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_NAME);
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_VERSION);
             }
+
+            OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
+        }
+
+        private void SendErrorPacket(string clientRef, string message)
+        {
+            byte[] _errorInfo = new byte[
+                                PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
+                                2 + message.Length];
+
+            int _errorInfoOffset = 0;
+
+            _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
+            _errorInfo.WriteString(ref _errorInfoOffset, message);
 
             OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
         }

@@ -45,12 +45,42 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              */
 
+            Dictionary<string, ushort> registeredVariables = new();
+            Dictionary<string, ushort> unregisteredVariables = new();
+
             try
             {
                 while (offset < data.Length)
                 {
                     (string variableName, Periodicity periodicity, bool isRegister) =
                         ReadVariableRegistrationElements(data, ref offset);
+
+                    if (isRegister)
+                    {
+                        ushort varId = RegisterVariableClient(clientRef, variableName, periodicity);
+
+                        if (registeredVariables.ContainsKey(variableName))
+                        {
+                            registeredVariables[variableName] = varId;
+                        }
+                        else
+                        {
+                            registeredVariables.Add(variableName, varId);
+                        }
+                    }
+                    else
+                    {
+                        ushort varId = UnregisterVariableClient(clientRef, variableName, periodicity);
+
+                        if (unregisteredVariables.ContainsKey(variableName))
+                        {
+                            unregisteredVariables[variableName] = varId;
+                        }
+                        else
+                        {
+                            unregisteredVariables.Add(variableName, varId);
+                        }
+                    }
                 }
             }
             catch (Exception ex)

@@ -47,7 +47,21 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 logger.Info($"{clientApplicationName} v{clientLibraryVersion} connected from {clientRef}");
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                byte[] _errorInfo = new byte[
+                    PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
+                    2 + ex.Message.Length];
+
+                int _errorInfoOffset = 0;
+
+                _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
+                _errorInfo.WriteString(ref _errorInfoOffset, ex.Message);
+
+                OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
+
+                return;
+            }
 
 
             //- 

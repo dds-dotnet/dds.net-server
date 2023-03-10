@@ -80,7 +80,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
         }
-
+        /// <summary>
+        /// Sends <c cref="PacketId.ErrorResponseFromServer">ErrorResponseFromServer</c>
+        /// packet to the specified client.
+        /// </summary>
+        /// <param name="clientRef">Target client.</param>
+        /// <param name="message">Error message.</param>
         private void SendErrorPacket(string clientRef, string message)
         {
             byte[] _errorInfo = new byte[

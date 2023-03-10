@@ -54,10 +54,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     bool isRegister = data.ReadBoolean(ref offset);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                byte[] _errorInfo = new byte[
+                    PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
+                    2 + ex.Message.Length];
 
-                throw;
+                int _errorInfoOffset = 0;
+
+                _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
+                _errorInfo.WriteString(ref _errorInfoOffset, ex.Message);
+
+                OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
+
+                return;
             }
         }
     }

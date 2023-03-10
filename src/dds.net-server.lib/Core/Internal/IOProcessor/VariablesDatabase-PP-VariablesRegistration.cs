@@ -48,6 +48,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             Dictionary<string, ushort> registeredVariables = new();
             Dictionary<string, ushort> unregisteredVariables = new();
 
+            //- 
+            //- Registering / unregistering the variables
+            //- 
+
             try
             {
                 while (offset < data.Length)
@@ -88,6 +92,51 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 SendErrorPacket(clientRef, ex.Message);
                 return;
             }
+
+            //- 
+            //- Sending response to the client
+            //- 
+
+            //- Size of buffer
+
+            int sizeRequired = 0;
+
+            foreach (KeyValuePair<string, ushort> varInfo in registeredVariables)
+            {
+                sizeRequired +=
+                    2 + varInfo.Key.Length + // string size on buffer
+                    2 +                      // Id size on buffer
+                    1;                       // Register/unregister boolean size on buffer
+            }
+
+            foreach (KeyValuePair<string, ushort> varInfo in unregisteredVariables)
+            {
+                sizeRequired +=
+                    2 + varInfo.Key.Length + // string size on buffer
+                    2 +                      // Id size on buffer
+                    1;                       // Register/unregister boolean size on buffer
+            }
+
+            byte[] responseBuffer = new byte[sizeRequired];
+            int responseBufferOffset = 0;
+
+            //- Filling-in the buffer
+
+            foreach (KeyValuePair<string, ushort> varInfo in registeredVariables)
+            {
+                responseBuffer.WriteString(ref responseBufferOffset, varInfo.Key);
+                responseBuffer.WriteUnsignedWord(ref responseBufferOffset, varInfo.Value);
+                responseBuffer.WriteBoolean(ref responseBufferOffset, true);
+            }
+
+            foreach (KeyValuePair<string, ushort> varInfo in unregisteredVariables)
+            {
+                responseBuffer.WriteString(ref responseBufferOffset, varInfo.Key);
+                responseBuffer.WriteUnsignedWord(ref responseBufferOffset, varInfo.Value);
+                responseBuffer.WriteBoolean(ref responseBufferOffset, false);
+            }
+
+            OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
         }
         /// <summary>
         /// Reads variable registration elements from the given packet.

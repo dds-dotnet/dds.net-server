@@ -183,6 +183,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 // TODO: To be implemented
             }
         }
+        /// <summary>
+        /// Registers a client for specified variable.
+        /// </summary>
+        /// <param name="clientRef">Reference to the client.</param>
+        /// <param name="variableName">Name of the variable.</param>
+        /// <param name="periodicity">Update periodicity.</param>
+        /// <returns>Variable ID</returns>
         private ushort RegisterVariableClient(string clientRef, string variableName, Periodicity periodicity)
         {
             lock (_dbMutex)
@@ -191,6 +198,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 throw new NotImplementedException();
             }
         }
+        /// <summary>
+        /// Unregisters a client for specified variable.
+        /// </summary>
+        /// <param name="clientRef">Reference to the client.</param>
+        /// <param name="variableName">Name of the variable.</param>
+        /// <param name="periodicity">Update periodicity.</param>
+        /// <returns>Variable ID</returns>
         private ushort UnregisterVariableClient(string clientRef, string variableName, Periodicity periodicity)
         {
             lock (_dbMutex)

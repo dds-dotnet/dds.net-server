@@ -21,12 +21,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              * Packet Format:
              * --------------
              * 
-             *     Client -> Server
-             *     ----------------
+             *     Client -> Server : PacketId.VariablesUpdateAtServer
+             *     ---------------------------------------------------
              *     ->
              *     
-             *     Server -> Client
-             *     ----------------
+             *     Server -> Client : PacketId.VariablesUpdateAtServer
+             *     ---------------------------------------------------
              *     ->
              *     
              *     Server -> Client : PacketId.ErrorResponseFromServer

@@ -12,8 +12,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         byte[] _serverInfo = null;
 
         /// <summary>
-        /// Processing the HandShake packet.
-        /// Replies with PacketId.HandShake or PacketId.ErrorResponseFromServer.
+        /// Processing the <c cref="PacketId.HandShake">PacketId.HandShake</c> packet.
+        /// Replies with
+        /// <c cref="PacketId.HandShake">PacketId.HandShake</c> or
+        /// <c cref="PacketId.ErrorResponseFromServer">PacketId.ErrorResponseFromServer</c>.
         /// </summary>
         /// <param name="clientRef">Sender's information / address.</param>
         /// <param name="data">The data packet.</param>

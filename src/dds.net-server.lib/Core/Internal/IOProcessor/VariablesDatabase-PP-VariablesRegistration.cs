@@ -1,5 +1,7 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
+using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -42,6 +44,21 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     [String: Error Message]
              *     
              */
+
+            try
+            {
+                while (offset < data.Length)
+                {
+                    string variableName = data.ReadString(ref offset);
+                    Periodicity periodicity = data.ReadPeriodicity(ref offset);
+                    bool isRegister = data.ReadBoolean(ref offset);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

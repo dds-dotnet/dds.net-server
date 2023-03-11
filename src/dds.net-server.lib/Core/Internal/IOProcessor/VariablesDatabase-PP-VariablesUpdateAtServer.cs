@@ -69,12 +69,17 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                         //- Variable has already specified type
                         //- 
 
-                        switch (variableType)
+                        if (variableType == VariableType.Primitive)
                         {
-                            case VariableType.Primitive:
-                            case VariableType.Compound:
-                            default:
-                                throw new Exception($"Variable type {variableType} cannot be processed");
+
+                        }
+                        else if (variableType == VariableType.Compound)
+                        {
+
+                        }
+                        else
+                        {
+                            throw new Exception($"Variable type {variableType} cannot be processed");
                         }
                     }
                     else if (

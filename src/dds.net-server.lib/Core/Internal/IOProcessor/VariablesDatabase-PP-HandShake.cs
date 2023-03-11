@@ -9,6 +9,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
+        /// <summary>
+        /// Buffer to keep server information for clients in <c>PacketId.HandShake</c> packets.
+        /// Initialized once in first requirement, and used everytime onwards.
+        /// </summary>
         byte[] _serverInfo = null;
 
         /// <summary>

@@ -64,6 +64,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     if (variable.VariableType == variableType)
                     {
+                        //- Variable has already specified type
+                        //- 
+
                         switch (variableType)
                         {
                             case VariableType.Primitive:
@@ -76,7 +79,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                         variable.VariableType == VariableType.UnknownVariableType &&
                         variableType != VariableType.UnknownVariableType)
                     {
-
+                        //- Variable type was previously unknown but it is known now
+                        //- 
                     }
                     else
                     {

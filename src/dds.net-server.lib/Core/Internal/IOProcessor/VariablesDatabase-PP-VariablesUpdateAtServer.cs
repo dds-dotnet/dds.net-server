@@ -23,7 +23,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              * 
              *     Client -> Server : PacketId.VariablesUpdateAtServer
              *     ---------------------------------------------------
-             *     ->
+             *     [UnsignedWord: Variable Id]
+             *     [VariableType: Main Type of the Variable]
+             *     [Type (Depends on VariableType): Sub-type of the Variable]
+             *     [Any: Value of the Variable]
+             *     ...
+             *     ...
              *     
              *     Server -> Client : PacketId.VariablesUpdateAtServer
              *     ---------------------------------------------------

@@ -82,6 +82,39 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 SendErrorPacket(clientRef, ex.Message);
                 return;
             }
+
+            //- 
+            //- Sending back the error response
+            //- 
+
+            //- Calculating required size of response buffer
+
+            int sizeRequired = 0;
+
+            foreach (KeyValuePair<ushort, string> errorInfo in errorMessages)
+            {
+                sizeRequired +=
+                    2 +                         // Id size on buffer
+                    2 + errorInfo.Value.Length; // string size on buffer
+            }
+
+            //- Sending response
+
+            if (sizeRequired > 0)
+            {
+                byte[] responseBuffer = new byte[sizeRequired];
+                int responseBufferOffset = 0;
+
+                //- Filling the response buffer
+
+                foreach (KeyValuePair<ushort, string> varInfo in errorMessages)
+                {
+                    responseBuffer.WriteUnsignedWord(ref responseBufferOffset, varInfo.Key);
+                    responseBuffer.WriteString(ref responseBufferOffset, varInfo.Value);
+                }
+
+                OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
+            }
         }
         /// <summary>
         /// Reads variable value information elements from the given data buffer.

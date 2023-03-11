@@ -2,7 +2,6 @@
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
-using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {

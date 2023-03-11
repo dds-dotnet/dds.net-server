@@ -213,5 +213,26 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 throw new NotImplementedException();
             }
         }
+        /// <summary>
+        /// Returns an existing variable with specified <c>ID</c>.
+        /// Throws exception otherwise.
+        /// </summary>
+        /// <param name="id">ID of the variable.</param>
+        /// <returns>The designated variable.</returns>
+        /// <exception cref="Exception"></exception>
+        private BaseVariable GetvariableWithId(ushort id)
+        {
+            lock (_dbMutex)
+            {
+                if (_dbVariables.ContainsKey(id))
+                {
+                    return _dbVariables[id];
+                }
+                else
+                {
+                    throw new Exception($"Variable with ID {id} does not exist.");
+                }
+            }
+        }
     }
 }

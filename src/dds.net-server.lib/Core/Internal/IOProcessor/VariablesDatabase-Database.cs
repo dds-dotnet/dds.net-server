@@ -230,7 +230,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
                 else
                 {
-                    throw new Exception($"Variable with ID {id} does not exist.");
+                    throw new Exception($"Variable with ID {id} does not exist");
                 }
             }
         }

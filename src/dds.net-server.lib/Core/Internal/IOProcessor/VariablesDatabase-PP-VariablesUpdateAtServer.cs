@@ -97,6 +97,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             catch (Exception ex)
             {
                 SendErrorPacket(clientRef, ex.Message);
+
+                if (updatedVariables.Count > 0)
+                {
+                    SendUpdatedVariables(updatedVariables);
+                    updatedVariables.Clear();
+                }
+
                 return;
             }
 

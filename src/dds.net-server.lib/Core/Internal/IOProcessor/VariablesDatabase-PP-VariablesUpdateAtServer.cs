@@ -49,6 +49,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             Dictionary<ushort, string> errorMessages = new();
 
+            //- 
+            //- Processing the values
+            //- 
+
             try
             {
                 while (offset < data.Length)

@@ -2,6 +2,7 @@
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable;
 using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
@@ -54,6 +55,22 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 {
                     (ushort variableId, VariableType variableType) =
                         ReadVariableValueInformationElements(data, ref offset);
+
+                    BaseVariable variable = GetVariableWithId(variableId);
+
+                    if (variable.VariableType == variableType)
+                    {
+
+                    }
+                    else
+                    {
+                        if (errorMessages.ContainsKey(variableId) == false)
+                        {
+                            errorMessages.Add(
+                                variableId,
+                                $"Variable type should be {variable.VariableType}");
+                        }
+                    }
                 }
             }
             catch (Exception ex)

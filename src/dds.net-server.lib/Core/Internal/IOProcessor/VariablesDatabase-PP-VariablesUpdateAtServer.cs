@@ -48,6 +48,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              */
 
             Dictionary<ushort, string> errorMessages = new();
+            List<BaseVariable> updatedVariables = new();
 
             //- 
             //- Processing the values

@@ -255,6 +255,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private bool AssignVariableWithValue(
             string sender,
             BaseVariable variable,
+            VariableType givenVariableType,
             byte[] data,
             ref int offset,
             out string errorMessage)

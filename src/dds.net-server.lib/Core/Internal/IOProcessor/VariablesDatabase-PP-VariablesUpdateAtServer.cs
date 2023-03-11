@@ -66,6 +66,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     bool isUpdated = AssignVariableWithValue(
                                         clientRef,
                                         variable,
+                                        variableType,
                                         data, ref offset,
                                         out string errorMessage);
 

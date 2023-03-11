@@ -36,6 +36,7 @@ namespace DDS.Net.Server.PublicHelpers
 
             return new(false, null);
         }
+
         /// <summary>
         /// Reading VariablesConfiguration object from provided .ini file.
         /// </summary>

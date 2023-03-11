@@ -1,5 +1,8 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
+using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
+using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using DDS.Net.Server.Entities;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -42,6 +45,39 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     [String: Error Message]
              *     
              */
+
+            Dictionary<ushort, string> errorMessages = new();
+
+            try
+            {
+                while (offset < data.Length)
+                {
+                    (ushort variableId, VariableType variableType) =
+                        ReadVariableValueInformationElements(data, ref offset);
+                }
+            }
+            catch (Exception ex)
+            {
+                SendErrorPacket(clientRef, ex.Message);
+                return;
+            }
+        }
+        /// <summary>
+        /// Reads variable value information elements from the given data buffer.
+        /// </summary>
+        /// <param name="data">Data buffer.</param>
+        /// <param name="offset">Reading offset in the buffer.</param>
+        /// <returns>(
+        /// ushort: variableId,
+        /// VariableType: variableType
+        /// )</returns>
+        private static (ushort variableId, VariableType variableType)
+            ReadVariableValueInformationElements(byte[] data, ref int offset)
+        {
+            ushort variableId = data.ReadUnsignedWord(ref offset);
+            VariableType variableType = data.ReadVariableType(ref offset);
+
+            return (variableId, variableType);
         }
     }
 }

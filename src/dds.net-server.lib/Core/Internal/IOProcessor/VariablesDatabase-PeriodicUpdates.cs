@@ -7,8 +7,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
     internal partial class VariablesDatabase
         : SinglePipedConsumer<DataFromClient, DataToClient, VarsDbCommand, VarsDbStatus>
     {
+        /// <summary>
+        /// Timer instance for firing event at every <c>Settings.BASE_TIME_SLOT_MS</c> milliseconds.
+        /// </summary>
         private Timer _periodicUpdatesTimer = null!;
+
+        /// <summary>
+        /// Counter to keep track of number of times the timer has fired events.
+        /// Reset is done for keeping track of events.
+        /// </summary>
         private int _periodicUpdatesCounter = 0;
+
+        /// <summary>
+        /// Flag to keep the timer running.
+        /// </summary>
         private volatile bool _isPeriodicUpdatesTimerRunning = false;
 
         /// <summary>

@@ -234,5 +234,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
+        /// <summary>
+        /// Sends updated variables to clients that have registered for
+        /// being updated on value changes.
+        /// </summary>
+        /// <param name="updatedVariables">List of updated variables.</param>
+        private void SendUpdatedVariables(List<BaseVariable> updatedVariables)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

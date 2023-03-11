@@ -55,7 +55,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
             catch (Exception ex)
             {
-                SendErrorPacket(clientRef, ex.Message);
+                SendErrorMessage(clientRef, ex.Message);
                 return;
             }
 
@@ -91,7 +91,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// </summary>
         /// <param name="clientRef">Target client.</param>
         /// <param name="message">Error message.</param>
-        private void SendErrorPacket(string clientRef, string message)
+        private void SendErrorMessage(string clientRef, string message)
         {
             byte[] _errorInfo = new byte[
                                 PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +

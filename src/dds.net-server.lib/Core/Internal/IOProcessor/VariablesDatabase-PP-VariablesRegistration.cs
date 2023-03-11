@@ -89,7 +89,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
             catch (Exception ex)
             {
-                SendErrorPacket(clientRef, ex.Message);
+                SendErrorMessage(clientRef, ex.Message);
                 return;
             }
 

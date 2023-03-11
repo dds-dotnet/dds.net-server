@@ -243,5 +243,23 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// Assigns variable with value read from buffer.
+        /// </summary>
+        /// <param name="sender">Data sender's address.</param>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="data">Data buffer.</param>
+        /// <param name="offset">Offset from which data is to be read in the data buffer.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        private bool AssignVariableWithValue(
+            string sender,
+            BaseVariable variable,
+            byte[] data,
+            ref int offset,
+            out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

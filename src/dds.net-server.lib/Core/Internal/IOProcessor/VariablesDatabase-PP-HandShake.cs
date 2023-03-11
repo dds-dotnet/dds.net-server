@@ -59,11 +59,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 return;
             }
 
+            SendServerInformation(clientRef);
+        }
 
-            //- 
-            //- Sending server information
-            //- 
-
+        /// <summary>
+        /// Sends server information to the client.
+        /// </summary>
+        /// <param name="clientRef">Client's address.</param>
+        private void SendServerInformation(string clientRef)
+        {
             if (_serverInfo == null)
             {
                 _serverInfo = new byte[
@@ -80,6 +84,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
         }
+
         /// <summary>
         /// Sends <c cref="PacketId.ErrorResponseFromServer">ErrorResponseFromServer</c>
         /// packet to the specified client.

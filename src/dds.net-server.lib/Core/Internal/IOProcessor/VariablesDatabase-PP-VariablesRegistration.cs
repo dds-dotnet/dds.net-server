@@ -143,7 +143,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// </summary>
         /// <param name="data">Data buffer.</param>
         /// <param name="offset">Reading offset in the buffer.</param>
-        /// <returns>Tuple (
+        /// <returns>(
         /// string: variableName,
         /// Periodicity: update periodicity,
         /// bool: is registering

@@ -276,7 +276,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             }
 
-            errorMessage = string.Empty;
+            errorMessage = "Unknown error while reading value";
             return false;
         }
 

@@ -32,7 +32,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              *     Server -> Client : PacketId.VariablesUpdateAtServer
              *     ---------------------------------------------------
-             *     ->
+             *     [UnsignedWord: Variable Id] - Optional
+             *     [String: Error Message]
+             *     ...
+             *     ...
              *     
              *     Server -> Client : PacketId.ErrorResponseFromServer
              *     ---------------------------------------------------

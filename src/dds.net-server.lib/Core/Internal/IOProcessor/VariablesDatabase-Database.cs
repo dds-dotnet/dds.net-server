@@ -1,5 +1,6 @@
 ﻿using DDS.Net.Server.Core.Internal.Base;
 using DDS.Net.Server.Core.Internal.Base.Entities;
+using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Helpers;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable;
@@ -255,11 +256,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private bool AssignVariableWithValue(
             string sender,
             BaseVariable variable,
-            VariableType givenVariableType,
             byte[] data,
             ref int offset,
             out string errorMessage)
         {
+            VariableType readVariableType = data.ReadVariableType(ref offset);
+
             if (variable.VariableType == VariableType.Compound)
             {
 
@@ -269,7 +271,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             }
             else if (variable.VariableType == VariableType.UnknownVariableType &&
-                     givenVariableType != VariableType.UnknownVariableType)
+                     readVariableType != VariableType.UnknownVariableType)
             {
 
             }

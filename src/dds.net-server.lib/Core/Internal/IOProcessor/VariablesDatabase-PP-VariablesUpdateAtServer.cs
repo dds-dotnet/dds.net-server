@@ -58,15 +58,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 while (offset < data.Length)
                 {
-                    (ushort variableId, VariableType variableType) =
-                        ReadVariableValueInformationElements(data, ref offset);
+                    ushort variableId = ReadVariableId(data, ref offset);
 
                     BaseVariable variable = GetVariableWithId(variableId);
 
                     bool isUpdated = AssignVariableWithValue(
                                         clientRef,
                                         variable,
-                                        variableType,
                                         data, ref offset,
                                         out string errorMessage);
 
@@ -148,21 +146,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         }
 
         /// <summary>
-        /// Reads variable value information elements from the given data buffer.
+        /// Reads variable ID from the given data buffer.
         /// </summary>
         /// <param name="data">Data buffer.</param>
         /// <param name="offset">Reading offset in the buffer.</param>
-        /// <returns>(
-        /// ushort: variableId,
-        /// VariableType: variableType
-        /// )</returns>
-        private static (ushort variableId, VariableType variableType)
-            ReadVariableValueInformationElements(byte[] data, ref int offset)
+        /// <returns>Variable Id</returns>
+        private static ushort ReadVariableId(byte[] data, ref int offset)
         {
-            ushort variableId = data.ReadUnsignedWord(ref offset);
-            VariableType variableType = data.ReadVariableType(ref offset);
-
-            return (variableId, variableType);
+            return data.ReadUnsignedWord(ref offset);
         }
     }
 }

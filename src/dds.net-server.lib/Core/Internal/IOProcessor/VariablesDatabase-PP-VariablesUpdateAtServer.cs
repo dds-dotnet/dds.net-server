@@ -110,8 +110,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             //- 
             //- Sending back the error response
             //- 
+            SendVariablesUpdateErrorMessages(clientRef, errorMessages);
 
-            //- Calculating required size of response buffer
+            //- 
+            //- Sending the updated variables - if available
+            //- 
+            if (updatedVariables.Count > 0)
+            {
+                SendUpdatedVariables(updatedVariables);
+            }
+        }
+
+        /// <summary>
+        /// Sends error messages when there is an error while updating variable values.
+        /// </summary>
+        /// <param name="clientRef">Client's address.</param>
+        /// <param name="errorMessages">Error messages (variable ID => error message)</param>
+        private void SendVariablesUpdateErrorMessages(string clientRef, Dictionary<ushort, string> errorMessages)
+        {
+            //- Calculating required size for buffer
 
             int sizeRequired = 0;
 
@@ -139,16 +156,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
             }
-
-            //- 
-            //- Sending the updated variables - if available
-            //- 
-
-            if (updatedVariables.Count > 0)
-            {
-                SendUpdatedVariables(updatedVariables);
-            }
         }
+
         /// <summary>
         /// Reads variable value information elements from the given data buffer.
         /// </summary>

@@ -139,6 +139,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
             }
+
+            //- 
+            //- Sending the updated variables - if available
+            //- 
+
+            if (updatedVariables.Count > 0)
+            {
+                SendUpdatedVariables(updatedVariables);
+            }
         }
         /// <summary>
         /// Reads variable value information elements from the given data buffer.

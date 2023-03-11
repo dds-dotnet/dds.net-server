@@ -42,12 +42,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     
              */
 
-            //- 
-            //- Reading client information
-            //- 
-
             try
             {
+                //- 
+                //- Reading client information
+                //- 
+
                 string clientApplicationName = data.ReadString(ref offset);
                 string clientLibraryVersion = data.ReadString(ref offset);
 

@@ -103,6 +103,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     SendUpdatedVariables(updatedVariables);
                     updatedVariables.Clear();
                 }
+
+                return;
             }
 
             //- 

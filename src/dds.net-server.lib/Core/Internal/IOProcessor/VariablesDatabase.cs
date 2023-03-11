@@ -33,11 +33,17 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             this.logger = logger;
         }
 
+        /// <summary>
+        /// Starts the variables' handling database processing thread.
+        /// </summary>
         public void StartDatabase()
         {
             StartThread();
         }
 
+        /// <summary>
+        /// Stops the variables' handling database processing thread.
+        /// </summary>
         public void StopDatabase()
         {
             Exit();

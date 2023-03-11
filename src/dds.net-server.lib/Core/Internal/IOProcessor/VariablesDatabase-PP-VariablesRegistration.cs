@@ -148,13 +148,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// Periodicity: update periodicity,
         /// bool: is registering
         /// )</returns>
-        private static Tuple<string, Periodicity, bool> ReadVariableRegistrationElements(byte[] data, ref int offset)
+        private static (string variableName, Periodicity periodicity, bool isRegister)
+            ReadVariableRegistrationElements(byte[] data, ref int offset)
         {
             string variableName = data.ReadString(ref offset);
             Periodicity periodicity = data.ReadPeriodicity(ref offset);
             bool isRegister = data.ReadBoolean(ref offset);
 
-            return new Tuple<string, Periodicity, bool>(variableName, periodicity, isRegister);
+            return (variableName, periodicity, isRegister);
         }
     }
 }

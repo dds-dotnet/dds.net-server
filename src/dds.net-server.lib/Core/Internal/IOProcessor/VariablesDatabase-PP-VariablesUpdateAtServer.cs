@@ -110,11 +110,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             //- 
             //- Sending back the error response
             //- 
+
             SendVariablesUpdateErrorMessages(clientRef, errorMessages);
 
             //- 
             //- Sending the updated variables - if available
             //- 
+
             if (updatedVariables.Count > 0)
             {
                 SendUpdatedVariables(updatedVariables);

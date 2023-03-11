@@ -220,7 +220,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="id">ID of the variable.</param>
         /// <returns>The designated variable.</returns>
         /// <exception cref="Exception"></exception>
-        private BaseVariable GetvariableWithId(ushort id)
+        private BaseVariable GetVariableWithId(ushort id)
         {
             lock (_dbMutex)
             {

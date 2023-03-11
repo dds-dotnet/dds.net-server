@@ -93,10 +93,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 return;
             }
 
-            //- 
-            //- Sending response to the client
-            //- 
+            SendVariablesRegistrationResponse(clientRef, registeredVariables, unregisteredVariables);
+        }
 
+        /// <summary>
+        /// Sends variables' registration response to the client.
+        /// </summary>
+        /// <param name="clientRef">Client's address.</param>
+        /// <param name="registeredVariables">Variables (name => id) that are registered for the client.</param>
+        /// <param name="unregisteredVariables">Variables (name => id) that are unregistered for the client.</param>
+        private void SendVariablesRegistrationResponse(
+            string clientRef,
+            Dictionary<string, ushort> registeredVariables,
+            Dictionary<string, ushort> unregisteredVariables)
+        {
             //- Calculating required size of response buffer
 
             int sizeRequired = 0;
@@ -120,7 +130,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             byte[] responseBuffer = new byte[sizeRequired];
             int responseBufferOffset = 0;
 
-            //- Filling-in the buffer
+
+            //- Filling-in the response buffer
 
             foreach (KeyValuePair<string, ushort> varInfo in registeredVariables)
             {
@@ -138,6 +149,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
         }
+
         /// <summary>
         /// Reads variable registration elements from the given packet.
         /// </summary>

@@ -63,40 +63,21 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     BaseVariable variable = GetVariableWithId(variableId);
 
-                    if (variable.VariableType == variableType)
+                    bool isUpdated = AssignVariableWithValue(
+                                        clientRef,
+                                        variable,
+                                        data, ref offset,
+                                        out string errorMessage);
+
+                    if (isUpdated)
                     {
-                        //- 
-                        //- Variable has already specified type
-                        //- 
-
-                        if (variableType == VariableType.Primitive)
-                        {
-
-                        }
-                        else if (variableType == VariableType.Compound)
-                        {
-
-                        }
-                        else
-                        {
-                            throw new Exception($"Variable type {variableType} cannot be processed");
-                        }
-                    }
-                    else if (
-                        variable.VariableType == VariableType.UnknownVariableType &&
-                        variableType != VariableType.UnknownVariableType)
-                    {
-                        //- 
-                        //- Variable type was previously unknown but it is known now
-                        //- 
+                        updatedVariables.Add(variable);
                     }
                     else
                     {
                         if (errorMessages.ContainsKey(variableId) == false)
                         {
-                            errorMessages.Add(
-                                variableId,
-                                $"Variable type should be {variable.VariableType}");
+                            errorMessages.Add(variableId, errorMessage);
                         }
                     }
                 }

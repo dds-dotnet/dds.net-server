@@ -33,6 +33,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
+
         /// <summary>
         /// Stops periodic updates of variables to their subscribers.
         /// </summary>
@@ -46,6 +47,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _periodicUpdatesTimer.Dispose();
             }
         }
+
         /// <summary>
         /// The timer callback, invoked at every Settings.BASE_TIME_SLOT_MS milliseconds
         /// </summary>
@@ -63,6 +65,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 catch (Exception) { }
             }
         }
+
         /// <summary>
         /// Decides upon which Periodicity of variables should be sent to their subscribers.
         /// </summary>

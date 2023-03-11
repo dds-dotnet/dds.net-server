@@ -260,7 +260,22 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             ref int offset,
             out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable.VariableType == VariableType.Compound)
+            {
+
+            }
+            else if (variable.VariableType == VariableType.Primitive)
+            {
+
+            }
+            else if (variable.VariableType == VariableType.UnknownVariableType &&
+                     givenVariableType != VariableType.UnknownVariableType)
+            {
+
+            }
+
+            errorMessage = string.Empty;
+            return false;
         }
 
         /// <summary>

@@ -82,12 +82,5 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _periodicUpdatesCounter = 0;
             }
         }
-        /// <summary>
-        /// Sends variables with selected periodicity to their subscribers.
-        /// </summary>
-        /// <param name="periodicity"></param>
-        private void DoPeriodicUpdate(Periodicity periodicity)
-        {
-        }
     }
 }

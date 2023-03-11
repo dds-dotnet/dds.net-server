@@ -261,5 +261,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Sends variables with selected periodicity to their subscribers.
+        /// </summary>
+        /// <param name="periodicity"></param>
+        private void DoPeriodicUpdate(Periodicity periodicity)
+        {
+        }
     }
 }

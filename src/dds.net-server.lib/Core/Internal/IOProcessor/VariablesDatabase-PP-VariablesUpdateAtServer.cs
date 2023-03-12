@@ -75,9 +75,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     }
                     else
                     {
-                        if (errorMessages.ContainsKey(variableId) == false)
+                        if (errorMessage != null && errorMessage != string.Empty)
                         {
-                            errorMessages.Add(variableId, errorMessage);
+                            if (errorMessages.ContainsKey(variableId) == false)
+                            {
+                                errorMessages.Add(variableId, errorMessage);
+                            }
                         }
                     }
                 }

@@ -434,8 +434,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
         }
-        
-        
+
+
 
 
         #endregion
@@ -445,11 +445,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         /// <summary>
-        /// Sends updated variables to clients that have registered for
-        /// being updated on value changes.
+        /// Sends updated variables to registered clients.
         /// </summary>
         /// <param name="updatedVariables">List of updated variables.</param>
-        private void SendUpdatedVariables(List<BaseVariable> updatedVariables)
+        /// <param name="forceSendAll">
+        /// True = send all provided variables,
+        /// False = only send variables that are marked as update on change.
+        /// </param>
+        private void SendUpdatedVariables(List<BaseVariable> updatedVariables, bool forceSendAll = false)
         {
             //- TODO
             throw new NotImplementedException();

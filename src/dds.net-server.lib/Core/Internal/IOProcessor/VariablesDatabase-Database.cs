@@ -418,8 +418,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (variable.VariableType == VariableType.Compound)
             {
-                variable.LastUpdatedAt = DateTime.UtcNow;
-
                 errorMessage = string.Empty;
                 return true;
             }
@@ -519,7 +517,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                         foreach (BaseVariable v in varsToBeSent)
                         {
-                            v.LastSentToSubscribers = DateTime.UtcNow;
                             v.WriteOnBuffer(ref buffer, ref bufferOffset);
                         }
 
@@ -565,7 +562,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                         foreach (BaseVariable v in varsToBeSent)
                         {
-                            v.LastSentToSubscribers = DateTime.UtcNow;
                             v.WriteOnBuffer(ref buffer, ref bufferOffset);
                         }
 

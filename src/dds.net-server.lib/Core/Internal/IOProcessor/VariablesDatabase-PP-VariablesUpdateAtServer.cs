@@ -66,11 +66,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                                         clientRef,
                                         variable,
                                         data, ref offset,
+                                        out BaseVariable updatedVariable,
                                         out string errorMessage);
 
                     if (isUpdated)
                     {
-                        updatedVariables.Add(variable);
+                        updatedVariables.Add(updatedVariable);
                     }
                     else
                     {

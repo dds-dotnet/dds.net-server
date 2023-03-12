@@ -454,7 +454,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 throw new Exception(
                     $"Cannot upgrade {variable.Name} " +
-                    $"from {variable.VariableType} to {readVariableType}";
+                    $"from {variable.VariableType} to {readVariableType}");
             }
 
             throw new Exception(

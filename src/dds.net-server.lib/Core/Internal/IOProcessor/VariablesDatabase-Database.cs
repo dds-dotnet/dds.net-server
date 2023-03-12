@@ -438,6 +438,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     string value = data.ReadString(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveString((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Boolean)
                 {
@@ -497,6 +498,151 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             throw new Exception(
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
+        }
+
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveString(BasePrimitive variable, string value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveBoolean(BasePrimitive variable, bool value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveByte(BasePrimitive variable, sbyte value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveWord(BasePrimitive variable, short value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveDWord(BasePrimitive variable, int value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveQWord(BasePrimitive variable, long value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveUnsignedByte(BasePrimitive variable, byte value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveUnsignedWord(BasePrimitive variable, ushort value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveUnsignedDWord(BasePrimitive variable, uint value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveUnsignedQWord(BasePrimitive variable, ulong value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveSingle(BasePrimitive variable, float value, out string errorMessage)
+        {
+            throw new NotImplementedException();
+        }
+        /// <summary>
+        /// Assigns variable with given value.
+        /// </summary>
+        /// <param name="variable">The variable to be assigned.</param>
+        /// <param name="value">Desired value.</param>
+        /// <param name="errorMessage">Error message when value is not assigned.</param>
+        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __AssignPrimitiveDouble(BasePrimitive variable, double value, out string errorMessage)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

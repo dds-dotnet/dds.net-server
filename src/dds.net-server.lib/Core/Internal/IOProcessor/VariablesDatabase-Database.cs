@@ -519,6 +519,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                         foreach (BaseVariable v in varsToBeSent)
                         {
+                            v.LastSentToSubscribers = DateTime.UtcNow;
                             v.WriteOnBuffer(ref buffer, ref bufferOffset);
                         }
 
@@ -564,6 +565,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                         foreach (BaseVariable v in varsToBeSent)
                         {
+                            v.LastSentToSubscribers = DateTime.UtcNow;
                             v.WriteOnBuffer(ref buffer, ref bufferOffset);
                         }
 

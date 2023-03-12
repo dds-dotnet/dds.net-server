@@ -413,6 +413,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             VariableType readVariableType = data.ReadVariableType(ref offset);
 
+            __ThrowIfVariableTypeIncompatible(variable, readVariableType);
+
             if (variable.VariableType == VariableType.Compound)
             {
                 //- TODO
@@ -433,6 +435,34 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             throw new Exception(
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
+        }
+        /// <summary>
+        /// Checks for variable type compatibility, throws error if they are incompatible.
+        /// </summary>
+        /// <param name="variable">Variable that needs to be checked for compatibility.</param>
+        /// <param name="variableType">Type against which variable needs to be checked.</param>
+        /// <exception cref="Exception"></exception>
+        private void __ThrowIfVariableTypeIncompatible(BaseVariable variable, VariableType variableType)
+        {
+            if (variable.VariableType == variableType) return;
+
+            if (variable.VariableType == VariableType.Compound &&
+                variableType != VariableType.Compound)
+            {
+                throw new Exception(
+                    $"Variable {variable.Name} " +
+                    $"is of type {VariableType.Compound} " +
+                    $"and is incompatible with given type {variableType}");
+            }
+
+            if (variable.VariableType == VariableType.Primitive &&
+                variableType != VariableType.Primitive)
+            {
+                throw new Exception(
+                    $"Variable {variable.Name} " +
+                    $"is of type {VariableType.Primitive} " +
+                    $"and is incompatible with given type {variableType}");
+            }
         }
 
 

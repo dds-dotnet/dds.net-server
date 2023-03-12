@@ -436,6 +436,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 if (primitiveType == PrimitiveType.String)
                 {
                     string value = data.ReadString(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
                 }
                 else if (primitiveType == PrimitiveType.Boolean)
                 {
@@ -540,6 +542,80 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             upgradedVariable = variable;
             return false;
+        }
+
+        private void __UpgradePrimitiveVariable(
+            BasePrimitive variable,
+            PrimitiveType upgradedVariableType,
+            out BasePrimitive upgradedVariable)
+        {
+            if (variable.PrimitiveType == PrimitiveType.UnknownPrimitiveType &&
+                upgradedVariableType != PrimitiveType.UnknownPrimitiveType)
+            {
+                BasePrimitive newVar = null!;
+
+                if (upgradedVariableType == PrimitiveType.String)
+                {
+                    newVar = new StringVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.Boolean)
+                {
+                    newVar = new BooleanVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.Byte)
+                {
+                    newVar = new ByteVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.Word)
+                {
+                    newVar = new WordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.DWord)
+                {
+                    newVar = new DWordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.QWord)
+                {
+                    newVar = new QWordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.UnsignedByte)
+                {
+                    newVar = new UnsignedByteVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.UnsignedWord)
+                {
+                    newVar = new UnsignedWordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.UnsignedDWord)
+                {
+                    newVar = new UnsignedDWordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.UnsignedQWord)
+                {
+                    newVar = new UnsignedQWordVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.Single)
+                {
+                    newVar = new SingleVariable(variable.Id, variable.Name);
+                }
+                else if (upgradedVariableType == PrimitiveType.Double)
+                {
+                    newVar = new DoubleVariable(variable.Id, variable.Name);
+                }
+
+                if (newVar != null)
+                {
+                    _dbVariables[variable.Id] = newVar;
+                    upgradedVariable = newVar;
+                    return;
+                }
+
+                throw new Exception(
+                    $"Cannot upgrade {variable.Name} " +
+                    $"from {variable.PrimitiveType} to {upgradedVariableType}");
+            }
+
+            upgradedVariable = variable;
         }
 
         /// <summary>

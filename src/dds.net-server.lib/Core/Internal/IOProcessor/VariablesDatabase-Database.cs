@@ -560,6 +560,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 errorMessage =
                     $"String value cannot be assigned to a variable " +
                     $"of type {variable.PrimitiveType}";
+
                 return false;
             }
         }
@@ -573,7 +574,26 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveBoolean(BasePrimitive variable, bool value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is BooleanVariable bv)
+            {
+                errorMessage = string.Empty;
+
+                if (bv.Value != value)
+                {
+                    bv.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"Boolean value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

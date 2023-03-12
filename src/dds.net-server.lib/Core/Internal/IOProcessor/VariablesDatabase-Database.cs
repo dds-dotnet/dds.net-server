@@ -100,8 +100,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
-        
-        
+                
         /// <summary>
         /// Adds a primitive variable to the database according to the provided settings.
         /// It must not be used outside the context of database initialization from
@@ -267,7 +266,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         #endregion
-        #region Registering a client - subscription
+        #region Registering / unregistering a client - subscription / unsubscription
 
 
 
@@ -306,35 +305,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 return id;
             }
         }
-        /// <summary>
-        /// Gets variable's ID for provided name,
-        /// creates variable of unknown type if the name does not exist.
-        /// </summary>
-        /// <param name="variableName">Name of the variable.</param>
-        /// <returns>ID of the variable.</returns>
-        private ushort __GetVariableIdCreateUnknownIfNotExists(string variableName)
-        {
-            if (_dbVariableIds.ContainsKey(variableName))
-            {
-                return _dbVariableIds[variableName];
-            }
-
-            ushort id = IdGenerator.GetNextVariableId();
-
-            _dbVariableIds.Add(variableName, id);
-            _dbVariables.Add(id, new UnknownVariable(id, variableName));
-
-            return id;
-        }
-        
-        
-
-
-        #endregion
-        #region Unregistering a client - removing subscription
-
-
-
 
         /// <summary>
         /// Unregisters a client for specified variable.
@@ -363,12 +333,33 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 return id;
             }
         }
+
+        /// <summary>
+        /// Gets variable's ID for provided name,
+        /// creates variable of unknown type if the name does not exist.
+        /// </summary>
+        /// <param name="variableName">Name of the variable.</param>
+        /// <returns>ID of the variable.</returns>
+        private ushort __GetVariableIdCreateUnknownIfNotExists(string variableName)
+        {
+            if (_dbVariableIds.ContainsKey(variableName))
+            {
+                return _dbVariableIds[variableName];
+            }
+
+            ushort id = IdGenerator.GetNextVariableId();
+
+            _dbVariableIds.Add(variableName, id);
+            _dbVariables.Add(id, new UnknownVariable(id, variableName));
+
+            return id;
+        }
         
         
 
 
         #endregion
-        #region Getting a variable - accessing a variable from outside
+        #region Getting a variable - accessing a variable from outside the partial-class
 
 
 

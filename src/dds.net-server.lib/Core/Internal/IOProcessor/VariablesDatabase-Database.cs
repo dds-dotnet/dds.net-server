@@ -276,7 +276,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             }
 
-            throw new Exception($"Cannot assign {readVariableType} for local variable of {variable.VariableType}");
+            throw new Exception(
+                $"Cannot assign {readVariableType} to " +
+                $"local variable ({variable.Name}) of type {variable.VariableType}");
         }
 
         /// <summary>

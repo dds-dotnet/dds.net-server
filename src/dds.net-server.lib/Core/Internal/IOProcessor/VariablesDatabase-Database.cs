@@ -173,6 +173,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbSubscribers.Clear();
             }
         }
+        
         /// <summary>
         /// Removes the client from subscription and provision; i.e., the client is disconnected.
         /// </summary>
@@ -184,6 +185,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 // TODO: To be implemented
             }
         }
+
         /// <summary>
         /// Registers a client for specified variable.
         /// </summary>
@@ -199,6 +201,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// Unregisters a client for specified variable.
         /// </summary>
@@ -214,6 +217,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 throw new NotImplementedException();
             }
         }
+
         /// <summary>
         /// Returns an existing variable with specified <c>ID</c>.
         /// Throws exception otherwise.
@@ -235,6 +239,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
+
         /// <summary>
         /// Sends updated variables to clients that have registered for
         /// being updated on value changes.
@@ -242,8 +247,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="updatedVariables">List of updated variables.</param>
         private void SendUpdatedVariables(List<BaseVariable> updatedVariables)
         {
+            //- TODO
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// Assigns variable with value read from buffer.
         /// </summary>
@@ -264,16 +271,19 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (variable.VariableType == VariableType.Compound)
             {
-
+                //- TODO
+                throw new NotImplementedException();
             }
             else if (variable.VariableType == VariableType.Primitive)
             {
-
+                //- TODO
+                throw new NotImplementedException();
             }
             else if (variable.VariableType == VariableType.UnknownVariableType &&
                      readVariableType != VariableType.UnknownVariableType)
             {
-
+                //- TODO
+                throw new NotImplementedException();
             }
 
             throw new Exception(
@@ -287,6 +297,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="periodicity"></param>
         private void DoPeriodicUpdate(Periodicity periodicity)
         {
+            //- TODO
+            throw new NotImplementedException();
         }
     }
 }

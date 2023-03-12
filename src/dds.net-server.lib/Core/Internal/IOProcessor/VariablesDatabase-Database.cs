@@ -182,8 +182,29 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                // TODO: To be implemented
-                throw new NotImplementedException();
+                __RemoveSubscribers(clientRef);
+            }
+        }
+        /// <summary>
+        /// Removes <c>VariableSubscriber</c> instances from <c>_dbSubscribers</c>
+        /// that have specified client.
+        /// </summary>
+        /// <param name="clientRef">Client identifier.</param>
+        private void __RemoveSubscribers(string clientRef)
+        {
+            List<VariableSubscriber> subscribersToBeRemoved = new();
+
+            foreach (VariableSubscriber s in _dbSubscribers)
+            {
+                if (s.ClientRef == clientRef)
+                {
+                    subscribersToBeRemoved.Add(s);
+                }
+            }
+
+            foreach (VariableSubscriber s in subscribersToBeRemoved)
+            {
+                _dbSubscribers.Remove(s);
             }
         }
 

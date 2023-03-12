@@ -677,25 +677,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveUnsignedDWord(BasePrimitive variable, uint value, out string errorMessage)
         {
-            if (variable is UnsignedQWordVariable usqw)
-            {
-                errorMessage = string.Empty;
-
-                if (usqw.Value != value)
-                {
-                    usqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedDWordVariable usdw)
+            if (variable is UnsignedDWordVariable usdw)
             {
                 errorMessage = string.Empty;
 
                 if (usdw.Value != value)
                 {
                     usdw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedQWordVariable usqw)
+            {
+                errorMessage = string.Empty;
+
+                if (usqw.Value != value)
+                {
+                    usqw.Value = value;
                     return true;
                 }
 

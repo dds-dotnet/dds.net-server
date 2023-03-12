@@ -443,7 +443,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
                 else if (readVariableType == VariableType.Primitive)
                 {
+                    UnknownPrimitiveVariable ukPV = new(variable.Id, variable.Name);
 
+                    _dbVariables[variable.Id] = ukPV;
+
+                    updatedVariable = ukPV;
+                    errorMessage = string.Empty;
+                    return true;
                 }
             }
 

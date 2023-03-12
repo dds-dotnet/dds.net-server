@@ -554,7 +554,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private void __UpgradePrimitiveVariable(
             BasePrimitive variable,
             PrimitiveType upgradedVariableType,
-            out BasePrimitive upgradedVariable)
+            out BaseVariable upgradedVariable)
         {
             if (variable.PrimitiveType == PrimitiveType.UnknownPrimitiveType &&
                 upgradedVariableType != PrimitiveType.UnknownPrimitiveType)

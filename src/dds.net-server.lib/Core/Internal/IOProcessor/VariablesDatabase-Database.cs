@@ -417,8 +417,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (variable.VariableType == VariableType.Compound)
             {
-                //- TODO
-                throw new NotImplementedException();
+                variable.LastUpdatedAt = DateTime.Now;
+
+                errorMessage = string.Empty;
+                return true;
             }
             else if (variable.VariableType == VariableType.Primitive)
             {

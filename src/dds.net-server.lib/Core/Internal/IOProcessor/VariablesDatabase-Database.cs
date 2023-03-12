@@ -701,7 +701,38 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveSingle(BasePrimitive variable, float value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is SingleVariable sv)
+            {
+                errorMessage = string.Empty;
+
+                if (sv.Value != value)
+                {
+                    sv.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is DoubleVariable dv)
+            {
+                errorMessage = string.Empty;
+
+                if (dv.Value != value)
+                {
+                    dv.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"Single value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

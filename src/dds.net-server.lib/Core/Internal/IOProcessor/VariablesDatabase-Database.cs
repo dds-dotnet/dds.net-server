@@ -418,7 +418,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (variable.VariableType == VariableType.Compound)
             {
-                variable.LastUpdatedAt = DateTime.Now;
+                variable.LastUpdatedAt = DateTime.UtcNow;
 
                 errorMessage = string.Empty;
                 return true;

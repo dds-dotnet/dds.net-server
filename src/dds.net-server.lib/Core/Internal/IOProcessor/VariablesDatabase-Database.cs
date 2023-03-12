@@ -543,7 +543,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveString(BasePrimitive variable, string value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is StringVariable sv)
+            {
+                errorMessage = string.Empty;
+
+                if (sv.Value != value)
+                {
+                    sv.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"String value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

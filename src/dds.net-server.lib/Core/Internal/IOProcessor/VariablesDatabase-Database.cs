@@ -544,6 +544,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             return false;
         }
 
+        /// <summary>
+        /// Upgrades an unknown primitive variable to specified type.
+        /// </summary>
+        /// <param name="variable">Current variable instance.</param>
+        /// <param name="upgradedVariableType">Desired type of the variable.</param>
+        /// <param name="upgradedVariable">New updated variable instance.</param>
+        /// <exception cref="Exception"></exception>
         private void __UpgradePrimitiveVariable(
             BasePrimitive variable,
             PrimitiveType upgradedVariableType,

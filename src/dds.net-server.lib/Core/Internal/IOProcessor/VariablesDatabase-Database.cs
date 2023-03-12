@@ -443,7 +443,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="variable">Variable that needs to be checked for compatibility.</param>
         /// <param name="variableType">Type against which variable needs to be checked.</param>
         /// <exception cref="Exception"></exception>
-        private void __ThrowIfVariableTypeIncompatible(BaseVariable variable, VariableType variableType)
+        private static void __ThrowIfVariableTypeIncompatible(BaseVariable variable, VariableType variableType)
         {
             if (variable.VariableType == variableType) return;
 

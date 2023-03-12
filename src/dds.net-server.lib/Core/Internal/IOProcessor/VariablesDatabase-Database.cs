@@ -431,35 +431,53 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             else if (variable.VariableType == VariableType.UnknownVariableType &&
                      readVariableType != VariableType.UnknownVariableType)
             {
-                if (readVariableType == VariableType.Compound)
-                {
-                    CompoundVariable newCV = new(variable.Id, variable.Name);
-
-                    _dbVariables[variable.Id] = newCV;
-
-                    updatedVariable = newCV;
-                    errorMessage = string.Empty;
-                    return true;
-                }
-                else if (readVariableType == VariableType.Primitive)
-                {
-                    UnknownPrimitiveVariable ukPV = new(variable.Id, variable.Name);
-
-                    _dbVariables[variable.Id] = ukPV;
-
-                    updatedVariable = ukPV;
-                    errorMessage = string.Empty;
-                    return true;
-                }
-
-                throw new Exception(
-                    $"Cannot upgrade {variable.Name} " +
-                    $"from {variable.VariableType} to {readVariableType}");
+                return __UpgradeVariable(variable, readVariableType, out updatedVariable, out errorMessage);
             }
 
             throw new Exception(
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
+        }
+
+        /// <summary>
+        /// Upgrades an unknown variable to specified type.
+        /// </summary>
+        /// <param name="variable">Current variable instance.</param>
+        /// <param name="upgradedVariableType">Desired type of variable.</param>
+        /// <param name="upgradedVariable">New updated variable instance.</param>
+        /// <param name="errorMessage">Error message if any.</param>
+        /// <returns>True = Upgrade done; False/Exception otherwise.</returns>
+        /// <exception cref="Exception"></exception>
+        private bool __UpgradeVariable(
+            BaseVariable variable,
+            VariableType upgradedVariableType,
+            out BaseVariable upgradedVariable,
+            out string errorMessage)
+        {
+            if (upgradedVariableType == VariableType.Compound)
+            {
+                CompoundVariable newCV = new(variable.Id, variable.Name);
+
+                _dbVariables[variable.Id] = newCV;
+
+                upgradedVariable = newCV;
+                errorMessage = string.Empty;
+                return true;
+            }
+            else if (upgradedVariableType == VariableType.Primitive)
+            {
+                UnknownPrimitiveVariable ukPV = new(variable.Id, variable.Name);
+
+                _dbVariables[variable.Id] = ukPV;
+
+                upgradedVariable = ukPV;
+                errorMessage = string.Empty;
+                return true;
+            }
+
+            throw new Exception(
+                $"Cannot upgrade {variable.Name} " +
+                $"from {variable.VariableType} to {upgradedVariableType}");
         }
 
         /// <summary>

@@ -385,10 +385,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
-        
 
 
-        
+
+
         #endregion
         #region Updating variable values
 
@@ -404,6 +404,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="offset">Offset from which data is to be read in the data buffer.</param>
         /// <param name="errorMessage">Error message when value is not assigned.</param>
         /// <returns>True = value is changed, False = variable's last value is retained.</returns>
+        /// <exception cref="Exception"></exception>
         private bool AssignVariableWithValue(
             string sender,
             BaseVariable variable,

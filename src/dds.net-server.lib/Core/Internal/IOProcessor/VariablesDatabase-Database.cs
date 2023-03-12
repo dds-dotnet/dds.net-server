@@ -415,6 +415,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             VariableType readVariableType = data.ReadVariableType(ref offset);
 
+            if (__UpgradeVariable(variable, readVariableType, out updatedVariable))
+            {
+                errorMessage = string.Empty;
+                return true;
+            }
+
             __ThrowIfVariableTypeIncompatible(variable, readVariableType);
 
             if (variable.VariableType == VariableType.Compound)
@@ -425,14 +431,65 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
             else if (variable.VariableType == VariableType.Primitive)
             {
-                //- TODO
-                throw new NotImplementedException();
-            }
-            
-            if (__UpgradeVariable(variable, readVariableType, out updatedVariable))
-            {
-                errorMessage = string.Empty;
-                return true;
+                PrimitiveType primitiveType = data.ReadPrimitiveType(ref offset);
+
+                if (primitiveType == PrimitiveType.String)
+                {
+                    string value = data.ReadString(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.Boolean)
+                {
+                    bool value = data.ReadBoolean(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.Byte)
+                {
+                    sbyte value = data.ReadByte(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.Word)
+                {
+                    short value = data.ReadWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.DWord)
+                {
+                    int value = data.ReadDWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.QWord)
+                {
+                    long value = data.ReadQWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.UnsignedByte)
+                {
+                    byte value = data.ReadUnsignedByte(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.UnsignedWord)
+                {
+                    ushort value = data.ReadUnsignedWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.UnsignedDWord)
+                {
+                    uint value = data.ReadUnsignedDWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.UnsignedQWord)
+                {
+                    ulong value = data.ReadUnsignedQWord(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.Single)
+                {
+                    float value = data.ReadSingle(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.Double)
+                {
+                    double value = data.ReadDouble(ref offset);
+                }
+                else if (primitiveType == PrimitiveType.UnknownPrimitiveType)
+                {
+                }
+                else
+                {
+                    throw new Exception(
+                        $"Cannot assign {primitiveType} to " +
+                        $"local variable ({variable.Name}) of type {((BasePrimitive)variable).PrimitiveType}");
+                }
             }
 
             throw new Exception(

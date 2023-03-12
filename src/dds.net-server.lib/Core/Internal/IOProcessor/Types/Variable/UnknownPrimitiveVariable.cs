@@ -2,9 +2,9 @@
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 {
-    internal class UnknownVariable : BasePrimitive
+    internal class UnknownPrimitiveVariable : BasePrimitive
     {
-        public UnknownVariable(ushort id, string name) : base(id, name)
+        public UnknownPrimitiveVariable(ushort id, string name) : base(id, name)
         {
             PrimitiveType = PrimitiveType.UnknownPrimitiveType;
         }

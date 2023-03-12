@@ -806,7 +806,62 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveQWord(BasePrimitive variable, long value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is QWordVariable sqw)
+            {
+                errorMessage = string.Empty;
+
+                if (sqw.Value != value)
+                {
+                    sqw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is DWordVariable sdw)
+            {
+                errorMessage = string.Empty;
+
+                if (sdw.Value != value)
+                {
+                    sdw.Value = (int)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is WordVariable sw)
+            {
+                errorMessage = string.Empty;
+
+                if (sw.Value != value)
+                {
+                    sw.Value = (short)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is ByteVariable sb)
+            {
+                errorMessage = string.Empty;
+
+                if (sb.Value != value)
+                {
+                    sb.Value = (sbyte)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"QWord value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

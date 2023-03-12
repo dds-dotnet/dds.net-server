@@ -689,7 +689,62 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveUnsignedQWord(BasePrimitive variable, ulong value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is UnsignedQWordVariable usqw)
+            {
+                errorMessage = string.Empty;
+
+                if (usqw.Value != value)
+                {
+                    usqw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedDWordVariable usdw)
+            {
+                errorMessage = string.Empty;
+
+                if (usdw.Value != value)
+                {
+                    usdw.Value = (uint)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedWordVariable usw)
+            {
+                errorMessage = string.Empty;
+
+                if (usw.Value != value)
+                {
+                    usw.Value = (ushort)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedByteVariable usb)
+            {
+                errorMessage = string.Empty;
+
+                if (usb.Value != value)
+                {
+                    usb.Value = (ushort)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"UnsignedQWord value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

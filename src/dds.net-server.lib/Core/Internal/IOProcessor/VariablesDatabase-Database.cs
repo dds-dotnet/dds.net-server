@@ -255,9 +255,48 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                // TODO: To be implemented
-                throw new NotImplementedException();
+                ushort id = __GetVariableIdCreateUnknownIfNotExists(variableName);
+
+                bool exists = false;
+
+                foreach (VariableSubscriber s in _dbSubscribers)
+                {
+                    if (s.VariableId == id &&
+                        s.ClientRef == clientRef &&
+                        s.Periodicity == periodicity)
+                    {
+                        exists = true;
+                        break;
+                    }
+                }
+
+                if (!exists)
+                {
+                    _dbSubscribers.Add(new VariableSubscriber(id, clientRef, periodicity));
+                }
+
+                return id;
             }
+        }
+        /// <summary>
+        /// Gets variable's ID for provided name,
+        /// creates variable of unknown type if the name does not exist.
+        /// </summary>
+        /// <param name="variableName">Name of the variable.</param>
+        /// <returns>ID of the variable.</returns>
+        private ushort __GetVariableIdCreateUnknownIfNotExists(string variableName)
+        {
+            if (_dbVariableIds.ContainsKey(variableName))
+            {
+                return _dbVariableIds[variableName];
+            }
+
+            ushort id = IdGenerator.GetNextVariableId();
+
+            _dbVariableIds.Add(variableName, id);
+            _dbVariables.Add(id, new UnknownVariable(id, variableName));
+
+            return id;
         }
         #endregion
         #region Unregistering a client - removing subscription

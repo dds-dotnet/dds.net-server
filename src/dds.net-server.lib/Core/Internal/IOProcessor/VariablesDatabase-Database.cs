@@ -276,8 +276,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             }
 
-            errorMessage = "Unknown error while reading value";
-            return false;
+            throw new Exception($"Cannot assign {readVariableType} for local variable of {variable.VariableType}");
         }
 
         /// <summary>

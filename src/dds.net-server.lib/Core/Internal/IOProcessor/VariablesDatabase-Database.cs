@@ -713,7 +713,38 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveDouble(BasePrimitive variable, double value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is DoubleVariable dv)
+            {
+                errorMessage = string.Empty;
+
+                if (dv.Value != value)
+                {
+                    dv.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is SingleVariable sv)
+            {
+                errorMessage = string.Empty;
+
+                if (sv.Value != value)
+                {
+                    sv.Value = (float)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"Double value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
 
         /// <summary>

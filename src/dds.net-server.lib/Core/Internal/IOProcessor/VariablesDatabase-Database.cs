@@ -451,6 +451,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     errorMessage = string.Empty;
                     return true;
                 }
+
+                throw new Exception(
+                    $"Cannot upgrade {variable.Name} " +
+                    $"from {variable.VariableType} to {readVariableType}";
             }
 
             throw new Exception(

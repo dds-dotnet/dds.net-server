@@ -448,11 +448,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// Sends updated variables to registered clients.
         /// </summary>
         /// <param name="updatedVariables">List of updated variables.</param>
-        /// <param name="forceSendAll">
-        /// True = send all provided variables,
-        /// False = only send variables that are marked as update on change.
-        /// </param>
-        private void SendUpdatedVariables(List<BaseVariable> updatedVariables, bool forceSendAll = false)
+        /// <param name="periodicity">Only select clients that have registered for specified periodicity.</param>
+        private void SendUpdatedVariables(
+            List<BaseVariable> updatedVariables,
+            Periodicity periodicity = Periodicity.OnChange)
         {
             //- TODO
             throw new NotImplementedException();

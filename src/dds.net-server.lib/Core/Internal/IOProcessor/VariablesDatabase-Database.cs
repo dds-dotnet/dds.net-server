@@ -182,7 +182,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                __RemoveSubscribers(clientRef);
+                __RemoveVariableSubscribers(clientRef);
             }
         }
         /// <summary>
@@ -190,7 +190,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// that have specified client.
         /// </summary>
         /// <param name="clientRef">Client identifier.</param>
-        private void __RemoveSubscribers(string clientRef)
+        private void __RemoveVariableSubscribers(string clientRef)
         {
             List<VariableSubscriber> subscribersToBeRemoved = new();
 

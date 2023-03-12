@@ -665,7 +665,62 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveUnsignedWord(BasePrimitive variable, ushort value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is UnsignedWordVariable usw)
+            {
+                errorMessage = string.Empty;
+
+                if (usw.Value != value)
+                {
+                    usw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedDWordVariable usdw)
+            {
+                errorMessage = string.Empty;
+
+                if (usdw.Value != value)
+                {
+                    usdw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedQWordVariable usqw)
+            {
+                errorMessage = string.Empty;
+
+                if (usqw.Value != value)
+                {
+                    usqw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is UnsignedByteVariable usb)
+            {
+                errorMessage = string.Empty;
+
+                if (usb.Value != value)
+                {
+                    usb.Value = (byte)value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"UnsignedWord value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

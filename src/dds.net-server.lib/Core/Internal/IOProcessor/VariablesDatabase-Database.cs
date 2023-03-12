@@ -158,7 +158,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     return;
 
                 case PrimitiveType.UnknownPrimitiveType:
-                    _dbVariables.Add(id, new UnknownVariable(id, primitiveSettings.VariableName));
+                    _dbVariables.Add(id, new UnknownPrimitiveVariable(id, primitiveSettings.VariableName));
                     logger.Error($"Unknown primitive \"{primitiveSettings.VariableName}\" must be avoided");
                     return;
             }

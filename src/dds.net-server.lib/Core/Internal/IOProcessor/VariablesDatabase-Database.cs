@@ -183,6 +183,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             lock (_dbMutex)
             {
                 // TODO: To be implemented
+                throw new NotImplementedException();
             }
         }
 

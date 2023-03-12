@@ -311,8 +311,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                // TODO: To be implemented
-                throw new NotImplementedException();
+                ushort id = __GetVariableIdCreateUnknownIfNotExists(variableName);
+
+                foreach (VariableSubscriber s in _dbSubscribers)
+                {
+                    if (s.VariableId == id &&
+                        s.ClientRef == clientRef &&
+                        s.Periodicity == periodicity)
+                    {
+                        _dbSubscribers.Remove(s);
+                        break;
+                    }
+                }
+
+                return id;
             }
         }
         #endregion

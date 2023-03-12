@@ -605,7 +605,62 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <exception cref="Exception"></exception>
         private bool __AssignPrimitiveByte(BasePrimitive variable, sbyte value, out string errorMessage)
         {
-            throw new NotImplementedException();
+            if (variable is ByteVariable sb)
+            {
+                errorMessage = string.Empty;
+
+                if (sb.Value != value)
+                {
+                    sb.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is WordVariable sw)
+            {
+                errorMessage = string.Empty;
+
+                if (sw.Value != value)
+                {
+                    sw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is DWordVariable sdw)
+            {
+                errorMessage = string.Empty;
+
+                if (sdw.Value != value)
+                {
+                    sdw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else if (variable is QWordVariable sqw)
+            {
+                errorMessage = string.Empty;
+
+                if (sqw.Value != value)
+                {
+                    sqw.Value = value;
+                    return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                errorMessage =
+                    $"Byte value cannot be assigned to a variable " +
+                    $"of type {variable.PrimitiveType}";
+
+                return false;
+            }
         }
         /// <summary>
         /// Assigns variable with given value.

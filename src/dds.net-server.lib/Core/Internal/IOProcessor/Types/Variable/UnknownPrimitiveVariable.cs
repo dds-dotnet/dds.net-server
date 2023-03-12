@@ -11,12 +11,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
 
         public override int GetValueSizeOnBuffer()
         {
-            throw new Exception("Unknown variable - size cannot be estimated");
+            return 0;
         }
 
         public override void WriteValueOnBuffer(ref byte[] buffer, ref int offset)
         {
-            throw new Exception("Unknown variable - cannot be written on buffer");
         }
     }
 }

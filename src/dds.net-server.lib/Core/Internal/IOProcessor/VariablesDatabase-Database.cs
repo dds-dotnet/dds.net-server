@@ -215,9 +215,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="clientRef">Client identifier.</param>
         private void __RemoveVariableProviders(string clientRef)
         {
+            List<VariableProvider> providersToBeRemoved = new();
+
             foreach (BaseVariable var in _dbVariables.Values)
             {
-                List<VariableProvider> providersToBeRemoved = new();
+                providersToBeRemoved.Clear();
 
                 foreach (VariableProvider p in var.Providers)
                 {

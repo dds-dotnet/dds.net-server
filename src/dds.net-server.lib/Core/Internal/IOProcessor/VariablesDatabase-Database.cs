@@ -410,6 +410,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             BaseVariable variable,
             byte[] data,
             ref int offset,
+            out BaseVariable updatedVariable,
             out string errorMessage)
         {
             VariableType readVariableType = data.ReadVariableType(ref offset);
@@ -418,6 +419,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (variable.VariableType == VariableType.Compound)
             {
+                updatedVariable = variable;
                 errorMessage = string.Empty;
                 return true;
             }

@@ -431,8 +431,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             else if (variable.VariableType == VariableType.UnknownVariableType &&
                      readVariableType != VariableType.UnknownVariableType)
             {
-                //- TODO
-                throw new NotImplementedException();
+                if (readVariableType == VariableType.Compound)
+                {
+                    CompoundVariable newCV = new(variable.Id, variable.Name);
+
+                    _dbVariables[variable.Id] = newCV;
+
+                    updatedVariable = newCV;
+                    errorMessage = string.Empty;
+                    return true;
+                }
+                else if (readVariableType == VariableType.Primitive)
+                {
+
+                }
             }
 
             throw new Exception(

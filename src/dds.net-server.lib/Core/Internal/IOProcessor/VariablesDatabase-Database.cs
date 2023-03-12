@@ -443,46 +443,79 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 else if (primitiveType == PrimitiveType.Boolean)
                 {
                     bool value = data.ReadBoolean(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveBoolean((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Byte)
                 {
                     sbyte value = data.ReadByte(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveByte((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Word)
                 {
                     short value = data.ReadWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.DWord)
                 {
                     int value = data.ReadDWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveDWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.QWord)
                 {
                     long value = data.ReadQWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveQWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedByte)
                 {
                     byte value = data.ReadUnsignedByte(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveUnsignedByte((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedWord)
                 {
                     ushort value = data.ReadUnsignedWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveUnsignedWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedDWord)
                 {
                     uint value = data.ReadUnsignedDWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveUnsignedDWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedQWord)
                 {
                     ulong value = data.ReadUnsignedQWord(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveUnsignedQWord((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Single)
                 {
                     float value = data.ReadSingle(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveSingle((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Double)
                 {
                     double value = data.ReadDouble(ref offset);
+
+                    __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                    return __AssignPrimitiveDouble((BasePrimitive)updatedVariable, value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnknownPrimitiveType)
                 {

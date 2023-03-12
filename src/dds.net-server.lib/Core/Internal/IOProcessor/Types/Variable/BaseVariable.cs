@@ -39,12 +39,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         /// <summary>
         /// Last update timestamp
         /// </summary>
-        public DateTime LastUpdatedAt { get; set; } = DateTime.Now;
+        public DateTime LastUpdatedAt { get; set; } = DateTime.UtcNow;
 
         /// <summary>
         /// Timestamp for when the variable was sent to subscribers
         /// </summary>
-        public DateTime LastSentToSubscribers { get; set; } = DateTime.Now;
+        public DateTime LastSentToSubscribers { get; set; } = DateTime.UtcNow;
 
 
         public BaseVariable(ushort id, string name)

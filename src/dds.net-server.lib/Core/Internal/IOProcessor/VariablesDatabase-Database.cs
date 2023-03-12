@@ -183,6 +183,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             lock (_dbMutex)
             {
                 __RemoveVariableSubscribers(clientRef);
+                __RemoveVariableProviders(clientRef);
             }
         }
         /// <summary>
@@ -205,6 +206,31 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             foreach (VariableSubscriber s in subscribersToBeRemoved)
             {
                 _dbSubscribers.Remove(s);
+            }
+        }
+        /// <summary>
+        /// Removes <c>VariableProvider</c> instances from <c>_dbVariables.Providers</c>
+        /// that have specified client.
+        /// </summary>
+        /// <param name="clientRef">Client identifier.</param>
+        private void __RemoveVariableProviders(string clientRef)
+        {
+            foreach (BaseVariable var in _dbVariables.Values)
+            {
+                List<VariableProvider> providersToBeRemoved = new();
+
+                foreach (VariableProvider p in var.Providers)
+                {
+                    if (p.ClientRef == clientRef)
+                    {
+                        providersToBeRemoved.Add(p);
+                    }
+                }
+
+                foreach (VariableProvider p in providersToBeRemoved)
+                {
+                    var.Providers.Remove(p);
+                }
             }
         }
 

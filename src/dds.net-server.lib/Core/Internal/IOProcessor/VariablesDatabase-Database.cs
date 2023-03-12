@@ -17,6 +17,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private List<VariableSubscriber> _dbSubscribers = new();
 
         #region Initialization - from provided settings
+
+
+
+
         /// <summary>
         /// Initializing the database from provided settings
         /// </summary>
@@ -165,8 +169,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             throw new NotImplementedException($"Variable type {primitiveSettings.PrimitiveType} not implemented!");
         }
+        
+        
+
+
         #endregion
         #region Clearing all the data
+
+
+
+
         /// <summary>
         /// Clears out all the held variables and their associated data.
         /// </summary>
@@ -179,8 +191,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbSubscribers.Clear();
             }
         }
+        
+        
+
+
         #endregion
         #region Removing a client - from subscription and provision
+
+
+
+
         /// <summary>
         /// Removes the client from subscription and provision; i.e., the client is disconnected.
         /// </summary>
@@ -242,8 +262,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
+        
+        
+
+
         #endregion
         #region Registering a client - subscription
+
+
+
+
         /// <summary>
         /// Registers a client for specified variable.
         /// </summary>
@@ -298,8 +326,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             return id;
         }
+        
+        
+
+
         #endregion
         #region Unregistering a client - removing subscription
+
+
+
+
         /// <summary>
         /// Unregisters a client for specified variable.
         /// </summary>
@@ -327,8 +363,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 return id;
             }
         }
+        
+        
+
+
         #endregion
         #region Getting a variable - accessing a variable from outside
+
+
+
+
         /// <summary>
         /// Returns an existing variable with specified <c>ID</c>.
         /// Throws exception otherwise.
@@ -350,8 +394,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
+        
+
+
+        
         #endregion
         #region Updating variable values
+
+
+
+
         /// <summary>
         /// Assigns variable with value read from buffer.
         /// </summary>
@@ -391,8 +443,16 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
         }
+        
+        
+
+
         #endregion
         #region Sending updated variables to their subscribers
+
+
+
+
         /// <summary>
         /// Sends updated variables to clients that have registered for
         /// being updated on value changes.
@@ -414,6 +474,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             //- TODO
             throw new NotImplementedException();
         }
+        
+        
+
+
         #endregion
     }
 }

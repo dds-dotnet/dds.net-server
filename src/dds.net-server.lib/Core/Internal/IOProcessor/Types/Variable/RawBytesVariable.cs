@@ -7,7 +7,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
     {
         public byte[] Data { get; private set; }
 
-        public RawBytesVariable(ushort id, string name, byte[] data) : base(id, name)
+        public RawBytesVariable(ushort id, string name, byte[] data = null!) : base(id, name)
         {
             VariableType = VariableType.RawBytes;
             Data = data;

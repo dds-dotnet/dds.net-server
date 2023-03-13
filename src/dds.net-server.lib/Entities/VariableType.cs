@@ -7,7 +7,7 @@
         /// </summary>
         Primitive,
         /// <summary>
-        /// Represents a sequence of bytes
+        /// Represents a sequence of bytes (unsigned bytes)
         /// </summary>
         RawBytes,
         /// <summary>

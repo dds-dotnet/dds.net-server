@@ -482,7 +482,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                             .AssignPrimitiveDouble(data.ReadSingle(ref offset), out errorMessage);
 
                     case PrimitiveType.Double:
-                        return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(data.ReadDouble(ref offset), out errorMessage);
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadDouble(ref offset), out errorMessage);
 
                     case PrimitiveType.UnknownPrimitiveType: break;
 

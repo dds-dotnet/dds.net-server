@@ -77,7 +77,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
-                
+
         /// <summary>
         /// Adds a primitive variable to the database according to the provided settings.
         /// It must not be used outside the context of database initialization from
@@ -145,8 +145,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             throw new NotImplementedException($"Variable type {primitiveSettings.PrimitiveType} not implemented!");
         }
-        
-        
+
+
 
 
         #endregion
@@ -167,8 +167,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbSubscribers.Clear();
             }
         }
-        
-        
+
+
 
 
         #endregion
@@ -238,8 +238,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
             }
         }
-        
-        
+
+
 
 
         #endregion
@@ -331,8 +331,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             return id;
         }
-        
-        
+
+
 
 
         #endregion
@@ -400,17 +400,40 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             __ThrowIfVariableTypeIncompatible(variable, readVariableType);
 
-            if (variable.VariableType == VariableType.RawBytes)
+            if (updatedVariable.VariableType == VariableType.RawBytes)
             {
-                updatedVariable = variable;
                 errorMessage = string.Empty;
-                return true;
+
+                RawBytesVariable rawBytesVariable = (RawBytesVariable)updatedVariable;
+
+                int totalBytes = (int)data.ReadUnsignedDWord(ref offset);
+
+                if (totalBytes > 0)
+                {
+                    if (totalBytes + offset >= data.Length)
+                    {
+                        throw new Exception($"Insufficient data provided for {rawBytesVariable.Name}");
+                    }
+
+                    byte[] bytes = new byte[totalBytes];
+
+                    for (int i = 0; i < totalBytes; i++)
+                    {
+                        bytes[i] = data[offset++];
+                    }
+
+                    return rawBytesVariable.UpdateData(bytes);
+                }
+                else
+                {
+                    return rawBytesVariable.UpdateData(null!);
+                }
             }
-            else if (variable.VariableType == VariableType.Primitive)
+            else if (updatedVariable.VariableType == VariableType.Primitive)
             {
                 PrimitiveType primitiveType = data.ReadPrimitiveType(ref offset);
 
-                __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
+                __UpgradePrimitiveVariable((BasePrimitive)updatedVariable, primitiveType, out updatedVariable);
 
                 switch (primitiveType)
                 {

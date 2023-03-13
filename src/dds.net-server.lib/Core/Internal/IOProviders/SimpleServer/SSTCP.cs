@@ -90,6 +90,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
                 isDataReceiverThreadRunning = true;
                 dataReceiverThread = new Thread(DataReceiverThread);
+                dataReceiverThread.Start();
 
                 while (isConnectionListenerThreadRunning)
                 {

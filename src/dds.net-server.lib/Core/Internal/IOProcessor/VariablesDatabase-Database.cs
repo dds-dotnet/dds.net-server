@@ -54,11 +54,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
 
                 //- 
-                //- Processing Compound variables
+                //- Processing RawBytes variables
                 //- 
                 foreach (VariableSettings settings in variablesConfiguration.Settings)
                 {
-                    if (settings is CompoundVariableSettings c)
+                    if (settings is RawBytesVariableSettings c)
                     {
                         if (_dbVariableIds.ContainsKey(settings.VariableName))
                         {
@@ -70,30 +70,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                         _dbVariableIds.Add(settings.VariableName, id);
 
-                        CompoundVariable cv = new(id, settings.VariableName);
-
-                        foreach (string pn in c.PrimitiveNames)
-                        {
-                            if (_dbVariableIds.ContainsKey(pn))
-                            {
-                                ushort vid = _dbVariableIds[pn];
-
-                                if (_dbVariables.ContainsKey(vid))
-                                {
-                                    cv.AddVariable(_dbVariables[vid]);
-                                }
-                                else
-                                {
-                                    logger.Error($"Variable named \"{pn}\" with id {vid} " +
-                                                 $"does not exist in DB to add to CompoundVariable named \"{c.VariableName}\"");
-                                }
-                            }
-                            else
-                            {
-                                logger.Error($"Variable named \"{pn}\" does not exist in DB " +
-                                             $"to add to CompoundVariable named \"{c.VariableName}\"");
-                            }
-                        }
+                        RawBytesVariable cv = new(id, settings.VariableName, c.Data);
 
                         _dbVariables.Add(id, cv);
                     }
@@ -423,7 +400,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             __ThrowIfVariableTypeIncompatible(variable, readVariableType);
 
-            if (variable.VariableType == VariableType.Compound)
+            if (variable.VariableType == VariableType.RawBytes)
             {
                 updatedVariable = variable;
                 errorMessage = string.Empty;
@@ -515,13 +492,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             if (variable.VariableType == VariableType.UnknownVariableType &&
                 upgradedVariableType != VariableType.UnknownVariableType)
             {
-                if (upgradedVariableType == VariableType.Compound)
+                if (upgradedVariableType == VariableType.RawBytes)
                 {
-                    CompoundVariable newCV = new(variable.Id, variable.Name);
+                    RawBytesVariable newRB = new(variable.Id, variable.Name);
 
-                    _dbVariables[variable.Id] = newCV;
+                    _dbVariables[variable.Id] = newRB;
 
-                    upgradedVariable = newCV;
+                    upgradedVariable = newRB;
                     return true;
 
                 }
@@ -635,12 +612,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             if (variable.VariableType == variableType) return;
 
-            if (variable.VariableType == VariableType.Compound &&
-                variableType != VariableType.Compound)
+            if (variable.VariableType == VariableType.RawBytes &&
+                variableType != VariableType.RawBytes)
             {
                 throw new Exception(
                     $"Variable {variable.Name} " +
-                    $"is of type {VariableType.Compound} " +
+                    $"is of type {VariableType.RawBytes} " +
                     $"and is incompatible with given type {variableType}");
             }
 

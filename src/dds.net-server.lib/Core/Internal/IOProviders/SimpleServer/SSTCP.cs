@@ -134,7 +134,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
 
                 try
                 {
-                    dataReceiverThread.Join();
+                    dataReceiverThread.Join(1000);
                 }
                 catch (Exception) { }
 

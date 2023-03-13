@@ -56,17 +56,34 @@ namespace DDS.Net.Server.PublicHelpers
                     VariableType variableType =
                         Enum.Parse<VariableType>(_confReader.GetString($"{variableName}/VariableType"));
 
-                    if (variableType == VariableType.Compound)
+                    if (variableType == VariableType.RawBytes)
                     {
-                        string primVal = _confReader.GetString($"{variableName}/PrimitiveNames");
-                        string[] primValsSplit = primVal.Split(
-                                            ',',
+                        string data = _confReader.GetString($"{variableName}/Data");
+                        string[] dataValues = data.Split(
+                                            new char[] { ',', ' ' },
                                             StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-                        variablesConfiguration.AddVariableSettings(
-                            new CompoundVariableSettings(
-                                variableName,
-                                new List<string>(primValsSplit)));
+                        byte[] values = null!;
+
+                        if (dataValues.Length > 0)
+                        {
+                            values = new byte[dataValues.Length];
+
+                            for (int i = 0; i < dataValues.Length; i++)
+                            {
+                                if (byte.TryParse(dataValues[i], out byte value))
+                                {
+                                    values[i] = value;
+                                }
+                                else
+                                {
+                                    values[i] = 0;
+                                }
+                            }
+                        }
+
+                        variablesConfiguration
+                            .AddVariableSettings(new RawBytesVariableSettings(variableName, values));
                     }
                     else if (variableType == VariableType.Primitive)
                     {

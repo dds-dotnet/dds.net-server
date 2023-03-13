@@ -9,7 +9,7 @@
         /// <summary>
         /// Represents a sequence of bytes
         /// </summary>
-        RawBytesArray,
+        RawBytes,
         /// <summary>
         /// Unknown type
         /// </summary>

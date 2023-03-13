@@ -2,11 +2,11 @@
 {
     public class RawBytesVariableSettings : VariableSettings
     {
-        public byte[] Bytes { get; private set; }
+        public byte[] Data { get; private set; }
 
         public RawBytesVariableSettings(string name, byte[] data) : base(name)
         {
-            Bytes = data;
+            Data = data;
         }
     }
 }

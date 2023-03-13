@@ -47,7 +47,12 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                 if (clientListenerThread != null)
                 {
                     isClientListenerThreadRunning = false;
-                    clientListenerThread.Join();
+
+                    try
+                    {
+                        clientListenerThread.Join(1000);
+                    }
+                    catch { }
                 }
             }
         }

@@ -435,74 +435,61 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
 
-                if (primitiveType == PrimitiveType.String)
+                switch (primitiveType)
                 {
-                    string value = data.ReadString(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveString(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.Boolean)
-                {
-                    bool value = data.ReadBoolean(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveBoolean(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.Byte)
-                {
-                    sbyte value = data.ReadByte(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.Word)
-                {
-                    short value = data.ReadWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.DWord)
-                {
-                    int value = data.ReadDWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.QWord)
-                {
-                    long value = data.ReadQWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.UnsignedByte)
-                {
-                    byte value = data.ReadUnsignedByte(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.UnsignedWord)
-                {
-                    ushort value = data.ReadUnsignedWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.UnsignedDWord)
-                {
-                    uint value = data.ReadUnsignedDWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.UnsignedQWord)
-                {
-                    ulong value = data.ReadUnsignedQWord(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.Single)
-                {
-                    float value = data.ReadSingle(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.Double)
-                {
-                    double value = data.ReadDouble(ref offset);
-                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
-                }
-                else if (primitiveType == PrimitiveType.UnknownPrimitiveType)
-                {
-                }
-                else
-                {
-                    throw new Exception(
-                        $"Cannot assign {primitiveType} to " +
-                        $"local variable ({variable.Name}) of type {((BasePrimitive)variable).PrimitiveType}");
+                    case PrimitiveType.String:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveString(data.ReadString(ref offset), out errorMessage);
+
+                    case PrimitiveType.Boolean:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveBoolean(data.ReadBoolean(ref offset), out errorMessage);
+
+                    case PrimitiveType.Byte:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadByte(ref offset), out errorMessage);
+
+                    case PrimitiveType.Word:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.DWord:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadDWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.QWord:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadQWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.UnsignedByte:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadUnsignedByte(ref offset), out errorMessage);
+
+                    case PrimitiveType.UnsignedWord:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadUnsignedWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.UnsignedDWord:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadUnsignedDWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.UnsignedQWord:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadUnsignedQWord(ref offset), out errorMessage);
+
+                    case PrimitiveType.Single:
+                        return ((BasePrimitive)updatedVariable)
+                            .AssignPrimitiveDouble(data.ReadSingle(ref offset), out errorMessage);
+
+                    case PrimitiveType.Double:
+                        return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(data.ReadDouble(ref offset), out errorMessage);
+
+                    case PrimitiveType.UnknownPrimitiveType: break;
+
+                    default:
+                        throw new Exception(
+                            $"Cannot assign {primitiveType} to " +
+                            $"local variable ({variable.Name}) of type {((BasePrimitive)variable).PrimitiveType}");
                 }
             }
 

@@ -7,9 +7,9 @@
         /// </summary>
         Primitive,
         /// <summary>
-        /// Represents a combination of basic variable types
+        /// Represents a sequence of bytes
         /// </summary>
-        Compound,
+        RawBytesArray,
         /// <summary>
         /// Unknown type
         /// </summary>

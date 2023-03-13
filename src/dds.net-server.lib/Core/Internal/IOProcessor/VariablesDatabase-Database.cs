@@ -438,84 +438,84 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     string value = data.ReadString(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveString((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveString(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Boolean)
                 {
                     bool value = data.ReadBoolean(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveBoolean((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveBoolean(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Byte)
                 {
                     sbyte value = data.ReadByte(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveByte((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Word)
                 {
                     short value = data.ReadWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.DWord)
                 {
                     int value = data.ReadDWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveDWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.QWord)
                 {
                     long value = data.ReadQWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveQWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedByte)
                 {
                     byte value = data.ReadUnsignedByte(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveUnsignedByte((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedWord)
                 {
                     ushort value = data.ReadUnsignedWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveUnsignedWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedDWord)
                 {
                     uint value = data.ReadUnsignedDWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveUnsignedDWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnsignedQWord)
                 {
                     ulong value = data.ReadUnsignedQWord(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveUnsignedQWord((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Single)
                 {
                     float value = data.ReadSingle(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveSingle((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.Double)
                 {
                     double value = data.ReadDouble(ref offset);
 
                     __UpgradePrimitiveVariable((BasePrimitive)variable, primitiveType, out updatedVariable);
-                    return __AssignPrimitiveDouble((BasePrimitive)updatedVariable, value, out errorMessage);
+                    return ((BasePrimitive)updatedVariable).AssignPrimitiveDouble(value, out errorMessage);
                 }
                 else if (primitiveType == PrimitiveType.UnknownPrimitiveType)
                 {
@@ -531,691 +531,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             throw new Exception(
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
-        }
-
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveString(BasePrimitive variable, string value, out string errorMessage)
-        {
-            if (variable is StringVariable sv)
-            {
-                errorMessage = string.Empty;
-
-                if (sv.Value != value)
-                {
-                    sv.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"String value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveBoolean(BasePrimitive variable, bool value, out string errorMessage)
-        {
-            if (variable is BooleanVariable bv)
-            {
-                errorMessage = string.Empty;
-
-                if (bv.Value != value)
-                {
-                    bv.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"Boolean value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveByte(BasePrimitive variable, sbyte value, out string errorMessage)
-        {
-            if (variable is ByteVariable sb)
-            {
-                errorMessage = string.Empty;
-
-                if (sb.Value != value)
-                {
-                    sb.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is WordVariable sw)
-            {
-                errorMessage = string.Empty;
-
-                if (sw.Value != value)
-                {
-                    sw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is DWordVariable sdw)
-            {
-                errorMessage = string.Empty;
-
-                if (sdw.Value != value)
-                {
-                    sdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is QWordVariable sqw)
-            {
-                errorMessage = string.Empty;
-
-                if (sqw.Value != value)
-                {
-                    sqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"Byte value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveWord(BasePrimitive variable, short value, out string errorMessage)
-        {
-            if (variable is WordVariable sw)
-            {
-                errorMessage = string.Empty;
-
-                if (sw.Value != value)
-                {
-                    sw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is DWordVariable sdw)
-            {
-                errorMessage = string.Empty;
-
-                if (sdw.Value != value)
-                {
-                    sdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is QWordVariable sqw)
-            {
-                errorMessage = string.Empty;
-
-                if (sqw.Value != value)
-                {
-                    sqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is ByteVariable sb)
-            {
-                errorMessage = string.Empty;
-
-                if (sb.Value != value)
-                {
-                    sb.Value = (sbyte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"Word value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveDWord(BasePrimitive variable, int value, out string errorMessage)
-        {
-            if (variable is DWordVariable sdw)
-            {
-                errorMessage = string.Empty;
-
-                if (sdw.Value != value)
-                {
-                    sdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is QWordVariable sqw)
-            {
-                errorMessage = string.Empty;
-
-                if (sqw.Value != value)
-                {
-                    sqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is WordVariable sw)
-            {
-                errorMessage = string.Empty;
-
-                if (sw.Value != value)
-                {
-                    sw.Value = (short)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is ByteVariable sb)
-            {
-                errorMessage = string.Empty;
-
-                if (sb.Value != value)
-                {
-                    sb.Value = (sbyte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"DWord value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveQWord(BasePrimitive variable, long value, out string errorMessage)
-        {
-            if (variable is QWordVariable sqw)
-            {
-                errorMessage = string.Empty;
-
-                if (sqw.Value != value)
-                {
-                    sqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is DWordVariable sdw)
-            {
-                errorMessage = string.Empty;
-
-                if (sdw.Value != value)
-                {
-                    sdw.Value = (int)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is WordVariable sw)
-            {
-                errorMessage = string.Empty;
-
-                if (sw.Value != value)
-                {
-                    sw.Value = (short)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is ByteVariable sb)
-            {
-                errorMessage = string.Empty;
-
-                if (sb.Value != value)
-                {
-                    sb.Value = (sbyte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"QWord value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveUnsignedByte(BasePrimitive variable, byte value, out string errorMessage)
-        {
-            if (variable is UnsignedByteVariable usb)
-            {
-                errorMessage = string.Empty;
-
-                if (usb.Value != value)
-                {
-                    usb.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedWordVariable usw)
-            {
-                errorMessage = string.Empty;
-
-                if (usw.Value != value)
-                {
-                    usw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedDWordVariable usdw)
-            {
-                errorMessage = string.Empty;
-
-                if (usdw.Value != value)
-                {
-                    usdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedQWordVariable usqw)
-            {
-                errorMessage = string.Empty;
-
-                if (usqw.Value != value)
-                {
-                    usqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"UnsignedByte value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveUnsignedWord(BasePrimitive variable, ushort value, out string errorMessage)
-        {
-            if (variable is UnsignedWordVariable usw)
-            {
-                errorMessage = string.Empty;
-
-                if (usw.Value != value)
-                {
-                    usw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedDWordVariable usdw)
-            {
-                errorMessage = string.Empty;
-
-                if (usdw.Value != value)
-                {
-                    usdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedQWordVariable usqw)
-            {
-                errorMessage = string.Empty;
-
-                if (usqw.Value != value)
-                {
-                    usqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedByteVariable usb)
-            {
-                errorMessage = string.Empty;
-
-                if (usb.Value != value)
-                {
-                    usb.Value = (byte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"UnsignedWord value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveUnsignedDWord(BasePrimitive variable, uint value, out string errorMessage)
-        {
-            if (variable is UnsignedDWordVariable usdw)
-            {
-                errorMessage = string.Empty;
-
-                if (usdw.Value != value)
-                {
-                    usdw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedQWordVariable usqw)
-            {
-                errorMessage = string.Empty;
-
-                if (usqw.Value != value)
-                {
-                    usqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedWordVariable usw)
-            {
-                errorMessage = string.Empty;
-
-                if (usw.Value != value)
-                {
-                    usw.Value = (ushort)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedByteVariable usb)
-            {
-                errorMessage = string.Empty;
-
-                if (usb.Value != value)
-                {
-                    usb.Value = (byte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"UnsignedDWord value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveUnsignedQWord(BasePrimitive variable, ulong value, out string errorMessage)
-        {
-            if (variable is UnsignedQWordVariable usqw)
-            {
-                errorMessage = string.Empty;
-
-                if (usqw.Value != value)
-                {
-                    usqw.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedDWordVariable usdw)
-            {
-                errorMessage = string.Empty;
-
-                if (usdw.Value != value)
-                {
-                    usdw.Value = (uint)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedWordVariable usw)
-            {
-                errorMessage = string.Empty;
-
-                if (usw.Value != value)
-                {
-                    usw.Value = (ushort)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is UnsignedByteVariable usb)
-            {
-                errorMessage = string.Empty;
-
-                if (usb.Value != value)
-                {
-                    usb.Value = (byte)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"UnsignedQWord value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveSingle(BasePrimitive variable, float value, out string errorMessage)
-        {
-            if (variable is SingleVariable sv)
-            {
-                errorMessage = string.Empty;
-
-                if (sv.Value != value)
-                {
-                    sv.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is DoubleVariable dv)
-            {
-                errorMessage = string.Empty;
-
-                if (dv.Value != value)
-                {
-                    dv.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"Single value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
-        }
-        /// <summary>
-        /// Assigns variable with given value.
-        /// </summary>
-        /// <param name="variable">The variable to be assigned.</param>
-        /// <param name="value">Desired value.</param>
-        /// <param name="errorMessage">Error message when value is not assigned.</param>
-        /// <returns>True = value is changed, False = variable's last value is retained.</returns>
-        /// <exception cref="Exception"></exception>
-        private bool __AssignPrimitiveDouble(BasePrimitive variable, double value, out string errorMessage)
-        {
-            if (variable is DoubleVariable dv)
-            {
-                errorMessage = string.Empty;
-
-                if (dv.Value != value)
-                {
-                    dv.Value = value;
-                    return true;
-                }
-
-                return false;
-            }
-            else if (variable is SingleVariable sv)
-            {
-                errorMessage = string.Empty;
-
-                if (sv.Value != value)
-                {
-                    sv.Value = (float)value;
-                    return true;
-                }
-
-                return false;
-            }
-            else
-            {
-                errorMessage =
-                    $"Double value cannot be assigned to a variable " +
-                    $"of type {variable.PrimitiveType}";
-
-                return false;
-            }
         }
 
         /// <summary>

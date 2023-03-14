@@ -6,10 +6,11 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
     {
         private readonly LogLevel _logLevel;
 
-        public ConsoleLogger(LogLevel logLevel)
+        public ConsoleLogger(LogLevel logLevel = LogLevel.Information)
         {
             _logLevel = logLevel;
         }
+
         public void Error(string message)
         {
             Console.WriteLine($"Error: {message}");

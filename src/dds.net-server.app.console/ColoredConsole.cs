@@ -2,21 +2,26 @@
 {
     internal static class ColoredConsole
     {
+        private static Mutex mutex = new Mutex();
+
         internal static void PrintColoredLine(
             this string message,
             ConsoleColor fgColor = ConsoleColor.White,
             ConsoleColor bgColor = ConsoleColor.Black)
         {
-            ConsoleColor beforeFG = Console.ForegroundColor;
-            ConsoleColor beforeBG = Console.BackgroundColor;
+            lock (mutex)
+            {
+                ConsoleColor beforeFG = Console.ForegroundColor;
+                ConsoleColor beforeBG = Console.BackgroundColor;
 
-            Console.ForegroundColor = fgColor;
-            Console.BackgroundColor = bgColor;
+                Console.ForegroundColor = fgColor;
+                Console.BackgroundColor = bgColor;
 
-            Console.WriteLine(message);
+                Console.WriteLine(message);
 
-            Console.ForegroundColor = beforeFG;
-            Console.BackgroundColor = beforeBG;
+                Console.ForegroundColor = beforeFG;
+                Console.BackgroundColor = beforeBG;
+            }
         }
     }
 }

@@ -13,14 +13,20 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
 
         public void Error(string message)
         {
-            Console.WriteLine($"Error: {message}");
+            lock (this)
+            {
+                Console.WriteLine($"Error: {message}");
+            }
         }
 
         public void Info(string message)
         {
             if (_logLevel == LogLevel.Information)
             {
-                Console.WriteLine(message);
+                lock (this)
+                {
+                    Console.WriteLine(message);
+                }
             }
         }
 
@@ -28,7 +34,10 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
         {
             if (_logLevel != LogLevel.Error)
             {
-                Console.WriteLine($"Warning: {message}");
+                lock (this)
+                {
+                    Console.WriteLine($"Warning: {message}");
+                }
             }
         }
     }

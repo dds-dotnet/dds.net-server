@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\dds.net-server.lib\dds.net-server.lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Configuration\server-01.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

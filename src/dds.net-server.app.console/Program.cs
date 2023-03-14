@@ -16,7 +16,8 @@ namespace DDS.Net.Server.ConsoleApp
 
         static void Main(string[] args)
         {
-            Console.WriteLine("DDS.Net Server");
+            "DDS.Net Server".PrintColoredLine(ConsoleColor.DarkCyan);
+            "--------------".PrintColoredLine(ConsoleColor.DarkCyan);
 
             (bool isEnabled, ServerConfiguration? config) =
                 ConfigurationProvider.GetServerConfiguration(AppConstants.SERVER_01_CONFIG_FILENAME, logger);

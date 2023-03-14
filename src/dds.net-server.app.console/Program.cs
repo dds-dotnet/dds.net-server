@@ -16,6 +16,8 @@ namespace DDS.Net.Server.ConsoleApp
 
         static void Main(string[] args)
         {
+            Console.Title = $"DDS.Net Server";
+
             "DDS.Net Server".PrintColoredLine(ConsoleColor.DarkCyan);
             "--------------".PrintColoredLine(ConsoleColor.DarkCyan);
 

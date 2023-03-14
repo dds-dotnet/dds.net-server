@@ -45,7 +45,7 @@ namespace DDS.Net.Server.ConsoleApp
 
         private static void WaitForKey(string message, ConsoleKey waitKey, int breakTime = 100)
         {
-            Console.WriteLine(message);
+            message.PrintColoredLine(ConsoleColor.White);
 
             while (true)
             {

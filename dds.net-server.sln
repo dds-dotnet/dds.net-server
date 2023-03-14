@@ -5,8 +5,6 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dds.net-server.lib", "src\dds.net-server.lib\dds.net-server.lib.csproj", "{E4680DD8-04CE-412C-98AA-DEFC5BAD504C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dds.net-server.app.wpf", "src\dds.net-server.app.wpf\dds.net-server.app.wpf.csproj", "{06F2A8A5-24D4-4BD0-BE27-A2521715DC34}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dds.net-server.app.console", "src\dds.net-server.app.console\dds.net-server.app.console.csproj", "{1919AA9A-79BB-4D04-A452-AE314BFA1592}"
 EndProject
 Global
@@ -19,10 +17,6 @@ Global
 		{E4680DD8-04CE-412C-98AA-DEFC5BAD504C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4680DD8-04CE-412C-98AA-DEFC5BAD504C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4680DD8-04CE-412C-98AA-DEFC5BAD504C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06F2A8A5-24D4-4BD0-BE27-A2521715DC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06F2A8A5-24D4-4BD0-BE27-A2521715DC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06F2A8A5-24D4-4BD0-BE27-A2521715DC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06F2A8A5-24D4-4BD0-BE27-A2521715DC34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1919AA9A-79BB-4D04-A452-AE314BFA1592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1919AA9A-79BB-4D04-A452-AE314BFA1592}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1919AA9A-79BB-4D04-A452-AE314BFA1592}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -15,12 +15,7 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
         {
             lock (this)
             {
-                ConsoleColor before = Console.ForegroundColor;
-
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine($"Error: {message}");
-                
-                Console.ForegroundColor = before;
+                $"Error: {message}".PrintColoredLine(ConsoleColor.Magenta);
             }
         }
 
@@ -30,12 +25,7 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             {
                 lock (this)
                 {
-                    ConsoleColor before = Console.ForegroundColor;
-
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine(message);
-
-                    Console.ForegroundColor = before;
+                    message.PrintColoredLine(ConsoleColor.DarkGray);
                 }
             }
         }
@@ -46,12 +36,7 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             {
                 lock (this)
                 {
-                    ConsoleColor before = Console.ForegroundColor;
-
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"Warning: {message}");
-
-                    Console.ForegroundColor = before;
+                    $"Warning: {message}".PrintColoredLine(ConsoleColor.Yellow);
                 }
             }
         }

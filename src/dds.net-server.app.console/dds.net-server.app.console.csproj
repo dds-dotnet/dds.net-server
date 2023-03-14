@@ -9,4 +9,13 @@
     <AssemblyName>$(MSBuildProjectName.Replace(".app.console", "").Replace("dds.net", "DDS.Net").Replace("-server", " Server"))</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="Configuration\server-01.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Configuration\variables.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

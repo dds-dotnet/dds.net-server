@@ -6,9 +6,10 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
     internal class FileLogger : ILogger, IDisposable
     {
         private readonly LogLevel _logLevel;
+        private readonly bool _timestamp;
         private StreamWriter? _writer;
 
-        public FileLogger(string filename, LogLevel logLevel = LogLevel.Information)
+        public FileLogger(string filename, LogLevel logLevel = LogLevel.Information, bool timestamp = true)
         {
             try
             {
@@ -33,6 +34,7 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             }
 
             _logLevel = logLevel;
+            _timestamp = timestamp;
         }
 
         public void Dispose()
@@ -56,7 +58,14 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
         {
             lock (this)
             {
-                _writer?.WriteLine($"Error: {message}");
+                if (_timestamp)
+                {
+                    _writer?.WriteLine($"{DateTime.Now:hh:mm:ss.fff} Error: {message}");
+                }
+                else
+                {
+                    _writer?.WriteLine($"Error: {message}");
+                }
             }
         }
 
@@ -66,7 +75,14 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             {
                 lock (this)
                 {
-                    _writer?.WriteLine(message);
+                    if (_timestamp)
+                    {
+                        _writer?.WriteLine($"{DateTime.Now:hh:mm:ss.fff} {message}");
+                    }
+                    else
+                    {
+                        _writer?.WriteLine(message);
+                    }
                 }
             }
         }
@@ -77,7 +93,14 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             {
                 lock (this)
                 {
-                    _writer?.WriteLine($"Warning: {message}");
+                    if (_timestamp)
+                    {
+                        _writer?.WriteLine($"{DateTime.Now:hh:mm:ss.fff} Warning: {message}");
+                    }
+                    else
+                    {
+                        _writer?.WriteLine($"Warning: {message}");
+                    }
                 }
             }
         }

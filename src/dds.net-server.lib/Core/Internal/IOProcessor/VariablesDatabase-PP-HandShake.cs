@@ -2,6 +2,7 @@
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -75,8 +76,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 _serverInfo = new byte[
                     PacketId.HandShake.GetSizeOnBuffer() +
-                    2 + VersionInfo.SERVER_NAME.Length +
-                    2 + VersionInfo.SERVER_VERSION.Length];
+                    2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME).Length +
+                    2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION).Length];
 
                 int _serverInfoOffset = 0;
 
@@ -98,7 +99,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             byte[] _errorInfo = new byte[
                                 PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
-                                2 + message.Length];
+                                2 + Encoding.Unicode.GetBytes(message).Length];
 
             int _errorInfoOffset = 0;
 

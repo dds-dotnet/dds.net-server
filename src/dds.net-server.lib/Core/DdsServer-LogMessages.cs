@@ -24,19 +24,23 @@ namespace DDS.Net.Server
             {
                 _logger.Info($"    UDP - Disabled");
             }
+
+            _logger.Info($"");
         }
 
         private void PrintLogStarting()
         {
-            _logger.Info($"Starting {VersionInfo.SERVER_NAME} v{VersionInfo.SERVER_VERSION} " +
-                         $"at {DateTime.UtcNow} with config:");
+            _logger.Info($"{VersionInfo.SERVER_NAME} v{VersionInfo.SERVER_VERSION}");
+            _logger.Info($"");
+            _logger.Info($"Starting at {DateTime.UtcNow:yyyy/MM/dd - HH:mm:ss} with network configuration:");
 
             PrintLogPorts();
         }
 
         private void PrintLogStopping()
         {
-            _logger.Info($"Stopping at {DateTime.UtcNow} with config:");
+            _logger.Info($"");
+            _logger.Info($"Stopping at {DateTime.UtcNow:yyyy/MM/dd - HH:mm:ss} with network configuration:");
 
             PrintLogPorts();
         }

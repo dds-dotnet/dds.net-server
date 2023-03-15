@@ -8,20 +8,21 @@ namespace DDS.Net.Server
         {
             if (_serverConfig.EnableTCP)
             {
-                _logger.Info($"    TCP Port {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortTCP}");
+                _logger.Info($"    TCP -        Port = {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortTCP}");
+                _logger.Info($"        - Max clients = {_serverConfig.MaxClientsTCP}");
             }
             else
             {
-                _logger.Info($"    TCP Connections - Disabled");
+                _logger.Info($"    TCP - Disabled");
             }
 
             if (_serverConfig.EnableUDP)
             {
-                _logger.Info($"    UDP Port {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortUDP}");
+                _logger.Info($"    UDP -        Port = {_serverConfig.ListeningAddressIPv4}:{_serverConfig.ListeningPortUDP}");
             }
             else
             {
-                _logger.Info($"    UDP Connections - Disabled");
+                _logger.Info($"    UDP - Disabled");
             }
         }
 

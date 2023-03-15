@@ -19,8 +19,8 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
                 _writer.WriteLine($"DDS.Net Server");
                 _writer.WriteLine($"==============");
                 _writer.WriteLine($"Starting @");
-                _writer.WriteLine($"    Local time: {DateTime.Now,-35}");
-                _writer.WriteLine($"    UTC time:   {DateTime.UtcNow,-35}");
+                _writer.WriteLine($"    Local time: {DateTime.Now:yyyy/MMM/dd - hh:mm:ss tt}");
+                _writer.WriteLine($"    UTC time:   {DateTime.UtcNow:yyyy/MMM/dd - hh:mm:ss tt}");
                 _writer.WriteLine($"-------------------------------------------------------");
 
                 _writer.Flush();
@@ -41,8 +41,8 @@ namespace DDS.Net.Server.ConsoleApp.Interfaces.Logger
             {
                 _writer.WriteLine($"-------------------------------------------------------");
                 _writer.WriteLine($"Stopping @");
-                _writer.WriteLine($"    Local time: {DateTime.Now,-35}");
-                _writer.WriteLine($"    UTC time:   {DateTime.UtcNow,-35}");
+                _writer.WriteLine($"    Local time: {DateTime.Now:yyyy/MMM/dd - hh:mm:ss tt}");
+                _writer.WriteLine($"    UTC time:   {DateTime.UtcNow:yyyy/MMM/dd - hh:mm:ss tt}");
                 _writer.WriteLine($"-------------------------------------------------------");
                 _writer.WriteLine($"");
 

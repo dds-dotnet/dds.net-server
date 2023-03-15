@@ -4,6 +4,7 @@ using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable;
 using DDS.Net.Server.Entities;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -126,18 +127,20 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             foreach (KeyValuePair<ushort, string> errorInfo in errorMessages)
             {
                 sizeRequired +=
-                    2 +                         // Id size on buffer
-                    2 + errorInfo.Value.Length; // string size on buffer
+                    2 +                                                    // Id size on buffer
+                    2 + Encoding.Unicode.GetBytes(errorInfo.Value).Length; // string size on buffer
             }
 
             //- Sending response
 
             if (sizeRequired > 0)
             {
-                byte[] responseBuffer = new byte[sizeRequired];
+                byte[] responseBuffer = new byte[PacketId.VariablesUpdateAtServer.GetSizeOnBuffer() + sizeRequired];
                 int responseBufferOffset = 0;
 
                 //- Filling the response buffer
+
+                responseBuffer.WritePacketId(ref responseBufferOffset, PacketId.VariablesUpdateAtServer);
 
                 foreach (KeyValuePair<ushort, string> varInfo in errorMessages)
                 {

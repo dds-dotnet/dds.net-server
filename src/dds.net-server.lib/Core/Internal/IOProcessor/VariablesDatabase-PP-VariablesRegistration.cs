@@ -2,6 +2,7 @@
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
+using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -116,17 +117,17 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             foreach (KeyValuePair<string, ushort> varInfo in registeredVariables)
             {
                 sizeRequired +=
-                    2 + varInfo.Key.Length + // string size on buffer
-                    2 +                      // Id size on buffer
-                    1;                       // Register/unregister boolean size on buffer
+                    2 + Encoding.Unicode.GetBytes(varInfo.Key).Length + // string size on buffer
+                    2 +                                                 // Id size on buffer
+                    1;                                                  // Register/unregister boolean size on buffer
             }
 
             foreach (KeyValuePair<string, ushort> varInfo in unregisteredVariables)
             {
                 sizeRequired +=
-                    2 + varInfo.Key.Length + // string size on buffer
-                    2 +                      // Id size on buffer
-                    1;                       // Register/unregister boolean size on buffer
+                    2 + Encoding.Unicode.GetBytes(varInfo.Key).Length + // string size on buffer
+                    2 +                                                 // Id size on buffer
+                    1;                                                  // Register/unregister boolean size on buffer
             }
 
 

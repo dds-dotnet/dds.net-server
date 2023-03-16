@@ -16,6 +16,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private Dictionary<ushort, BaseVariable> _dbVariables = new();
         private List<VariableSubscriber> _dbSubscribers = new();
 
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Starting and stopping:                                                        */
+        /*     - Reading settings and creating variables.                                */
+        /*     - Clearing the data on stopping.                                          */
+        /*                                                                               */
+        /*********************************************************************************/
         #region Initialization - from provided settings
 
 
@@ -172,6 +179,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         #endregion
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Registering and unregistering variables:                                      */
+        /*     - Variable subscription / unsubscription.                                 */
+        /*                                                                               */
+        /*********************************************************************************/
         #region Removing a client - from subscription and provision
 
 
@@ -336,6 +349,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         #endregion
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Accessing variables:                                                          */
+        /*     - For outside access.                                                     */
+        /*                                                                               */
+        /*********************************************************************************/
         #region Getting a variable - accessing a variable from outside the partial-class
 
 
@@ -367,6 +386,11 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         #endregion
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Assigning values to variables                                                 */
+        /*                                                                               */
+        /*********************************************************************************/
         #region Updating variable values
 
 
@@ -498,6 +522,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 $"Cannot assign {readVariableType} to " +
                 $"local variable ({variable.Name}) of type {variable.VariableType}");
         }
+
+
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Upgrading a variable's type                                                   */
+        /*     - From unknown to first known type.                                       */
+        /*                                                                               */
+        /*********************************************************************************/
 
         /// <summary>
         /// Upgrades an unknown variable to specified type.
@@ -658,6 +690,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
 
         #endregion
+        /*********************************************************************************/
+        /*                                                                               */
+        /* Sending variable values to clients:                                           */
+        /*     - When the variable value is updated.                                     */
+        /*     - Periodically refreshed variables.                                       */
+        /*                                                                               */
+        /*********************************************************************************/
         #region Sending updated variables to their subscribers
 
 

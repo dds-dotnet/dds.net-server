@@ -125,7 +125,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                         }
                         catch(Exception ex)
                         {
-                            logger.Error($"SSUDP data reception error - {ex.Message}");
+                            logger.Error($"SSUDP data reception failed - {ex.Message}");
                             break;
                         }
                     }

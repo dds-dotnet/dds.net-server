@@ -210,7 +210,14 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                             {
                                 if (socket.Connected)
                                 {
-                                    socket.Send(packet.PacketData);
+                                    try
+                                    {
+                                        socket.Send(packet.PacketData);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        logger.Error($"SSTCP data sending error - {ex.Message}");
+                                    }
                                 }
                                 else
                                 {

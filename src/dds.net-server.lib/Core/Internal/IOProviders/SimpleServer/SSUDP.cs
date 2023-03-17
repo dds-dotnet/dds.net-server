@@ -139,7 +139,14 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                     {
                         SSPacket outData = dataInputQueue.Dequeue();
 
-                        localSocket.SendTo(outData.PacketData, outData.ClientInfo);
+                        try
+                        {
+                            localSocket.SendTo(outData.PacketData, outData.ClientInfo);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error($"SSUDP data sending failed - {ex.Message}");
+                        }
 
                         hasDoneAnythingInIteration = true;
                     }

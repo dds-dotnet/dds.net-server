@@ -101,23 +101,31 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                             break;
                         }
 
-                        int dataAvailable = localSocket.Available;
-
-                        if (dataAvailable > 0)
+                        try
                         {
-                            byte[] data = new byte[dataAvailable];
+                            int dataAvailable = localSocket.Available;
 
-                            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-                            EndPoint senderRemote = sender;
+                            if (dataAvailable > 0)
+                            {
+                                byte[] data = new byte[dataAvailable];
 
-                            localSocket.ReceiveFrom(data, SocketFlags.None, ref senderRemote);
+                                IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                                EndPoint senderRemote = sender;
 
-                            dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)senderRemote, data));
+                                localSocket.ReceiveFrom(data, SocketFlags.None, ref senderRemote);
 
-                            hasDoneAnythingInIteration = true;
+                                dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)senderRemote, data));
+
+                                hasDoneAnythingInIteration = true;
+                            }
+                            else
+                            {
+                                break;
+                            }
                         }
-                        else
+                        catch(Exception ex)
                         {
+                            logger.Error($"SSUDP data reception error - {ex.Message}");
                             break;
                         }
                     }

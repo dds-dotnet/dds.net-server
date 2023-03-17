@@ -189,6 +189,23 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             return 0;
         }
 
+        protected override int DoCleanup()
+        {
+            _tcpServer?.StopServer();
+            _udpServer?.StopServer();
+
+            _tcpServer = null!;
+            _udpServer = null!;
+
+            _tcpInputQueue = null!;
+            _tcpOutputQueue = null!;
+
+            _udpInputQueue = null!;
+            _udpOutputQueue = null!;
+
+            return 0;
+        }
+
         protected override int DoWork()
         {
             int workDone = 0;
@@ -218,23 +235,6 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
             }
 
             return workDone;
-        }
-
-        protected override int DoCleanup()
-        {
-            _tcpServer?.StopServer();
-            _udpServer?.StopServer();
-
-            _tcpServer = null!;
-            _udpServer = null!;
-
-            _tcpInputQueue = null!;
-            _tcpOutputQueue = null!;
-
-            _udpInputQueue = null!;
-            _udpOutputQueue = null!;
-
-            return 0;
         }
 
         protected override int ProcessInput(DataToClient input)

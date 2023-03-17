@@ -199,7 +199,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 while (_tcpInputQueue.CanDequeue() && OutputQueue.CanEnqueue())
                 {
                     SSPacket packet = _tcpInputQueue.Dequeue();
-                    OutputQueue.Enqueue(new DataFromClient($"TCP:{packet.ClientInfo}", packet.PacketData));
+                    OutputQueue.Enqueue(new DataFromClient($"TCP/{packet.ClientInfo}", packet.PacketData));
 
                     workDone++;
                 }
@@ -211,7 +211,7 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
                 while (_udpInputQueue.CanDequeue() && OutputQueue.CanEnqueue())
                 {
                     SSPacket packet = _udpInputQueue.Dequeue();
-                    OutputQueue.Enqueue(new DataFromClient($"UDP:{packet.ClientInfo}", packet.PacketData));
+                    OutputQueue.Enqueue(new DataFromClient($"UDP/{packet.ClientInfo}", packet.PacketData));
 
                     workDone++;
                 }
@@ -241,14 +241,14 @@ namespace DDS.Net.Server.Core.Internal.IOProviders
         {
             string targetRef = input.ClientRef;
 
-            if (targetRef.StartsWith("TCP:") && _tcpServer != null)
+            if (targetRef.StartsWith("TCP/") && _tcpServer != null)
             {
-                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("TCP:", ""));
+                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("TCP/", ""));
                 _tcpOutputQueue.Enqueue(new SSPacket(target, input.Data));
             }
-            else if (targetRef.StartsWith("UDP:") && _udpServer != null)
+            else if (targetRef.StartsWith("UDP/") && _udpServer != null)
             {
-                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("UDP:", ""));
+                IPEndPoint target = IPEndPoint.Parse(targetRef.Replace("UDP/", ""));
                 _udpOutputQueue.Enqueue(new SSPacket(target, input.Data));
             }
             else

@@ -27,39 +27,61 @@
 
     public class ConsoleLogger : ILogger
     {
-        private readonly LogLevel _logLevel;
+        private readonly LogLevel logLevel;
 
-        public ConsoleLogger(LogLevel logLevel = LogLevel.Information)
+        private readonly ConsoleColor informationTextColor;
+        private readonly ConsoleColor informationBackgroundColor;
+        private readonly ConsoleColor warningTextColor;
+        private readonly ConsoleColor warningBackgroundColor;
+        private readonly ConsoleColor errorTextColor;
+        private readonly ConsoleColor errorBackgroundColor;
+
+        public ConsoleLogger(
+            LogLevel logLevel = LogLevel.Information,
+
+            ConsoleColor informationTextColor = ConsoleColor.DarkGray,
+            ConsoleColor informationBackgroundColor = ConsoleColor.Black,
+            ConsoleColor warningTextColor = ConsoleColor.Yellow,
+            ConsoleColor warningBackgroundColor = ConsoleColor.Black,
+            ConsoleColor errorTextColor = ConsoleColor.Magenta,
+            ConsoleColor errorBackgroundColor = ConsoleColor.Black)
         {
-            _logLevel = logLevel;
+            this.logLevel = logLevel;
+
+            this.informationTextColor = informationTextColor;
+            this.informationBackgroundColor = informationBackgroundColor;
+            this.warningTextColor = warningTextColor;
+            this.warningBackgroundColor = warningBackgroundColor;
+            this.errorTextColor = errorTextColor;
+            this.errorBackgroundColor = errorBackgroundColor;
         }
 
         public void Error(string message)
         {
             lock (this)
             {
-                $"Error: {message}".PrintColoredLine(ConsoleColor.Magenta);
+                $"Error: {message}".PrintColoredLine(errorTextColor, errorBackgroundColor);
             }
         }
 
         public void Info(string message)
         {
-            if (_logLevel == LogLevel.Information)
+            if (logLevel == LogLevel.Information)
             {
                 lock (this)
                 {
-                    message.PrintColoredLine(ConsoleColor.DarkGray);
+                    message.PrintColoredLine(informationTextColor, informationBackgroundColor);
                 }
             }
         }
 
         public void Warning(string message)
         {
-            if (_logLevel != LogLevel.Error)
+            if (logLevel != LogLevel.Error)
             {
                 lock (this)
                 {
-                    $"Warning: {message}".PrintColoredLine(ConsoleColor.Yellow);
+                    $"Warning: {message}".PrintColoredLine(warningTextColor, warningBackgroundColor);
                 }
             }
         }

@@ -175,16 +175,23 @@ namespace DDS.Net.Server.Core.Internal.IOProviders.SimpleServer
                             break;
                         }
 
-                        int dataAvailable = socket.Available;
-
-                        if (dataAvailable > 0)
+                        try
                         {
-                            byte[] bytes = new byte[dataAvailable];
-                            socket.Receive(bytes);
+                            int dataAvailable = socket.Available;
 
-                            dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, bytes));
+                            if (dataAvailable > 0)
+                            {
+                                byte[] bytes = new byte[dataAvailable];
+                                socket.Receive(bytes);
 
-                            hasDoneAnythingInIteration = true;
+                                dataOutputQueue.Enqueue(new SSPacket((IPEndPoint)socket.RemoteEndPoint!, bytes));
+
+                                hasDoneAnythingInIteration = true;
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            logger.Error($"SSTCP data reception error - {ex.Message}");
                         }
                     }
                 }

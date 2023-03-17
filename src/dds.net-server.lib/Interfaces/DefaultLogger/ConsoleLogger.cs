@@ -4,7 +4,7 @@
     {
         private static Mutex mutex = new Mutex();
 
-        public static void PrintColoredLine(
+        public static void PrintConsoleLine(
             this string message,
             ConsoleColor fgColor = ConsoleColor.White,
             ConsoleColor bgColor = ConsoleColor.Black)
@@ -60,7 +60,7 @@
         {
             lock (this)
             {
-                $"Error: {message}".PrintColoredLine(errorTextColor, errorBackgroundColor);
+                $"Error: {message}".PrintConsoleLine(errorTextColor, errorBackgroundColor);
             }
         }
 
@@ -70,7 +70,7 @@
             {
                 lock (this)
                 {
-                    message.PrintColoredLine(informationTextColor, informationBackgroundColor);
+                    message.PrintConsoleLine(informationTextColor, informationBackgroundColor);
                 }
             }
         }
@@ -81,7 +81,7 @@
             {
                 lock (this)
                 {
-                    $"Warning: {message}".PrintColoredLine(warningTextColor, warningBackgroundColor);
+                    $"Warning: {message}".PrintConsoleLine(warningTextColor, warningBackgroundColor);
                 }
             }
         }

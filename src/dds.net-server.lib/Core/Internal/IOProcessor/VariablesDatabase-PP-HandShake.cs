@@ -55,7 +55,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 string clientApplicationName = data.ReadString(ref offset);
                 string clientLibraryVersion = data.ReadString(ref offset);
 
-                logger.Info($"Client connected: {clientApplicationName} (Library v{clientLibraryVersion}) - from {clientRef}");
+                logger.Info(
+                    $"Client {clientRef} connected: " +
+                    $"{clientApplicationName} (Connector version: {clientLibraryVersion})");
             }
             catch (Exception ex)
             {

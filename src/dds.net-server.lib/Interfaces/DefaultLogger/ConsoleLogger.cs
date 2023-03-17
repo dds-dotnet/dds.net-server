@@ -1,10 +1,10 @@
 ﻿namespace DDS.Net.Server.Interfaces.DefaultLogger
 {
-    internal static class ColoredConsoleExtension
+    public static class ColoredConsoleExtension
     {
         private static Mutex mutex = new Mutex();
 
-        internal static void PrintColoredLine(
+        public static void PrintColoredLine(
             this string message,
             ConsoleColor fgColor = ConsoleColor.White,
             ConsoleColor bgColor = ConsoleColor.Black)

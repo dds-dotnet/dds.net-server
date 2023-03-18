@@ -1,11 +1,23 @@
 ﻿namespace DDS.Net.Server.Interfaces.DefaultLogger
 {
+    /// <summary>
+    /// Class <c>SplitLogger</c> implements the <c>ILogger</c> interface to split incoming
+    /// log messages amongst two or more implementations of <c>ILogger</c> interface.
+    /// </summary>
     public class SplitLogger : ILogger, IDisposable
     {
         private readonly ILogger firstLogger;
         private readonly ILogger secondLogger;
         private readonly ILogger[]? loggers;
 
+        /// <summary>
+        /// Initializes the class by providing two or more implementations
+        /// of <c>ILogger</c> interface.
+        /// </summary>
+        /// <param name="firstLogger">Required first instance of <c>ILogger</c> interface implementation.</param>
+        /// <param name="secondLogger">Required second instance of <c>ILogger</c> interface implementation.</param>
+        /// <param name="loggers">Any number of instances of <c>ILogger</c> interface implementations.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public SplitLogger(ILogger firstLogger, ILogger secondLogger, params ILogger[] loggers)
         {
             this.firstLogger = firstLogger ?? throw new ArgumentNullException(nameof(firstLogger));

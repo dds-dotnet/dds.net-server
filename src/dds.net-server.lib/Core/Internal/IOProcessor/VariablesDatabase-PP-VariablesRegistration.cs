@@ -28,6 +28,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     -------------------------------------------------
              *     [String: Variable Name]
              *     [Periodicity: Update Periodicity]
+             *     [Boolean: Provider or Consumer]   - True = Client is provider, False = Client is consumer
              *     [Boolean: Register or Unregister] - True = Register, False = Unregister
              *     ...
              *     ...

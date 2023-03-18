@@ -1,7 +1,7 @@
 ﻿namespace DDS.Net.Server.Entities
 {
     /// <summary>
-    /// Enumerating the <c>main</c> variable types.
+    /// Enumerating the "main/primary" variable types.
     /// </summary>
     public enum VariableType
     {

@@ -1,5 +1,9 @@
 ﻿namespace DDS.Net.Server.Interfaces.DefaultLogger
 {
+    /// <summary>
+    /// Class <c>ConsoleLogger</c> implements <c>ILogger</c> interface to output log messages
+    /// to standard console.
+    /// </summary>
     public class ConsoleLogger : ILogger
     {
         private readonly LogLevel logLevel;

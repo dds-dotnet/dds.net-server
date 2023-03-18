@@ -15,6 +15,16 @@
         private readonly ConsoleColor errorTextColor;
         private readonly ConsoleColor errorBackgroundColor;
 
+        /// <summary>
+        /// Initializes the class with minimum log-level and colors for output log messages.
+        /// </summary>
+        /// <param name="logLevel">Minimum log-level.</param>
+        /// <param name="informationTextColor">Text color for <c>Information</c>-level messages.</param>
+        /// <param name="informationBackgroundColor">Background color for <c>Information</c>-level messages.</param>
+        /// <param name="warningTextColor">Text color for <c>Warning</c>-level messages.</param>
+        /// <param name="warningBackgroundColor">Background color for <c>Warning</c>-level messages.</param>
+        /// <param name="errorTextColor">Text color for <c>Error</c>-level messages.</param>
+        /// <param name="errorBackgroundColor">Background color for <c>Error</c>-level messages.</param>
         public ConsoleLogger(
             LogLevel logLevel = LogLevel.Information,
 

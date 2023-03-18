@@ -11,7 +11,7 @@
         /// <param name="message">Text to output.</param>
         /// <param name="fgColor">Text color.</param>
         /// <param name="bgColor">Background color.</param>
-        public static void PrintConsoleLine(
+        public static void WriteLine(
             this string message,
             ConsoleColor fgColor = ConsoleColor.White,
             ConsoleColor bgColor = ConsoleColor.Black)

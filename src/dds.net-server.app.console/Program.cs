@@ -18,8 +18,8 @@ namespace DDS.Net.Server.ConsoleApp
         {
             Console.Title = $"DDS.Net Server";
 
-            "DDS.Net Server".PrintConsoleLine(ConsoleColor.DarkCyan);
-            "--------------".PrintConsoleLine(ConsoleColor.DarkCyan);
+            "DDS.Net Server".WriteLine(ConsoleColor.DarkCyan);
+            "--------------".WriteLine(ConsoleColor.DarkCyan);
 
             (bool isEnabled, ServerConfiguration? config) =
                 ConfigurationProvider.GetServerConfiguration(AppConstants.SERVER_01_CONFIG_FILENAME, logger);
@@ -47,7 +47,7 @@ namespace DDS.Net.Server.ConsoleApp
 
         private static void WaitForKey(string message, ConsoleKey waitKey, int breakTime = 100)
         {
-            message.PrintConsoleLine(ConsoleColor.White);
+            message.WriteLine(ConsoleColor.White);
 
             while (true)
             {

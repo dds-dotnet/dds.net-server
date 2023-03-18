@@ -1,5 +1,8 @@
 ﻿namespace DDS.Net.Server.PublicExtensions
 {
+    /// <summary>
+    /// Provides extension methods for working with standard console.
+    /// </summary>
     public static class ConsoleExtensions
     {
         private static Mutex mutex = new Mutex();

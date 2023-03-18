@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Entities
 {
-    public class PrimitiveVariableSettings : VariableSettings
+    public class PrimitiveVariableSettings : BaseVariableSettings
     {
         public PrimitiveType PrimitiveType { get; private set; }
 

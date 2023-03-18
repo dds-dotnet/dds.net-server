@@ -1,10 +1,10 @@
 ﻿namespace DDS.Net.Server.Entities
 {
-    public class VariableSettings
+    public class BaseVariableSettings
     {
         public string VariableName { get; private set; }
 
-        public VariableSettings(string name)
+        public BaseVariableSettings(string name)
         {
             VariableName = name;
         }

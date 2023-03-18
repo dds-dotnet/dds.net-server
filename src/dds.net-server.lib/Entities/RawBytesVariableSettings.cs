@@ -1,6 +1,6 @@
 ﻿namespace DDS.Net.Server.Entities
 {
-    public class RawBytesVariableSettings : VariableSettings
+    public class RawBytesVariableSettings : BaseVariableSettings
     {
         public byte[] Data { get; private set; }
 

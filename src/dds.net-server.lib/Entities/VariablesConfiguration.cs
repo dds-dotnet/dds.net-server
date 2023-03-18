@@ -2,9 +2,9 @@
 {
     public class VariablesConfiguration
     {
-        public List<VariableSettings> Settings { get; private set; } = new();
+        public List<BaseVariableSettings> Settings { get; private set; } = new();
 
-        public void AddVariableSettings(VariableSettings settings)
+        public void AddVariableSettings(BaseVariableSettings settings)
         {
             foreach (var setting in Settings)
             {

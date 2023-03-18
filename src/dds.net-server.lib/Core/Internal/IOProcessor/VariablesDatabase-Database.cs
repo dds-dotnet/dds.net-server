@@ -42,7 +42,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 //- 
                 //- Processing Primitive variables
                 //- 
-                foreach (VariableSettings settings in variablesConfiguration.Settings)
+                foreach (BaseVariableSettings settings in variablesConfiguration.Settings)
                 {
                     if (settings is PrimitiveVariableSettings p)
                     {
@@ -63,7 +63,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 //- 
                 //- Processing RawBytes variables
                 //- 
-                foreach (VariableSettings settings in variablesConfiguration.Settings)
+                foreach (BaseVariableSettings settings in variablesConfiguration.Settings)
                 {
                     if (settings is RawBytesVariableSettings c)
                     {

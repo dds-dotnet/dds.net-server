@@ -40,32 +40,10 @@ namespace DDS.Net.Server.ConsoleApp
                 logger.Error("Server is either not enabled, or its configuration cannot be read.");
             }
 
-            WaitForKey("Press ESC to exit.", ConsoleKey.Escape);
+            ConsoleExtensions.WaitForKey("Press ESC to exit.", ConsoleKey.Escape);
 
             server?.Stop();
             logger?.Dispose();
-        }
-
-        private static void WaitForKey(string message, ConsoleKey waitKey, int breakTime = 100)
-        {
-            message.WriteLine(ConsoleColor.White);
-
-            while (true)
-            {
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
-
-                    if (keyPressed.Key == waitKey)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Thread.Sleep(breakTime);
-                    }
-                }
-            }
         }
     }
 }

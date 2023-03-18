@@ -33,6 +33,7 @@
                 Console.BackgroundColor = beforeBG;
             }
         }
+
         /// <summary>
         /// Extension method to output colored text without a line-end on standard console
         /// and restores previously set colors.
@@ -57,6 +58,34 @@
 
                 Console.ForegroundColor = beforeFG;
                 Console.BackgroundColor = beforeBG;
+            }
+        }
+
+        /// <summary>
+        /// Prints a message and waits for specified key to be pressed.
+        /// </summary>
+        /// <param name="message">Message to print on console before waiting for key press.</param>
+        /// <param name="waitKey">Required key that needs to be pressed.</param>
+        /// <param name="breakTime">Optional - time in milliseconds between consecutive key press checks.</param>
+        public static void WaitForKey(string message, ConsoleKey waitKey, int breakTime = 100)
+        {
+            message.WriteLine(ConsoleColor.White);
+
+            while (true)
+            {
+                if (Console.KeyAvailable)
+                {
+                    ConsoleKeyInfo keyPressed = Console.ReadKey(true);
+
+                    if (keyPressed.Key == waitKey)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Thread.Sleep(breakTime);
+                    }
+                }
             }
         }
     }

@@ -30,20 +30,6 @@
             }
         }
 
-        public void Error(string message)
-        {
-            firstLogger.Error(message);
-            secondLogger.Error(message);
-
-            if (loggers != null && loggers.Length > 0)
-            {
-                foreach (var logger in loggers)
-                {
-                    logger?.Error(message);
-                }
-            }
-        }
-
         public void Info(string message)
         {
             firstLogger?.Info(message);
@@ -68,6 +54,20 @@
                 foreach (var logger in loggers)
                 {
                     logger?.Warning(message);
+                }
+            }
+        }
+
+        public void Error(string message)
+        {
+            firstLogger.Error(message);
+            secondLogger.Error(message);
+
+            if (loggers != null && loggers.Length > 0)
+            {
+                foreach (var logger in loggers)
+                {
+                    logger?.Error(message);
                 }
             }
         }

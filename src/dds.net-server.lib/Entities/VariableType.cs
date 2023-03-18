@@ -1,5 +1,8 @@
 ﻿namespace DDS.Net.Server.Entities
 {
+    /// <summary>
+    /// Enumerating the <c>main</c> variable types.
+    /// </summary>
     public enum VariableType
     {
         /// <summary>
@@ -10,6 +13,7 @@
         /// Represents a sequence of bytes (unsigned bytes)
         /// </summary>
         RawBytes,
+
         /// <summary>
         /// Unknown type
         /// </summary>

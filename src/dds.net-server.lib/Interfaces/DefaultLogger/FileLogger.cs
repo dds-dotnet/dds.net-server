@@ -2,6 +2,9 @@
 
 namespace DDS.Net.Server.Interfaces.DefaultLogger
 {
+    /// <summary>
+    /// Class <c>FileLogger</c> implements <c>ILogger</c> interface to write log messages to a file.
+    /// </summary>
     public class FileLogger : ILogger, IDisposable
     {
         private readonly LogLevel _logLevel;

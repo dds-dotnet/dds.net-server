@@ -1,7 +1,7 @@
 ﻿namespace DDS.Net.Server.Interfaces
 {
     /// <summary>
-    /// Option to select the minimum level of log messages to reach output by
+    /// Provides selection of minimum level of log messages to reach output by
     /// any implementation of <c cref="ILogger">ILogger</c>.
     /// </summary>
     public enum LogLevel
@@ -27,17 +27,17 @@
     public interface ILogger
     {
         /// <summary>
-        /// Outputs <c>Information</c>-level log message.
+        /// Outputs <c>Information</c>-level (<c cref="LogLevel.Information">LogLevel.Information</c>) log message.
         /// </summary>
         /// <param name="message">The message text.</param>
         void Info(string message);
         /// <summary>
-        /// Outputs <c>Warning</c>-level log message.
+        /// Outputs <c>Warning</c>-level (<c cref="LogLevel.Warning">LogLevel.Warning</c>) log message.
         /// </summary>
         /// <param name="message">The message text.</param>
         void Warning(string message);
         /// <summary>
-        /// Outputs <c>Error</c>-level log message.
+        /// Outputs <c>Error</c>-level (<c cref="LogLevel.Error">LogLevel.Error</c>) log message.
         /// </summary>
         /// <param name="message">The message text.</param>
         void Error(string message);

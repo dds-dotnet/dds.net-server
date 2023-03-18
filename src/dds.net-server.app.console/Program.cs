@@ -40,7 +40,7 @@ namespace DDS.Net.Server.ConsoleApp
                 logger.Error("Server is either not enabled, or its configuration cannot be read.");
             }
 
-            ConsoleExtensions.WaitForKey("Press ESC to exit.", ConsoleKey.Escape);
+            ConsoleHelpers.WaitForKey("Press ESC to exit.", ConsoleKey.Escape);
 
             server?.Stop();
             logger?.Dispose();

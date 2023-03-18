@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace DDS.Net.Server.PublicHelpers
 {
+    /// <summary>
+    /// Class <c>INIConfigIO</c> helps in reading and writing <c>.ini</c> files.
+    /// </summary>
     public class INIConfigIO
     {
         public string Filename { get; set; }
@@ -11,6 +14,11 @@ namespace DDS.Net.Server.PublicHelpers
         private Dictionary<string, Dictionary<string, string>> _config;
         private ILogger? _logger;
 
+        /// <summary>
+        /// Initializes the object and reads the <c>.ini</c> file with given name.
+        /// </summary>
+        /// <param name="filename">The <c>.ini</c> file's name.</param>
+        /// <param name="logger">For logging the messages.</param>
         public INIConfigIO(string filename, ILogger? logger = null)
         {
             Filename = filename;

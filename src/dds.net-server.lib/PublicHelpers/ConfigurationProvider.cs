@@ -4,6 +4,10 @@ using DDS.Net.Server.Interfaces;
 
 namespace DDS.Net.Server.PublicHelpers
 {
+    /// <summary>
+    /// Class <c>ConfigurationProvider</c> is a helper class facilitate in reading configuration
+    /// objects from files.
+    /// </summary>
     public static class ConfigurationProvider
     {
         /// <summary>

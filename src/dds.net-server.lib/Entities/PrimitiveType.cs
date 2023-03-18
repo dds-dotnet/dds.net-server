@@ -1,5 +1,8 @@
 ﻿namespace DDS.Net.Server.Entities
 {
+    /// <summary>
+    /// Enumerates the sub-type of <c cref="VariableType.Primitive">VariableType.Primitive</c> variable.
+    /// </summary>
     public enum PrimitiveType
     {
         /// <summary>

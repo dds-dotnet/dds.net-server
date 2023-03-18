@@ -4,6 +4,13 @@
     {
         private static Mutex mutex = new Mutex();
 
+        /// <summary>
+        /// Extension method to output colored text with a line-end on standard console
+        /// and restores previously set colors.
+        /// </summary>
+        /// <param name="message">Text to output.</param>
+        /// <param name="fgColor">Text color.</param>
+        /// <param name="bgColor">Background color.</param>
         public static void PrintConsoleLine(
             this string message,
             ConsoleColor fgColor = ConsoleColor.White,

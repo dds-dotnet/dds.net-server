@@ -35,14 +35,6 @@
             this.errorBackgroundColor = errorBackgroundColor;
         }
 
-        public void Error(string message)
-        {
-            lock (this)
-            {
-                $"Error: {message}".PrintConsoleLine(errorTextColor, errorBackgroundColor);
-            }
-        }
-
         public void Info(string message)
         {
             if (logLevel == LogLevel.Information)
@@ -62,6 +54,14 @@
                 {
                     $"Warning: {message}".PrintConsoleLine(warningTextColor, warningBackgroundColor);
                 }
+            }
+        }
+
+        public void Error(string message)
+        {
+            lock (this)
+            {
+                $"Error: {message}".PrintConsoleLine(errorTextColor, errorBackgroundColor);
             }
         }
     }

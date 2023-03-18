@@ -56,21 +56,6 @@ namespace DDS.Net.Server.Interfaces.DefaultLogger
             }
         }
 
-        public void Error(string message)
-        {
-            lock (this)
-            {
-                if (_timestamp)
-                {
-                    _writer?.WriteLine($"{DateTime.Now:hh:mm:ss.fff} Error: {message}");
-                }
-                else
-                {
-                    _writer?.WriteLine($"Error: {message}");
-                }
-            }
-        }
-
         public void Info(string message)
         {
             if (_logLevel == LogLevel.Information)
@@ -103,6 +88,21 @@ namespace DDS.Net.Server.Interfaces.DefaultLogger
                     {
                         _writer?.WriteLine($"Warning: {message}");
                     }
+                }
+            }
+        }
+
+        public void Error(string message)
+        {
+            lock (this)
+            {
+                if (_timestamp)
+                {
+                    _writer?.WriteLine($"{DateTime.Now:hh:mm:ss.fff} Error: {message}");
+                }
+                else
+                {
+                    _writer?.WriteLine($"Error: {message}");
                 }
             }
         }

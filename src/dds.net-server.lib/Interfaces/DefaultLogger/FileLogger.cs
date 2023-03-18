@@ -11,6 +11,15 @@ namespace DDS.Net.Server.Interfaces.DefaultLogger
         private readonly bool _timestamp;
         private StreamWriter? _writer;
 
+        /// <summary>
+        /// Initializes the class with given options.
+        /// </summary>
+        /// <param name="filename">Name of the file to which the log messages should be written.</param>
+        /// <param name="logLevel">The minimum level of log messages that should be written to the file.</param>
+        /// <param name="timestamp">
+        ///     True = enable printing of timestamps with log messages,
+        ///     False = disable timestamps.</param>
+        /// <exception cref="Exception"></exception>
         public FileLogger(string filename, LogLevel logLevel = LogLevel.Information, bool timestamp = true)
         {
             try

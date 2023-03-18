@@ -67,7 +67,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             }
         }
 
-        public override int GetTypeSizeOnBuffer()
+        public override int GetSubTypeSizeOnBuffer()
         {
             //- 
             //- We do not have sub-types here unlike the primitive types.
@@ -95,7 +95,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             return total;
         }
 
-        public override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteSubTypeOnBuffer(ref byte[] buffer, ref int offset)
         {
             //- 
             //- We do not have sub-types here unlike the primitive types.

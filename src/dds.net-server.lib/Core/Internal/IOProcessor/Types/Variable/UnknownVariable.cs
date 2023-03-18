@@ -9,7 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             VariableType = VariableType.UnknownVariableType;
         }
 
-        public override int GetTypeSizeOnBuffer()
+        public override int GetSubTypeSizeOnBuffer()
         {
             return 0;
         }
@@ -19,7 +19,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             return 0;
         }
 
-        public override void WriteTypeOnBuffer(ref byte[] buffer, ref int offset)
+        public override void WriteSubTypeOnBuffer(ref byte[] buffer, ref int offset)
         {
         }
 

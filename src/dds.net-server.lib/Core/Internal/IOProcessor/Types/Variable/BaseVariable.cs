@@ -44,7 +44,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
         }
 
         /// <summary>
-        /// Total size => [ID]-[Variable Type]-[Type]-[Value]
+        /// Total size => [ID]-[Variable Type]-[Sub-Type]-[Value]
         /// </summary>
         /// <returns></returns>
         public int GetSizeOnBuffer()
@@ -52,7 +52,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             return
                 IdSizeOnBuffer +
                 VariableTypeSizeOnBuffer +
-                GetTypeSizeOnBuffer() +
+                GetSubTypeSizeOnBuffer() +
                 GetValueSizeOnBuffer();
         }
         /// <summary>
@@ -65,25 +65,25 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             buffer.WriteUnsignedWord(ref offset, Id);
             buffer.WriteVariableType(ref offset, VariableType);
 
-            WriteTypeOnBuffer(ref buffer, ref offset);
+            WriteSubTypeOnBuffer(ref buffer, ref offset);
             WriteValueOnBuffer(ref buffer, ref offset);
         }
         /// <summary>
-        /// Required size of type on the buffer
+        /// Required size of sub-type on the buffer
         /// </summary>
         /// <returns>Size in bytes required to write type on buffer</returns>
-        public abstract int GetTypeSizeOnBuffer();
+        public abstract int GetSubTypeSizeOnBuffer();
         /// <summary>
         /// Required size of value on the buffer
         /// </summary>
         /// <returns>Number of bytes required to write value on the buffer</returns>
         public abstract int GetValueSizeOnBuffer();
         /// <summary>
-        /// Write type of data on the buffer
+        /// Write sub-type of data on the buffer
         /// </summary>
         /// <param name="buffer">Buffer on which to write</param>
         /// <param name="offset">Offset in the buffer - also updated after writing</param>
-        public abstract void WriteTypeOnBuffer(ref byte[] buffer, ref int offset);
+        public abstract void WriteSubTypeOnBuffer(ref byte[] buffer, ref int offset);
         /// <summary>
         /// Write value onto the buffer
         /// </summary>

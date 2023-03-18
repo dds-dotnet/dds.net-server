@@ -172,14 +172,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// Periodicity: update periodicity,
         /// bool: is registering
         /// )</returns>
-        private static (string variableName, Periodicity periodicity, bool isRegister)
+        private static (string variableName, Periodicity periodicity, bool isClientProvider, bool isRegister)
             ReadVariableRegistrationElements(byte[] data, ref int offset)
         {
             string variableName = data.ReadString(ref offset);
             Periodicity periodicity = data.ReadPeriodicity(ref offset);
+            bool isClientProvider = data.ReadBoolean(ref offset);
             bool isRegister = data.ReadBoolean(ref offset);
 
-            return (variableName, periodicity, isRegister);
+            return (variableName, periodicity, isClientProvider, isRegister);
         }
     }
 }

@@ -37,7 +37,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
              *     -------------------------------------------------
              *     [String: Variable Name]
              *     [UnsignedWord: Variable Id]
-             *     [Boolean: Provider or Consumer]   - True = Client is provider, False = Client is consumer
              *     [Boolean: Register or Unregister] - True = Register, False = Unregister
              *     ...
              *     ...
@@ -59,12 +58,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 while (offset < data.Length)
                 {
-                    (string variableName, Periodicity periodicity, bool isRegister) =
-                        ReadVariableRegistrationElements(data, ref offset);
+                    (string variableName,
+                     Periodicity periodicity,
+                     bool isClientProvider,
+                     bool isRegister) = ReadVariableRegistrationElements(data, ref offset);
 
                     if (isRegister)
                     {
-                        ushort varId = RegisterVariableClient(clientRef, variableName, periodicity);
+                        ushort varId = RegisterVariableClient(clientRef, variableName, periodicity, isClientProvider);
 
                         if (registeredVariables.ContainsKey(variableName))
                         {
@@ -170,6 +171,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <returns>(
         /// string: variableName,
         /// Periodicity: update periodicity,
+        /// bool: is client a provider
         /// bool: is registering
         /// )</returns>
         private static (string variableName, Periodicity periodicity, bool isClientProvider, bool isRegister)

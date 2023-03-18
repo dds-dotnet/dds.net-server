@@ -267,12 +267,18 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="clientRef">Reference to the client.</param>
         /// <param name="variableName">Name of the variable.</param>
         /// <param name="periodicity">Update periodicity.</param>
+        /// <param name="isClientProvider">Whether the client is a provider or a consumer.</param>
         /// <returns>Variable ID</returns>
-        private ushort RegisterVariableClient(string clientRef, string variableName, Periodicity periodicity)
+        private ushort RegisterVariableClient(string clientRef, string variableName, Periodicity periodicity, bool isClientProvider)
         {
             lock (_dbMutex)
             {
                 ushort id = __GetVariableIdCreateUnknownIfNotExists(variableName);
+
+                if (isClientProvider)
+                {
+                    return id;
+                }
 
                 bool exists = false;
 

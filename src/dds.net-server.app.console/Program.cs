@@ -2,6 +2,7 @@
 using DDS.Net.Server.Entities;
 using DDS.Net.Server.Interfaces;
 using DDS.Net.Server.Interfaces.DefaultLogger;
+using DDS.Net.Server.PublicExtensions;
 using DDS.Net.Server.PublicHelpers;
 
 namespace DDS.Net.Server.ConsoleApp

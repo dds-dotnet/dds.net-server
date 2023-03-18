@@ -1,6 +1,6 @@
-﻿namespace DDS.Net.Server.Interfaces.DefaultLogger
+﻿namespace DDS.Net.Server.PublicExtensions
 {
-    public static class ConsoleExtension
+    public static class ConsoleExtensions
     {
         private static Mutex mutex = new Mutex();
 

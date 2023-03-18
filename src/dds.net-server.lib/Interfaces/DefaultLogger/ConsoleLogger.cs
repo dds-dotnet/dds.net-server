@@ -1,4 +1,6 @@
-﻿namespace DDS.Net.Server.Interfaces.DefaultLogger
+﻿using DDS.Net.Server.PublicExtensions;
+
+namespace DDS.Net.Server.Interfaces.DefaultLogger
 {
     /// <summary>
     /// Class <c>ConsoleLogger</c> implements <c>ILogger</c> interface to output log messages

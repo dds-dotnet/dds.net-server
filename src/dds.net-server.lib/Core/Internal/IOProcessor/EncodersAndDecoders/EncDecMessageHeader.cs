@@ -1,7 +1,4 @@
-﻿using DDS.Net.Server.Core.Internal.IOProcessor.Types;
-using DDS.Net.Server.Entities;
-
-namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
+﻿namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 {
     internal static class EncDecMessageHeader
     {
@@ -55,8 +52,8 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
             data[offset++] = (byte)((totalBytes >> 24) & 0x0ff);
             data[offset++] = (byte)((totalBytes >> 16) & 0x0ff);
-            data[offset++] = (byte)((totalBytes >> 8)  & 0x0ff);
-            data[offset++] = (byte)((totalBytes >> 0)  & 0x0ff);
+            data[offset++] = (byte)((totalBytes >> 8) & 0x0ff);
+            data[offset++] = (byte)((totalBytes >> 0) & 0x0ff);
         }
         /// <summary>
         /// Size in bytes that MessageHeader requires on a buffer

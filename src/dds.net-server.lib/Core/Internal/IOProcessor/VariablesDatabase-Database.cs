@@ -738,12 +738,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     if (bufferSize > 0)
                     {
+                        bufferSize += EncDecMessageHeader.GetMessageHeaderSizeOnBuffer();
                         bufferSize += PacketId.VariablesUpdateFromServer.GetSizeOnBuffer();
                         bufferSize += periodicity.GetSizeOnBuffer();
 
                         byte[] buffer = new byte[bufferSize];
                         int bufferOffset = 0;
 
+                        buffer.WriteMessageHeader(ref bufferOffset, bufferSize - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
                         buffer.WritePacketId(ref bufferOffset, PacketId.VariablesUpdateFromServer);
                         buffer.WritePeriodicity(ref bufferOffset, periodicity);
 
@@ -783,12 +785,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     if (bufferSize > 0)
                     {
+                        bufferSize += EncDecMessageHeader.GetMessageHeaderSizeOnBuffer();
                         bufferSize += PacketId.VariablesUpdateFromServer.GetSizeOnBuffer();
                         bufferSize += periodicity.GetSizeOnBuffer();
 
                         byte[] buffer = new byte[bufferSize];
                         int bufferOffset = 0;
 
+                        buffer.WriteMessageHeader(ref bufferOffset, bufferSize - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
                         buffer.WritePacketId(ref bufferOffset, PacketId.VariablesUpdateFromServer);
                         buffer.WritePeriodicity(ref bufferOffset, periodicity);
 

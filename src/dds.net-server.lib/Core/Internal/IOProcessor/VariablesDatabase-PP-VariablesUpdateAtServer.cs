@@ -135,11 +135,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
             if (sizeRequired > 0)
             {
-                byte[] responseBuffer = new byte[PacketId.VariablesUpdateAtServer.GetSizeOnBuffer() + sizeRequired];
+                byte[] responseBuffer = new byte[
+                                        EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
+                                        PacketId.VariablesUpdateAtServer.GetSizeOnBuffer() + sizeRequired];
                 int responseBufferOffset = 0;
 
                 //- Filling the response buffer
 
+                responseBuffer.WriteMessageHeader(ref responseBufferOffset, responseBuffer.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
                 responseBuffer.WritePacketId(ref responseBufferOffset, PacketId.VariablesUpdateAtServer);
 
                 foreach (KeyValuePair<ushort, string> varInfo in errorMessages)

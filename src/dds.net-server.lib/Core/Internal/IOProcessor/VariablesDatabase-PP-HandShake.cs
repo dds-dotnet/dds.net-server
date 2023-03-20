@@ -77,12 +77,14 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             if (_serverInfo == null)
             {
                 _serverInfo = new byte[
+                    EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
                     PacketId.HandShake.GetSizeOnBuffer() +
                     2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME).Length +
                     2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION).Length];
 
                 int _serverInfoOffset = 0;
 
+                _serverInfo.WriteMessageHeader(ref _serverInfoOffset, _serverInfo.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
                 _serverInfo.WritePacketId(ref _serverInfoOffset, PacketId.HandShake);
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_NAME);
                 _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_VERSION);
@@ -100,11 +102,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         private void SendErrorMessage(string clientRef, string message)
         {
             byte[] _errorInfo = new byte[
+                                EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
                                 PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
                                 2 + Encoding.Unicode.GetBytes(message).Length];
 
             int _errorInfoOffset = 0;
 
+            _errorInfo.WriteMessageHeader(ref _errorInfoOffset, _errorInfo.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
             _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
             _errorInfo.WriteString(ref _errorInfoOffset, message);
 

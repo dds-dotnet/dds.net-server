@@ -49,15 +49,23 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                 //- 
                 //- Compacting the buffer
                 //- 
-                int timesShifted = 0;
-                for (int i = 0; i < bufferStartIndex; i++)
+                if (bufferNextWriteIndex != bufferStartIndex)
                 {
-                    buffer[i] = buffer[bufferStartIndex + i];
-                    timesShifted++;
-                }
+                    int timesShifted = 0;
+                    for (int i = 0; i < (bufferNextWriteIndex - bufferStartIndex); i++)
+                    {
+                        buffer[i] = buffer[bufferStartIndex + i];
+                        timesShifted++;
+                    }
 
-                bufferStartIndex = 0;
-                bufferNextWriteIndex -= timesShifted;
+                    bufferStartIndex = 0;
+                    bufferNextWriteIndex -= timesShifted;
+                }
+                else
+                {
+                    bufferNextWriteIndex = 0;
+                    bufferStartIndex = 0;
+                }
 
                 //- 
                 //- Do we have enough space for the data?
@@ -68,6 +76,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
                     {
                         buffer[bufferNextWriteIndex++] = data.Data[i];
                     }
+
+                    previousDataStartIndex[data.ClientRef] = bufferStartIndex;
+                    previousNextWriteIndex[data.ClientRef] = bufferNextWriteIndex;
                 }
                 //- 
                 //- No, we do not have enough space for data.
@@ -101,7 +112,68 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         {
             lock (mutex)
             {
-                return null!;
+                //- 
+                //- Do we have any data available?
+                //- 
+                if (previousData.ContainsKey(clientRef))
+                {
+                    byte[] buffer = previousData[clientRef];
+                    int bufferStartIndex = previousDataStartIndex[clientRef];
+                    int bufferNextWriteIndex = previousNextWriteIndex[clientRef];
+
+                    //- 
+                    //- Do we have full header?
+                    //- 
+                    
+                    int index = bufferStartIndex;
+
+                    while (index < (bufferNextWriteIndex - 1))
+                    {
+                        // Finding '##'
+
+                        if (buffer[index] == '#' &&
+                            buffer[index + 1] == '#')
+                        {
+                            bufferStartIndex = index;
+                            int readableBytes = bufferNextWriteIndex - index;
+
+                            if (readableBytes >= EncDecMessageHeader.GetMessageHeaderSizeOnBuffer())
+                            {
+                                int dataBytes = buffer.ReadTotalBytesInMessage(ref index);
+                                int availableBytes = bufferNextWriteIndex - index;
+
+                                if (availableBytes >= dataBytes)
+                                {
+                                    byte[] packet = new byte[dataBytes];
+
+                                    for (int i = 0; i < dataBytes; i++)
+                                    {
+                                        packet[i] = buffer[index++];
+                                    }
+
+                                    previousDataStartIndex[clientRef] = index;
+
+                                    return packet;
+                                }
+                            }
+
+                            break;
+                        }
+
+                        index++;
+                    }
+
+                    previousDataStartIndex[clientRef] = bufferStartIndex;
+
+                    return null!;
+                }
+                //- 
+                //- No, we do not have any data available.
+                //- 
+                else
+                {
+                    return null!;
+                }
             }
         }
     }

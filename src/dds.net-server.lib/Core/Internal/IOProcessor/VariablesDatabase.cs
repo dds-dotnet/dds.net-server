@@ -90,42 +90,55 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
                 else
                 {
-                    int offset = 0;
+                    PacketPreprocessor.AddData(input);
 
-                    try
+                    while (true)
                     {
-                        PacketId pid = input.Data.ReadPacketId(ref offset);
+                        int offset = 0;
+                        byte[] message = PacketPreprocessor.GetSingleMessage(input);
 
-                        switch (pid)
+                        if (message != null)
                         {
-                            case PacketId.HandShake:
-                                ProcessPacket_HandShake(input.ClientRef, input.Data, ref offset);
-                                break;
+                            try
+                            {
+                                PacketId pid = message.ReadPacketId(ref offset);
 
-                            case PacketId.VariablesRegistration:
-                                ProcessPacket_VariablesRegistration(input.ClientRef, input.Data, ref offset);
-                                break;
+                                switch (pid)
+                                {
+                                    case PacketId.HandShake:
+                                        ProcessPacket_HandShake(input.ClientRef, message, ref offset);
+                                        break;
 
-                            case PacketId.VariablesUpdateAtServer:
-                                ProcessPacket_VariablesUpdateAtServer(input.ClientRef, input.Data, ref offset);
-                                break;
+                                    case PacketId.VariablesRegistration:
+                                        ProcessPacket_VariablesRegistration(input.ClientRef, message, ref offset);
+                                        break;
 
-                            case PacketId.VariablesUpdateFromServer:
-                                logger.Warning($"Wrong packet \"VariablesUpdateFromServer\" received from {input.ClientRef}");
-                                break;
+                                    case PacketId.VariablesUpdateAtServer:
+                                        ProcessPacket_VariablesUpdateAtServer(input.ClientRef, message, ref offset);
+                                        break;
 
-                            case PacketId.ErrorResponseFromServer:
-                                logger.Warning($"Wrong packet \"ErrorResponseFromServer\" received from {input.ClientRef}");
-                                break;
+                                    case PacketId.VariablesUpdateFromServer:
+                                        logger.Warning($"Wrong packet \"VariablesUpdateFromServer\" received from {input.ClientRef}");
+                                        break;
 
-                            default:
-                                logger.Warning($"Unhandled packet \"{pid}\" received from {input.ClientRef}");
-                                break;
+                                    case PacketId.ErrorResponseFromServer:
+                                        logger.Warning($"Wrong packet \"ErrorResponseFromServer\" received from {input.ClientRef}");
+                                        break;
+
+                                    default:
+                                        logger.Warning($"Unknown packet \"{pid}\" received from {input.ClientRef}");
+                                        break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error($"Packet processing error: {ex.Message}");
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error($"Packet processing error: {ex.Message}");
+                        else
+                        {
+                            break;
+                        }
                     }
                 }
 

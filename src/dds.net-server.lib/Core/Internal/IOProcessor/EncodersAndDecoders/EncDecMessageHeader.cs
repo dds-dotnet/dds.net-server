@@ -43,7 +43,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         /// <param name="data">The buffer containing data</param>
         /// <param name="offset">Offset in the data buffer - updated afterwards to point
         /// to the next element in the buffer</param>
-        /// <param name="value">value to be written to the buffer</param>
+        /// <param name="totalBytes">Total bytes that the message needs to contain</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void WriteMessageHeader(this byte[] data, ref int offset, int totalBytes)

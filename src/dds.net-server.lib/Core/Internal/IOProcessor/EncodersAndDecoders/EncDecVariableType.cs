@@ -20,9 +20,10 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         public static VariableType ReadVariableType(this byte[] data, ref int offset)
         {
             Debug.Assert(data != null);
-            Debug.Assert(offset + 1 <= data.Length);
+            Debug.Assert(offset + 2 <= data.Length);
 
             int v = data[offset++];
+            v = (v << 8) | data[offset++];
 
             if (v >= 0 && v < (int)VariableType.UnknownVariableType)
             {
@@ -42,9 +43,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         public static void WriteVariableType(this byte[] data, ref int offset, VariableType value)
         {
             Debug.Assert(data != null);
-            Debug.Assert(offset + 1 <= data.Length);
+            Debug.Assert(offset + 2 <= data.Length);
 
-            data[offset++] = (byte)value;
+            int v = (int)value;
+
+            data[offset++] = (byte)((v >> 8) & 0x0ff);
+            data[offset++] = (byte)((v >> 0) & 0x0ff);
         }
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
         /// <returns>Number of bytes required on the buffer</returns>
         public static int GetSizeOnBuffer(this VariableType _)
         {
-            return 1;
+            return 2;
         }
     }
 }

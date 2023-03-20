@@ -5,6 +5,20 @@
     <RootNamespace>DDS.Net.Server</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>DDS.Net.Server</Title>
+    <Version>1.1.0</Version>
+    <Authors>CronBlocks</Authors>
+    <Description>DDS.Net Server is an in-app-able lightweight, performant server for managed data distribution through connectors.</Description>
+    <PackageProjectUrl>https://github.com/dds-dotnet/dds.net-server</PackageProjectUrl>
+    <PackageIcon>DDS.Net Icon-BG-None.png</PackageIcon>
+    <PackageId>$(Authors).DDS.Net.Server</PackageId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="D:\VMs\VMs Share\DDS.Net Icon\DDS.Net Icon-BG-None.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

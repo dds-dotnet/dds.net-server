@@ -9,7 +9,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders
 
         }
 
-        internal static byte[] GetSingleMessage(DataFromClient data)
+        internal static byte[] GetSingleMessage(string clientRef)
         {
             return null!;
         }

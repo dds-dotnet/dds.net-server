@@ -95,7 +95,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     while (true)
                     {
                         int offset = 0;
-                        byte[] message = PacketPreprocessor.GetSingleMessage(input);
+                        byte[] message = PacketPreprocessor.GetSingleMessage(input.ClientRef);
 
                         if (message != null)
                         {

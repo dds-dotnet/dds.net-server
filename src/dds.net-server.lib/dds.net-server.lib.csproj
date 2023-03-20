@@ -12,6 +12,7 @@
     <PackageProjectUrl>https://github.com/dds-dotnet/dds.net-server</PackageProjectUrl>
     <PackageIcon>DDS.Net Icon-BG-None.png</PackageIcon>
     <PackageId>$(Authors).DDS.Net.Server</PackageId>
+    <Copyright>CronBlocks</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

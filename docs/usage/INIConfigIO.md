@@ -17,11 +17,11 @@ Instance functions help in reading and writing the INI file:
 
 &nbsp;
 
-  * *Clear()* - Clears the in-memory data but does not effect the file till it is saved.
-  * *SaveFile()* - Saves the in-memory data into the given file.
+  * *Clear*() - Clears the in-memory data but does not effect the file till it is saved.
+  * *SaveFile*() - Saves the in-memory data into the given file.
 
 
-  * IEnumerable<string> *GetSectionNames()* - Gets all the section names present in the file.
+  * IEnumerable&lt;string&gt; *GetSectionNames*() - Gets all the section names present in the file.
   
   * string *GetString* (string *key*, string *defaultValue* = "") - Gets a value as a string, default value is returned when the key is not present in the file.
   * int *GetInteger* (string *key*, int *defaultValue* = -1) - Gets a value as an integer, default value is returned when the key is not present in the file.

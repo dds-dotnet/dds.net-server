@@ -143,3 +143,10 @@ VariableType = RawBytes
 Data = 1, 2, 3, 4, 5, 6, 7, 8, 9
 
 ```
+
+
+
+## Library usage
+
+The [library](./docs/usage/README.md) includes *DDS.Net Server* and various helpers to ease developing container application.
+

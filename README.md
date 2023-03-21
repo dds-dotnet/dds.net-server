@@ -3,7 +3,7 @@
 
 # DDS.Net Server - v1.1.0
 
-*DDS.Net Server* is an in-app-able lightweight, performant server for managed data distribution through connectors. The supported types are:
+*DDS.Net Server* is an in-app-able lightweight, performant server for managed data distribution through connectors. The supported data types are:
 
 | Main type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    | Sub-type          | Represented data                                    |
 |---------------------------------------------|-------------------|-----------------------------------------------------|

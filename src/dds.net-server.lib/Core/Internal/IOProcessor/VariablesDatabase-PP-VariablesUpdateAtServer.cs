@@ -114,48 +114,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         }
 
         /// <summary>
-        /// Sends error messages when there is an error while updating variable values.
-        /// </summary>
-        /// <param name="clientRef">Client's address.</param>
-        /// <param name="errorMessages">Error messages (variable ID => error message)</param>
-        private void SendVariablesUpdateErrorMessages(string clientRef, Dictionary<ushort, string> errorMessages)
-        {
-            //- Calculating required size for buffer
-
-            int sizeRequired = 0;
-
-            foreach (KeyValuePair<ushort, string> errorInfo in errorMessages)
-            {
-                sizeRequired +=
-                    2 +                                                    // Id size on buffer
-                    2 + Encoding.Unicode.GetBytes(errorInfo.Value).Length; // string size on buffer
-            }
-
-            //- Sending response
-
-            if (sizeRequired > 0)
-            {
-                byte[] responseBuffer = new byte[
-                                        EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
-                                        PacketId.VariablesUpdateAtServer.GetSizeOnBuffer() + sizeRequired];
-                int responseBufferOffset = 0;
-
-                //- Filling the response buffer
-
-                responseBuffer.WriteMessageHeader(ref responseBufferOffset, responseBuffer.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-                responseBuffer.WritePacketId(ref responseBufferOffset, PacketId.VariablesUpdateAtServer);
-
-                foreach (KeyValuePair<ushort, string> varInfo in errorMessages)
-                {
-                    responseBuffer.WriteUnsignedWord(ref responseBufferOffset, varInfo.Key);
-                    responseBuffer.WriteString(ref responseBufferOffset, varInfo.Value);
-                }
-
-                OutputQueue.Enqueue(new DataToClient(clientRef, responseBuffer));
-            }
-        }
-
-        /// <summary>
         /// Reads variable ID from the given data buffer.
         /// </summary>
         /// <param name="data">Data buffer.</param>

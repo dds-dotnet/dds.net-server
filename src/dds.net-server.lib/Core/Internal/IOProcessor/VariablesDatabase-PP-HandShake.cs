@@ -2,7 +2,6 @@
 using DDS.Net.Server.Core.Internal.Base.Entities;
 using DDS.Net.Server.Core.Internal.IOProcessor.EncodersAndDecoders;
 using DDS.Net.Server.Core.Internal.IOProcessor.Types;
-using System.Text;
 
 namespace DDS.Net.Server.Core.Internal.IOProcessor
 {
@@ -66,53 +65,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             }
 
             SendServerInformation(clientRef);
-        }
-
-        /// <summary>
-        /// Sends server information to the client.
-        /// </summary>
-        /// <param name="clientRef">Client's address.</param>
-        private void SendServerInformation(string clientRef)
-        {
-            if (_serverInfo == null)
-            {
-                _serverInfo = new byte[
-                    EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
-                    PacketId.HandShake.GetSizeOnBuffer() +
-                    2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_NAME).Length +
-                    2 + Encoding.Unicode.GetBytes(VersionInfo.SERVER_VERSION).Length];
-
-                int _serverInfoOffset = 0;
-
-                _serverInfo.WriteMessageHeader(ref _serverInfoOffset, _serverInfo.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-                _serverInfo.WritePacketId(ref _serverInfoOffset, PacketId.HandShake);
-                _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_NAME);
-                _serverInfo.WriteString(ref _serverInfoOffset, VersionInfo.SERVER_VERSION);
-            }
-
-            OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
-        }
-
-        /// <summary>
-        /// Sends <c cref="PacketId.ErrorResponseFromServer">ErrorResponseFromServer</c>
-        /// packet to the specified client.
-        /// </summary>
-        /// <param name="clientRef">Target client.</param>
-        /// <param name="message">Error message.</param>
-        private void SendErrorMessage(string clientRef, string message)
-        {
-            byte[] _errorInfo = new byte[
-                                EncDecMessageHeader.GetMessageHeaderSizeOnBuffer() +
-                                PacketId.ErrorResponseFromServer.GetSizeOnBuffer() +
-                                2 + Encoding.Unicode.GetBytes(message).Length];
-
-            int _errorInfoOffset = 0;
-
-            _errorInfo.WriteMessageHeader(ref _errorInfoOffset, _errorInfo.Length - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-            _errorInfo.WritePacketId(ref _errorInfoOffset, PacketId.ErrorResponseFromServer);
-            _errorInfo.WriteString(ref _errorInfoOffset, message);
-
-            OutputQueue.Enqueue(new DataToClient(clientRef, _serverInfo));
         }
     }
 }

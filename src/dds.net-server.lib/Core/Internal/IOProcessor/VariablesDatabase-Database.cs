@@ -361,7 +361,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /*     - For outside access.                                                     */
         /*                                                                               */
         /*********************************************************************************/
-        #region Getting a variable - accessing a variable from outside the partial-class
+        #region Getting a variable(s) / data - accessing from outside the partial-class
 
 
 
@@ -384,6 +384,109 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 else
                 {
                     throw new Exception($"Variable with ID {id} does not exist");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns unique client addresses - i.e., unique subscribers.
+        /// </summary>
+        /// <returns>Uniquely identified subscribers.</returns>
+        private IEnumerable<string> GetAllUniqueSubscribers()
+        {
+            List<string> uniqueClientRefs = new();
+
+            foreach (VariableSubscriber s in _dbSubscribers)
+            {
+                bool exists = false;
+
+                foreach (string clientRef in uniqueClientRefs)
+                {
+                    if (s.ClientRef == clientRef)
+                    {
+                        exists = true;
+                    }
+                }
+
+                if (!exists)
+                {
+                    uniqueClientRefs.Add(s.ClientRef);
+                    yield return s.ClientRef;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns unique client addresses against given variables.
+        /// </summary>
+        /// <param name="variables">Variables' list.</param>
+        /// <returns>Uniquely identified subscribers.</returns>
+        private IEnumerable<string> GetUniqueSubscribersForVariables(List<BaseVariable> variables)
+        {
+            List<string> uniqueClientRefs = new();
+
+            foreach (BaseVariable v in variables)
+            {
+                foreach (VariableSubscriber s in _dbSubscribers)
+                {
+                    if (s.VariableId == v.Id)
+                    {
+                        bool exists = false;
+
+                        foreach (string clientRef in uniqueClientRefs)
+                        {
+                            if (s.ClientRef == clientRef)
+                            {
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            uniqueClientRefs.Add(s.ClientRef);
+                            yield return s.ClientRef;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns variables for the client with specified periodicity.
+        /// </summary>
+        /// <returns>Variables' list.</returns>
+        private IEnumerable<BaseVariable>
+            GetVariablesForSubscriberWithPeriodicity(string clientRef, Periodicity periodicity)
+        {
+            foreach (VariableSubscriber s in _dbSubscribers)
+            {
+                if (s.ClientRef == clientRef && s.Periodicity == periodicity)
+                {
+                    yield return _dbVariables[s.VariableId];
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns variables for the client with specified periodicity from specified list.
+        /// </summary>
+        /// <returns>Variables' list.</returns>
+        private IEnumerable<BaseVariable>
+            GetVariablesForSubscriberWithPeriodicity(
+                List<BaseVariable> variables,
+                string clientRef,
+                Periodicity periodicity)
+        {
+            foreach (BaseVariable v in variables)
+            {
+                foreach (VariableSubscriber s in _dbSubscribers)
+                {
+                    if (s.ClientRef == clientRef &&
+                        s.Periodicity == periodicity &&
+                        s.VariableId == v.Id)
+                    {
+                        yield return v;
+                    }
                 }
             }
         }
@@ -689,222 +792,6 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                     $"Variable {variable.Name} " +
                     $"is of type {VariableType.Primitive} " +
                     $"and is incompatible with given type {variableType}");
-            }
-        }
-
-
-
-
-        #endregion
-        /*********************************************************************************/
-        /*                                                                               */
-        /* Sending variable values to clients:                                           */
-        /*     - When the variable value is updated.                                     */
-        /*     - Periodically refreshed variables.                                       */
-        /*                                                                               */
-        /*********************************************************************************/
-        #region Sending updated variables to their subscribers
-
-
-
-
-        /// <summary>
-        /// Sends updated variables to registered clients.
-        /// </summary>
-        /// <param name="updatedVariables">List of updated variables.</param>
-        /// <param name="periodicity">Only select clients that have registered for specified periodicity.</param>
-        private void SendUpdatedVariables(
-            List<BaseVariable> updatedVariables,
-            Periodicity periodicity = Periodicity.OnChange)
-        {
-            lock (_dbMutex)
-            {
-                List<BaseVariable> varsToBeSent = new();
-
-                foreach (string clientRef in __GetUniqueSubscribers(updatedVariables))
-                {
-                    varsToBeSent.Clear();
-
-                    int bufferSize = 0;
-
-                    foreach (BaseVariable v in __GetVariablesForSubscriberWithPeriodicity(
-                                                        updatedVariables,
-                                                        clientRef,
-                                                        periodicity))
-                    {
-                        varsToBeSent.Add(v);
-                        bufferSize += v.GetSizeOnBuffer();
-                    }
-
-                    if (bufferSize > 0)
-                    {
-                        bufferSize += EncDecMessageHeader.GetMessageHeaderSizeOnBuffer();
-                        bufferSize += PacketId.VariablesUpdateFromServer.GetSizeOnBuffer();
-                        bufferSize += periodicity.GetSizeOnBuffer();
-
-                        byte[] buffer = new byte[bufferSize];
-                        int bufferOffset = 0;
-
-                        buffer.WriteMessageHeader(ref bufferOffset, bufferSize - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-                        buffer.WritePacketId(ref bufferOffset, PacketId.VariablesUpdateFromServer);
-                        buffer.WritePeriodicity(ref bufferOffset, periodicity);
-
-                        foreach (BaseVariable v in varsToBeSent)
-                        {
-                            v.WriteOnBuffer(ref buffer, ref bufferOffset);
-                        }
-
-                        OutputQueue.Enqueue(new DataToClient(clientRef, buffer));
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// Sends variables with selected periodicity to their subscribers.
-        /// </summary>
-        /// <param name="periodicity"></param>
-        private void DoPeriodicUpdate(Periodicity periodicity)
-        {
-            lock (_dbMutex)
-            {
-                List<BaseVariable> varsToBeSent = new();
-
-                foreach (string clientRef in __GetUniqueSubscribers())
-                {
-                    varsToBeSent.Clear();
-
-                    int bufferSize = 0;
-
-                    foreach (BaseVariable v in __GetVariablesForSubscriberWithPeriodicity(clientRef, periodicity))
-                    {
-                        varsToBeSent.Add(v);
-                        bufferSize += v.GetSizeOnBuffer();
-                    }
-
-                    if (bufferSize > 0)
-                    {
-                        bufferSize += EncDecMessageHeader.GetMessageHeaderSizeOnBuffer();
-                        bufferSize += PacketId.VariablesUpdateFromServer.GetSizeOnBuffer();
-                        bufferSize += periodicity.GetSizeOnBuffer();
-
-                        byte[] buffer = new byte[bufferSize];
-                        int bufferOffset = 0;
-
-                        buffer.WriteMessageHeader(ref bufferOffset, bufferSize - EncDecMessageHeader.GetMessageHeaderSizeOnBuffer());
-                        buffer.WritePacketId(ref bufferOffset, PacketId.VariablesUpdateFromServer);
-                        buffer.WritePeriodicity(ref bufferOffset, periodicity);
-
-                        foreach (BaseVariable v in varsToBeSent)
-                        {
-                            v.WriteOnBuffer(ref buffer, ref bufferOffset);
-                        }
-
-                        OutputQueue.Enqueue(new DataToClient(clientRef, buffer));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns unique client addresses - i.e., unique subscribers.
-        /// </summary>
-        /// <returns>Uniquely identified subscribers.</returns>
-        private IEnumerable<string> __GetUniqueSubscribers()
-        {
-            List<string> uniqueClientRefs = new();
-
-            foreach (VariableSubscriber s in _dbSubscribers)
-            {
-                bool exists = false;
-
-                foreach (string clientRef in uniqueClientRefs)
-                {
-                    if (s.ClientRef == clientRef)
-                    {
-                        exists = true;
-                    }
-                }
-
-                if (!exists)
-                {
-                    uniqueClientRefs.Add(s.ClientRef);
-                    yield return s.ClientRef;
-                }
-            }
-        }
-        /// <summary>
-        /// Returns unique client addresses gainst given variables.
-        /// </summary>
-        /// <param name="variables">Variables' list.</param>
-        /// <returns>Uniquely identified subscribers.</returns>
-        private IEnumerable<string> __GetUniqueSubscribers(List<BaseVariable> variables)
-        {
-            List<string> uniqueClientRefs = new();
-
-            foreach (BaseVariable v in variables)
-            {
-                foreach (VariableSubscriber s in _dbSubscribers)
-                {
-                    if (s.VariableId == v.Id)
-                    {
-                        bool exists = false;
-
-                        foreach (string clientRef in uniqueClientRefs)
-                        {
-                            if (s.ClientRef == clientRef)
-                            {
-                                exists = true;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            uniqueClientRefs.Add(s.ClientRef);
-                            yield return s.ClientRef;
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Returns variables for the client with specified periodicity.
-        /// </summary>
-        /// <returns>Variables' list.</returns>
-        private IEnumerable<BaseVariable>
-            __GetVariablesForSubscriberWithPeriodicity(string clientRef, Periodicity periodicity)
-        {
-            foreach (VariableSubscriber s in _dbSubscribers)
-            {
-                if (s.ClientRef == clientRef && s.Periodicity == periodicity)
-                {
-                    yield return _dbVariables[s.VariableId];
-                }
-            }
-        }
-        /// <summary>
-        /// Returns variables for the client with specified periodicity from specified list.
-        /// </summary>
-        /// <returns>Variables' list.</returns>
-        private IEnumerable<BaseVariable>
-            __GetVariablesForSubscriberWithPeriodicity(
-                List<BaseVariable> variables,
-                string clientRef,
-                Periodicity periodicity)
-        {
-            foreach (BaseVariable v in variables)
-            {
-                foreach (VariableSubscriber s in _dbSubscribers)
-                {
-                    if (s.ClientRef == clientRef &&
-                        s.Periodicity == periodicity &&
-                        s.VariableId == v.Id)
-                    {
-                        yield return v;
-                    }
-                }
             }
         }
 

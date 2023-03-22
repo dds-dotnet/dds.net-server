@@ -85,15 +85,15 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             _periodicUpdatesCounter++;
 
-            DoPeriodicUpdate(Periodicity.Highest);
+            DoPeriodicUpdateToSendVariables(Periodicity.Highest);
 
-            if (_periodicUpdatesCounter % 2 == 0) DoPeriodicUpdate(Periodicity.High);
-            if (_periodicUpdatesCounter % 4 == 0) DoPeriodicUpdate(Periodicity.Normal);
-            if (_periodicUpdatesCounter % 8 == 0) DoPeriodicUpdate(Periodicity.Low);
+            if (_periodicUpdatesCounter % 2 == 0) DoPeriodicUpdateToSendVariables(Periodicity.High);
+            if (_periodicUpdatesCounter % 4 == 0) DoPeriodicUpdateToSendVariables(Periodicity.Normal);
+            if (_periodicUpdatesCounter % 8 == 0) DoPeriodicUpdateToSendVariables(Periodicity.Low);
 
             if (_periodicUpdatesCounter % 16 == 0)
             {
-                DoPeriodicUpdate(Periodicity.Lowest);
+                DoPeriodicUpdateToSendVariables(Periodicity.Lowest);
                 _periodicUpdatesCounter = 0;
             }
         }

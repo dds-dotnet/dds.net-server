@@ -198,16 +198,17 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                __RemoveVariableSubscribers(clientRef);
-                __RemoveVariableProviders(clientRef);
+                RemoveVariableSubscribers(clientRef);
+                RemoveVariableProviders(clientRef);
             }
         }
+
         /// <summary>
         /// Removes <c>VariableSubscriber</c> instances from <c>_dbSubscribers</c>
         /// that have specified client.
         /// </summary>
         /// <param name="clientRef">Client identifier.</param>
-        private void __RemoveVariableSubscribers(string clientRef)
+        private void RemoveVariableSubscribers(string clientRef)
         {
             List<VariableSubscriber> subscribersToBeRemoved = new();
 
@@ -224,12 +225,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 _dbSubscribers.Remove(s);
             }
         }
+
         /// <summary>
         /// Removes <c>VariableProvider</c> instances from <c>_dbVariables.Providers</c>
         /// that have specified client.
         /// </summary>
         /// <param name="clientRef">Client identifier.</param>
-        private void __RemoveVariableProviders(string clientRef)
+        private void RemoveVariableProviders(string clientRef)
         {
             List<VariableProvider> providersToBeRemoved = new();
 
@@ -273,7 +275,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                ushort id = __GetVariableIdCreateUnknownIfNotExists(variableName);
+                ushort id = GetVariableIdOrCreateUnknownIfNotExists(variableName);
 
                 if (isClientProvider)
                 {
@@ -313,7 +315,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             lock (_dbMutex)
             {
-                ushort id = __GetVariableIdCreateUnknownIfNotExists(variableName);
+                ushort id = GetVariableIdOrCreateUnknownIfNotExists(variableName);
 
                 foreach (VariableSubscriber s in _dbSubscribers)
                 {
@@ -336,7 +338,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// </summary>
         /// <param name="variableName">Name of the variable.</param>
         /// <returns>ID of the variable.</returns>
-        private ushort __GetVariableIdCreateUnknownIfNotExists(string variableName)
+        private ushort GetVariableIdOrCreateUnknownIfNotExists(string variableName)
         {
             if (_dbVariableIds.ContainsKey(variableName))
             {
@@ -512,6 +514,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="variable">The variable to be assigned.</param>
         /// <param name="data">Data buffer.</param>
         /// <param name="offset">Offset from which data is to be read in the data buffer.</param>
+        /// <param name="updatedVariable">Upgraded output variable.</param>
         /// <param name="errorMessage">Error message when value is not assigned.</param>
         /// <returns>True = value is changed, False = variable's last value is retained.</returns>
         /// <exception cref="Exception"></exception>
@@ -525,13 +528,13 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         {
             VariableType readVariableType = data.ReadVariableType(ref offset);
 
-            if (__UpgradeVariable(variable, readVariableType, out updatedVariable))
+            if (UpgradeMainVariableType(variable, readVariableType, out updatedVariable))
             {
                 errorMessage = string.Empty;
                 return true;
             }
 
-            __ThrowIfVariableTypeIncompatible(variable, readVariableType);
+            ThrowIfVariableTypeIsIncompatible(variable, readVariableType);
 
             if (updatedVariable.VariableType == VariableType.RawBytes)
             {
@@ -566,7 +569,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             {
                 PrimitiveType primitiveType = data.ReadPrimitiveType(ref offset);
 
-                __UpgradePrimitiveVariable((BasePrimitive)updatedVariable, primitiveType, out updatedVariable);
+                UpgradePrimitiveVariableType((BasePrimitive)updatedVariable, primitiveType, out updatedVariable);
 
                 switch (primitiveType)
                 {
@@ -648,7 +651,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="upgradedVariable">New updated variable instance.</param>
         /// <returns>True = Upgrade done; False = no upgrade can be done.</returns>
         /// <exception cref="Exception"></exception>
-        private bool __UpgradeVariable(
+        private bool UpgradeMainVariableType(
             BaseVariable variable,
             VariableType upgradedVariableType,
             out BaseVariable upgradedVariable)
@@ -692,7 +695,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="upgradedVariableType">Desired type of the variable.</param>
         /// <param name="upgradedVariable">New updated variable instance.</param>
         /// <exception cref="Exception"></exception>
-        private void __UpgradePrimitiveVariable(
+        private void UpgradePrimitiveVariableType(
             BasePrimitive variable,
             PrimitiveType upgradedVariableType,
             out BaseVariable upgradedVariable)
@@ -772,7 +775,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
         /// <param name="variable">Variable that needs to be checked for compatibility.</param>
         /// <param name="variableType">Type against which variable needs to be checked.</param>
         /// <exception cref="Exception"></exception>
-        private static void __ThrowIfVariableTypeIncompatible(BaseVariable variable, VariableType variableType)
+        private static void ThrowIfVariableTypeIsIncompatible(BaseVariable variable, VariableType variableType)
         {
             if (variable.VariableType == variableType) return;
 

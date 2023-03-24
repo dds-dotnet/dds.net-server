@@ -9,9 +9,7 @@ namespace DDS.Net.Server.ConsoleApp
 {
     internal class Program
     {
-        private static SplitLogger logger =
-                                new(new FileLogger(AppConstants.LOG_FILENAME, LogLevel.Information),
-                                    new ConsoleLogger(LogLevel.Information));
+        private static ConsoleLogger logger = new(LogLevel.Information);
 
         private static DdsServer server = null!;
 
@@ -43,7 +41,6 @@ namespace DDS.Net.Server.ConsoleApp
             ConsoleHelpers.WaitForKey("Press ESC to exit.", ConsoleKey.Escape);
 
             server?.Stop();
-            logger?.Dispose();
         }
     }
 }

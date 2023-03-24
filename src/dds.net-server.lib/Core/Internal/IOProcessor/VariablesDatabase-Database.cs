@@ -546,7 +546,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                 if (totalBytes > 0)
                 {
-                    if (totalBytes + offset >= data.Length)
+                    if (totalBytes + offset > data.Length)
                     {
                         throw new Exception($"Insufficient data provided for {rawBytesVariable.Name}");
                     }

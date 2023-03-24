@@ -112,7 +112,7 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor.Types.Variable
             //- So, we only write the internal data.
             //- 
 
-            if (offset + GetValueSizeOnBuffer() >= buffer.Length)
+            if (offset + GetValueSizeOnBuffer() > buffer.Length)
             {
                 throw new Exception(
                     $"Cannot fit {GetValueSizeOnBuffer()} bytes " +

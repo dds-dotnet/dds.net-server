@@ -34,11 +34,9 @@ namespace DDS.Net.Server.PublicHelpers
                     {
                         break;
                     }
-                    else
-                    {
-                        Thread.Sleep(breakTime);
-                    }
                 }
+                
+                Thread.Sleep(breakTime);
             }
         }
     }

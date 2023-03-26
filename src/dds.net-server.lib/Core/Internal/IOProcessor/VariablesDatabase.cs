@@ -80,6 +80,9 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
             return 0;
         }
 
+
+        private PacketPreprocessor packetPreprocessor = new();
+
         protected override int ProcessInput(DataFromClient input)
         {
             if (input != null && !string.IsNullOrEmpty(input.ClientRef))
@@ -90,12 +93,12 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
                 }
                 else
                 {
-                    PacketPreprocessor.AddData(input);
+                    packetPreprocessor.AddData(input);
 
                     while (true)
                     {
                         int offset = 0;
-                        byte[] message = PacketPreprocessor.GetSingleMessage(input.ClientRef);
+                        byte[] message = packetPreprocessor.GetSingleMessage(input.ClientRef);
 
                         if (message != null)
                         {

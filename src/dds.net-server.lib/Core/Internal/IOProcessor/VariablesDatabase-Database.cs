@@ -583,39 +583,39 @@ namespace DDS.Net.Server.Core.Internal.IOProcessor
 
                     case PrimitiveType.Byte:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadByte(ref offset), out errorMessage);
+                            .AssignPrimitiveByte(data.ReadByte(ref offset), out errorMessage);
 
                     case PrimitiveType.Word:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadWord(ref offset), out errorMessage);
+                            .AssignPrimitiveWord(data.ReadWord(ref offset), out errorMessage);
 
                     case PrimitiveType.DWord:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadDWord(ref offset), out errorMessage);
+                            .AssignPrimitiveDWord(data.ReadDWord(ref offset), out errorMessage);
 
                     case PrimitiveType.QWord:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadQWord(ref offset), out errorMessage);
+                            .AssignPrimitiveQWord(data.ReadQWord(ref offset), out errorMessage);
 
                     case PrimitiveType.UnsignedByte:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadUnsignedByte(ref offset), out errorMessage);
+                            .AssignPrimitiveUnsignedByte(data.ReadUnsignedByte(ref offset), out errorMessage);
 
                     case PrimitiveType.UnsignedWord:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadUnsignedWord(ref offset), out errorMessage);
+                            .AssignPrimitiveUnsignedWord(data.ReadUnsignedWord(ref offset), out errorMessage);
 
                     case PrimitiveType.UnsignedDWord:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadUnsignedDWord(ref offset), out errorMessage);
+                            .AssignPrimitiveUnsignedDWord(data.ReadUnsignedDWord(ref offset), out errorMessage);
 
                     case PrimitiveType.UnsignedQWord:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadUnsignedQWord(ref offset), out errorMessage);
+                            .AssignPrimitiveUnsignedQWord(data.ReadUnsignedQWord(ref offset), out errorMessage);
 
                     case PrimitiveType.Single:
                         return ((BasePrimitive)updatedVariable)
-                            .AssignPrimitiveDouble(data.ReadSingle(ref offset), out errorMessage);
+                            .AssignPrimitiveSingle(data.ReadSingle(ref offset), out errorMessage);
 
                     case PrimitiveType.Double:
                         return ((BasePrimitive)updatedVariable)

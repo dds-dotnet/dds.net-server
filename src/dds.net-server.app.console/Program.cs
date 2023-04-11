@@ -34,8 +34,8 @@ namespace DDS.Net.Server.ConsoleApp
             else
             {
                 server = null!;
-                logger.Error("Failed to initialize the server configuration.");
-                logger.Error("Server is either not enabled, or its configuration cannot be read.");
+                logger.Error("Failed to initialize the server with configuration.");
+                logger.Error("The server is either not enabled, or its configuration cannot be read.");
             }
 
             ConsoleHelpers.WaitForKey("Press ESC to exit.", ConsoleKey.Escape);

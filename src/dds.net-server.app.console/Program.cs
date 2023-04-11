@@ -21,13 +21,17 @@ namespace DDS.Net.Server.ConsoleApp
             "--------------".WriteLine(ConsoleColor.DarkCyan);
 
             (bool isEnabled, ServerConfiguration? config) =
-                ConfigurationProvider.GetServerConfiguration(AppConstants.SERVER_01_CONFIG_FILENAME, logger);
+                ConfigurationProvider
+                  .GetServerConfiguration(
+                    AppConstants.SERVER_01_CONFIG_FILENAME, logger);
 
             if (isEnabled && config != null)
             {
                 server = new DdsServer(
                     config,
-                    ConfigurationProvider.GetVariablesConfiguration(AppConstants.VARIABLES_CONFIG_FILENAME, logger));
+                    ConfigurationProvider
+                      .GetVariablesConfiguration(
+                        AppConstants.VARIABLES_CONFIG_FILENAME, logger));
 
                 server.Start();
             }

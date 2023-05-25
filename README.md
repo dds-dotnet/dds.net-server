@@ -25,7 +25,7 @@
 
 ## Sample application
 
-Using various extensions and helpers available in the library, development of container application is quite easy. A sample console application is as follows:
+Using various extensions and helpers available in the library, development of container application is quite straightforward. Sample console application is as follows:
 
 ```csharp
 using DDS.Net.Server.Entities;
@@ -74,7 +74,7 @@ namespace DDS.Net.Server.ConsoleApp
 }
 ```
 
-Our sample config "*server-config.ini*":
+Our sample config "*server-config.ini*" file contains:
 ```ini
 [DDS Connections]
 Enabled = Yes
@@ -86,7 +86,7 @@ UDP-Enabled = Yes
 UDP-ListeningPort = 44556
 ```
 
-The variables' config file "*variables-config.ini*":
+Variables' configuration file "*variables-config.ini*" contains:
 ```ini
 ; Format:
 ;    [Variable Name]

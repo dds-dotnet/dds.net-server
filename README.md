@@ -3,7 +3,7 @@
 
 # DDS.Net Server - v1.3.0
 
-Available at [nuget](https://www.nuget.org/packages/CronBlocks.DDS.Net.Server).
+*Available at [nuget](https://www.nuget.org/packages/CronBlocks.DDS.Net.Server)*.
 
 *DDS.Net Server* is an in-app-able lightweight, performant server for managed data distribution through connectors. The supported data types are:
 
